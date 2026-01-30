@@ -1,0 +1,9 @@
+{
+  "name": "spawnie-model",
+  "description": "BAM model of the Spawnie workflow orchestrator",
+  "version": "1.0.0",
+  "created_at": "2026-01-30",
+  "source_project": "C:/spawnie",
+  "model_type": "python-codebase",
+  "status": "active"
+}

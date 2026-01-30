@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.0",
+  "project": "spawnie-model",
+  "updated_at": "2026-01-30T23:00:00Z",
+
+  "node_types": {
+    "Module": {
+      "description": "Python module (file)",
+      "properties": ["path", "description", "loc", "public_api"]
+    },
+    "Class": {
+      "description": "Python class",
+      "properties": ["module", "description", "methods", "attributes"]
+    },
+    "Function": {
+      "description": "Standalone function",
+      "properties": ["module", "description", "parameters", "returns"]
+    },
+    "Dataclass": {
+      "description": "Data structure (dataclass/TypedDict)",
+      "properties": ["module", "fields", "description"]
+    },
+    "CLICommand": {
+      "description": "CLI command exposed by spawnie",
+      "properties": ["name", "description", "arguments", "handler"]
+    },
+    "Workflow": {
+      "description": "Workflow definition (JSON)",
+      "properties": ["path", "steps", "inputs", "outputs"]
+    },
+    "Concept": {
+      "description": "Architectural concept or pattern",
+      "properties": ["description", "rationale"]
+    }
+  },
+
+  "edge_types": {
+    "IMPORTS": {
+      "description": "Module imports another module",
+      "from_types": ["Module"],
+      "to_types": ["Module"]
+    },
+    "DEFINES": {
+      "description": "Module defines a class/function/dataclass",
+      "from_types": ["Module"],
+      "to_types": ["Class", "Function", "Dataclass"]
+    },
+    "INHERITS": {
+      "description": "Class inherits from another",
+      "from_types": ["Class"],
+      "to_types": ["Class"]
+    },
+    "CALLS": {
+      "description": "Function/method calls another",
+      "from_types": ["Function", "Class"],
+      "to_types": ["Function", "Class"]
+    },
+    "USES": {
+      "description": "Class uses another class",
+      "from_types": ["Class"],
+      "to_types": ["Class", "Dataclass"]
+    },
+    "IMPLEMENTS": {
+      "description": "CLI command implemented by handler",
+      "from_types": ["CLICommand"],
+      "to_types": ["Function"]
+    },
+    "EMBODIES": {
+      "description": "Code embodies an architectural concept",
+      "from_types": ["Module", "Class"],
+      "to_types": ["Concept"]
+    }
+  },
+
+  "nodes": [
+    {"id": "mod-api", "type": "Module", "label": "api.py"},
+    {"id": "mod-tracker", "type": "Module", "label": "tracker.py"},
+    {"id": "mod-workflow", "type": "Module", "label": "workflow.py"},
+    {"id": "mod-registry", "type": "Module", "label": "registry.py"},
+    {"id": "mod-session", "type": "Module", "label": "session.py"},
+    {"id": "mod-monitor", "type": "Module", "label": "monitor.py"},
+    {"id": "mod-main", "type": "Module", "label": "__main__.py"},
+    {"id": "mod-providers-base", "type": "Module", "label": "providers/base.py"},
+    {"id": "mod-providers-claude", "type": "Module", "label": "providers/claude.py"},
+    {"id": "mod-findings", "type": "Module", "label": "findings.py"},
+
+    {"id": "cls-tracker", "type": "Class", "label": "Tracker"},
+    {"id": "cls-workflow-executor", "type": "Class", "label": "WorkflowExecutor"},
+    {"id": "cls-workflow-def", "type": "Class", "label": "WorkflowDefinition"},
+    {"id": "cls-shell-session", "type": "Class", "label": "ShellSession"},
+    {"id": "cls-registry", "type": "Class", "label": "ModelRegistry"},
+    {"id": "cls-cli-provider", "type": "Class", "label": "CLIProvider"},
+    {"id": "cls-claude-provider", "type": "Class", "label": "ClaudeProvider"},
+    {"id": "cls-monitor-app", "type": "Class", "label": "SpawnieMonitor"},
+    {"id": "cls-finding", "type": "Class", "label": "Finding"},
+    {"id": "cls-findings-report", "type": "Class", "label": "FindingsReport"},
+
+    {"id": "dc-task-state", "type": "Dataclass", "label": "TaskState"},
+    {"id": "dc-workflow-state", "type": "Dataclass", "label": "WorkflowState"},
+    {"id": "dc-step-state", "type": "Dataclass", "label": "StepState"},
+    {"id": "dc-result", "type": "Dataclass", "label": "Result"},
+    {"id": "dc-workflow-result", "type": "Dataclass", "label": "WorkflowResult"},
+
+    {"id": "fn-run", "type": "Function", "label": "run()"},
+    {"id": "fn-execute", "type": "Function", "label": "execute()"},
+    {"id": "fn-spawn", "type": "Function", "label": "spawn()"},
+    {"id": "fn-get-tracker", "type": "Function", "label": "get_tracker()"},
+
+    {"id": "cli-run", "type": "CLICommand", "label": "spawnie run"},
+    {"id": "cli-workflow", "type": "CLICommand", "label": "spawnie workflow"},
+    {"id": "cli-workflows", "type": "CLICommand", "label": "spawnie workflows"},
+    {"id": "cli-monitor", "type": "CLICommand", "label": "spawnie monitor"},
+    {"id": "cli-status", "type": "CLICommand", "label": "spawnie status"},
+    {"id": "cli-kill", "type": "CLICommand", "label": "spawnie kill"},
+
+    {"id": "concept-task-as-workflow", "type": "Concept", "label": "Tasks as Single-Step Workflows"},
+    {"id": "concept-model-routing", "type": "Concept", "label": "Model Routing"},
+    {"id": "concept-parallel-exec", "type": "Concept", "label": "Parallel Step Execution"},
+    {"id": "concept-orphan-detection", "type": "Concept", "label": "Orphan Detection"},
+    {"id": "concept-quality-levels", "type": "Concept", "label": "Quality Levels (Review Strategies)"}
+  ],
+
+  "edges": [
+    {"type": "IMPORTS", "from": "mod-api", "to": "mod-workflow"},
+    {"type": "IMPORTS", "from": "mod-api", "to": "mod-tracker"},
+    {"type": "IMPORTS", "from": "mod-workflow", "to": "mod-tracker"},
+    {"type": "IMPORTS", "from": "mod-workflow", "to": "mod-registry"},
+    {"type": "IMPORTS", "from": "mod-workflow", "to": "mod-providers-base"},
+    {"type": "IMPORTS", "from": "mod-session", "to": "mod-tracker"},
+    {"type": "IMPORTS", "from": "mod-monitor", "to": "mod-tracker"},
+    {"type": "IMPORTS", "from": "mod-main", "to": "mod-api"},
+    {"type": "IMPORTS", "from": "mod-providers-claude", "to": "mod-providers-base"},
+
+    {"type": "DEFINES", "from": "mod-tracker", "to": "cls-tracker"},
+    {"type": "DEFINES", "from": "mod-tracker", "to": "dc-task-state"},
+    {"type": "DEFINES", "from": "mod-tracker", "to": "dc-workflow-state"},
+    {"type": "DEFINES", "from": "mod-workflow", "to": "cls-workflow-executor"},
+    {"type": "DEFINES", "from": "mod-workflow", "to": "cls-workflow-def"},
+    {"type": "DEFINES", "from": "mod-workflow", "to": "dc-workflow-result"},
+    {"type": "DEFINES", "from": "mod-session", "to": "cls-shell-session"},
+    {"type": "DEFINES", "from": "mod-registry", "to": "cls-registry"},
+    {"type": "DEFINES", "from": "mod-providers-base", "to": "cls-cli-provider"},
+    {"type": "DEFINES", "from": "mod-providers-claude", "to": "cls-claude-provider"},
+    {"type": "DEFINES", "from": "mod-monitor", "to": "cls-monitor-app"},
+    {"type": "DEFINES", "from": "mod-api", "to": "fn-run"},
+    {"type": "DEFINES", "from": "mod-api", "to": "fn-execute"},
+    {"type": "DEFINES", "from": "mod-api", "to": "fn-spawn"},
+    {"type": "DEFINES", "from": "mod-tracker", "to": "fn-get-tracker"},
+    {"type": "DEFINES", "from": "mod-findings", "to": "cls-finding"},
+    {"type": "DEFINES", "from": "mod-findings", "to": "cls-findings-report"},
+
+    {"type": "INHERITS", "from": "cls-claude-provider", "to": "cls-cli-provider"},
+
+    {"type": "USES", "from": "cls-workflow-executor", "to": "cls-tracker"},
+    {"type": "USES", "from": "cls-workflow-executor", "to": "dc-task-state"},
+    {"type": "USES", "from": "cls-workflow-executor", "to": "dc-workflow-state"},
+    {"type": "USES", "from": "cls-shell-session", "to": "cls-tracker"},
+    {"type": "USES", "from": "cls-monitor-app", "to": "cls-tracker"},
+    {"type": "USES", "from": "cls-tracker", "to": "dc-task-state"},
+    {"type": "USES", "from": "cls-tracker", "to": "dc-workflow-state"},
+
+    {"type": "CALLS", "from": "fn-run", "to": "cls-workflow-executor"},
+    {"type": "CALLS", "from": "fn-execute", "to": "cls-workflow-executor"},
+    {"type": "CALLS", "from": "cls-workflow-executor", "to": "cls-cli-provider"},
+
+    {"type": "IMPLEMENTS", "from": "cli-run", "to": "fn-run"},
+    {"type": "IMPLEMENTS", "from": "cli-workflow", "to": "fn-execute"},
+    {"type": "IMPLEMENTS", "from": "cli-monitor", "to": "cls-monitor-app"},
+
+    {"type": "EMBODIES", "from": "mod-api", "to": "concept-task-as-workflow"},
+    {"type": "EMBODIES", "from": "mod-registry", "to": "concept-model-routing"},
+    {"type": "EMBODIES", "from": "mod-workflow", "to": "concept-parallel-exec"},
+    {"type": "EMBODIES", "from": "mod-tracker", "to": "concept-orphan-detection"},
+    {"type": "EMBODIES", "from": "mod-workflow", "to": "concept-quality-levels"}
+  ]
+}
