@@ -1,111 +1,79 @@
 # Notes for Future Claude
 
-This document captures the key insights and current state of this project.
+## What is Seed?
 
-## The Core Insight
+Seed is the **meta-model**. A model of all models. The user's home.
 
-**Reality is part of the model.**
-
-Traditional documentation describes code but drifts over time. This model embeds reality directly via source references with cryptographic hashes. When code changes, `verify.py` detects the drift immediately.
-
-## The Two Layers
-
-The model has (or should have) two layers:
-
-### 1. Intent Layer (what we want)
-Nodes WITHOUT a `source` field represent desired state - things that should exist but don't yet.
-
-```json
-{
-  "id": "cls-bam-extractor",
-  "type": "Class",
-  "label": "BAMExtractor",
-  "description": "Auto-generates BAM models from Python source"
-}
+```
+seed/                     ← you are here
+├── model/
+│   └── sketch.json       ← lists all realities the user works with
+│
+├── Spawnie → C:/spawnie/bam/
+├── BAM → C:/BAM (no model yet)
+└── ...future realities
 ```
 
-This is the GOAL. An agent's job is to implement it.
+Each "reality" is a project that contains its own BAM model. Seed tracks them all.
 
-### 2. Reality Layer (what we have)
-Nodes WITH a `source` field represent current state - things that exist with verified locations.
+## The Hierarchy
 
+```
+seed (meta-model)
+ │
+ ├── reality: Spawnie
+ │     └── C:/spawnie/bam/model/sketch.json (40 nodes)
+ │
+ ├── reality: BAM
+ │     └── no model yet
+ │
+ └── ...more realities as you add them
+```
+
+## Core Concepts (captured in sketch.json)
+
+1. **Reality is Part of the Model** - Models embed source refs with hashes
+2. **Intent vs Reality** - No source = goal, with source = current state
+3. **Self-Containing Models** - Each reality contains its own model
+
+## Current Realities
+
+| Reality | Path | Model | Status |
+|---------|------|-------|--------|
+| Spawnie | C:/spawnie | bam/model/sketch.json | verified |
+| BAM | C:/BAM | - | no model yet |
+
+## How to Add a New Reality
+
+1. Create the project
+2. Add `bam/` directory with model inside it
+3. Add a node to seed's sketch.json:
 ```json
 {
-  "id": "cls-tracker",
-  "type": "Class",
-  "label": "Tracker",
+  "id": "reality-myproject",
+  "type": "Reality",
+  "label": "MyProject",
   "source": {
-    "file": "src/spawnie/tracker.py",
-    "line": 215,
-    "hash": "c4561408b1272866a4f8423d66b811cb7cd5575e59e90397d8f42adef3f0f165"
+    "path": "C:/myproject",
+    "model": "bam/model/sketch.json"
   }
 }
 ```
 
-This is REALITY. The hash proves it matches the actual code.
+## The Vision
 
-### The Delta
+Seed is where you see everything. It's your map of all the systems you're building.
 
-The difference between intent and reality is **the work to be done**.
+- Add intent nodes here for new realities you want to create
+- Each reality then contains its own detailed model
+- Agents can navigate from seed to any reality's model
 
-- Intent node with no source → needs to be implemented
-- Reality node with hash mismatch → code changed, model needs update
-- Reality node marked "deprecated" → needs to be removed
+## Key Insight from the Session
 
-## What's Built
+We started building a model OF spawnie (external). Then realized: the model should live INSIDE spawnie. Reality contains its own model.
 
-1. **sketch.json v2.0** - 40 nodes with source references, 5 abstract concepts
-2. **verify.py** - Checks all hashes, reports drift
-3. **Color files** - Detailed properties in `model/colors/*.json`
+Then: seed isn't just another model. It's YOUR model. Your home. The root of your tree of realities.
 
-## What's Missing
+## Built
 
-1. **Intent nodes** - Currently all nodes describe existing code. No "goals" yet.
-2. **Update tooling** - No automated way for agents to update model after code changes
-3. **Extraction tooling** - No way to auto-generate model from source code
-4. **Agent integration** - No Spawnie workflow that uses this model as context
-
-## The Vision (from our conversation)
-
-```
-        ┌─────────────────────────────┐
-        │      BAM Model (Sketch)     │
-        │                             │
-        │  Intent: what should exist  │
-        │  Reality: what does exist   │
-        │           (via hashes)      │
-        └──────────────┬──────────────┘
-                       │
-          Agents read intent,
-          implement in reality,
-          update source refs
-                       │
-                       ▼
-        ┌─────────────────────────────┐
-        │        Real World           │
-        │    (code, systems)          │
-        └─────────────────────────────┘
-```
-
-The model is not documentation. It's the **source of truth** that agents converge reality towards.
-
-## Key Files
-
-- `model/sketch.json` - Graph structure with source references
-- `model/colors/*.json` - Detailed properties per node type
-- `verify.py` - Reality verification script
-- `README.md` - Public documentation
-
-## How to Continue
-
-1. **Add intent**: Create nodes without `source` for things you want built
-2. **Implement**: Build the code those nodes describe
-3. **Link reality**: Add `source` with file/line/hash once implemented
-4. **Verify**: Run `python verify.py` to confirm model matches code
-
-## Context
-
-This model describes Spawnie (C:/spawnie), a workflow orchestrator for CLI agents.
-The model was created as a proof-of-concept for BAM + Spawnie integration.
-
-Built: 2026-01-31 (Friday night session)
+- 2026-01-31 (Friday night): Created seed, moved spawnie model into spawnie, reshaped seed as meta-model

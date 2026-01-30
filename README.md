@@ -1,174 +1,45 @@
-# Seed: BAM Model of Spawnie
+# Seed
 
-This is a BAM model (digital twin) of the Spawnie workflow orchestrator.
+Your home. A model of all your models.
 
-## The Key Insight
+## What is this?
 
-**Reality is part of the model.**
-
-Each node in the sketch has a `source` reference containing:
-- `file`: Path to actual source code
-- `line`: Line number where the code starts
-- `hash`: SHA256 hash of the file
-
-When reality changes (code is modified), the hash mismatches signal **drift**.
-Agents can only modify the sketch if they can prove the change matches reality.
-
-## Purpose
-
-This model serves as:
-1. **Verifiable documentation** - The sketch points to real code with hashes
-2. **Shared context for agents** - Agents query the model, not raw files
-3. **Drift detection** - Automatic detection when reality diverges from model
-4. **Declarative development** - Agents converge reality toward the sketch
-
-## Structure
+Seed is the root of your reality tree. It tracks all the projects/systems you're building, each of which contains its own BAM model.
 
 ```
 seed/
-├── project.json           # Project metadata
-├── model/
-│   ├── sketch.json        # Graph structure (nodes, edges, types)
-│   └── colors/            # Detailed properties per node
-│       ├── modules.json   # Python modules
-│       ├── classes.json   # Classes and their methods
-│       ├── concepts.json  # Architectural patterns
-│       └── cli.json       # CLI commands
-├── sources/               # Source data (if any)
-└── intermediate/          # Intermediate extraction format
+├── model/sketch.json    ← your map of everything
+│
+└── realities:
+    ├── Spawnie (C:/spawnie/bam/)
+    ├── BAM (C:/BAM - no model yet)
+    └── ...
 ```
 
-## The Model
-
-### Node Types
-
-| Type | Description | Count |
-|------|-------------|-------|
-| Module | Python module (file) | 10 |
-| Class | Python class | 10 |
-| Function | Standalone function | 4 |
-| Dataclass | Data structure | 5 |
-| CLICommand | CLI command | 6 |
-| Concept | Architectural pattern | 5 |
-
-### Edge Types
-
-| Type | Description |
-|------|-------------|
-| IMPORTS | Module imports another |
-| DEFINES | Module defines class/function |
-| INHERITS | Class inherits from another |
-| CALLS | Function/method calls another |
-| USES | Class uses another class |
-| IMPLEMENTS | CLI command implemented by handler |
-| EMBODIES | Code embodies a concept |
-
-### Key Concepts Captured
-
-1. **Tasks as Single-Step Workflows** - Unified tracking
-2. **Model Routing** - Abstract model names → concrete providers
-3. **Parallel Step Execution** - Concurrent independent steps
-4. **Orphan Detection** - Cleanup dead processes
-5. **Quality Levels** - Review strategies (normal/extra-clean/hypertask)
-
-## Usage
-
-### Verify the model
+## Quick Start
 
 ```bash
-# Check that model matches reality
-python verify.py
+# See what realities exist
+cat model/sketch.json | jq '.nodes[] | select(.type=="Reality")'
 
-# With custom source root
-python verify.py /path/to/spawnie
+# Check a specific reality's model
+python C:/spawnie/bam/verify.py
 ```
 
-Output:
-```
-=== BAM Model Verification ===
+## Structure
 
-VERIFIED (40 nodes):
-  [OK] cls-tracker -> src/spawnie/tracker.py
-  [OK] cls-workflow-executor -> src/spawnie/workflow.py
-  ...
+- **model/sketch.json** - The meta-model. Lists all realities and core concepts.
+- **NOTES.md** - Context for future Claude sessions.
 
-=== Summary ===
-Total nodes with source: 40
-  Verified: 40
-  Drifted:  0
-  Missing:  0
+## Adding a New Reality
 
-[SUCCESS] Model matches reality!
-```
+1. Create the project somewhere
+2. Add a `bam/` directory with its own model
+3. Add a Reality node to `seed/model/sketch.json`
 
-### Query the model
+## The Core Ideas
 
-```python
-import json
-from pathlib import Path
-
-# Load sketch
-sketch = json.loads(Path("model/sketch.json").read_text())
-
-# Find all classes with their source locations
-classes = [n for n in sketch["nodes"] if n["type"] == "Class"]
-for c in classes:
-    src = c.get("source", {})
-    print(f"{c['label']}: {src.get('file')}:{src.get('line')}")
-
-# Find what Tracker uses
-tracker_edges = [e for e in sketch["edges"]
-                 if e["from"] == "cls-tracker" and e["type"] == "USES"]
-```
-
-### Enrich with color
-
-```python
-# Load color
-modules = json.loads(Path("model/colors/modules.json").read_text())
-
-# Get details for tracker module
-tracker_info = modules["nodes"]["mod-tracker"]
-print(f"LOC: {tracker_info['loc']}")
-print(f"Public API: {tracker_info['public_api']}")
-```
-
-## Next Steps
-
-1. **Python extractor for BAM** - Auto-generate this from source code
-2. **Keep model in sync** - Update when Spawnie changes
-3. **Agent integration** - Spawnie workflows that query this model
-4. **Cross-references** - Link to other BAM models
-
-## The Vision
-
-Reality is part of the model. The sketch contains source references (file paths, line numbers, hashes) that point directly to code. This creates a closed loop:
-
-```
-        ┌─────────────────────────────┐
-        │      BAM Model (Sketch)     │
-        │         + Color             │
-        │                             │
-        │  ┌───────────────────────┐  │
-        │  │   Source References   │──┼──┐
-        │  │   (files + hashes)    │  │  │ Points to
-        │  └───────────────────────┘  │  │
-        └──────────────┬──────────────┘  │
-                       │                 │
-          Agents modify│                 ▼
-                       │    ┌─────────────────────────────┐
-                       │    │        Real World           │
-                       └───►│    (code, systems)          │
-                            └─────────────────────────────┘
-                                         │
-                    verify.py checks ────┘
-                    hashes match
-```
-
-**Workflow:**
-1. Agent reads sketch to understand desired state
-2. Agent modifies real code to implement changes
-3. Agent updates sketch with new source references + hashes
-4. `verify.py` confirms model matches reality
-
-The model cannot drift silently - hash mismatches immediately signal that reality has changed.
+1. **Reality is part of the model** - Source references with hashes
+2. **Intent vs Reality** - Nodes without source = goals
+3. **Self-containing** - Each reality has its model inside it
+4. **Seed is the root** - Your map of all realities
