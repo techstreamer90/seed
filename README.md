@@ -2,12 +2,25 @@
 
 This is a BAM model (digital twin) of the Spawnie workflow orchestrator.
 
+## The Key Insight
+
+**Reality is part of the model.**
+
+Each node in the sketch has a `source` reference containing:
+- `file`: Path to actual source code
+- `line`: Line number where the code starts
+- `hash`: SHA256 hash of the file
+
+When reality changes (code is modified), the hash mismatches signal **drift**.
+Agents can only modify the sketch if they can prove the change matches reality.
+
 ## Purpose
 
 This model serves as:
-1. **Accurate documentation** - The sketch defines what exists, color adds details
-2. **Shared context for agents** - Spawnie agents can query this model instead of re-reading files
-3. **Proof of concept** - Testing BAM + Spawnie integration
+1. **Verifiable documentation** - The sketch points to real code with hashes
+2. **Shared context for agents** - Agents query the model, not raw files
+3. **Drift detection** - Automatic detection when reality diverges from model
+4. **Declarative development** - Agents converge reality toward the sketch
 
 ## Structure
 
@@ -60,6 +73,34 @@ seed/
 
 ## Usage
 
+### Verify the model
+
+```bash
+# Check that model matches reality
+python verify.py
+
+# With custom source root
+python verify.py /path/to/spawnie
+```
+
+Output:
+```
+=== BAM Model Verification ===
+
+VERIFIED (40 nodes):
+  [OK] cls-tracker -> src/spawnie/tracker.py
+  [OK] cls-workflow-executor -> src/spawnie/workflow.py
+  ...
+
+=== Summary ===
+Total nodes with source: 40
+  Verified: 40
+  Drifted:  0
+  Missing:  0
+
+[SUCCESS] Model matches reality!
+```
+
 ### Query the model
 
 ```python
@@ -69,8 +110,11 @@ from pathlib import Path
 # Load sketch
 sketch = json.loads(Path("model/sketch.json").read_text())
 
-# Find all classes
+# Find all classes with their source locations
 classes = [n for n in sketch["nodes"] if n["type"] == "Class"]
+for c in classes:
+    src = c.get("source", {})
+    print(f"{c['label']}: {src.get('file')}:{src.get('line')}")
 
 # Find what Tracker uses
 tracker_edges = [e for e in sketch["edges"]
@@ -98,24 +142,33 @@ print(f"Public API: {tracker_info['public_api']}")
 
 ## The Vision
 
-This is a test of the BAM + Spawnie architecture:
+Reality is part of the model. The sketch contains source references (file paths, line numbers, hashes) that point directly to code. This creates a closed loop:
 
 ```
         ┌─────────────────────────────┐
-        │      BAM Model (Sketch)     │  ← Desired state
-        │         + Color             │  ← Current state
-        └──────────────┬──────────────┘
-                       │
-                       ▼
-        ┌─────────────────────────────┐
-        │      Spawnie Agents         │  ← Work to converge
-        └──────────────┬──────────────┘
-                       │
-                       ▼
-        ┌─────────────────────────────┐
-        │        Real World           │  ← Reflects back
-        │    (code, systems)          │
-        └─────────────────────────────┘
+        │      BAM Model (Sketch)     │
+        │         + Color             │
+        │                             │
+        │  ┌───────────────────────┐  │
+        │  │   Source References   │──┼──┐
+        │  │   (files + hashes)    │  │  │ Points to
+        │  └───────────────────────┘  │  │
+        └──────────────┬──────────────┘  │
+                       │                 │
+          Agents modify│                 ▼
+                       │    ┌─────────────────────────────┐
+                       │    │        Real World           │
+                       └───►│    (code, systems)          │
+                            └─────────────────────────────┘
+                                         │
+                    verify.py checks ────┘
+                    hashes match
 ```
 
-The model is not just documentation. It's the **source of truth** that agents converge reality towards.
+**Workflow:**
+1. Agent reads sketch to understand desired state
+2. Agent modifies real code to implement changes
+3. Agent updates sketch with new source references + hashes
+4. `verify.py` confirms model matches reality
+
+The model cannot drift silently - hash mismatches immediately signal that reality has changed.
