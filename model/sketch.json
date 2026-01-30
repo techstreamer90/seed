@@ -2,7 +2,7 @@
   "schema_version": "2.0",
   "project": "seed",
   "description": "The root model. A model of all models. Your home.",
-  "updated_at": "2026-01-31T01:30:00Z",
+  "updated_at": "2026-01-31T01:45:00Z",
 
   "node_types": {
     "Reality": {
@@ -16,18 +16,8 @@
   },
 
   "edge_types": {
-    "CONTAINS": {
-      "description": "Seed contains a reality",
-      "from_types": ["Reality"],
-      "to_types": ["Reality"]
-    },
     "USES": {
       "description": "One reality uses another",
-      "from_types": ["Reality"],
-      "to_types": ["Reality"]
-    },
-    "GENERATES": {
-      "description": "One reality generates/maintains another",
       "from_types": ["Reality"],
       "to_types": ["Reality"]
     },
@@ -35,6 +25,11 @@
       "description": "Reality embodies a concept",
       "from_types": ["Reality"],
       "to_types": ["Concept"]
+    },
+    "TARGETS": {
+      "description": "Reality is working towards another (long-term goal)",
+      "from_types": ["Reality"],
+      "to_types": ["Reality"]
     }
   },
 
@@ -54,7 +49,7 @@
       "id": "reality-bam",
       "type": "Reality",
       "label": "BAM",
-      "description": "Tool for generating and maintaining models of complex systems. Creates sketch from artifacts (designs, specs, measurements). Everyone works through the model.",
+      "description": "Tool for generating models of complex systems. Long-term goal: bring existing RF semiconductor development chain into this model-based world. Near-term: test the concept with smaller projects.",
       "source": {
         "path": "C:/BAM",
         "model": null,
@@ -65,12 +60,23 @@
       "id": "reality-rf-semiconductor",
       "type": "Reality",
       "label": "RF Semiconductor",
-      "description": "RF semiconductor system. Model includes: amplifiers, filters, mixers, interconnects. Linked to schematics, layouts, S-parameters, measurement data. Everyone on the project uses the model as their shared workspace.",
+      "description": "The big goal. Model an existing RF development chain - designs, specs, measurements, everything. Everyone works through the model. As close to physical reality as possible.",
+      "status": "long-term-goal",
       "intent": {
         "domain": "RF/microwave electronics",
         "artifacts": ["schematics", "layouts", "S-parameters", "measurement data", "specs"],
-        "node_types": ["Amplifier", "Filter", "Mixer", "Transmission Line", "Port", "Measurement"],
         "goal": "Model as close to physical reality as possible"
+      }
+    },
+    {
+      "id": "reality-bam-test-projects",
+      "type": "Reality",
+      "label": "BAM Test Projects",
+      "description": "Smaller projects to validate the model-as-workspace concept before tackling RF.",
+      "status": "next-step",
+      "intent": {
+        "purpose": "Test and refine the approach",
+        "projects": []
       }
     },
     {
@@ -95,7 +101,7 @@
       "id": "concept-model-as-workspace",
       "type": "Concept",
       "label": "Model as Workspace",
-      "description": "Everyone on the project works through the model. It's not documentation - it's the interface to reality. Changes to reality are reflected in the model. The model is the shared truth."
+      "description": "Everyone on the project works through the model. It's not documentation - it's the interface to reality."
     }
   ],
 
@@ -104,9 +110,10 @@
     {"type": "EMBODIES", "from": "reality-spawnie", "to": "concept-self-containing"},
     {"type": "USES", "from": "reality-spawnie", "to": "reality-bam"},
 
-    {"type": "GENERATES", "from": "reality-bam", "to": "reality-rf-semiconductor"},
+    {"type": "TARGETS", "from": "reality-bam", "to": "reality-rf-semiconductor"},
+    {"type": "USES", "from": "reality-bam", "to": "reality-bam-test-projects"},
+
     {"type": "EMBODIES", "from": "reality-rf-semiconductor", "to": "concept-model-as-workspace"},
-    {"type": "EMBODIES", "from": "reality-rf-semiconductor", "to": "concept-reality-as-model"},
-    {"type": "EMBODIES", "from": "reality-rf-semiconductor", "to": "concept-intent-vs-reality"}
+    {"type": "EMBODIES", "from": "reality-rf-semiconductor", "to": "concept-reality-as-model"}
   ]
 }
