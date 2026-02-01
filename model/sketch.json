@@ -2,7 +2,7 @@
   "schema_version": "3.0",
   "project": "seed",
   "description": "The root model. A model of all models. Your home.",
-  "updated_at": "2026-02-01T04:30:00Z",
+  "updated_at": "2026-02-01T10:00:00Z",
 
   "meta": {
     "layers": {
@@ -24,6 +24,15 @@
       "properties": ["path", "description", "status"],
       "can_contain_model": true
     },
+    "Subsystem": {
+      "description": "A major component of a reality, can contain its own sub-BAM",
+      "properties": ["description"],
+      "can_contain_model": true
+    },
+    "Module": {
+      "description": "A code module (file)",
+      "properties": ["path", "description"]
+    },
     "Concept": {
       "description": "A cross-cutting idea or pattern",
       "properties": ["description"]
@@ -43,6 +52,11 @@
   },
 
   "edge_types": {
+    "CONTAINS": {
+      "description": "Parent contains child in hierarchy",
+      "from_types": ["Reality", "Subsystem"],
+      "to_types": ["Subsystem", "Module"]
+    },
     "USES": {
       "description": "One reality uses another",
       "from_types": ["Reality"],
@@ -65,8 +79,13 @@
     },
     "NEEDS": {
       "description": "Something needs work done",
-      "from_types": ["Reality", "Aspiration"],
+      "from_types": ["Reality", "Aspiration", "Subsystem"],
       "to_types": ["Todo"]
+    },
+    "DERIVES_FROM": {
+      "description": "Aspiration derives from a more fundamental aspiration",
+      "from_types": ["Aspiration"],
+      "to_types": ["Aspiration"]
     },
     "PROVIDES_LENS": {
       "description": "Layer provides perspective for interpreting",
@@ -127,6 +146,80 @@
       }
     },
     {
+      "id": "reality-seed",
+      "type": "Reality",
+      "label": "Seed",
+      "description": "The meta-model. A model of all models. Your home. This node is self-referential - seed models itself.",
+      "source": {
+        "path": "C:/seed",
+        "model_path": "model/sketch.json"
+      },
+      "status": "active",
+      "model": {
+        "_note": "This is a self-reference. Seed contains its own model.",
+        "subsystems": ["core"],
+        "modules": ["pulse", "status", "reality", "monitor", "cli", "verification"]
+      }
+    },
+    {
+      "id": "subsystem-core",
+      "type": "Subsystem",
+      "label": "Core",
+      "description": "Seed's core implementation - pulse, status, monitoring, verification",
+      "parent": "reality-seed",
+      "source": {
+        "path": "seed_core"
+      },
+      "model": {
+        "nodes": [
+          {
+            "id": "mod-pulse",
+            "type": "Module",
+            "label": "pulse.py",
+            "description": "Heartbeat mechanism for checking reality health",
+            "source": {"file": "seed_core/pulse.py"}
+          },
+          {
+            "id": "mod-status",
+            "type": "Module",
+            "label": "status.py",
+            "description": "Status aggregation across all realities",
+            "source": {"file": "seed_core/status.py"}
+          },
+          {
+            "id": "mod-reality",
+            "type": "Module",
+            "label": "reality.py",
+            "description": "Reality loading and management",
+            "source": {"file": "seed_core/reality.py"}
+          },
+          {
+            "id": "mod-monitor",
+            "type": "Module",
+            "label": "monitor.py",
+            "description": "TUI monitor for visualizing seed state",
+            "source": {"file": "seed_core/monitor.py"}
+          },
+          {
+            "id": "mod-verification",
+            "type": "Module",
+            "label": "verification.py",
+            "description": "Hash-based drift detection",
+            "source": {"file": "seed_core/verification.py"}
+          },
+          {
+            "id": "mod-cli",
+            "type": "Module",
+            "label": "__main__.py",
+            "description": "CLI entry point",
+            "source": {"file": "seed_core/__main__.py"}
+          }
+        ],
+        "edges": []
+      }
+    },
+
+    {
       "id": "reality-bam",
       "type": "Reality",
       "label": "BAM",
@@ -138,22 +231,10 @@
       "status": "no-model-yet"
     },
     {
-      "id": "reality-rf-semiconductor",
-      "type": "Reality",
-      "label": "RF Semiconductor",
-      "description": "The big goal. Model an existing RF development chain - designs, specs, measurements, everything.",
-      "status": "aspiration",
-      "intent": {
-        "domain": "RF/microwave electronics",
-        "artifacts": ["schematics", "layouts", "S-parameters", "measurement data", "specs"],
-        "goal": "Model as close to physical reality as possible. Everyone works through the model."
-      }
-    },
-    {
       "id": "reality-bam-test-projects",
       "type": "Reality",
       "label": "BAM Test Projects",
-      "description": "Smaller projects to validate the model-as-workspace concept before tackling RF.",
+      "description": "Smaller projects to validate the model-as-workspace concept.",
       "status": "next-step"
     },
 
@@ -193,27 +274,72 @@
       "label": "Layers as Contextual Lenses",
       "description": "Layers are not categories for nodes - they are perspectives for interpretation. Aspiration (why), Design (what), Execution (now), Reality (is)."
     },
+    {
+      "id": "concept-pulse-monitoring",
+      "type": "Concept",
+      "label": "Pulse-Based Health Monitoring",
+      "description": "Active health monitoring via heartbeats. Traditional process monitoring tells you IF a process exists. Pulse tells you HOW WELL it's running. Processes send pulses at intervals; monitors track timing and detect degradation before failure."
+    },
+    {
+      "id": "concept-train-the-world",
+      "type": "Concept",
+      "label": "Train the World, Not the Agent",
+      "description": "The paradigm shift: instead of making agents smarter at navigating messy reality, make reality (the model) complete enough that navigation is trivial. An agent in a well-modeled world needs no training - it simply reads and understands."
+    },
+    {
+      "id": "concept-model-is-world",
+      "type": "Concept",
+      "label": "The Model IS the World",
+      "description": "The model is not a map of reality - it is reality. When you change the model, you change the world. When reality drifts from the model, reality is wrong, not the model."
+    },
 
+    {
+      "id": "aspiration-seed-philosophy",
+      "type": "Aspiration",
+      "label": "The Seed Philosophy",
+      "description": "Don't train your agent, train your world. Instead of building smarter agents that navigate chaos, build complete worlds (models) where everything is instantly known, understood, and workable. The transformation: from 'agent discovers files' to 'agent wakes up in a world'. This is the root aspiration.",
+      "status": "core",
+      "immutable": true
+    },
+    {
+      "id": "aspiration-instant-context",
+      "type": "Aspiration",
+      "label": "Instant Context",
+      "description": "An agent reading the model should instantly understand everything - structure, relationships, intent, state. No discovery phase. No file searching. No exploration. The model IS the understanding.",
+      "status": "ongoing",
+      "derives_from": "aspiration-seed-philosophy"
+    },
+    {
+      "id": "aspiration-model-contains-reality",
+      "type": "Aspiration",
+      "label": "Model Contains Reality",
+      "description": "The model doesn't describe reality - it contains it. Source references with hashes embed actual artifacts. The model is not documentation of the world, it IS the world.",
+      "status": "ongoing",
+      "derives_from": "aspiration-seed-philosophy"
+    },
     {
       "id": "aspiration-model-everything",
       "type": "Aspiration",
       "label": "Model Everything",
-      "description": "All systems the user works with should be modeled in seed. The model is the interface to reality.",
-      "status": "ongoing"
-    },
-    {
-      "id": "aspiration-rf-modeled",
-      "type": "Aspiration",
-      "label": "RF Development Chain Modeled",
-      "description": "The ultimate goal: model an existing RF semiconductor development chain - designs, specs, measurements, everything.",
-      "status": "long-term"
+      "description": "All systems the user works with should be modeled in seed. Every project, every tool, every workflow. The model is the universal interface to all realities.",
+      "status": "ongoing",
+      "derives_from": "aspiration-seed-philosophy"
     },
     {
       "id": "aspiration-regenerable-reality",
       "type": "Aspiration",
       "label": "Regenerable Reality",
-      "description": "If the model is complete enough, reality becomes disposable. Artifacts are regenerable projections.",
-      "status": "vision"
+      "description": "If the model is complete enough, physical artifacts become disposable projections. Delete the code, regenerate from model. The model is the source, reality is the render.",
+      "status": "vision",
+      "derives_from": "aspiration-model-contains-reality"
+    },
+    {
+      "id": "aspiration-single-source-of-truth",
+      "type": "Aspiration",
+      "label": "Single Source of Truth",
+      "description": "The model is THE truth. Not a reflection of truth, not documentation of truth - the actual truth. All changes flow through the model. Reality follows.",
+      "status": "ongoing",
+      "derives_from": "aspiration-model-contains-reality"
     },
 
     {
@@ -228,7 +354,7 @@
       "id": "todo-test-projects",
       "type": "Todo",
       "label": "BAM Test Projects",
-      "description": "Test the model-as-workspace concept with smaller projects before tackling RF",
+      "description": "Test the model-as-workspace concept with smaller projects",
       "status": "pending",
       "priority": "medium"
     },
@@ -239,6 +365,30 @@
       "description": "Add triggers, execution state, and events to the model so execution is also modeled",
       "status": "pending",
       "priority": "medium"
+    },
+    {
+      "id": "todo-seed-tests",
+      "type": "Todo",
+      "label": "Verify Seed Core Tests",
+      "description": "Run and verify the existing tests in seed_core/tests/, ensure they pass",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "id": "todo-seed-lifecycle",
+      "type": "Todo",
+      "label": "Reality Lifecycle Management",
+      "description": "Add start/stop/restart commands to seed for managing spawnie and other reality processes",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "id": "todo-seed-self-monitor",
+      "type": "Todo",
+      "label": "Seed Self-Monitoring",
+      "description": "Ensure seed monitors itself as a reality - the monitor should show seed in its own list",
+      "status": "pending",
+      "priority": "high"
     }
   ],
 
@@ -251,15 +401,31 @@
     {"type": "USES", "from": "reality-spawnie", "to": "reality-bam"},
     {"type": "IMPLEMENTS", "from": "reality-spawnie", "to": "aspiration-model-everything"},
 
-    {"type": "TARGETS", "from": "reality-bam", "to": "reality-rf-semiconductor"},
     {"type": "USES", "from": "reality-bam", "to": "reality-bam-test-projects"},
     {"type": "NEEDS", "from": "reality-bam", "to": "todo-bam-tool"},
     {"type": "NEEDS", "from": "reality-bam-test-projects", "to": "todo-test-projects"},
 
-    {"type": "EMBODIES", "from": "reality-rf-semiconductor", "to": "concept-model-as-workspace"},
-    {"type": "EMBODIES", "from": "reality-rf-semiconductor", "to": "concept-reality-as-model"},
-    {"type": "IMPLEMENTS", "from": "reality-rf-semiconductor", "to": "aspiration-rf-modeled"},
-    {"type": "IMPLEMENTS", "from": "reality-rf-semiconductor", "to": "aspiration-regenerable-reality"},
+
+    {"type": "CONTAINS", "from": "reality-seed", "to": "subsystem-core"},
+    {"type": "USES", "from": "reality-seed", "to": "reality-spawnie"},
+    {"type": "EMBODIES", "from": "reality-seed", "to": "concept-self-containing"},
+    {"type": "EMBODIES", "from": "reality-seed", "to": "concept-pulse-monitoring"},
+    {"type": "EMBODIES", "from": "reality-seed", "to": "concept-model-as-workspace"},
+    {"type": "EMBODIES", "from": "reality-seed", "to": "concept-train-the-world"},
+    {"type": "EMBODIES", "from": "reality-seed", "to": "concept-model-is-world"},
+    {"type": "IMPLEMENTS", "from": "reality-seed", "to": "aspiration-seed-philosophy"},
+    {"type": "IMPLEMENTS", "from": "reality-seed", "to": "aspiration-instant-context"},
+    {"type": "IMPLEMENTS", "from": "reality-seed", "to": "aspiration-model-contains-reality"},
+    {"type": "IMPLEMENTS", "from": "reality-seed", "to": "aspiration-single-source-of-truth"},
+
+    {"type": "DERIVES_FROM", "from": "aspiration-instant-context", "to": "aspiration-seed-philosophy"},
+    {"type": "DERIVES_FROM", "from": "aspiration-model-contains-reality", "to": "aspiration-seed-philosophy"},
+    {"type": "DERIVES_FROM", "from": "aspiration-model-everything", "to": "aspiration-seed-philosophy"},
+    {"type": "DERIVES_FROM", "from": "aspiration-regenerable-reality", "to": "aspiration-model-contains-reality"},
+    {"type": "DERIVES_FROM", "from": "aspiration-single-source-of-truth", "to": "aspiration-model-contains-reality"},
+    {"type": "NEEDS", "from": "subsystem-core", "to": "todo-seed-tests"},
+    {"type": "NEEDS", "from": "subsystem-core", "to": "todo-seed-lifecycle"},
+    {"type": "NEEDS", "from": "reality-seed", "to": "todo-seed-self-monitor"},
 
     {"type": "NEEDS", "from": "aspiration-model-everything", "to": "todo-execution-layer"}
   ]
