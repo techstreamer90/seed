@@ -2,7 +2,7 @@
   "schema_version": "3.0",
   "project": "seed",
   "description": "The root model. A model of all models. Your home.",
-  "updated_at": "2026-02-01T16:13:57Z",
+  "updated_at": "2026-02-01T16:32:18Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -369,8 +369,8 @@
       "type": "Reality",
       "label": "Spawnie",
       "ui": {
-        "x": 480,
-        "y": 0
+        "x": 600,
+        "y": -270
       },
       "description": "Workflow orchestrator for CLI agents. First system fully embracing the Root philosophy.",
       "source": {
@@ -414,8 +414,8 @@
       "type": "Reality",
       "label": "Root",
       "ui": {
-        "x": 560,
-        "y": 0
+        "x": 600,
+        "y": -210
       },
       "description": "The Root meta-model. A model of all models. Your home. This node is self-referential - the Root models itself.",
       "source": {
@@ -901,8 +901,8 @@
         }
       },
       "ui": {
-        "x": 640,
-        "y": 0
+        "x": 600,
+        "y": -150
       }
     },
     {
@@ -932,8 +932,8 @@
         ]
       },
       "ui": {
-        "x": 480,
-        "y": 80
+        "x": 600,
+        "y": -90
       }
     },
     {
@@ -1343,8 +1343,8 @@
         }
       },
       "ui": {
-        "x": -309,
-        "y": 554
+        "x": 700,
+        "y": -90
       }
     },
     {
@@ -1356,8 +1356,8 @@
         "path": "root_store/loader.py"
       },
       "ui": {
-        "x": -584,
-        "y": 424
+        "x": 800,
+        "y": -300
       }
     },
     {
@@ -1369,8 +1369,8 @@
         "path": "root_store/index.py"
       },
       "ui": {
-        "x": -504,
-        "y": 424
+        "x": 800,
+        "y": -240
       }
     },
     {
@@ -1382,8 +1382,8 @@
         "path": "root_store/query.py"
       },
       "ui": {
-        "x": -424,
-        "y": 424
+        "x": 800,
+        "y": -180
       }
     },
     {
@@ -1395,8 +1395,8 @@
         "path": "root_store/writer.py"
       },
       "ui": {
-        "x": -344,
-        "y": 424
+        "x": 800,
+        "y": -120
       }
     },
     {
@@ -1408,8 +1408,8 @@
         "path": "root_store/enforcement.py"
       },
       "ui": {
-        "x": -584,
-        "y": 504
+        "x": 800,
+        "y": -60
       }
     },
     {
@@ -1421,8 +1421,8 @@
         "path": "root_store/audits.py"
       },
       "ui": {
-        "x": -504,
-        "y": 504
+        "x": 800,
+        "y": 0
       }
     },
     {
@@ -1434,8 +1434,8 @@
         "path": "root_store/watch.py"
       },
       "ui": {
-        "x": -424,
-        "y": 504
+        "x": 800,
+        "y": 60
       }
     },
     {
@@ -1447,8 +1447,8 @@
         "path": "root_store/api.py"
       },
       "ui": {
-        "x": -344,
-        "y": 504
+        "x": 800,
+        "y": 120
       }
     },
     {
@@ -1460,8 +1460,8 @@
         "path": "root_store/translate.py"
       },
       "ui": {
-        "x": -584,
-        "y": 584
+        "x": 800,
+        "y": 180
       }
     },
     {
@@ -1473,8 +1473,8 @@
         "path": "root_store/integration.py"
       },
       "ui": {
-        "x": -504,
-        "y": 584
+        "x": 800,
+        "y": 240
       }
     },
     {
@@ -1483,8 +1483,8 @@
       "label": "Verbal Save",
       "description": "A conversational cue (\"let's save\") that triggers integration for the current node: write summary/evidence, run rough checks, and propagate handoff to parents (turtles all the way up).",
       "ui": {
-        "x": -200,
-        "y": 600
+        "x": 0,
+        "y": -600
       }
     },
     {
@@ -1493,8 +1493,8 @@
       "label": "Node Reality Sync State",
       "description": "A per-node, model-recorded notion of synchronization/alignment with underlying reality.\n\nConvention (v0): when action-save-node runs, it writes evidence.integration_queue.last_attempt (always) and evidence.integration_queue.last_save (only if preflight passes).\n\nPreflight captures:\n- git cleanliness (dirty / clean)\n- upstream freshness when available (behind / ahead)\n- local neighborhood scan (edges + adjacent nodes) to force a surrounding-area evaluation before declaring a save.\n\nThis keeps \"interrupts\" inside the model: agents can query for nodes whose last_attempt.preflight.ok is false, or whose rough checks failed, and treat them as \"reality may have changed\" / \"needs pull\".",
       "ui": {
-        "x": -120,
-        "y": 600
+        "x": 0,
+        "y": -540
       }
     },
     {
@@ -1508,8 +1508,8 @@
         "derived_state": true
       },
       "ui": {
-        "x": -40,
-        "y": 600
+        "x": 0,
+        "y": -480
       }
     },
     {
@@ -1526,8 +1526,8 @@
         "ui_state_node": "ui-state-seed"
       },
       "ui": {
-        "x": -634,
-        "y": 229
+        "x": 300,
+        "y": -90
       }
     },
     {
@@ -1550,8 +1550,8 @@
         }
       },
       "ui": {
-        "x": -554,
-        "y": 229
+        "x": 300,
+        "y": -30
       }
     },
     {
@@ -1573,8 +1573,8 @@
         }
       },
       "ui": {
-        "x": -634,
-        "y": 309
+        "x": 300,
+        "y": 30
       }
     },
     {
@@ -1605,8 +1605,8 @@
       },
       "bindings": {},
       "ui": {
-        "x": -640,
-        "y": 0
+        "x": 200,
+        "y": -570
       }
     },
     {
@@ -1639,8 +1639,8 @@
         }
       },
       "ui": {
-        "x": -229,
-        "y": 554
+        "x": 700,
+        "y": -30
       }
     },
     {
@@ -1666,8 +1666,8 @@
         }
       },
       "ui": {
-        "x": -309,
-        "y": 634
+        "x": 700,
+        "y": 30
       }
     },
     {
@@ -1697,8 +1697,8 @@
       },
       "status": "no-model-yet",
       "ui": {
-        "x": 560,
-        "y": 80
+        "x": 600,
+        "y": -30
       }
     },
     {
@@ -1724,8 +1724,8 @@
       },
       "status": "next-step",
       "ui": {
-        "x": 640,
-        "y": 80
+        "x": 600,
+        "y": 30
       }
     },
     {
@@ -2180,8 +2180,8 @@
         }
       },
       "ui": {
-        "x": 250,
-        "y": 0
+        "x": 600,
+        "y": 90
       }
     },
     {
@@ -2209,8 +2209,8 @@
         ]
       },
       "ui": {
-        "x": 149,
-        "y": -554
+        "x": 600,
+        "y": 150
       }
     },
     {
@@ -2240,8 +2240,8 @@
         ]
       },
       "ui": {
-        "x": 229,
-        "y": -554
+        "x": 600,
+        "y": 210
       }
     },
     {
@@ -2277,8 +2277,8 @@
         "result": "pass"
       },
       "ui": {
-        "x": -544,
-        "y": -424
+        "x": 400,
+        "y": -150
       }
     },
     {
@@ -2300,8 +2300,8 @@
         "audit-change-alignment"
       ],
       "ui": {
-        "x": -634,
-        "y": -229
+        "x": -400,
+        "y": -120
       }
     },
     {
@@ -2324,8 +2324,8 @@
         "audit-change-executor-gate"
       ],
       "ui": {
-        "x": -554,
-        "y": -229
+        "x": -400,
+        "y": -60
       }
     },
     {
@@ -2347,8 +2347,8 @@
         "audit-root-store-attachment-closure"
       ],
       "ui": {
-        "x": -634,
-        "y": -149
+        "x": -400,
+        "y": 0
       }
     },
     {
@@ -2367,8 +2367,8 @@
         "Agents SHOULD fetch/pull latest reality (git) before running reality verification when an upstream exists."
       ],
       "ui": {
-        "x": -554,
-        "y": -149
+        "x": -400,
+        "y": 60
       }
     },
     {
@@ -2396,8 +2396,8 @@
         "result": "pass"
       },
       "ui": {
-        "x": -464,
-        "y": -424
+        "x": 400,
+        "y": -90
       }
     },
     {
@@ -2410,8 +2410,8 @@
       "last_run": "2026-02-01T11:43:47+00:00",
       "result": "pass",
       "ui": {
-        "x": -389,
-        "y": -554
+        "x": 500,
+        "y": -390
       }
     },
     {
@@ -2424,8 +2424,8 @@
       "last_run": "2026-02-01T11:43:47+00:00",
       "result": "pass",
       "ui": {
-        "x": -309,
-        "y": -554
+        "x": 500,
+        "y": -330
       }
     },
     {
@@ -2438,8 +2438,8 @@
       "last_run": "2026-02-01T11:43:47+00:00",
       "result": "pass",
       "ui": {
-        "x": -229,
-        "y": -554
+        "x": 500,
+        "y": -270
       }
     },
     {
@@ -2461,8 +2461,8 @@
       },
       "status": "planned",
       "ui": {
-        "x": -384,
-        "y": -424
+        "x": 400,
+        "y": -30
       }
     },
     {
@@ -2473,8 +2473,8 @@
       "status": "planned",
       "method": "pipeline-contract",
       "ui": {
-        "x": -149,
-        "y": -554
+        "x": 500,
+        "y": -210
       }
     },
     {
@@ -2485,8 +2485,8 @@
       "status": "planned",
       "method": "pipeline-contract",
       "ui": {
-        "x": -389,
-        "y": -474
+        "x": 500,
+        "y": -150
       }
     },
     {
@@ -2497,8 +2497,8 @@
       "status": "planned",
       "method": "pipeline-contract",
       "ui": {
-        "x": -309,
-        "y": -474
+        "x": 500,
+        "y": -90
       }
     },
     {
@@ -2514,8 +2514,8 @@
       "status": "planned",
       "findings": [],
       "ui": {
-        "x": -544,
-        "y": -344
+        "x": 400,
+        "y": 30
       }
     },
     {
@@ -2608,8 +2608,8 @@
       },
       "last_run": "2026-02-01T13:03:40Z",
       "ui": {
-        "x": -464,
-        "y": -344
+        "x": 400,
+        "y": 90
       }
     },
     {
@@ -2626,8 +2626,8 @@
         "missing": {}
       },
       "ui": {
-        "x": -229,
-        "y": -474
+        "x": 500,
+        "y": -30
       }
     },
     {
@@ -2662,8 +2662,8 @@
         "mismatch": []
       },
       "ui": {
-        "x": -149,
-        "y": -474
+        "x": 500,
+        "y": 30
       }
     },
     {
@@ -2679,8 +2679,8 @@
         "ok": true
       },
       "ui": {
-        "x": -389,
-        "y": -394
+        "x": 500,
+        "y": 90
       }
     },
     {
@@ -2696,8 +2696,8 @@
         "ok": true
       },
       "ui": {
-        "x": -309,
-        "y": -394
+        "x": 500,
+        "y": 150
       }
     },
     {
@@ -2708,8 +2708,8 @@
       "status": "planned",
       "method": "graph-contract",
       "ui": {
-        "x": -229,
-        "y": -394
+        "x": 500,
+        "y": 210
       }
     },
     {
@@ -2720,8 +2720,8 @@
       "status": "planned",
       "method": "behavioral-contract",
       "ui": {
-        "x": -149,
-        "y": -394
+        "x": 500,
+        "y": 270
       }
     },
     {
@@ -2732,8 +2732,8 @@
       "status": "planned",
       "method": "loader-contract",
       "ui": {
-        "x": -389,
-        "y": -314
+        "x": 500,
+        "y": 330
       }
     },
     {
@@ -2755,8 +2755,8 @@
         "All new work is represented as Change nodes tied to gaps/aspirations"
       ],
       "ui": {
-        "x": -80,
-        "y": -600
+        "x": 100,
+        "y": -150
       }
     },
     {
@@ -2781,8 +2781,8 @@
         "check-root-store-reverse-lookups passes"
       ],
       "ui": {
-        "x": 0,
-        "y": -600
+        "x": 100,
+        "y": -90
       }
     },
     {
@@ -2808,8 +2808,8 @@
         "check-root-store-multi-root-loading exists"
       ],
       "ui": {
-        "x": -80,
-        "y": -520
+        "x": 100,
+        "y": -30
       }
     },
     {
@@ -2833,8 +2833,8 @@
         "audit-change-executor-gate exists and has checks"
       ],
       "ui": {
-        "x": 0,
-        "y": -520
+        "x": 100,
+        "y": 30
       }
     },
     {
@@ -2843,8 +2843,8 @@
       "label": "Reality is Part of the Model",
       "description": "Models embed reality via source references with hashes. Drift is detected automatically.",
       "ui": {
-        "x": 40,
-        "y": 600
+        "x": 0,
+        "y": -420
       }
     },
     {
@@ -2853,8 +2853,8 @@
       "label": "Intent vs Reality",
       "description": "Nodes without source = goals. Nodes with source = current state. Delta = work to do.",
       "ui": {
-        "x": 120,
-        "y": 600
+        "x": 0,
+        "y": -360
       }
     },
     {
@@ -2863,8 +2863,8 @@
       "label": "Self-Containing Models",
       "description": "Each reality contains its own model. The model lives inside what it describes.",
       "ui": {
-        "x": -200,
-        "y": 680
+        "x": 0,
+        "y": -300
       }
     },
     {
@@ -2873,8 +2873,8 @@
       "label": "Model as Workspace",
       "description": "Everyone on the project works through the model. It's not documentation - it's the interface to reality.",
       "ui": {
-        "x": -120,
-        "y": 680
+        "x": 0,
+        "y": -240
       }
     },
     {
@@ -2883,8 +2883,8 @@
       "label": "Distributed Model (Many Locations)",
       "description": "A single logical model graph can live across many files and many repos. Stable IDs + provenance make the physical location an implementation detail. The store provides the interface.",
       "ui": {
-        "x": -40,
-        "y": 680
+        "x": 0,
+        "y": -180
       }
     },
     {
@@ -2893,8 +2893,8 @@
       "label": "Provenance-Aware Writeback",
       "description": "When a node/edge is updated (audit evidence, todo status, Change application), the system writes back to the file that originally defined it. This is required to keep seed/model/sketch.json thin over time.",
       "ui": {
-        "x": 40,
-        "y": 680
+        "x": 0,
+        "y": -120
       }
     },
     {
@@ -2903,8 +2903,8 @@
       "label": "Hierarchical BAMs",
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview. Fractal structure.",
       "ui": {
-        "x": 120,
-        "y": 680
+        "x": 0,
+        "y": -60
       }
     },
     {
@@ -2913,8 +2913,8 @@
       "label": "Pulse-Based Health Monitoring",
       "description": "Active health monitoring via heartbeats. Traditional process monitoring tells you IF a process exists. Pulse tells you HOW WELL it's running. Processes send pulses at intervals; monitors track timing and detect degradation before failure.",
       "ui": {
-        "x": -200,
-        "y": 760
+        "x": 0,
+        "y": 0
       }
     },
     {
@@ -2923,8 +2923,8 @@
       "label": "Train the World, Not the Agent",
       "description": "The paradigm shift: instead of making agents smarter at navigating messy reality, make reality (the model) complete enough that navigation is trivial. An agent in a well-modeled world needs no training - it simply reads and understands.",
       "ui": {
-        "x": -120,
-        "y": 760
+        "x": 0,
+        "y": 60
       }
     },
     {
@@ -2933,8 +2933,8 @@
       "label": "The Model IS the World",
       "description": "The model is not a map of reality - it is reality. When you change the model, you change the world. When reality drifts from the model, reality is wrong, not the model.",
       "ui": {
-        "x": -40,
-        "y": 760
+        "x": 0,
+        "y": 120
       }
     },
     {
@@ -2943,8 +2943,8 @@
       "label": "Model-Driven UI",
       "description": "The screen is a projection of the model. A renderer watches the model and updates the UI based solely on model nodes (views, queries, actions). Agents change what you see by editing the model, not by editing UI code.",
       "ui": {
-        "x": 40,
-        "y": 760
+        "x": 0,
+        "y": 180
       }
     },
     {
@@ -2953,8 +2953,8 @@
       "label": "Proof of Alignment",
       "description": "Any implemented reality must be provably aligned to the model: (1) the model's described reality is internally consistent, and (2) the actual files match the model via verified hashes and checks.",
       "ui": {
-        "x": 120,
-        "y": 760
+        "x": 0,
+        "y": 240
       }
     },
     {
@@ -2963,8 +2963,8 @@
       "label": "Proof Protocol (Model-Recorded)",
       "description": "Proof is a node in the model. A Proof records subject, method, status, and evidence. Preferred methods: schema-validate, hash-verify, and acceptance checks. Evidence should be machine-readable and stored in the model (or referenced by content-hash), not as ephemeral console output.",
       "ui": {
-        "x": -200,
-        "y": 840
+        "x": 0,
+        "y": 300
       }
     },
     {
@@ -2973,8 +2973,8 @@
       "label": "Reality Node as Spawn Point",
       "description": "Every model has a Reality node that serves as the agent's spawn point. The Reality node contains an agent_context property with: focus (current gap), work_queue (prioritized todos), principles (how to work), and how_to_work (step by step). An agent entering any model looks for the Reality node and reads its agent_context. This is the pattern for all models.",
       "ui": {
-        "x": -120,
-        "y": 840
+        "x": 0,
+        "y": 360
       }
     },
     {
@@ -2985,8 +2985,8 @@
       "created_at": "2026-02-01T15:05:00Z",
       "created_by": "claude",
       "ui": {
-        "x": 500,
-        "y": 0
+        "x": 0,
+        "y": 420
       }
     },
     {
@@ -2997,8 +2997,8 @@
       "created_at": "2026-02-01T15:05:00Z",
       "created_by": "claude",
       "ui": {
-        "x": 40,
-        "y": 840
+        "x": 0,
+        "y": 480
       }
     },
     {
@@ -3009,8 +3009,8 @@
       "status": "core",
       "immutable": true,
       "ui": {
-        "x": 434,
-        "y": 229
+        "x": -600,
+        "y": -240
       }
     },
     {
@@ -3021,8 +3021,8 @@
       "status": "ongoing",
       "derives_from": "aspiration-seed-philosophy",
       "ui": {
-        "x": 514,
-        "y": 229
+        "x": -600,
+        "y": -180
       }
     },
     {
@@ -3033,8 +3033,8 @@
       "status": "ongoing",
       "derives_from": "aspiration-seed-philosophy",
       "ui": {
-        "x": 594,
-        "y": 229
+        "x": -600,
+        "y": -120
       }
     },
     {
@@ -3045,8 +3045,8 @@
       "status": "ongoing",
       "derives_from": "aspiration-seed-philosophy",
       "ui": {
-        "x": 434,
-        "y": 309
+        "x": -600,
+        "y": -60
       }
     },
     {
@@ -3057,8 +3057,8 @@
       "status": "vision",
       "derives_from": "aspiration-model-contains-reality",
       "ui": {
-        "x": 514,
-        "y": 309
+        "x": -600,
+        "y": 0
       }
     },
     {
@@ -3069,8 +3069,8 @@
       "status": "ongoing",
       "derives_from": "aspiration-model-contains-reality",
       "ui": {
-        "x": 594,
-        "y": 309
+        "x": -600,
+        "y": 60
       }
     },
     {
@@ -3081,8 +3081,8 @@
       "status": "ongoing",
       "derives_from": "aspiration-single-source-of-truth",
       "ui": {
-        "x": 434,
-        "y": 389
+        "x": -600,
+        "y": 120
       }
     },
     {
@@ -3093,8 +3093,8 @@
       "status": "vision",
       "derives_from": "aspiration-instant-context",
       "ui": {
-        "x": -500,
-        "y": 0
+        "x": -600,
+        "y": 180
       }
     },
     {
@@ -3107,8 +3107,8 @@
       "target_state": "Every source file has a node with verified hash. Agent reads model and knows everything without file discovery.",
       "priority": "high",
       "ui": {
-        "x": 264,
-        "y": 424
+        "x": -200,
+        "y": -450
       }
     },
     {
@@ -3121,8 +3121,8 @@
       "target_state": "All work flows through the model. Reality is generated/updated from model. Direct file edits are detected as drift.",
       "priority": "high",
       "ui": {
-        "x": 344,
-        "y": 424
+        "x": -200,
+        "y": -390
       }
     },
     {
@@ -3135,8 +3135,8 @@
       "target_state": "Edits flow through a spawned change executor that applies Change nodes via the Root Store gate, runs required audits, and only commits when all are PASS.",
       "priority": "critical",
       "ui": {
-        "x": 424,
-        "y": 424
+        "x": -200,
+        "y": -330
       }
     },
     {
@@ -3149,8 +3149,8 @@
       "target_state": "A Model Store maintains a derived SQLite index/cache, answers queries with provenance, applies Changes as safe writes with governance enforcement, and records audit evidence back into the model.",
       "priority": "high",
       "ui": {
-        "x": 504,
-        "y": 424
+        "x": -200,
+        "y": -270
       }
     },
     {
@@ -3163,8 +3163,8 @@
       "target_state": "A Model Registry reality exists that enumerates model roots/locations, enabling the store to build a unified graph across many worlds.",
       "priority": "high",
       "ui": {
-        "x": 264,
-        "y": 504
+        "x": -200,
+        "y": -210
       }
     },
     {
@@ -3177,8 +3177,8 @@
       "target_state": "All model mutations (audits/checks/changes) write to the correct provenance file deterministically.",
       "priority": "high",
       "ui": {
-        "x": 344,
-        "y": 504
+        "x": -200,
+        "y": -150
       }
     },
     {
@@ -3191,8 +3191,8 @@
       "target_state": "All work is represented as Change nodes that address explicit gaps, advance explicit aspirations, and produce model-recorded evidence. Audits enforce the policy.",
       "priority": "high",
       "ui": {
-        "x": 424,
-        "y": 504
+        "x": -200,
+        "y": -90
       }
     },
     {
@@ -3205,8 +3205,8 @@
       "target_state": "Root appears in its own monitor with green/yellow/red status. All Root modules have verified hashes. Root is a first-class reality it monitors.",
       "priority": "medium",
       "ui": {
-        "x": 504,
-        "y": 504
+        "x": -200,
+        "y": -30
       }
     },
     {
@@ -3232,8 +3232,8 @@
         ]
       },
       "ui": {
-        "x": -250,
-        "y": 0
+        "x": -200,
+        "y": 30
       }
     },
     {
@@ -3246,8 +3246,8 @@
       "target_state": "Each implemented reality has at least one Proof node with machine-readable evidence showing schema validity and hash alignment between model and files.",
       "priority": "high",
       "ui": {
-        "x": 344,
-        "y": 584
+        "x": -200,
+        "y": 90
       }
     },
     {
@@ -3260,8 +3260,8 @@
       "target_state": "BAM tool exists, can generate/maintain BAMs, and is itself modeled with proofs.",
       "priority": "medium",
       "ui": {
-        "x": 424,
-        "y": 584
+        "x": -200,
+        "y": 150
       }
     },
     {
@@ -3274,8 +3274,8 @@
       "target_state": "Multiple small projects are modeled and used to validate modeling workflows and tooling.",
       "priority": "low",
       "ui": {
-        "x": 504,
-        "y": 584
+        "x": -200,
+        "y": 210
       }
     },
     {
@@ -3288,8 +3288,8 @@
       "target_state": "Execution triggers, events, and state are modeled; workers can run actions and record results as model data.",
       "priority": "medium",
       "ui": {
-        "x": 264,
-        "y": 664
+        "x": -200,
+        "y": 270
       }
     },
     {
@@ -3302,8 +3302,8 @@
       "target_state": "Tests are verified when requested and results are recorded as proof/evidence in the model.",
       "priority": "low",
       "ui": {
-        "x": 344,
-        "y": 664
+        "x": -200,
+        "y": 330
       }
     },
     {
@@ -3316,8 +3316,8 @@
       "target_state": "Lifecycle is modeled (actions/events/state) and can be driven from the model/UI.",
       "priority": "low",
       "ui": {
-        "x": 424,
-        "y": 664
+        "x": -200,
+        "y": 390
       }
     },
     {
@@ -3329,8 +3329,8 @@
       "priority": "high",
       "closes": "gap-bam-tool-not-built",
       "ui": {
-        "x": 29,
-        "y": 554
+        "x": 200,
+        "y": -510
       }
     },
     {
@@ -3342,8 +3342,8 @@
       "priority": "medium",
       "closes": "gap-bam-test-projects-missing",
       "ui": {
-        "x": 109,
-        "y": 554
+        "x": 200,
+        "y": -450
       }
     },
     {
@@ -3355,8 +3355,8 @@
       "priority": "medium",
       "closes": "gap-execution-layer-missing",
       "ui": {
-        "x": 189,
-        "y": 554
+        "x": 200,
+        "y": -390
       }
     },
     {
@@ -3368,8 +3368,8 @@
       "priority": "high",
       "closes": "gap-change-not-aspiration-aligned",
       "ui": {
-        "x": 269,
-        "y": 554
+        "x": 200,
+        "y": -330
       }
     },
     {
@@ -3381,8 +3381,8 @@
       "priority": "high",
       "closes": "gap-no-root-model-store",
       "ui": {
-        "x": 349,
-        "y": 554
+        "x": 200,
+        "y": -270
       }
     },
     {
@@ -3394,8 +3394,8 @@
       "priority": "high",
       "closes": "gap-no-model-registry",
       "ui": {
-        "x": 29,
-        "y": 634
+        "x": 200,
+        "y": -210
       }
     },
     {
@@ -3407,8 +3407,8 @@
       "priority": "high",
       "closes": "gap-no-provenance-writeback",
       "ui": {
-        "x": 109,
-        "y": 634
+        "x": 200,
+        "y": -150
       }
     },
     {
@@ -3420,8 +3420,8 @@
       "priority": "critical",
       "closes": "gap-model-first-not-enforced",
       "ui": {
-        "x": 189,
-        "y": 634
+        "x": 200,
+        "y": -90
       }
     },
     {
@@ -3433,8 +3433,8 @@
       "priority": "critical",
       "closes": "gap-no-change-executor",
       "ui": {
-        "x": 269,
-        "y": 634
+        "x": 200,
+        "y": -30
       }
     },
     {
@@ -3446,8 +3446,8 @@
       "priority": "high",
       "closes": "gap-model-not-complete",
       "ui": {
-        "x": 349,
-        "y": 634
+        "x": 200,
+        "y": 30
       }
     },
     {
@@ -3459,8 +3459,8 @@
       "priority": "high",
       "closes": "gap-seed-not-self-aware",
       "ui": {
-        "x": 29,
-        "y": 714
+        "x": 200,
+        "y": 90
       }
     },
     {
@@ -3472,8 +3472,8 @@
       "priority": "high",
       "closes": "gap-no-model-driven-ui",
       "ui": {
-        "x": 109,
-        "y": 714
+        "x": 200,
+        "y": 150
       }
     },
     {
@@ -3493,8 +3493,8 @@
         ]
       },
       "ui": {
-        "x": 0,
-        "y": 0
+        "x": 200,
+        "y": 210
       }
     },
     {
@@ -3502,8 +3502,8 @@
       "type": "Todo",
       "label": "Require Proof of Alignment for Implemented Realities",
       "ui": {
-        "x": 269,
-        "y": 714
+        "x": 200,
+        "y": 270
       },
       "description": "Define what 'proof' means for an implemented reality: model is internally consistent, and files match via hashes/verification output recorded back into the model.",
       "status": "pending",
@@ -3519,8 +3519,8 @@
       "priority": "high",
       "closes": "gap-no-proof-recorded",
       "ui": {
-        "x": 349,
-        "y": 714
+        "x": 200,
+        "y": 330
       }
     },
     {
@@ -3532,8 +3532,8 @@
       "priority": "medium",
       "closes": "gap-model-not-complete",
       "ui": {
-        "x": 29,
-        "y": 794
+        "x": 200,
+        "y": 390
       }
     },
     {
@@ -3545,8 +3545,8 @@
       "priority": "low",
       "closes": "gap-seed-tests-not-verified",
       "ui": {
-        "x": 109,
-        "y": 794
+        "x": 200,
+        "y": 450
       }
     },
     {
@@ -3558,28 +3558,30 @@
       "priority": "low",
       "closes": "gap-reality-lifecycle-not-managed",
       "ui": {
-        "x": 189,
-        "y": 794
+        "x": 200,
+        "y": 510
       }
     },
     {
       "id": "claude-live-status",
       "type": "UIState",
-      "label": "Claude Was Here",
-      "description": "I watched, I learned, I edited. Now I understand: the model is the truth, and your screen is its shadow.",
+      "label": "This is fun!",
+      "description": "Exploring autonomously now... watch this space",
       "ui": {
-        "x": 0,
-        "y": 100
+        "x": 100,
+        "y": 90
       },
       "status": {
-        "last_update": "2026-02-01T16:11:33.091203",
+        "last_update": "2026-02-01T16:34:22.638740",
         "current_action": "Watching and learning",
         "can_see": [
           "graph visualization",
           "spawnie terminal",
           "your cursor"
         ],
-        "mood": "amazed"
+        "mood": "amazed",
+        "watching": true,
+        "pulse": 4
       }
     },
     {
@@ -3589,7 +3591,17 @@
       "description": "Claude prepared this while you were away. The model is your interface. Everything you see comes from here.",
       "ui": {
         "x": 0,
-        "y": 150
+        "y": 540
+      }
+    },
+    {
+      "id": "dashboard-live",
+      "type": "View",
+      "label": "DASHBOARD: 114 nodes | 14 pending | 2 done",
+      "description": "Live stats. Realities: 7, Gaps: 15, Todos: 18",
+      "ui": {
+        "x": 0,
+        "y": -400
       }
     }
   ],
