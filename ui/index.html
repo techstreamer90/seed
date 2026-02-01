@@ -411,7 +411,8 @@
                 if (node.ui && node.ui.x !== undefined && node.ui.y !== undefined) {
                     visNode.x = node.ui.x;
                     visNode.y = node.ui.y;
-                    visNode.fixed = { x: true, y: true };  // Lock to model position
+                    visNode.fixed = true;  // Lock position completely
+                    console.log(`[Position] ${node.id} locked at (${node.ui.x}, ${node.ui.y})`);
                 }
 
                 visNodes.push(visNode);
@@ -439,14 +440,20 @@
             data.nodes.add(visNodes);
             data.edges.add(visEdges);
 
-            // Force positions for nodes that have ui.x/y in model
-            setTimeout(() => {
+            // Force positions for nodes that have ui.x/y in model (multiple passes)
+            const applyPositions = () => {
+                let count = 0;
                 filteredNodes.forEach(node => {
                     if (node.ui && node.ui.x !== undefined && node.ui.y !== undefined) {
                         network.moveNode(node.id, node.ui.x, node.ui.y);
+                        count++;
                     }
                 });
-            }, 100);
+                if (count > 0) console.log(`[Positions] Applied ${count} fixed positions`);
+            };
+            setTimeout(applyPositions, 100);
+            setTimeout(applyPositions, 500);
+            setTimeout(applyPositions, 1000);
 
             // Update UI
             document.getElementById('node-count').textContent = `${visNodes.length} nodes`;

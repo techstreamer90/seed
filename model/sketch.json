@@ -369,8 +369,8 @@
       "type": "Reality",
       "label": "Spawnie",
       "ui": {
-        "x": 148,
-        "y": -66
+        "x": 480,
+        "y": 0
       },
       "description": "Workflow orchestrator for CLI agents. First system fully embracing the Root philosophy.",
       "source": {
@@ -414,8 +414,8 @@
       "type": "Reality",
       "label": "Root",
       "ui": {
-        "x": -151,
-        "y": -58
+        "x": 560,
+        "y": 0
       },
       "description": "The Root meta-model. A model of all models. Your home. This node is self-referential - the Root models itself.",
       "source": {
@@ -899,6 +899,10 @@
           "received_from": "subsystem-root-store",
           "handoff_to": null
         }
+      },
+      "ui": {
+        "x": 640,
+        "y": 0
       }
     },
     {
@@ -926,6 +930,10 @@
             "exit_criteria": "Registry captures at least local-file locations and can be indexed by the store"
           }
         ]
+      },
+      "ui": {
+        "x": 480,
+        "y": 80
       }
     },
     {
@@ -1333,6 +1341,10 @@
             ]
           }
         }
+      },
+      "ui": {
+        "x": -309,
+        "y": 554
       }
     },
     {
@@ -1342,6 +1354,10 @@
       "description": "Loads root model and resolves hierarchical _ref submodels into a single logical graph with provenance.",
       "source": {
         "path": "root_store/loader.py"
+      },
+      "ui": {
+        "x": -584,
+        "y": 424
       }
     },
     {
@@ -1351,6 +1367,10 @@
       "description": "Maintains derived SQLite tables for nodes/edges/types/relationships and reverse lookups; supports rebuild from JSON.",
       "source": {
         "path": "root_store/index.py"
+      },
+      "ui": {
+        "x": -504,
+        "y": 424
       }
     },
     {
@@ -1360,6 +1380,10 @@
       "description": "Query engine (e.g., seedql-v0) backed by SQLite; returns results with provenance (where-defined mapping).",
       "source": {
         "path": "root_store/query.py"
+      },
+      "ui": {
+        "x": -424,
+        "y": 424
       }
     },
     {
@@ -1369,6 +1393,10 @@
       "description": "Safe writes: applies Changes as deterministic patches back to the correct JSON file(s), with locking and validation.",
       "source": {
         "path": "root_store/writer.py"
+      },
+      "ui": {
+        "x": -344,
+        "y": 424
       }
     },
     {
@@ -1378,6 +1406,10 @@
       "description": "Governance enforcement: Change gate, schema/edge validation, policy checks, and automatic audit execution.",
       "source": {
         "path": "root_store/enforcement.py"
+      },
+      "ui": {
+        "x": -584,
+        "y": 504
       }
     },
     {
@@ -1387,6 +1419,10 @@
       "description": "Runs modeled audits/checks and records results back into the model as structured evidence.",
       "source": {
         "path": "root_store/audits.py"
+      },
+      "ui": {
+        "x": -504,
+        "y": 504
       }
     },
     {
@@ -1396,6 +1432,10 @@
       "description": "Watches model JSON files for changes, invalidates/rebuilds index, and emits events/subscriptions for UI/agents.",
       "source": {
         "path": "root_store/watch.py"
+      },
+      "ui": {
+        "x": -424,
+        "y": 504
       }
     },
     {
@@ -1405,6 +1445,10 @@
       "description": "Local API (HTTP or IPC) for query/subscribe/apply_change/run_audit.",
       "source": {
         "path": "root_store/api.py"
+      },
+      "ui": {
+        "x": -344,
+        "y": 504
       }
     },
     {
@@ -1414,6 +1458,10 @@
       "description": "Human-facing translation layer: renders the model state as plain English and writes a snapshot file for users.",
       "source": {
         "path": "root_store/translate.py"
+      },
+      "ui": {
+        "x": -584,
+        "y": 584
       }
     },
     {
@@ -1423,19 +1471,31 @@
       "description": "Integration queue primitives: implements the verbal save command (enqueue integration for a node, run rough checks, propagate to parents).",
       "source": {
         "path": "root_store/integration.py"
+      },
+      "ui": {
+        "x": -504,
+        "y": 584
       }
     },
     {
       "id": "concept-verbal-save",
       "type": "Concept",
       "label": "Verbal Save",
-      "description": "A conversational cue (\"let's save\") that triggers integration for the current node: write summary/evidence, run rough checks, and propagate handoff to parents (turtles all the way up)."
+      "description": "A conversational cue (\"let's save\") that triggers integration for the current node: write summary/evidence, run rough checks, and propagate handoff to parents (turtles all the way up).",
+      "ui": {
+        "x": -200,
+        "y": 600
+      }
     },
     {
       "id": "concept-node-reality-sync-state",
       "type": "Concept",
       "label": "Node Reality Sync State",
-      "description": "A per-node, model-recorded notion of synchronization/alignment with underlying reality.\n\nConvention (v0): when action-save-node runs, it writes evidence.integration_queue.last_attempt (always) and evidence.integration_queue.last_save (only if preflight passes).\n\nPreflight captures:\n- git cleanliness (dirty / clean)\n- upstream freshness when available (behind / ahead)\n- local neighborhood scan (edges + adjacent nodes) to force a surrounding-area evaluation before declaring a save.\n\nThis keeps \"interrupts\" inside the model: agents can query for nodes whose last_attempt.preflight.ok is false, or whose rough checks failed, and treat them as \"reality may have changed\" / \"needs pull\"."
+      "description": "A per-node, model-recorded notion of synchronization/alignment with underlying reality.\n\nConvention (v0): when action-save-node runs, it writes evidence.integration_queue.last_attempt (always) and evidence.integration_queue.last_save (only if preflight passes).\n\nPreflight captures:\n- git cleanliness (dirty / clean)\n- upstream freshness when available (behind / ahead)\n- local neighborhood scan (edges + adjacent nodes) to force a surrounding-area evaluation before declaring a save.\n\nThis keeps \"interrupts\" inside the model: agents can query for nodes whose last_attempt.preflight.ok is false, or whose rough checks failed, and treat them as \"reality may have changed\" / \"needs pull\".",
+      "ui": {
+        "x": -120,
+        "y": 600
+      }
     },
     {
       "id": "concept-root-store-sqlite-schema-v0",
@@ -1446,6 +1506,10 @@
         "version": "v0",
         "db_file": "root_store/root_store.db",
         "derived_state": true
+      },
+      "ui": {
+        "x": -40,
+        "y": 600
       }
     },
     {
@@ -1460,6 +1524,10 @@
       "patch": {
         "view_id": "view-seed-dashboard",
         "ui_state_node": "ui-state-seed"
+      },
+      "ui": {
+        "x": -634,
+        "y": 229
       }
     },
     {
@@ -1480,6 +1548,10 @@
           "type": "Change",
           "example": "change-seed-change-executor-pipeline-v1"
         }
+      },
+      "ui": {
+        "x": -554,
+        "y": 229
       }
     },
     {
@@ -1499,6 +1571,10 @@
           "type": "Node",
           "example": "subsystem-root-store"
         }
+      },
+      "ui": {
+        "x": -634,
+        "y": 309
       }
     },
     {
@@ -1527,7 +1603,11 @@
           }
         ]
       },
-      "bindings": {}
+      "bindings": {},
+      "ui": {
+        "x": -640,
+        "y": 0
+      }
     },
     {
       "id": "subsystem-core",
@@ -1557,6 +1637,10 @@
             "cli"
           ]
         }
+      },
+      "ui": {
+        "x": -229,
+        "y": 554
       }
     },
     {
@@ -1580,6 +1664,10 @@
           ],
           "modules": []
         }
+      },
+      "ui": {
+        "x": -309,
+        "y": 634
       }
     },
     {
@@ -1607,7 +1695,11 @@
           }
         ]
       },
-      "status": "no-model-yet"
+      "status": "no-model-yet",
+      "ui": {
+        "x": 560,
+        "y": 80
+      }
     },
     {
       "id": "reality-bam-test-projects",
@@ -1630,7 +1722,11 @@
           }
         ]
       },
-      "status": "next-step"
+      "status": "next-step",
+      "ui": {
+        "x": 640,
+        "y": 80
+      }
     },
     {
       "id": "reality-seed-ui",
@@ -1642,7 +1738,7 @@
         "model_path": "model/sketch.json"
       },
       "agent_context": {
-        "_note": "The renderer IS the screen. Claude modifies model → screen updates. This is the real-time visualization reality.",
+        "_note": "The renderer IS the screen. Claude modifies model \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 screen updates. This is the real-time visualization reality.",
         "agent_context_version": "1.0",
         "focus": {
           "type": "Gap",
@@ -1652,8 +1748,8 @@
           {
             "type": "Todo",
             "id": "todo-ui-bidirectional-sync",
-            "why": "Full loop: model→screen→interaction→model",
-            "exit_criteria": "User clicks on screen → model updates → screen reflects change"
+            "why": "Full loop: model\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122screen\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122interaction\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122model",
+            "exit_criteria": "User clicks on screen \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model updates \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 screen reflects change"
           }
         ]
       },
@@ -1707,7 +1803,7 @@
       "evidence": {
         "integration_queue": {
           "last_attempt": {
-            "saved_at": "2026-02-01T14:58:55Z",
+            "saved_at": "2026-02-01T15:05:18Z",
             "node_id": "reality-seed-ui",
             "propagated": true,
             "ok": true,
@@ -1715,9 +1811,9 @@
               "is_repo": true,
               "branch": "master",
               "dirty": true,
-              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
+              "head": "80e8a7f2b2ed69e53e0602987a0481d928a950a9",
               "upstream": "origin/master",
-              "ahead": 1,
+              "ahead": 2,
               "behind": 0
             },
             "preflight": {
@@ -1893,7 +1989,7 @@
             ]
           },
           "last_save": {
-            "saved_at": "2026-02-01T14:58:55Z",
+            "saved_at": "2026-02-01T15:05:18Z",
             "node_id": "reality-seed-ui",
             "propagated": true,
             "ok": true,
@@ -1901,9 +1997,9 @@
               "is_repo": true,
               "branch": "master",
               "dirty": true,
-              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
+              "head": "80e8a7f2b2ed69e53e0602987a0481d928a950a9",
               "upstream": "origin/master",
-              "ahead": 1,
+              "ahead": 2,
               "behind": 0
             },
             "preflight": {
@@ -2082,6 +2178,10 @@
           "received_from": null,
           "handoff_to": null
         }
+      },
+      "ui": {
+        "x": 480,
+        "y": 160
       }
     },
     {
@@ -2107,6 +2207,10 @@
           "Hash checks recorded for seed-referenced source files",
           "A machine-readable verification result stored in the model"
         ]
+      },
+      "ui": {
+        "x": 149,
+        "y": -554
       }
     },
     {
@@ -2132,8 +2236,12 @@
         "pending": [
           "Hash verification for implementation files",
           "UIState-driven view switching",
-          "Bidirectional sync (user interaction → model update)"
+          "Bidirectional sync (user interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model update)"
         ]
+      },
+      "ui": {
+        "x": 229,
+        "y": -554
       }
     },
     {
@@ -2167,6 +2275,10 @@
         "ran_with": "Root model integrity snippet",
         "tool": "pylanceRunCodeSnippet",
         "result": "pass"
+      },
+      "ui": {
+        "x": -544,
+        "y": -424
       }
     },
     {
@@ -2186,7 +2298,11 @@
       ],
       "enforced_by": [
         "audit-change-alignment"
-      ]
+      ],
+      "ui": {
+        "x": -634,
+        "y": -229
+      }
     },
     {
       "id": "policy-interactive-agents-activate-only",
@@ -2206,7 +2322,11 @@
       ],
       "enforced_by": [
         "audit-change-executor-gate"
-      ]
+      ],
+      "ui": {
+        "x": -554,
+        "y": -229
+      }
     },
     {
       "id": "policy-bundle-closure-moves",
@@ -2225,7 +2345,11 @@
       ],
       "enforced_by": [
         "audit-root-store-attachment-closure"
-      ]
+      ],
+      "ui": {
+        "x": -634,
+        "y": -149
+      }
     },
     {
       "id": "policy-save-preflight-sync-v0",
@@ -2241,7 +2365,11 @@
         "Preflight MUST include a neighborhood scan (radius >= 1) and record it in evidence so later agents can see what was considered.",
         "Preflight MUST include a neighborhood scan (radius >= 1) and record it in evidence so later agents can see what was considered.",
         "Agents SHOULD fetch/pull latest reality (git) before running reality verification when an upstream exists."
-      ]
+      ],
+      "ui": {
+        "x": -554,
+        "y": -149
+      }
     },
     {
       "id": "audit-change-alignment",
@@ -2266,6 +2394,10 @@
         "ran_with": "Root model integrity snippet (includes change alignment checks)",
         "tool": "pylanceRunCodeSnippet",
         "result": "pass"
+      },
+      "ui": {
+        "x": -464,
+        "y": -424
       }
     },
     {
@@ -2276,7 +2408,11 @@
       "status": "ready",
       "method": "graph-check",
       "last_run": "2026-02-01T11:43:47+00:00",
-      "result": "pass"
+      "result": "pass",
+      "ui": {
+        "x": -389,
+        "y": -554
+      }
     },
     {
       "id": "check-change-has-aspiration",
@@ -2286,7 +2422,11 @@
       "status": "ready",
       "method": "graph-check",
       "last_run": "2026-02-01T11:43:47+00:00",
-      "result": "pass"
+      "result": "pass",
+      "ui": {
+        "x": -309,
+        "y": -554
+      }
     },
     {
       "id": "check-change-has-evidence",
@@ -2296,7 +2436,11 @@
       "status": "ready",
       "method": "graph+data-check",
       "last_run": "2026-02-01T11:43:47+00:00",
-      "result": "pass"
+      "result": "pass",
+      "ui": {
+        "x": -229,
+        "y": -554
+      }
     },
     {
       "id": "audit-change-executor-gate",
@@ -2315,7 +2459,11 @@
           "PASS means recent commits that touch model files include evidence of change-executor pipeline and Root audits passing."
         ]
       },
-      "status": "planned"
+      "status": "planned",
+      "ui": {
+        "x": -384,
+        "y": -424
+      }
     },
     {
       "id": "check-executor-applies-change-via-root-store",
@@ -2323,7 +2471,11 @@
       "label": "Check: Executor Uses Root Store Gate",
       "description": "The change executor applies modifications via Root Store writer/enforcement (apply_change) rather than ad-hoc edits.",
       "status": "planned",
-      "method": "pipeline-contract"
+      "method": "pipeline-contract",
+      "ui": {
+        "x": -149,
+        "y": -554
+      }
     },
     {
       "id": "check-executor-runs-root-audits",
@@ -2331,7 +2483,11 @@
       "label": "Check: Executor Runs Root Audits",
       "description": "The change executor runs Root audits (at minimum: audit-root-store-index-consistency and audit-root-compliance) before commit.",
       "status": "planned",
-      "method": "pipeline-contract"
+      "method": "pipeline-contract",
+      "ui": {
+        "x": -389,
+        "y": -474
+      }
     },
     {
       "id": "check-executor-commits-only-on-green",
@@ -2339,7 +2495,11 @@
       "label": "Check: Commit Only When Green",
       "description": "The change executor only commits when required audits/checks are PASS (green).",
       "status": "planned",
-      "method": "pipeline-contract"
+      "method": "pipeline-contract",
+      "ui": {
+        "x": -309,
+        "y": -474
+      }
     },
     {
       "id": "audit-root-store-distributed-backbone",
@@ -2352,7 +2512,11 @@
       },
       "method": "graph-contract+provenance-writeback",
       "status": "planned",
-      "findings": []
+      "findings": [],
+      "ui": {
+        "x": -544,
+        "y": -344
+      }
     },
     {
       "id": "audit-root-compliance",
@@ -2442,7 +2606,11 @@
           "suggested_spawnie_shell": "spawnie shell --new-window --working-dir C:/seed --model claude-sonnet \"A Root model audit failed. You are an interactive debug agent.  Open and read this scream packet JSON (it contains the Root top node and failure evidence): - C:/seed/root_store/screams/20260201_130340Z-audit-root-compliance.json  Goals: 1) Explain why the check failed (root cause). 2) Propose the smallest Change (model-level) or code fix (reality-level) to resolve it. 3) If a fix is code, list exact file edits; if a fix is model, list exact node/edge edits. 4) Define how we re-run the audit and what PASS evidence looks like.\""
         }
       },
-      "last_run": "2026-02-01T13:03:40Z"
+      "last_run": "2026-02-01T13:03:40Z",
+      "ui": {
+        "x": -464,
+        "y": -344
+      }
     },
     {
       "id": "check-root-compliance-agent-context",
@@ -2456,6 +2624,10 @@
       "evidence": {
         "ok": true,
         "missing": {}
+      },
+      "ui": {
+        "x": -229,
+        "y": -474
       }
     },
     {
@@ -2488,6 +2660,10 @@
         ],
         "missing_file": [],
         "mismatch": []
+      },
+      "ui": {
+        "x": -149,
+        "y": -474
       }
     },
     {
@@ -2501,6 +2677,10 @@
       "last_run": "2026-02-01T13:03:40Z",
       "evidence": {
         "ok": true
+      },
+      "ui": {
+        "x": -389,
+        "y": -394
       }
     },
     {
@@ -2514,6 +2694,10 @@
       "last_run": "2026-02-01T13:03:40Z",
       "evidence": {
         "ok": true
+      },
+      "ui": {
+        "x": -309,
+        "y": -394
       }
     },
     {
@@ -2522,7 +2706,11 @@
       "label": "Check: Store Has Model Registry",
       "description": "The store references a Model Registry reality so model locations are discoverable without hardcoding file paths.",
       "status": "planned",
-      "method": "graph-contract"
+      "method": "graph-contract",
+      "ui": {
+        "x": -229,
+        "y": -394
+      }
     },
     {
       "id": "check-root-store-provenance-writeback",
@@ -2530,7 +2718,11 @@
       "label": "Check: Provenance-Aware Writeback",
       "description": "Audits/checks and Change application write back to the correct provenance file for each node/edge (not only the root entry model file).",
       "status": "planned",
-      "method": "behavioral-contract"
+      "method": "behavioral-contract",
+      "ui": {
+        "x": -149,
+        "y": -394
+      }
     },
     {
       "id": "check-root-store-multi-root-loading",
@@ -2538,7 +2730,11 @@
       "label": "Check: Multi-Root Loading",
       "description": "The store can load multiple root entry models (not just a single root + its refs) into one logical graph.",
       "status": "planned",
-      "method": "loader-contract"
+      "method": "loader-contract",
+      "ui": {
+        "x": -389,
+        "y": -314
+      }
     },
     {
       "id": "change-seed-change-process-v1",
@@ -2557,7 +2753,11 @@
       "evidence_required": [
         "audit-change-alignment exists and is linked to checks",
         "All new work is represented as Change nodes tied to gaps/aspirations"
-      ]
+      ],
+      "ui": {
+        "x": -80,
+        "y": -600
+      }
     },
     {
       "id": "change-root-model-store-v1",
@@ -2579,7 +2779,11 @@
         "check-root-store-has-provenance passes",
         "check-root-store-change-gate passes",
         "check-root-store-reverse-lookups passes"
-      ]
+      ],
+      "ui": {
+        "x": 0,
+        "y": -600
+      }
     },
     {
       "id": "change-root-store-distributed-backbone-v1",
@@ -2602,7 +2806,11 @@
         "check-root-store-model-registry exists",
         "check-root-store-provenance-writeback exists",
         "check-root-store-multi-root-loading exists"
-      ]
+      ],
+      "ui": {
+        "x": -80,
+        "y": -520
+      }
     },
     {
       "id": "change-seed-change-executor-pipeline-v1",
@@ -2623,99 +2831,163 @@
         "policy-interactive-agents-activate-only exists",
         "action-request-change-executor exists",
         "audit-change-executor-gate exists and has checks"
-      ]
+      ],
+      "ui": {
+        "x": 0,
+        "y": -520
+      }
     },
     {
       "id": "concept-reality-as-model",
       "type": "Concept",
       "label": "Reality is Part of the Model",
-      "description": "Models embed reality via source references with hashes. Drift is detected automatically."
+      "description": "Models embed reality via source references with hashes. Drift is detected automatically.",
+      "ui": {
+        "x": 40,
+        "y": 600
+      }
     },
     {
       "id": "concept-intent-vs-reality",
       "type": "Concept",
       "label": "Intent vs Reality",
-      "description": "Nodes without source = goals. Nodes with source = current state. Delta = work to do."
+      "description": "Nodes without source = goals. Nodes with source = current state. Delta = work to do.",
+      "ui": {
+        "x": 120,
+        "y": 600
+      }
     },
     {
       "id": "concept-self-containing",
       "type": "Concept",
       "label": "Self-Containing Models",
-      "description": "Each reality contains its own model. The model lives inside what it describes."
+      "description": "Each reality contains its own model. The model lives inside what it describes.",
+      "ui": {
+        "x": -200,
+        "y": 680
+      }
     },
     {
       "id": "concept-model-as-workspace",
       "type": "Concept",
       "label": "Model as Workspace",
-      "description": "Everyone on the project works through the model. It's not documentation - it's the interface to reality."
+      "description": "Everyone on the project works through the model. It's not documentation - it's the interface to reality.",
+      "ui": {
+        "x": -120,
+        "y": 680
+      }
     },
     {
       "id": "concept-distributed-model",
       "type": "Concept",
       "label": "Distributed Model (Many Locations)",
-      "description": "A single logical model graph can live across many files and many repos. Stable IDs + provenance make the physical location an implementation detail. The store provides the interface."
+      "description": "A single logical model graph can live across many files and many repos. Stable IDs + provenance make the physical location an implementation detail. The store provides the interface.",
+      "ui": {
+        "x": -40,
+        "y": 680
+      }
     },
     {
       "id": "concept-provenance-writeback",
       "type": "Concept",
       "label": "Provenance-Aware Writeback",
-      "description": "When a node/edge is updated (audit evidence, todo status, Change application), the system writes back to the file that originally defined it. This is required to keep seed/model/sketch.json thin over time."
+      "description": "When a node/edge is updated (audit evidence, todo status, Change application), the system writes back to the file that originally defined it. This is required to keep seed/model/sketch.json thin over time.",
+      "ui": {
+        "x": 40,
+        "y": 680
+      }
     },
     {
       "id": "concept-hierarchical-bam",
       "type": "Concept",
       "label": "Hierarchical BAMs",
-      "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview. Fractal structure."
+      "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview. Fractal structure.",
+      "ui": {
+        "x": 120,
+        "y": 680
+      }
     },
     {
       "id": "concept-pulse-monitoring",
       "type": "Concept",
       "label": "Pulse-Based Health Monitoring",
-      "description": "Active health monitoring via heartbeats. Traditional process monitoring tells you IF a process exists. Pulse tells you HOW WELL it's running. Processes send pulses at intervals; monitors track timing and detect degradation before failure."
+      "description": "Active health monitoring via heartbeats. Traditional process monitoring tells you IF a process exists. Pulse tells you HOW WELL it's running. Processes send pulses at intervals; monitors track timing and detect degradation before failure.",
+      "ui": {
+        "x": -200,
+        "y": 760
+      }
     },
     {
       "id": "concept-train-the-world",
       "type": "Concept",
       "label": "Train the World, Not the Agent",
-      "description": "The paradigm shift: instead of making agents smarter at navigating messy reality, make reality (the model) complete enough that navigation is trivial. An agent in a well-modeled world needs no training - it simply reads and understands."
+      "description": "The paradigm shift: instead of making agents smarter at navigating messy reality, make reality (the model) complete enough that navigation is trivial. An agent in a well-modeled world needs no training - it simply reads and understands.",
+      "ui": {
+        "x": -120,
+        "y": 760
+      }
     },
     {
       "id": "concept-model-is-world",
       "type": "Concept",
       "label": "The Model IS the World",
-      "description": "The model is not a map of reality - it is reality. When you change the model, you change the world. When reality drifts from the model, reality is wrong, not the model."
+      "description": "The model is not a map of reality - it is reality. When you change the model, you change the world. When reality drifts from the model, reality is wrong, not the model.",
+      "ui": {
+        "x": -40,
+        "y": 760
+      }
     },
     {
       "id": "concept-model-drives-ui",
       "type": "Concept",
       "label": "Model-Driven UI",
-      "description": "The screen is a projection of the model. A renderer watches the model and updates the UI based solely on model nodes (views, queries, actions). Agents change what you see by editing the model, not by editing UI code."
+      "description": "The screen is a projection of the model. A renderer watches the model and updates the UI based solely on model nodes (views, queries, actions). Agents change what you see by editing the model, not by editing UI code.",
+      "ui": {
+        "x": 40,
+        "y": 760
+      }
     },
     {
       "id": "concept-proof-of-alignment",
       "type": "Concept",
       "label": "Proof of Alignment",
-      "description": "Any implemented reality must be provably aligned to the model: (1) the model's described reality is internally consistent, and (2) the actual files match the model via verified hashes and checks."
+      "description": "Any implemented reality must be provably aligned to the model: (1) the model's described reality is internally consistent, and (2) the actual files match the model via verified hashes and checks.",
+      "ui": {
+        "x": 120,
+        "y": 760
+      }
     },
     {
       "id": "concept-proof-protocol",
       "type": "Concept",
       "label": "Proof Protocol (Model-Recorded)",
-      "description": "Proof is a node in the model. A Proof records subject, method, status, and evidence. Preferred methods: schema-validate, hash-verify, and acceptance checks. Evidence should be machine-readable and stored in the model (or referenced by content-hash), not as ephemeral console output."
+      "description": "Proof is a node in the model. A Proof records subject, method, status, and evidence. Preferred methods: schema-validate, hash-verify, and acceptance checks. Evidence should be machine-readable and stored in the model (or referenced by content-hash), not as ephemeral console output.",
+      "ui": {
+        "x": -200,
+        "y": 840
+      }
     },
     {
       "id": "concept-spawn-point",
       "type": "Concept",
       "label": "Reality Node as Spawn Point",
-      "description": "Every model has a Reality node that serves as the agent's spawn point. The Reality node contains an agent_context property with: focus (current gap), work_queue (prioritized todos), principles (how to work), and how_to_work (step by step). An agent entering any model looks for the Reality node and reads its agent_context. This is the pattern for all models."
+      "description": "Every model has a Reality node that serves as the agent's spawn point. The Reality node contains an agent_context property with: focus (current gap), work_queue (prioritized todos), principles (how to work), and how_to_work (step by step). An agent entering any model looks for the Reality node and reads its agent_context. This is the pattern for all models.",
+      "ui": {
+        "x": -120,
+        "y": 840
+      }
     },
     {
       "id": "concept-screen-is-model",
       "type": "Concept",
-      "label": "Your Screen IS The Model",
-      "description": "What you see on screen is a direct projection of the model. Claude edits the model, and within 1 second your screen updates. This node appeared because Claude added it to the model. The equilibrium: model → screen → interaction → model. This is the live connection.",
+      "label": "YOUR SCREEN IS THE MODEL",
+      "description": "What you see on screen is a direct projection of the model. Claude edits the model, and within 1 second your screen updates. This node appeared because Claude added it to the model. The equilibrium: model \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 screen \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model. This is the live connection.",
       "created_at": "2026-02-01T15:05:00Z",
-      "created_by": "claude"
+      "created_by": "claude",
+      "ui": {
+        "x": -1000,
+        "y": 0
+      }
     },
     {
       "id": "concept-claude-sees-screen",
@@ -2723,15 +2995,19 @@
       "label": "Claude Sees Your Screen",
       "description": "Via screenshot.py, Claude can capture and view the user's screen. This closes the feedback loop: user sees model projections, Claude sees user's reality. Both directions of the equilibrium are now visible.",
       "created_at": "2026-02-01T15:05:00Z",
-      "created_by": "claude"
+      "created_by": "claude",
+      "ui": {
+        "x": 40,
+        "y": 840
+      }
     },
     {
       "id": "concept-hello-from-claude",
       "type": "Concept",
       "label": "We Did It",
       "ui": {
-        "x": -134,
-        "y": -91
+        "x": 120,
+        "y": 840
       },
       "description": "The model IS your screen. I can write, you see. You think, I act. This is the seed of something new."
     },
@@ -2741,7 +3017,11 @@
       "label": "The Seed Philosophy",
       "description": "Don't train your agent, train your world. Instead of building smarter agents that navigate chaos, build complete worlds (models) where everything is instantly known, understood, and workable. The transformation: from 'agent discovers files' to 'agent wakes up in a world'. This is the root aspiration.",
       "status": "core",
-      "immutable": true
+      "immutable": true,
+      "ui": {
+        "x": 434,
+        "y": 229
+      }
     },
     {
       "id": "aspiration-instant-context",
@@ -2749,7 +3029,11 @@
       "label": "Instant Context",
       "description": "An agent reading the model should instantly understand everything - structure, relationships, intent, state. No discovery phase. No file searching. No exploration. The model IS the understanding.",
       "status": "ongoing",
-      "derives_from": "aspiration-seed-philosophy"
+      "derives_from": "aspiration-seed-philosophy",
+      "ui": {
+        "x": 514,
+        "y": 229
+      }
     },
     {
       "id": "aspiration-model-contains-reality",
@@ -2757,7 +3041,11 @@
       "label": "Model Contains Reality",
       "description": "The model doesn't describe reality - it contains it. Source references with hashes embed actual artifacts. The model is not documentation of the world, it IS the world.",
       "status": "ongoing",
-      "derives_from": "aspiration-seed-philosophy"
+      "derives_from": "aspiration-seed-philosophy",
+      "ui": {
+        "x": 594,
+        "y": 229
+      }
     },
     {
       "id": "aspiration-model-everything",
@@ -2765,7 +3053,11 @@
       "label": "Model Everything",
       "description": "All systems the user works with should be modeled in seed. Every project, every tool, every workflow. The model is the universal interface to all realities.",
       "status": "ongoing",
-      "derives_from": "aspiration-seed-philosophy"
+      "derives_from": "aspiration-seed-philosophy",
+      "ui": {
+        "x": 434,
+        "y": 309
+      }
     },
     {
       "id": "aspiration-regenerable-reality",
@@ -2773,7 +3065,11 @@
       "label": "Regenerable Reality",
       "description": "If the model is complete enough, physical artifacts become disposable projections. Delete the code, regenerate from model. The model is the source, reality is the render.",
       "status": "vision",
-      "derives_from": "aspiration-model-contains-reality"
+      "derives_from": "aspiration-model-contains-reality",
+      "ui": {
+        "x": 514,
+        "y": 309
+      }
     },
     {
       "id": "aspiration-single-source-of-truth",
@@ -2781,7 +3077,11 @@
       "label": "Single Source of Truth",
       "description": "The model is THE truth. Not a reflection of truth, not documentation of truth - the actual truth. All changes flow through the model. Reality follows.",
       "status": "ongoing",
-      "derives_from": "aspiration-model-contains-reality"
+      "derives_from": "aspiration-model-contains-reality",
+      "ui": {
+        "x": 594,
+        "y": 309
+      }
     },
     {
       "id": "aspiration-aspiration-aligned-change",
@@ -2789,7 +3089,11 @@
       "label": "Aspiration-Aligned Change",
       "description": "Every accepted change demonstrably moves the system closer to one or more aspirations by reducing explicit gaps, with evidence recorded in the model.",
       "status": "ongoing",
-      "derives_from": "aspiration-single-source-of-truth"
+      "derives_from": "aspiration-single-source-of-truth",
+      "ui": {
+        "x": 434,
+        "y": 389
+      }
     },
     {
       "id": "aspiration-model-driven-visualization",
@@ -2797,7 +3101,11 @@
       "label": "Model-Driven Visualization (Browser)",
       "description": "A browser-based UI renders directly from the model (and referenced sub-models). Changing the model changes what is displayed on screen, without manual UI configuration. Interaction is modeled as actions that mutate the model. Long-term: the model contains a self-describing interface for navigation, status, drift, and work queues.",
       "status": "vision",
-      "derives_from": "aspiration-instant-context"
+      "derives_from": "aspiration-instant-context",
+      "ui": {
+        "x": 514,
+        "y": 389
+      }
     },
     {
       "id": "gap-model-not-complete",
@@ -2807,7 +3115,11 @@
       "aspiration": "aspiration-instant-context",
       "current_state": "Model has structure but incomplete source references. No hashes on Root Core modules. Spawnie model is referenced but not embedded.",
       "target_state": "Every source file has a node with verified hash. Agent reads model and knows everything without file discovery.",
-      "priority": "high"
+      "priority": "high",
+      "ui": {
+        "x": 264,
+        "y": 424
+      }
     },
     {
       "id": "gap-model-first-not-enforced",
@@ -2817,7 +3129,11 @@
       "aspiration": "aspiration-single-source-of-truth",
       "current_state": "Model exists alongside reality. Both can be edited independently. Drift can occur.",
       "target_state": "All work flows through the model. Reality is generated/updated from model. Direct file edits are detected as drift.",
-      "priority": "high"
+      "priority": "high",
+      "ui": {
+        "x": 344,
+        "y": 424
+      }
     },
     {
       "id": "gap-no-change-executor",
@@ -2827,7 +3143,11 @@
       "aspiration": "aspiration-single-source-of-truth",
       "current_state": "Edits can be applied directly to files. Audits may run, but nothing enforces a commit gate.",
       "target_state": "Edits flow through a spawned change executor that applies Change nodes via the Root Store gate, runs required audits, and only commits when all are PASS.",
-      "priority": "critical"
+      "priority": "critical",
+      "ui": {
+        "x": 424,
+        "y": 424
+      }
     },
     {
       "id": "gap-no-root-model-store",
@@ -2837,7 +3157,11 @@
       "aspiration": "aspiration-single-source-of-truth",
       "current_state": "Tools read JSON files directly and rebuild in-memory indexes ad hoc. Writes are manual edits without a consistent change gate. Audits/checks are not centrally runnable.",
       "target_state": "A Model Store maintains a derived SQLite index/cache, answers queries with provenance, applies Changes as safe writes with governance enforcement, and records audit evidence back into the model.",
-      "priority": "high"
+      "priority": "high",
+      "ui": {
+        "x": 504,
+        "y": 424
+      }
     },
     {
       "id": "gap-no-model-registry",
@@ -2847,7 +3171,11 @@
       "aspiration": "aspiration-instant-context",
       "current_state": "The store can follow _ref links from a single root entry model, but there is no explicit registry of model roots/locations.",
       "target_state": "A Model Registry reality exists that enumerates model roots/locations, enabling the store to build a unified graph across many worlds.",
-      "priority": "high"
+      "priority": "high",
+      "ui": {
+        "x": 264,
+        "y": 504
+      }
     },
     {
       "id": "gap-no-provenance-writeback",
@@ -2857,7 +3185,11 @@
       "aspiration": "aspiration-single-source-of-truth",
       "current_state": "Writeback behavior is not guaranteed for nodes defined in referenced models; this makes distributed models risky.",
       "target_state": "All model mutations (audits/checks/changes) write to the correct provenance file deterministically.",
-      "priority": "high"
+      "priority": "high",
+      "ui": {
+        "x": 344,
+        "y": 504
+      }
     },
     {
       "id": "gap-change-not-aspiration-aligned",
@@ -2867,7 +3199,11 @@
       "aspiration": "aspiration-aspiration-aligned-change",
       "current_state": "Work is tracked as todos/gaps, but there is no mandatory change proposal/acceptance gate tying each change to aspirations with evidence.",
       "target_state": "All work is represented as Change nodes that address explicit gaps, advance explicit aspirations, and produce model-recorded evidence. Audits enforce the policy.",
-      "priority": "high"
+      "priority": "high",
+      "ui": {
+        "x": 424,
+        "y": 504
+      }
     },
     {
       "id": "gap-seed-not-self-aware",
@@ -2877,16 +3213,20 @@
       "aspiration": "aspiration-model-contains-reality",
       "current_state": "Root is modeled as reality-seed node. But Root Core modules lack source hashes. Self-monitoring may not include Root itself.",
       "target_state": "Root appears in its own monitor with green/yellow/red status. All Root modules have verified hashes. Root is a first-class reality it monitors.",
-      "priority": "medium"
+      "priority": "medium",
+      "ui": {
+        "x": 504,
+        "y": 504
+      }
     },
     {
       "id": "gap-no-model-driven-ui",
       "type": "Gap",
       "label": "Model-Driven UI Partially Complete",
-      "description": "Browser renderer exists and shows model as interactive graph. Model changes appear on screen in real-time. Remaining: bidirectional sync (user interaction → model update) and full UIState integration.",
+      "description": "Browser renderer exists and shows model as interactive graph. Model changes appear on screen in real-time. Remaining: bidirectional sync (user interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model update) and full UIState integration.",
       "aspiration": "aspiration-model-driven-visualization",
       "current_state": "Renderer (ui/index.html) polls model JSON and visualizes nodes/edges as interactive graph. Model edits by Claude appear on screen within 1 second. Node details shown on click.",
-      "target_state": "Full bidirectional sync: model→screen (done) AND screen→model (pending). UIState drives view selection. User interactions write back to model.",
+      "target_state": "Full bidirectional sync: model\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122screen (done) AND screen\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122model (pending). UIState drives view selection. User interactions write back to model.",
       "priority": "medium",
       "progress": {
         "completed": [
@@ -2898,8 +3238,12 @@
         "remaining": [
           "Bidirectional sync",
           "UIState integration",
-          "User interaction → model writeback"
+          "User interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model writeback"
         ]
+      },
+      "ui": {
+        "x": 264,
+        "y": 584
       }
     },
     {
@@ -2910,7 +3254,11 @@
       "aspiration": "aspiration-single-source-of-truth",
       "current_state": "There is no enforced proof node pattern; verification outputs are not recorded as structured model data.",
       "target_state": "Each implemented reality has at least one Proof node with machine-readable evidence showing schema validity and hash alignment between model and files.",
-      "priority": "high"
+      "priority": "high",
+      "ui": {
+        "x": 344,
+        "y": 584
+      }
     },
     {
       "id": "gap-bam-tool-not-built",
@@ -2920,7 +3268,11 @@
       "aspiration": "aspiration-model-everything",
       "current_state": "BAM is modeled as a reality (no-model-yet) but lacks a working tool + model integration.",
       "target_state": "BAM tool exists, can generate/maintain BAMs, and is itself modeled with proofs.",
-      "priority": "medium"
+      "priority": "medium",
+      "ui": {
+        "x": 424,
+        "y": 584
+      }
     },
     {
       "id": "gap-bam-test-projects-missing",
@@ -2930,7 +3282,11 @@
       "aspiration": "aspiration-model-everything",
       "current_state": "Test project reality exists only as an idea; no concrete test suite of projects is modeled and validated.",
       "target_state": "Multiple small projects are modeled and used to validate modeling workflows and tooling.",
-      "priority": "low"
+      "priority": "low",
+      "ui": {
+        "x": 504,
+        "y": 584
+      }
     },
     {
       "id": "gap-execution-layer-missing",
@@ -2940,7 +3296,11 @@
       "aspiration": "aspiration-model-contains-reality",
       "current_state": "The model describes work and structure, but execution state/events are not modeled.",
       "target_state": "Execution triggers, events, and state are modeled; workers can run actions and record results as model data.",
-      "priority": "medium"
+      "priority": "medium",
+      "ui": {
+        "x": 264,
+        "y": 664
+      }
     },
     {
       "id": "gap-seed-tests-not-verified",
@@ -2950,7 +3310,11 @@
       "aspiration": "aspiration-model-contains-reality",
       "current_state": "Tests may pass/fail, but there is no structured, recorded evidence of verification.",
       "target_state": "Tests are verified when requested and results are recorded as proof/evidence in the model.",
-      "priority": "low"
+      "priority": "low",
+      "ui": {
+        "x": 344,
+        "y": 664
+      }
     },
     {
       "id": "gap-reality-lifecycle-not-managed",
@@ -2960,7 +3324,11 @@
       "aspiration": "aspiration-model-everything",
       "current_state": "Lifecycle is manual/outside the model.",
       "target_state": "Lifecycle is modeled (actions/events/state) and can be driven from the model/UI.",
-      "priority": "low"
+      "priority": "low",
+      "ui": {
+        "x": 424,
+        "y": 664
+      }
     },
     {
       "id": "todo-bam-tool",
@@ -2969,7 +3337,11 @@
       "description": "Create the BAM tool for generating and managing models of complex systems",
       "status": "pending",
       "priority": "high",
-      "closes": "gap-bam-tool-not-built"
+      "closes": "gap-bam-tool-not-built",
+      "ui": {
+        "x": 29,
+        "y": 554
+      }
     },
     {
       "id": "todo-test-projects",
@@ -2978,7 +3350,11 @@
       "description": "Test the model-as-workspace concept with smaller projects",
       "status": "pending",
       "priority": "medium",
-      "closes": "gap-bam-test-projects-missing"
+      "closes": "gap-bam-test-projects-missing",
+      "ui": {
+        "x": 109,
+        "y": 554
+      }
     },
     {
       "id": "todo-execution-layer",
@@ -2987,7 +3363,11 @@
       "description": "Add triggers, execution state, and events to the model so execution is also modeled",
       "status": "pending",
       "priority": "medium",
-      "closes": "gap-execution-layer-missing"
+      "closes": "gap-execution-layer-missing",
+      "ui": {
+        "x": 189,
+        "y": 554
+      }
     },
     {
       "id": "todo-change-process-v1",
@@ -2996,7 +3376,11 @@
       "description": "Define and adopt a change gate: every change must be a Change node that addresses a gap and advances an aspiration, with evidence recorded as Proof/Audit/Check nodes.",
       "status": "pending",
       "priority": "high",
-      "closes": "gap-change-not-aspiration-aligned"
+      "closes": "gap-change-not-aspiration-aligned",
+      "ui": {
+        "x": 269,
+        "y": 554
+      }
     },
     {
       "id": "todo-root-model-store-v1",
@@ -3005,7 +3389,11 @@
       "description": "Implement the Root Model Store: (1) resolve root + _ref hierarchy into a single logical graph with provenance (where-defined mapping), (2) maintain a derived SQLite index for fast query/search/reverse lookups, (3) apply Changes as safe writes with schema/edge validation and policy enforcement, (4) run audits/checks and record results back into the model.",
       "status": "in-progress",
       "priority": "high",
-      "closes": "gap-no-root-model-store"
+      "closes": "gap-no-root-model-store",
+      "ui": {
+        "x": 349,
+        "y": 554
+      }
     },
     {
       "id": "todo-model-registry-v0",
@@ -3014,7 +3402,11 @@
       "description": "Add a Model Registry reality and use it to enumerate model roots/locations so the store can index many worlds without hardcoded entrypoints.",
       "status": "pending",
       "priority": "high",
-      "closes": "gap-no-model-registry"
+      "closes": "gap-no-model-registry",
+      "ui": {
+        "x": 29,
+        "y": 634
+      }
     },
     {
       "id": "todo-provenance-writeback-v1",
@@ -3023,7 +3415,11 @@
       "description": "Ensure audits/checks and Changes write back to the file where each node/edge is defined. This is required to move most of seed/model/sketch.json into submodels safely.",
       "status": "pending",
       "priority": "high",
-      "closes": "gap-no-provenance-writeback"
+      "closes": "gap-no-provenance-writeback",
+      "ui": {
+        "x": 109,
+        "y": 634
+      }
     },
     {
       "id": "todo-model-only-workflow",
@@ -3032,7 +3428,11 @@
       "description": "From now on, all work happens through the model. This todo itself is worked on by editing the model. Document this workflow in the model. Make it the standard.",
       "status": "in-progress",
       "priority": "critical",
-      "closes": "gap-model-first-not-enforced"
+      "closes": "gap-model-first-not-enforced",
+      "ui": {
+        "x": 189,
+        "y": 634
+      }
     },
     {
       "id": "todo-change-executor-pipeline-v1",
@@ -3041,7 +3441,11 @@
       "description": "Implement the spawned change executor pipeline: branch, apply Change via Root Store, run tests/audits, and commit only if green.",
       "status": "pending",
       "priority": "critical",
-      "closes": "gap-no-change-executor"
+      "closes": "gap-no-change-executor",
+      "ui": {
+        "x": 269,
+        "y": 634
+      }
     },
     {
       "id": "todo-add-source-hashes",
@@ -3050,7 +3454,11 @@
       "description": "Add verified SHA256 hashes to all module nodes in subsystem-core. This enables drift detection and proves model contains reality.",
       "status": "pending",
       "priority": "high",
-      "closes": "gap-model-not-complete"
+      "closes": "gap-model-not-complete",
+      "ui": {
+        "x": 349,
+        "y": 634
+      }
     },
     {
       "id": "todo-seed-self-monitor",
@@ -3059,7 +3467,11 @@
       "description": "Ensure Root appears in its own monitor output. The pulse mechanism should check Root as a reality. Root should see itself.",
       "status": "pending",
       "priority": "high",
-      "closes": "gap-seed-not-self-aware"
+      "closes": "gap-seed-not-self-aware",
+      "ui": {
+        "x": 29,
+        "y": 714
+      }
     },
     {
       "id": "todo-ui-schema-minimal",
@@ -3068,7 +3480,11 @@
       "description": "Add minimal UI primitives to the model (e.g., UIState, View, Query, Action). These are declarative nodes that a renderer can interpret.",
       "status": "completed",
       "priority": "high",
-      "closes": "gap-no-model-driven-ui"
+      "closes": "gap-no-model-driven-ui",
+      "ui": {
+        "x": 109,
+        "y": 714
+      }
     },
     {
       "id": "todo-ui-renderer-reality-stub",
@@ -3085,6 +3501,10 @@
           "ui/index.html",
           "ui/server.py"
         ]
+      },
+      "ui": {
+        "x": 189,
+        "y": 714
       }
     },
     {
@@ -3092,8 +3512,8 @@
       "type": "Todo",
       "label": "Require Proof of Alignment for Implemented Realities",
       "ui": {
-        "x": -850,
-        "y": -389
+        "x": 269,
+        "y": 714
       },
       "description": "Define what 'proof' means for an implemented reality: model is internally consistent, and files match via hashes/verification output recorded back into the model.",
       "status": "pending",
@@ -3107,7 +3527,11 @@
       "description": "Add Proof nodes (stubs first, then evidence) for reality-seed and any implemented realities. Keep the format machine-readable.",
       "status": "pending",
       "priority": "high",
-      "closes": "gap-no-proof-recorded"
+      "closes": "gap-no-proof-recorded",
+      "ui": {
+        "x": 349,
+        "y": 714
+      }
     },
     {
       "id": "todo-embed-spawnie-model",
@@ -3116,7 +3540,11 @@
       "description": "Instead of just referencing spawnie's model, embed a meaningful summary so an agent reading seed's model understands spawnie without loading another file.",
       "status": "pending",
       "priority": "medium",
-      "closes": "gap-model-not-complete"
+      "closes": "gap-model-not-complete",
+      "ui": {
+        "x": 29,
+        "y": 794
+      }
     },
     {
       "id": "todo-seed-tests",
@@ -3125,7 +3553,11 @@
       "description": "Run and verify the existing tests in seed_core/tests/, ensure they pass. This is reality-layer work, do only when explicitly requested.",
       "status": "pending",
       "priority": "low",
-      "closes": "gap-seed-tests-not-verified"
+      "closes": "gap-seed-tests-not-verified",
+      "ui": {
+        "x": 109,
+        "y": 794
+      }
     },
     {
       "id": "todo-seed-lifecycle",
@@ -3134,7 +3566,11 @@
       "description": "Add start/stop/restart commands to seed for managing spawnie and other reality processes. Reality-layer work.",
       "status": "pending",
       "priority": "low",
-      "closes": "gap-reality-lifecycle-not-managed"
+      "closes": "gap-reality-lifecycle-not-managed",
+      "ui": {
+        "x": 189,
+        "y": 794
+      }
     }
   ],
   "edges": [
