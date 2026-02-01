@@ -1,17 +1,36 @@
 {
-  "schema_version": "2.0",
+  "schema_version": "3.0",
   "project": "seed",
   "description": "The root model. A model of all models. Your home.",
-  "updated_at": "2026-01-31T01:45:00Z",
+  "updated_at": "2026-02-01T04:30:00Z",
+
+  "meta": {
+    "layers": {
+      "description": "Layers are contextual lenses for interpreting nodes, not categories",
+      "aspiration": "The 'why' - goals, intent, human-controlled",
+      "design": "The 'what' - structure, relationships, definitions",
+      "execution": "The 'now' - active state, running processes, inputs/outputs",
+      "reality": "The 'is' - verified artifacts, hashes, ground truth"
+    },
+    "hierarchy": {
+      "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
+      "levels": ["meta", "reality", "system", "module", "component", "leaf"]
+    }
+  },
 
   "node_types": {
     "Reality": {
       "description": "A project/system with its own BAM model",
-      "properties": ["path", "model_path", "description", "status"]
+      "properties": ["path", "description", "status"],
+      "can_contain_model": true
     },
     "Concept": {
       "description": "A cross-cutting idea or pattern",
-      "properties": ["description", "realities"]
+      "properties": ["description"]
+    },
+    "Layer": {
+      "description": "A contextual lens for interpreting the model",
+      "properties": ["description", "perspective"]
     }
   },
 
@@ -35,37 +54,74 @@
 
   "nodes": [
     {
+      "id": "layer-aspiration",
+      "type": "Layer",
+      "label": "Aspiration",
+      "description": "The 'why' lens - goals, intent, human-controlled, immutable by AI",
+      "perspective": "why"
+    },
+    {
+      "id": "layer-design",
+      "type": "Layer",
+      "label": "Design",
+      "description": "The 'what' lens - structure, workflows, config, definitions",
+      "perspective": "what"
+    },
+    {
+      "id": "layer-execution",
+      "type": "Layer",
+      "label": "Execution",
+      "description": "The 'now' lens - running state, triggers, active processes",
+      "perspective": "now"
+    },
+    {
+      "id": "layer-reality",
+      "type": "Layer",
+      "label": "Reality",
+      "description": "The 'is' lens - verified artifacts, hashes, ground truth",
+      "perspective": "is"
+    },
+
+    {
       "id": "reality-spawnie",
       "type": "Reality",
       "label": "Spawnie",
-      "description": "Workflow orchestrator for CLI agents",
+      "description": "Workflow orchestrator for CLI agents. First system fully embracing seed philosophy.",
       "source": {
         "path": "C:/spawnie",
-        "model": "bam/model/sketch.json",
-        "verified": "2026-01-31T01:00:00Z"
+        "model_path": "bam/model/sketch.json"
+      },
+      "model": {
+        "_ref": "C:/spawnie/bam/model/sketch.json",
+        "_summary": {
+          "level": "reality",
+          "nodes": 58,
+          "edges": 73,
+          "subsystems": ["core", "providers", "workflows", "config"]
+        }
       }
     },
     {
       "id": "reality-bam",
       "type": "Reality",
       "label": "BAM",
-      "description": "Tool for generating models of complex systems. Long-term goal: bring existing RF semiconductor development chain into this model-based world. Near-term: test the concept with smaller projects.",
+      "description": "Tool for generating models of complex systems",
       "source": {
         "path": "C:/BAM",
-        "model": null,
-        "status": "no-model-yet"
-      }
+        "model_path": null
+      },
+      "status": "no-model-yet"
     },
     {
       "id": "reality-rf-semiconductor",
       "type": "Reality",
       "label": "RF Semiconductor",
-      "description": "The big goal. Model an existing RF development chain - designs, specs, measurements, everything. Everyone works through the model. As close to physical reality as possible.",
-      "status": "long-term-goal",
+      "description": "The big goal. Model an existing RF development chain - designs, specs, measurements, everything.",
+      "status": "aspiration",
       "intent": {
         "domain": "RF/microwave electronics",
         "artifacts": ["schematics", "layouts", "S-parameters", "measurement data", "specs"],
-        "goal": "Model as close to physical reality as possible"
+        "goal": "Model as close to physical reality as possible. Everyone works through the model."
       }
     },
     {
@@ -73,12 +129,9 @@
       "type": "Reality",
       "label": "BAM Test Projects",
       "description": "Smaller projects to validate the model-as-workspace concept before tackling RF.",
-      "status": "next-step",
-      "intent": {
-        "purpose": "Test and refine the approach",
-        "projects": []
-      }
+      "status": "next-step"
     },
+
     {
       "id": "concept-reality-as-model",
       "type": "Concept",
@@ -102,12 +155,26 @@
       "type": "Concept",
       "label": "Model as Workspace",
       "description": "Everyone on the project works through the model. It's not documentation - it's the interface to reality."
+    },
+    {
+      "id": "concept-hierarchical-bam",
+      "type": "Concept",
+      "label": "Hierarchical BAMs",
+      "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview. Fractal structure."
+    },
+    {
+      "id": "concept-layers-as-lenses",
+      "type": "Concept",
+      "label": "Layers as Contextual Lenses",
+      "description": "Layers are not categories for nodes - they are perspectives for interpretation. Aspiration (why), Design (what), Execution (now), Reality (is)."
     }
   ],
 
   "edges": [
     {"type": "EMBODIES", "from": "reality-spawnie", "to": "concept-reality-as-model"},
     {"type": "EMBODIES", "from": "reality-spawnie", "to": "concept-self-containing"},
+    {"type": "EMBODIES", "from": "reality-spawnie", "to": "concept-hierarchical-bam"},
+    {"type": "EMBODIES", "from": "reality-spawnie", "to": "concept-layers-as-lenses"},
     {"type": "USES", "from": "reality-spawnie", "to": "reality-bam"},
 
     {"type": "TARGETS", "from": "reality-bam", "to": "reality-rf-semiconductor"},
