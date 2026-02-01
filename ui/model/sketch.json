@@ -1,0 +1,190 @@
+{
+  "schema_version": "3.0",
+  "project": "seed-ui",
+  "description": "Root UI model: the browser renderer reality that materializes model-driven views.",
+  "updated_at": "2026-02-01T13:20:00Z",
+
+  "schema": {
+    "node_types": {
+      "Reality": {
+        "description": "A project/system with its own BAM model.",
+        "properties": ["path", "description", "status", "agent_context", "tbd"],
+        "can_contain_model": true
+      },
+      "Subsystem": {
+        "description": "A major component of a reality, can contain its own sub-BAM",
+        "properties": ["description"],
+        "can_contain_model": true
+      },
+      "Module": {
+        "description": "A code module (file)",
+        "properties": ["path", "description"]
+      },
+      "Concept": {
+        "description": "A cross-cutting idea or pattern",
+        "properties": ["description"]
+      },
+      "Gap": {
+        "description": "An explicit delta between aspiration and reality.",
+        "properties": ["aspiration", "current_state", "target_state", "priority"]
+      },
+      "Todo": {
+        "description": "A specific action that closes part of a gap",
+        "properties": ["description", "status", "priority"]
+      },
+      "UIState": {
+        "description": "UI state stored in the model.",
+        "properties": ["active_view", "selection", "filters", "theme", "layout_prefs"]
+      },
+      "View": {
+        "description": "A declarative UI view definition.",
+        "properties": ["description", "layout", "bindings"]
+      },
+      "Query": {
+        "description": "A declarative graph query over nodes/edges.",
+        "properties": ["description", "language", "expression", "params"]
+      },
+      "Action": {
+        "description": "A declarative mutation the renderer can apply to the model.",
+        "properties": ["description", "kind", "target", "patch"]
+      },
+      "Proof": {
+        "description": "A structured record that a described reality and its implemented artifacts are aligned.",
+        "properties": ["subject", "method", "status", "checked_at", "scope", "evidence"]
+      }
+    },
+    "edge_types": {
+      "CONTAINS": {
+        "description": "Parent contains child in hierarchy",
+        "from_types": ["Reality", "Subsystem"],
+        "to_types": ["Subsystem", "Module"]
+      },
+      "NEEDS": {
+        "description": "Something needs work done",
+        "from_types": ["Reality", "Subsystem"],
+        "to_types": ["Todo"]
+      },
+      "EMBODIES": {
+        "description": "Reality embodies a concept",
+        "from_types": ["Reality"],
+        "to_types": ["Concept"]
+      }
+    }
+  },
+
+  "nodes": [
+    {
+      "id": "reality-seed-ui",
+      "type": "Reality",
+      "label": "Root UI (Browser Renderer)",
+      "description": "A browser-based renderer that watches the Root model and materializes declarative views.",
+      "source": {
+        "path": "C:/seed/ui",
+        "model_path": "model/sketch.json"
+      },
+      "tbd": true,
+      "status": "tbd"
+    },
+    {
+      "id": "subsystem-renderer",
+      "type": "Subsystem",
+      "label": "Renderer",
+      "description": "Watches the model and renders UI from View/Query/Action/UIState nodes.",
+      "parent": "reality-seed-ui"
+    },
+
+    {
+      "id": "ui-state-seed",
+      "type": "UIState",
+      "label": "Root UI State",
+      "description": "The canonical UI state for model-driven visualization. Renderers should treat this as the single source of truth for what is shown.",
+      "active_view": "view-seed-dashboard",
+      "selection": {
+        "model_ref": "C:/seed/model/sketch.json",
+        "type": "Gap",
+        "id": "gap-model-not-complete"
+      },
+      "filters": {
+        "show_types": ["Reality", "Gap", "Todo"],
+        "todo_status": ["pending", "in-progress"],
+        "priorities": ["critical", "high", "medium", "low"]
+      },
+      "theme": {
+        "name": "system",
+        "density": "comfortable"
+      },
+      "layout_prefs": {
+        "default_split": "columns"
+      }
+    },
+
+    {
+      "id": "query-seed-realities",
+      "type": "Query",
+      "label": "Root: Realities",
+      "description": "All Reality nodes in the Root model.",
+      "language": "seedql-v0",
+      "expression": "nodes(type='Reality')",
+      "params": {"model_ref": "C:/seed/model/sketch.json"}
+    },
+    {
+      "id": "query-seed-gaps-high",
+      "type": "Query",
+      "label": "Root: High Priority Gaps",
+      "description": "High-priority gaps (work drivers) in the Root model.",
+      "language": "seedql-v0",
+      "expression": "nodes(type='Gap', where={priority:['critical','high']})",
+      "params": {"model_ref": "C:/seed/model/sketch.json"}
+    },
+    {
+      "id": "query-seed-todos-active",
+      "type": "Query",
+      "label": "Root: Active Todos",
+      "description": "Todos that are pending or in-progress in the Root model.",
+      "language": "seedql-v0",
+      "expression": "nodes(type='Todo', where={status:['pending','in-progress']})",
+      "params": {"model_ref": "C:/seed/model/sketch.json"}
+    },
+
+    {
+      "id": "action-ui-set-active-view",
+      "type": "Action",
+      "label": "Set Active View",
+      "description": "Switch the active view by updating ui-state-seed.active_view.",
+      "kind": "set",
+      "target": {"node": "ui-state-seed", "path": "active_view"},
+      "patch": {"value_from_param": "view_id"}
+    },
+    {
+      "id": "action-ui-select-node",
+      "type": "Action",
+      "label": "Select Node",
+      "description": "Change the current UI selection (focus) by updating ui-state-seed.selection.",
+      "kind": "set",
+      "target": {"node": "ui-state-seed", "path": "selection"},
+      "patch": {"value_from_param": "selection"}
+    },
+
+    {
+      "id": "view-seed-dashboard",
+      "type": "View",
+      "label": "Dashboard",
+      "description": "Starter view over the Root model: realities, high-priority gaps, and active todos.",
+      "layout": {
+        "type": "dashboard",
+        "regions": [
+          {"id": "realities", "title": "Realities", "query": "query-seed-realities"},
+          {"id": "gaps", "title": "High-Priority Gaps", "query": "query-seed-gaps-high"},
+          {"id": "todos", "title": "Active Todos", "query": "query-seed-todos-active"}
+        ]
+      },
+      "bindings": {
+        "on_select": "action-ui-select-node"
+      }
+    }
+  ],
+
+  "edges": [
+    {"type": "CONTAINS", "from": "reality-seed-ui", "to": "subsystem-renderer"}
+  ]
+}

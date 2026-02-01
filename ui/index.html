@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seed - Model Visualization</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #58a6ff;
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: #8b949e;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #238636;
+        }
+
+        .status-dot.watching {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        #graph-container {
+            flex: 1;
+            background: #0d1117;
+        }
+
+        #detail-panel {
+            width: 350px;
+            background: #161b22;
+            border-left: 1px solid #30363d;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .panel-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: #58a6ff;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .node-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .node-type.Reality { background: #238636; color: white; }
+        .node-type.Aspiration { background: #a371f7; color: white; }
+        .node-type.Gap { background: #f85149; color: white; }
+        .node-type.Todo { background: #d29922; color: white; }
+        .node-type.Concept { background: #58a6ff; color: white; }
+        .node-type.Subsystem { background: #3fb950; color: white; }
+        .node-type.Module { background: #8b949e; color: white; }
+        .node-type.View { background: #bf8700; color: white; }
+        .node-type.Action { background: #da3633; color: white; }
+        .node-type.Policy { background: #6e7681; color: white; }
+        .node-type.Audit { background: #1f6feb; color: white; }
+
+        .node-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 8px;
+        }
+
+        .node-description {
+            font-size: 13px;
+            color: #8b949e;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .node-meta {
+            font-size: 12px;
+            color: #6e7681;
+        }
+
+        .node-meta dt {
+            font-weight: 600;
+            color: #8b949e;
+            margin-top: 8px;
+        }
+
+        .node-meta dd {
+            margin-left: 0;
+            margin-top: 2px;
+            word-break: break-word;
+        }
+
+        .edges-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #30363d;
+        }
+
+        .edge-item {
+            font-size: 12px;
+            padding: 4px 0;
+            color: #8b949e;
+        }
+
+        .edge-type {
+            color: #58a6ff;
+            font-weight: 500;
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .filter-btn {
+            padding: 4px 10px;
+            font-size: 12px;
+            border: 1px solid #30363d;
+            background: transparent;
+            color: #8b949e;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #58a6ff;
+            color: #58a6ff;
+        }
+
+        .filter-btn.active {
+            background: #58a6ff;
+            border-color: #58a6ff;
+            color: white;
+        }
+
+        .empty-state {
+            color: #6e7681;
+            font-style: italic;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .legend {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 8px 16px;
+            background: #161b22;
+            border-top: 1px solid #30363d;
+            font-size: 11px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Seed - Model Visualization</h1>
+        <div class="status-bar">
+            <div class="status-indicator">
+                <div class="status-dot watching" id="status-dot"></div>
+                <span id="status-text">Watching model...</span>
+            </div>
+            <span id="node-count">0 nodes</span>
+            <span id="last-update">-</span>
+        </div>
+    </header>
+
+    <main>
+        <div id="graph-container"></div>
+        <div id="detail-panel">
+            <div class="panel-header">Node Details</div>
+            <div class="filters" id="type-filters"></div>
+            <div id="node-details">
+                <div class="empty-state">Click a node to see details</div>
+            </div>
+        </div>
+    </main>
+
+    <div class="legend" id="legend"></div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            modelPath: '../model/sketch.json',
+            uiModelPath: 'model/sketch.json',
+            selfPath: '/ui/index.html',  // For auto-reload on code changes
+            pollInterval: 1000, // 1 second for responsiveness
+            physics: {
+                stabilization: { iterations: 100 },
+                barnesHut: {
+                    gravitationalConstant: -2000,
+                    springLength: 150,
+                    springConstant: 0.04
+                }
+            }
+        };
+
+        // Node type colors
+        const TYPE_COLORS = {
+            Reality: '#238636',
+            Aspiration: '#a371f7',
+            Gap: '#f85149',
+            Todo: '#d29922',
+            Concept: '#58a6ff',
+            Subsystem: '#3fb950',
+            Module: '#8b949e',
+            View: '#bf8700',
+            Action: '#da3633',
+            Query: '#1f6feb',
+            UIState: '#db61a2',
+            Policy: '#6e7681',
+            Audit: '#1f6feb',
+            Check: '#1f6feb',
+            Proof: '#3fb950',
+            Change: '#f0883e'
+        };
+
+        // Edge styling
+        const EDGE_COLORS = {
+            CONTAINS: '#30363d',
+            USES: '#58a6ff',
+            EMBODIES: '#a371f7',
+            IMPLEMENTS: '#238636',
+            NEEDS: '#d29922',
+            TARGETS: '#58a6ff',
+            DERIVES_FROM: '#a371f7',
+            BLOCKS: '#f85149',
+            CLOSES: '#3fb950',
+            AUDITS: '#1f6feb',
+            GOVERNS: '#6e7681',
+            ADDRESSES: '#f85149',
+            ADVANCES: '#a371f7',
+            PRODUCES: '#3fb950',
+            HAS_CHECK: '#1f6feb'
+        };
+
+        // State
+        let model = null;
+        let uiState = null;
+        let network = null;
+        let lastModelHash = null;
+        let activeFilters = new Set();
+        let allNodeTypes = new Set();
+
+        // Initialize vis.js network
+        function initNetwork() {
+            const container = document.getElementById('graph-container');
+            const data = { nodes: new vis.DataSet([]), edges: new vis.DataSet([]) };
+
+            const options = {
+                nodes: {
+                    shape: 'box',
+                    margin: 10,
+                    font: { color: '#c9d1d9', size: 12 },
+                    borderWidth: 2,
+                    shadow: true
+                },
+                edges: {
+                    arrows: { to: { enabled: true, scaleFactor: 0.5 } },
+                    smooth: { type: 'cubicBezier', forceDirection: 'horizontal' },
+                    font: { color: '#6e7681', size: 10, strokeWidth: 0 }
+                },
+                physics: false,  // Disabled: no wobble on updates. Drag nodes to position them.
+                interaction: {
+                    hover: true,
+                    tooltipDelay: 200
+                }
+            };
+
+            network = new vis.Network(container, data, options);
+
+            network.on('click', (params) => {
+                if (params.nodes.length > 0) {
+                    selectNode(params.nodes[0]);
+                }
+            });
+
+            // Press 'S' to save current layout (positions) for Claude to read
+            document.addEventListener('keydown', async (e) => {
+                if (e.key === 's' || e.key === 'S') {
+                    saveLayoutForClaude();
+                }
+            });
+
+            return data;
+        }
+
+        // Load model from file
+        async function loadModel(path) {
+            try {
+                const response = await fetch(path + '?t=' + Date.now());
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error('Failed to load model:', error);
+                return null;
+            }
+        }
+
+        // Simple hash for change detection
+        function hashModel(obj) {
+            return JSON.stringify(obj).length + '-' + (obj.updated_at || '');
+        }
+
+        // Update the graph visualization
+        function updateGraph(data) {
+            if (!model || !model.nodes) return;
+
+            const visNodes = [];
+            const visEdges = [];
+
+            // Collect all node types
+            allNodeTypes.clear();
+            model.nodes.forEach(node => allNodeTypes.add(node.type));
+
+            // Filter nodes
+            const filteredNodes = model.nodes.filter(node => {
+                if (activeFilters.size === 0) return true;
+                return activeFilters.has(node.type);
+            });
+
+            const nodeIds = new Set(filteredNodes.map(n => n.id));
+
+            // Create vis.js nodes
+            filteredNodes.forEach(node => {
+                const color = TYPE_COLORS[node.type] || '#6e7681';
+                const visNode = {
+                    id: node.id,
+                    label: node.label || node.id,
+                    title: node.description || '',
+                    color: {
+                        background: color,
+                        border: color,
+                        highlight: { background: color, border: '#ffffff' },
+                        hover: { background: color, border: '#58a6ff' }
+                    },
+                    font: { color: '#ffffff' },
+                    _data: node
+                };
+
+                // If model specifies position, use it (Claude controls layout)
+                if (node.ui && node.ui.x !== undefined && node.ui.y !== undefined) {
+                    visNode.x = node.ui.x;
+                    visNode.y = node.ui.y;
+                    visNode.fixed = { x: true, y: true };  // Lock to model position
+                }
+
+                visNodes.push(visNode);
+            });
+
+            // Create vis.js edges
+            if (model.edges) {
+                model.edges.forEach((edge, idx) => {
+                    if (nodeIds.has(edge.from) && nodeIds.has(edge.to)) {
+                        visEdges.push({
+                            id: `edge-${idx}`,
+                            from: edge.from,
+                            to: edge.to,
+                            label: edge.type,
+                            color: { color: EDGE_COLORS[edge.type] || '#30363d' },
+                            _data: edge
+                        });
+                    }
+                });
+            }
+
+            // Update the network
+            data.nodes.clear();
+            data.edges.clear();
+            data.nodes.add(visNodes);
+            data.edges.add(visEdges);
+
+            // Force positions for nodes that have ui.x/y in model
+            setTimeout(() => {
+                filteredNodes.forEach(node => {
+                    if (node.ui && node.ui.x !== undefined && node.ui.y !== undefined) {
+                        network.moveNode(node.id, node.ui.x, node.ui.y);
+                    }
+                });
+            }, 100);
+
+            // Update UI
+            document.getElementById('node-count').textContent = `${visNodes.length} nodes`;
+            document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
+
+            // Update type filters
+            updateTypeFilters();
+            updateLegend();
+        }
+
+        // Update type filter buttons
+        function updateTypeFilters() {
+            const container = document.getElementById('type-filters');
+            container.innerHTML = '';
+
+            const sortedTypes = Array.from(allNodeTypes).sort();
+            sortedTypes.forEach(type => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn' + (activeFilters.has(type) ? ' active' : '');
+                btn.textContent = type;
+                btn.onclick = () => toggleFilter(type);
+                container.appendChild(btn);
+            });
+        }
+
+        // Toggle a type filter
+        function toggleFilter(type) {
+            if (activeFilters.has(type)) {
+                activeFilters.delete(type);
+            } else {
+                activeFilters.add(type);
+            }
+            updateGraph(network.body.data);
+        }
+
+        // Update legend
+        function updateLegend() {
+            const container = document.getElementById('legend');
+            container.innerHTML = '';
+
+            Object.entries(TYPE_COLORS).forEach(([type, color]) => {
+                if (allNodeTypes.has(type)) {
+                    const item = document.createElement('div');
+                    item.className = 'legend-item';
+                    item.innerHTML = `<div class="legend-color" style="background:${color}"></div>${type}`;
+                    container.appendChild(item);
+                }
+            });
+        }
+
+        // Select and show node details
+        function selectNode(nodeId) {
+            const node = model.nodes.find(n => n.id === nodeId);
+            if (!node) return;
+
+            // Update UI state in model (conceptually - for now just highlight)
+            network.selectNodes([nodeId]);
+
+            // Find edges for this node
+            const incomingEdges = model.edges?.filter(e => e.to === nodeId) || [];
+            const outgoingEdges = model.edges?.filter(e => e.from === nodeId) || [];
+
+            // Render details
+            const details = document.getElementById('node-details');
+            details.innerHTML = `
+                <span class="node-type ${node.type}">${node.type}</span>
+                <div class="node-label">${node.label || node.id}</div>
+                <div class="node-description">${node.description || 'No description'}</div>
+                <dl class="node-meta">
+                    <dt>ID</dt>
+                    <dd>${node.id}</dd>
+                    ${node.status ? `<dt>Status</dt><dd>${node.status}</dd>` : ''}
+                    ${node.priority ? `<dt>Priority</dt><dd>${node.priority}</dd>` : ''}
+                    ${node.source?.path ? `<dt>Path</dt><dd>${node.source.path}</dd>` : ''}
+                </dl>
+                ${(incomingEdges.length > 0 || outgoingEdges.length > 0) ? `
+                    <div class="edges-section">
+                        <div class="panel-header">Relationships</div>
+                        ${incomingEdges.map(e => `
+                            <div class="edge-item">
+                                <span class="edge-type">${e.type}</span> from ${e.from}
+                            </div>
+                        `).join('')}
+                        ${outgoingEdges.map(e => `
+                            <div class="edge-item">
+                                <span class="edge-type">${e.type}</span> to ${e.to}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        // Main polling loop
+        async function poll(data) {
+            const newModel = await loadModel(CONFIG.modelPath);
+
+            if (newModel) {
+                const newHash = hashModel(newModel);
+                if (newHash !== lastModelHash) {
+                    model = newModel;
+                    lastModelHash = newHash;
+                    updateGraph(data);
+                    document.getElementById('status-text').textContent = 'Model updated';
+                    setTimeout(() => {
+                        document.getElementById('status-text').textContent = 'Watching model...';
+                    }, 2000);
+                }
+            }
+
+            setTimeout(() => poll(data), CONFIG.pollInterval);
+        }
+
+        // Save layout for Claude to read
+        async function saveLayoutForClaude() {
+            if (!network || !model) return;
+
+            const positions = network.getPositions();
+            const layout = {
+                saved_at: new Date().toISOString(),
+                description: "Current screen layout - positions for each node. Claude can read this to understand what user sees.",
+                viewport: network.getViewPosition(),
+                scale: network.getScale(),
+                node_positions: {}
+            };
+
+            // Capture positions
+            Object.keys(positions).forEach(nodeId => {
+                const pos = positions[nodeId];
+                layout.node_positions[nodeId] = {
+                    x: Math.round(pos.x),
+                    y: Math.round(pos.y)
+                };
+            });
+
+            // Send to server to save as file
+            try {
+                const response = await fetch('/ui/layout.json', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(layout, null, 2)
+                });
+
+                // Also show in console for copy-paste fallback
+                console.log('Layout saved. Claude can read /ui/layout.json');
+                console.log(JSON.stringify(layout, null, 2));
+
+                // Visual feedback
+                document.getElementById('status-text').textContent = 'Layout saved! (Press S)';
+                setTimeout(() => {
+                    document.getElementById('status-text').textContent = 'Watching model...';
+                }, 2000);
+            } catch (e) {
+                // Fallback: copy to clipboard
+                const text = JSON.stringify(layout, null, 2);
+                navigator.clipboard.writeText(text).then(() => {
+                    document.getElementById('status-text').textContent = 'Layout copied to clipboard!';
+                    setTimeout(() => {
+                        document.getElementById('status-text').textContent = 'Watching model...';
+                    }, 2000);
+                });
+            }
+        }
+
+        // Auto-reload when Claude changes the renderer code
+        let lastCodeHash = null;
+        async function checkCodeReload() {
+            try {
+                const response = await fetch(CONFIG.selfPath + '?t=' + Date.now());
+                const code = await response.text();
+                const hash = code.length + '-' + code.slice(0, 100);
+
+                if (lastCodeHash === null) {
+                    lastCodeHash = hash;
+                } else if (hash !== lastCodeHash) {
+                    console.log('Code changed, reloading...');
+                    document.getElementById('status-text').textContent = 'Code updated, reloading...';
+                    setTimeout(() => location.reload(), 500);
+                    return;
+                }
+            } catch (e) {
+                console.error('Code reload check failed:', e);
+            }
+            setTimeout(checkCodeReload, 2000);  // Check every 2 seconds
+        }
+
+        // Initialize
+        async function init() {
+            const data = initNetwork();
+
+            // Initial load
+            model = await loadModel(CONFIG.modelPath);
+            if (model) {
+                lastModelHash = hashModel(model);
+                updateGraph(data);
+            }
+
+            // Start polling for model changes
+            poll(data);
+
+            // Start polling for code changes (auto-reload)
+            checkCodeReload();
+        }
+
+        init();
+    </script>
+</body>
+</html>

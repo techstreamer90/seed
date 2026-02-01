@@ -1,0 +1,459 @@
+{
+  "saved_at": "2026-02-01T14:52:16.970Z",
+  "description": "Current screen layout - positions for each node. Claude can read this to understand what user sees.",
+  "viewport": {
+    "x": 0,
+    "y": 0
+  },
+  "scale": 0.9878934624697336,
+  "node_positions": {
+    "reality-spawnie": {
+      "x": 148,
+      "y": -66
+    },
+    "reality-seed": {
+      "x": -151,
+      "y": -58
+    },
+    "reality-root-model-store": {
+      "x": 74,
+      "y": -144
+    },
+    "reality-model-registry": {
+      "x": -16,
+      "y": 161
+    },
+    "subsystem-root-store": {
+      "x": 91,
+      "y": -134
+    },
+    "mod-store-loader": {
+      "x": -65,
+      "y": 148
+    },
+    "mod-store-index": {
+      "x": 152,
+      "y": -56
+    },
+    "mod-store-query": {
+      "x": -23,
+      "y": 160
+    },
+    "mod-store-writer": {
+      "x": -147,
+      "y": -67
+    },
+    "mod-store-enforcement": {
+      "x": 143,
+      "y": 76
+    },
+    "mod-store-audits": {
+      "x": 1,
+      "y": -162
+    },
+    "mod-store-watch": {
+      "x": 14,
+      "y": 161
+    },
+    "mod-store-api": {
+      "x": -146,
+      "y": 71
+    },
+    "mod-store-translate": {
+      "x": -83,
+      "y": 139
+    },
+    "mod-store-integration": {
+      "x": -162,
+      "y": 5
+    },
+    "concept-verbal-save": {
+      "x": -74,
+      "y": 144
+    },
+    "concept-node-reality-sync-state": {
+      "x": -73,
+      "y": -144
+    },
+    "concept-root-store-sqlite-schema-v0": {
+      "x": 110,
+      "y": -119
+    },
+    "action-open-seed-ui-dashboard": {
+      "x": 158,
+      "y": 34
+    },
+    "action-request-change-executor": {
+      "x": 43,
+      "y": -156
+    },
+    "action-save-node": {
+      "x": -75,
+      "y": -144
+    },
+    "view-seed-ui-entry": {
+      "x": 7,
+      "y": -162
+    },
+    "subsystem-core": {
+      "x": 105,
+      "y": 124
+    },
+    "subsystem-ui": {
+      "x": 143,
+      "y": -76
+    },
+    "reality-bam": {
+      "x": 145,
+      "y": 73
+    },
+    "reality-bam-test-projects": {
+      "x": 62,
+      "y": 150
+    },
+    "reality-seed-ui": {
+      "x": 161,
+      "y": -21
+    },
+    "proof-reality-seed": {
+      "x": -158,
+      "y": -36
+    },
+    "proof-reality-seed-ui": {
+      "x": -161,
+      "y": -20
+    },
+    "audit-seed-model-consistency": {
+      "x": 3,
+      "y": -162
+    },
+    "policy-aspiration-aligned-change": {
+      "x": 151,
+      "y": 60
+    },
+    "policy-interactive-agents-activate-only": {
+      "x": 99,
+      "y": -128
+    },
+    "policy-bundle-closure-moves": {
+      "x": -2,
+      "y": 162
+    },
+    "policy-save-preflight-sync-v0": {
+      "x": 113,
+      "y": -116
+    },
+    "audit-change-alignment": {
+      "x": -152,
+      "y": 55
+    },
+    "check-change-has-gap": {
+      "x": -12,
+      "y": -162
+    },
+    "check-change-has-aspiration": {
+      "x": 54,
+      "y": 153
+    },
+    "check-change-has-evidence": {
+      "x": 92,
+      "y": 133
+    },
+    "audit-change-executor-gate": {
+      "x": -105,
+      "y": -123
+    },
+    "check-executor-applies-change-via-root-store": {
+      "x": -130,
+      "y": -97
+    },
+    "check-executor-runs-root-audits": {
+      "x": 148,
+      "y": 66
+    },
+    "check-executor-commits-only-on-green": {
+      "x": 160,
+      "y": -26
+    },
+    "audit-root-store-distributed-backbone": {
+      "x": 6,
+      "y": 162
+    },
+    "audit-root-compliance": {
+      "x": 157,
+      "y": 40
+    },
+    "check-root-compliance-agent-context": {
+      "x": -161,
+      "y": -15
+    },
+    "check-root-compliance-hash-control": {
+      "x": -90,
+      "y": -135
+    },
+    "check-root-compliance-governance": {
+      "x": -28,
+      "y": 160
+    },
+    "check-root-compliance-audits": {
+      "x": -141,
+      "y": 80
+    },
+    "check-root-store-model-registry": {
+      "x": -126,
+      "y": -102
+    },
+    "check-root-store-provenance-writeback": {
+      "x": 157,
+      "y": -41
+    },
+    "check-root-store-multi-root-loading": {
+      "x": 161,
+      "y": 20
+    },
+    "change-seed-change-process-v1": {
+      "x": -70,
+      "y": -146
+    },
+    "change-root-model-store-v1": {
+      "x": 130,
+      "y": -97
+    },
+    "change-root-store-distributed-backbone-v1": {
+      "x": 87,
+      "y": -137
+    },
+    "change-seed-change-executor-pipeline-v1": {
+      "x": -6,
+      "y": 162
+    },
+    "concept-reality-as-model": {
+      "x": -154,
+      "y": -51
+    },
+    "concept-intent-vs-reality": {
+      "x": -122,
+      "y": 107
+    },
+    "concept-self-containing": {
+      "x": 137,
+      "y": -87
+    },
+    "concept-model-as-workspace": {
+      "x": -100,
+      "y": -128
+    },
+    "concept-distributed-model": {
+      "x": 162,
+      "y": 12
+    },
+    "concept-provenance-writeback": {
+      "x": 161,
+      "y": -19
+    },
+    "concept-hierarchical-bam": {
+      "x": -117,
+      "y": -112
+    },
+    "concept-pulse-monitoring": {
+      "x": -9,
+      "y": 162
+    },
+    "concept-train-the-world": {
+      "x": -141,
+      "y": 80
+    },
+    "concept-model-is-world": {
+      "x": -28,
+      "y": 160
+    },
+    "concept-model-drives-ui": {
+      "x": -135,
+      "y": -89
+    },
+    "concept-proof-of-alignment": {
+      "x": 77,
+      "y": -143
+    },
+    "concept-proof-protocol": {
+      "x": 152,
+      "y": 57
+    },
+    "concept-spawn-point": {
+      "x": -95,
+      "y": 131
+    },
+    "concept-screen-is-model": {
+      "x": 116,
+      "y": -113
+    },
+    "concept-hello-from-claude": {
+      "x": -134,
+      "y": -91
+    },
+    "aspiration-seed-philosophy": {
+      "x": 131,
+      "y": 95
+    },
+    "aspiration-instant-context": {
+      "x": -139,
+      "y": 83
+    },
+    "aspiration-model-contains-reality": {
+      "x": -9,
+      "y": -162
+    },
+    "aspiration-model-everything": {
+      "x": 86,
+      "y": 138
+    },
+    "aspiration-regenerable-reality": {
+      "x": -160,
+      "y": 23
+    },
+    "aspiration-single-source-of-truth": {
+      "x": -44,
+      "y": -156
+    },
+    "aspiration-aspiration-aligned-change": {
+      "x": -60,
+      "y": -151
+    },
+    "aspiration-model-driven-visualization": {
+      "x": -110,
+      "y": -119
+    },
+    "gap-model-not-complete": {
+      "x": -103,
+      "y": -125
+    },
+    "gap-model-first-not-enforced": {
+      "x": 161,
+      "y": 19
+    },
+    "gap-no-change-executor": {
+      "x": -142,
+      "y": -78
+    },
+    "gap-no-root-model-store": {
+      "x": -123,
+      "y": -106
+    },
+    "gap-no-model-registry": {
+      "x": 160,
+      "y": 26
+    },
+    "gap-no-provenance-writeback": {
+      "x": 64,
+      "y": -149
+    },
+    "gap-change-not-aspiration-aligned": {
+      "x": -150,
+      "y": -62
+    },
+    "gap-seed-not-self-aware": {
+      "x": 115,
+      "y": -114
+    },
+    "gap-no-model-driven-ui": {
+      "x": -153,
+      "y": 52
+    },
+    "gap-no-proof-recorded": {
+      "x": -43,
+      "y": -156
+    },
+    "gap-bam-tool-not-built": {
+      "x": -75,
+      "y": -144
+    },
+    "gap-bam-test-projects-missing": {
+      "x": -162,
+      "y": -9
+    },
+    "gap-execution-layer-missing": {
+      "x": 44,
+      "y": -156
+    },
+    "gap-seed-tests-not-verified": {
+      "x": 162,
+      "y": 2
+    },
+    "gap-reality-lifecycle-not-managed": {
+      "x": -142,
+      "y": 79
+    },
+    "todo-bam-tool": {
+      "x": -156,
+      "y": 45
+    },
+    "todo-test-projects": {
+      "x": -155,
+      "y": 47
+    },
+    "todo-execution-layer": {
+      "x": 162,
+      "y": -5
+    },
+    "todo-change-process-v1": {
+      "x": 14,
+      "y": -161
+    },
+    "todo-root-model-store-v1": {
+      "x": 9,
+      "y": 162
+    },
+    "todo-model-registry-v0": {
+      "x": -141,
+      "y": -80
+    },
+    "todo-provenance-writeback-v1": {
+      "x": -151,
+      "y": 59
+    },
+    "todo-model-only-workflow": {
+      "x": -155,
+      "y": -47
+    },
+    "todo-change-executor-pipeline-v1": {
+      "x": -41,
+      "y": -157
+    },
+    "todo-add-source-hashes": {
+      "x": 161,
+      "y": 22
+    },
+    "todo-seed-self-monitor": {
+      "x": 100,
+      "y": 128
+    },
+    "todo-ui-schema-minimal": {
+      "x": -147,
+      "y": -67
+    },
+    "todo-ui-renderer-reality-stub": {
+      "x": 162,
+      "y": 12
+    },
+    "todo-proof-of-alignment": {
+      "x": -850,
+      "y": -389
+    },
+    "todo-add-proof-stubs": {
+      "x": 161,
+      "y": 20
+    },
+    "todo-embed-spawnie-model": {
+      "x": -158,
+      "y": -37
+    },
+    "todo-seed-tests": {
+      "x": -87,
+      "y": -137
+    },
+    "todo-seed-lifecycle": {
+      "x": 160,
+      "y": -23
+    }
+  }
+}
