@@ -2,7 +2,7 @@
   "schema_version": "3.0",
   "project": "seed",
   "description": "The root model. A model of all models. Your home.",
-  "updated_at": "2026-02-01T15:30:00Z",
+  "updated_at": "2026-02-01T16:07:22Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -1731,7 +1731,7 @@
     {
       "id": "reality-seed-ui",
       "type": "Reality",
-      "label": "Root UI (Browser Renderer)",
+      "label": "4. REALITY: Browser Renderer",
       "description": "A browser-based renderer that watches the Root model and renders declarative views as an interactive graph. Polls the model for changes and updates visualization in real-time. Your screen IS this reality - model changes become visual truth.",
       "source": {
         "path": "C:/seed/ui",
@@ -2180,8 +2180,8 @@
         }
       },
       "ui": {
-        "x": 480,
-        "y": 160
+        "x": 250,
+        "y": 0
       }
     },
     {
@@ -2980,12 +2980,12 @@
     {
       "id": "concept-screen-is-model",
       "type": "Concept",
-      "label": "YOUR SCREEN IS THE MODEL",
+      "label": "5. CONCEPT: Screen IS Model",
       "description": "What you see on screen is a direct projection of the model. Claude edits the model, and within 1 second your screen updates. This node appeared because Claude added it to the model. The equilibrium: model \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 screen \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model. This is the live connection.",
       "created_at": "2026-02-01T15:05:00Z",
       "created_by": "claude",
       "ui": {
-        "x": -1000,
+        "x": 500,
         "y": 0
       }
     },
@@ -3000,16 +3000,6 @@
         "x": 40,
         "y": 840
       }
-    },
-    {
-      "id": "concept-hello-from-claude",
-      "type": "Concept",
-      "label": "We Did It",
-      "ui": {
-        "x": 120,
-        "y": 840
-      },
-      "description": "The model IS your screen. I can write, you see. You think, I act. This is the seed of something new."
     },
     {
       "id": "aspiration-seed-philosophy",
@@ -3098,13 +3088,13 @@
     {
       "id": "aspiration-model-driven-visualization",
       "type": "Aspiration",
-      "label": "Model-Driven Visualization (Browser)",
+      "label": "1. ASPIRATION: Model-Driven Visualization",
       "description": "A browser-based UI renders directly from the model (and referenced sub-models). Changing the model changes what is displayed on screen, without manual UI configuration. Interaction is modeled as actions that mutate the model. Long-term: the model contains a self-describing interface for navigation, status, drift, and work queues.",
       "status": "vision",
       "derives_from": "aspiration-instant-context",
       "ui": {
-        "x": 514,
-        "y": 389
+        "x": -500,
+        "y": 0
       }
     },
     {
@@ -3222,7 +3212,7 @@
     {
       "id": "gap-no-model-driven-ui",
       "type": "Gap",
-      "label": "Model-Driven UI Partially Complete",
+      "label": "2. GAP: No UI Yet",
       "description": "Browser renderer exists and shows model as interactive graph. Model changes appear on screen in real-time. Remaining: bidirectional sync (user interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model update) and full UIState integration.",
       "aspiration": "aspiration-model-driven-visualization",
       "current_state": "Renderer (ui/index.html) polls model JSON and visualizes nodes/edges as interactive graph. Model edits by Claude appear on screen within 1 second. Node details shown on click.",
@@ -3242,8 +3232,8 @@
         ]
       },
       "ui": {
-        "x": 264,
-        "y": 584
+        "x": -250,
+        "y": 0
       }
     },
     {
@@ -3489,7 +3479,7 @@
     {
       "id": "todo-ui-renderer-reality-stub",
       "type": "Todo",
-      "label": "Add UI Renderer Reality (TBD)",
+      "label": "3. TODO: Build Renderer",
       "description": "Add a minimal TBD reality node for the future browser renderer. Keep it tiny: just enough for a worker to implement if/when needed.",
       "status": "completed",
       "completed_at": "2026-02-01T15:00:00Z",
@@ -3503,8 +3493,8 @@
         ]
       },
       "ui": {
-        "x": 189,
-        "y": 714
+        "x": 0,
+        "y": 0
       }
     },
     {
