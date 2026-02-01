@@ -31,6 +31,14 @@
     "Layer": {
       "description": "A contextual lens for interpreting the model",
       "properties": ["description", "perspective"]
+    },
+    "Aspiration": {
+      "description": "A goal - human controlled, immutable by AI",
+      "properties": ["description", "status"]
+    },
+    "Todo": {
+      "description": "Work that needs to be done",
+      "properties": ["description", "status", "priority"]
     }
   },
 
@@ -49,6 +57,21 @@
       "description": "Reality is working towards another (long-term goal)",
       "from_types": ["Reality"],
       "to_types": ["Reality"]
+    },
+    "IMPLEMENTS": {
+      "description": "Reality implements an aspiration",
+      "from_types": ["Reality"],
+      "to_types": ["Aspiration"]
+    },
+    "NEEDS": {
+      "description": "Something needs work done",
+      "from_types": ["Reality", "Aspiration"],
+      "to_types": ["Todo"]
+    },
+    "PROVIDES_LENS": {
+      "description": "Layer provides perspective for interpreting",
+      "from_types": ["Layer"],
+      "to_types": ["Reality", "Concept"]
     }
   },
 
@@ -94,10 +117,12 @@
       "model": {
         "_ref": "C:/spawnie/bam/model/sketch.json",
         "_summary": {
-          "level": "reality",
-          "nodes": 58,
-          "edges": 73,
-          "subsystems": ["core", "providers", "workflows", "config"]
+          "schema_version": "3.0",
+          "level": "system",
+          "top_level_nodes": 10,
+          "subsystems": ["core", "providers", "workflows"],
+          "concepts": 3,
+          "aspirations": 2
         }
       }
     },
@@ -167,6 +192,53 @@
       "type": "Concept",
       "label": "Layers as Contextual Lenses",
       "description": "Layers are not categories for nodes - they are perspectives for interpretation. Aspiration (why), Design (what), Execution (now), Reality (is)."
+    },
+
+    {
+      "id": "aspiration-model-everything",
+      "type": "Aspiration",
+      "label": "Model Everything",
+      "description": "All systems the user works with should be modeled in seed. The model is the interface to reality.",
+      "status": "ongoing"
+    },
+    {
+      "id": "aspiration-rf-modeled",
+      "type": "Aspiration",
+      "label": "RF Development Chain Modeled",
+      "description": "The ultimate goal: model an existing RF semiconductor development chain - designs, specs, measurements, everything.",
+      "status": "long-term"
+    },
+    {
+      "id": "aspiration-regenerable-reality",
+      "type": "Aspiration",
+      "label": "Regenerable Reality",
+      "description": "If the model is complete enough, reality becomes disposable. Artifacts are regenerable projections.",
+      "status": "vision"
+    },
+
+    {
+      "id": "todo-bam-tool",
+      "type": "Todo",
+      "label": "Build BAM Tool",
+      "description": "Create the BAM tool for generating and managing models of complex systems",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "id": "todo-test-projects",
+      "type": "Todo",
+      "label": "BAM Test Projects",
+      "description": "Test the model-as-workspace concept with smaller projects before tackling RF",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "id": "todo-execution-layer",
+      "type": "Todo",
+      "label": "Model Execution Layer",
+      "description": "Add triggers, execution state, and events to the model so execution is also modeled",
+      "status": "pending",
+      "priority": "medium"
     }
   ],
 
@@ -175,12 +247,20 @@
     {"type": "EMBODIES", "from": "reality-spawnie", "to": "concept-self-containing"},
     {"type": "EMBODIES", "from": "reality-spawnie", "to": "concept-hierarchical-bam"},
     {"type": "EMBODIES", "from": "reality-spawnie", "to": "concept-layers-as-lenses"},
+    {"type": "EMBODIES", "from": "reality-spawnie", "to": "concept-intent-vs-reality"},
     {"type": "USES", "from": "reality-spawnie", "to": "reality-bam"},
+    {"type": "IMPLEMENTS", "from": "reality-spawnie", "to": "aspiration-model-everything"},
 
     {"type": "TARGETS", "from": "reality-bam", "to": "reality-rf-semiconductor"},
     {"type": "USES", "from": "reality-bam", "to": "reality-bam-test-projects"},
+    {"type": "NEEDS", "from": "reality-bam", "to": "todo-bam-tool"},
+    {"type": "NEEDS", "from": "reality-bam-test-projects", "to": "todo-test-projects"},
 
     {"type": "EMBODIES", "from": "reality-rf-semiconductor", "to": "concept-model-as-workspace"},
-    {"type": "EMBODIES", "from": "reality-rf-semiconductor", "to": "concept-reality-as-model"}
+    {"type": "EMBODIES", "from": "reality-rf-semiconductor", "to": "concept-reality-as-model"},
+    {"type": "IMPLEMENTS", "from": "reality-rf-semiconductor", "to": "aspiration-rf-modeled"},
+    {"type": "IMPLEMENTS", "from": "reality-rf-semiconductor", "to": "aspiration-regenerable-reality"},
+
+    {"type": "NEEDS", "from": "aspiration-model-everything", "to": "todo-execution-layer"}
   ]
 }

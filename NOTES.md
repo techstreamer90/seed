@@ -22,7 +22,7 @@ Each "reality" is a project that contains its own BAM model. Seed tracks them al
 seed (meta-model)
  │
  ├── reality: Spawnie
- │     └── C:/spawnie/bam/model/sketch.json (40 nodes)
+ │     └── C:/spawnie/bam/model/sketch.json (hierarchical, ~10 top-level nodes)
  │
  ├── reality: BAM
  │     └── no model yet
@@ -83,13 +83,16 @@ Refinement of "Intent vs Reality": not all intent is equal.
 - This is the constitution, the north star
 - Prevents AI from moving goalposts
 
-**Layers of reality (top to bottom):**
+**Layers as contextual lenses (schema 3.0):**
 ```
-Aspiration     [human-controlled, immutable by AI]
-Orchestration  [how to achieve aspiration]
-Implementation [AI works autonomously here]
-Base reality   [actual artifacts, verified by hash]
+Aspiration     [why]  - goals, intent, human-controlled
+Design         [what] - structure, workflows, config
+Execution      [now]  - running state, active processes
+Reality        [is]   - verified artifacts, hashes
 ```
+
+Note: Layers are not categories for nodes - they are perspectives for interpretation.
+The same node can be viewed through different lenses.
 
 Key insight: If the model is complete enough, **base reality becomes disposable**.
 Artifacts are regenerable projections of the model. The model is the source of truth,
@@ -249,9 +252,33 @@ Based on the model-first principle, these things are currently wrong:
 
 **Status: IMPLEMENTED** (2026-02-01)
 
+## Hierarchical BAMs (Schema 3.0)
+
+Nodes can contain sub-BAMs. This enables zoom in/out navigation:
+
+```
+seed (meta-BAM)
+ └── reality-spawnie
+      └── model._ref → C:/spawnie/bam/model/sketch.json
+
+spawnie (BAM)
+ ├── subsystem-core
+ │    └── model.nodes: [mod-api, mod-workflow, ...]
+ │         └── mod-api.model.nodes: [fn-run, fn-execute, ...]
+ ├── subsystem-providers
+ ├── subsystem-workflows
+ └── config-spawnie
+```
+
+Benefits:
+- Load only what you need
+- Same pattern at every level
+- Scales to large models
+
 ## Built
 
 - 2026-01-31 (Friday night): Created seed, moved spawnie model into spawnie, reshaped seed as meta-model
 - 2026-02-01 (Saturday): Added aspiration layer concept, agent architecture, golden file pattern
 - 2026-02-01 (Saturday, later): Documented model-first principle - workflows, configs, and all definitions belong in the model, not physical files
 - 2026-02-01 (Saturday, evening): **IMPLEMENTED model-first workflows** - migrated 4 workflows to BAM model nodes, modified spawnie to read from model first with file fallback
+- 2026-02-01 (Saturday, night): **Schema 3.0** - hierarchical BAMs, layers as lenses, restructured spawnie with subsystems
