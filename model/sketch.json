@@ -2796,6 +2796,30 @@
         ],
         "updated_at": "2026-02-02T22:13:38.013812",
         "updated_by": "spawnie"
+      },
+      "view": {
+        "renderer": "command-executor",
+        "description": "Executes and displays UI command results with real-time rendering status and reactive UI updates",
+        "layout": {
+          "preferred_width": 1200,
+          "preferred_height": 800,
+          "resizable": true
+        },
+        "render_on": [
+          "command_received",
+          "render_complete",
+          "model_changed"
+        ],
+        "content": {
+          "show_command_queue": true,
+          "show_render_status": true,
+          "show_reactive_bindings": true,
+          "show_ml_predictions": false
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#d29922"
+        }
       }
     },
     {
@@ -2915,6 +2939,31 @@
         ],
         "updated_at": "2026-02-02T22:13:38.013812",
         "updated_by": "spawnie"
+      },
+      "view": {
+        "renderer": "voice-interface-hub",
+        "description": "Voice interaction hub showing active calls, transcriptions, intent parsing, and conversation context",
+        "layout": {
+          "preferred_width": 1100,
+          "preferred_height": 750,
+          "resizable": true
+        },
+        "render_on": [
+          "call_initiated",
+          "transcription_complete",
+          "intent_parsed",
+          "response_generated"
+        ],
+        "content": {
+          "show_active_calls": true,
+          "show_transcriptions": true,
+          "show_intent_confidence": true,
+          "show_conversation_context": true
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#3fb950"
+        }
       }
     },
     {
