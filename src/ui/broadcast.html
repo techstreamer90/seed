@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seed Broadcast</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header {
+            background: #111;
+            border-bottom: 2px solid #00ff00;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #header h1 {
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        #status {
+            font-size: 12px;
+            color: #888;
+        }
+
+        #status.connected {
+            color: #00ff00;
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .message-header {
+            font-size: 11px;
+            color: #666;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-sender {
+            color: #00aaff;
+            font-weight: bold;
+        }
+
+        .message-time {
+            color: #555;
+        }
+
+        .message-text {
+            color: #00ff00;
+            font-size: 14px;
+            line-height: 1.5;
+            padding-left: 10px;
+            border-left: 2px solid #333;
+        }
+
+        .message.human .message-sender {
+            color: #ffaa00;
+        }
+
+        .message.schauspieler .message-sender {
+            color: #ff00ff;
+        }
+
+        .message.spawnie .message-sender {
+            color: #00ffff;
+        }
+
+        .message.control .message-sender {
+            color: #ff4444;
+        }
+
+        #input-area {
+            background: #111;
+            border-top: 2px solid #00ff00;
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #sender-input {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #00ff00;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            width: 120px;
+        }
+
+        #message-input {
+            flex: 1;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #00ff00;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        #message-input:focus,
+        #sender-input:focus {
+            outline: none;
+            border-color: #00ff00;
+        }
+
+        #send-button {
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 10px 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #send-button:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        #send-button:active {
+            transform: scale(0.95);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>BROADCAST — The model is the communication fabric</h1>
+        <div id="status">●connecting...</div>
+    </div>
+
+    <div id="messages"></div>
+
+    <div id="input-area">
+        <input type="text" id="sender-input" placeholder="Your name" value="human">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button id="send-button">SEND</button>
+    </div>
+
+    <script>
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('message-input');
+        const senderInput = document.getElementById('sender-input');
+        const sendButton = document.getElementById('send-button');
+        const statusDiv = document.getElementById('status');
+
+        let lastMessageCount = 0;
+        const API_BASE = 'http://localhost:8420';
+
+        // Format timestamp
+        function formatTime(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+
+        // Render messages
+        function renderMessages(messages) {
+            messagesDiv.innerHTML = '';
+            messages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = `message ${msg.from}`;
+                div.innerHTML = `
+                    <div class="message-header">
+                        <span class="message-sender">${msg.from}</span>
+                        <span class="message-time">${formatTime(msg.at)}</span>
+                    </div>
+                    <div class="message-text">${escapeHtml(msg.text)}</div>
+                `;
+                messagesDiv.appendChild(div);
+            });
+
+            // Auto-scroll to bottom
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Fetch messages
+        async function fetchMessages() {
+            try {
+                const response = await fetch(`${API_BASE}/broadcast`);
+                if (!response.ok) throw new Error('Failed to fetch');
+
+                const messages = await response.json();
+
+                // Update status
+                statusDiv.textContent = '●connected';
+                statusDiv.className = 'connected';
+
+                // Render if changed
+                if (messages.length !== lastMessageCount) {
+                    renderMessages(messages);
+                    lastMessageCount = messages.length;
+                }
+            } catch (error) {
+                statusDiv.textContent = '●disconnected';
+                statusDiv.className = '';
+                console.error('Fetch error:', error);
+            }
+        }
+
+        // Send message
+        async function sendMessage() {
+            const sender = senderInput.value.trim() || 'human';
+            const text = messageInput.value.trim();
+
+            if (!text) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/broadcast`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ sender, text })
+                });
+
+                if (!response.ok) throw new Error('Failed to send');
+
+                // Clear input and fetch updated messages
+                messageInput.value = '';
+                await fetchMessages();
+            } catch (error) {
+                console.error('Send error:', error);
+                alert('Failed to send message');
+            }
+        }
+
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Poll for messages every 2 seconds
+        fetchMessages();
+        setInterval(fetchMessages, 2000);
+
+        // Focus message input on load
+        messageInput.focus();
+    </script>
+</body>
+</html>

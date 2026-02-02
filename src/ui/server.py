@@ -39,9 +39,35 @@ class SeedHandler(http.server.SimpleHTTPRequestHandler):
     def do_OPTIONS(self):
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', '*')
         self.end_headers()
+
+    def do_POST(self):
+        """Handle POST requests - broadcast messages."""
+        if self.path == '/broadcast':
+            import json
+            import sys
+            sys.path.insert(0, str(self.seed_root / 'src'))
+            from ui.broadcast import broadcast
+
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(content_length)
+            data = json.loads(body.decode('utf-8'))
+
+            sender = data.get('sender', 'unknown')
+            text = data.get('text', '')
+
+            broadcast.send(sender, text)
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "sent"}).encode('utf-8'))
+            print(f"[Broadcast] {sender}: {text[:50]}...")
+        else:
+            self.send_response(404)
+            self.end_headers()
 
     def do_PUT(self):
         """Handle PUT requests - save layout from UI."""
@@ -64,6 +90,21 @@ class SeedHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
 
     def do_GET(self):
+        # Handle broadcast API
+        if self.path == '/broadcast':
+            import json
+            import sys
+            sys.path.insert(0, str(self.seed_root / 'src'))
+            from ui.broadcast import broadcast
+
+            messages = broadcast.read(limit=100)
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(messages).encode('utf-8'))
+            return
+
         # Redirect /ui/ to /src/ui/ for convenience
         if self.path == '/ui/' or self.path == '/ui':
             self.send_response(302)

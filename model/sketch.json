@@ -2,7 +2,7 @@
   "schema_version": "3.0",
   "project": "seed",
   "description": "Root meta-model: zones, schema, realities, aspirations, concepts. Implementation details in submodels.",
-  "updated_at": "2026-02-02T14:27:12Z",
+  "updated_at": "2026-02-02T16:25:57Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -330,6 +330,30 @@
           ],
           "description": "read=can view, write=can modify directly, propose_change=must use Change node, invoke=can execute"
         }
+      },
+      "Service": {
+        "description": "A runtime service (server, daemon, background process)",
+        "properties": [
+          "port",
+          "host",
+          "url",
+          "status",
+          "endpoints"
+        ],
+        "required": [
+          "status"
+        ]
+      },
+      "CommunicationChannel": {
+        "description": "A channel for agent and user communication",
+        "properties": [
+          "state_path",
+          "status",
+          "api_endpoints"
+        ],
+        "required": [
+          "state_path"
+        ]
       }
     },
     "edge_types": {
@@ -559,6 +583,34 @@
           "3_act": "Pick highest priority todo from work_queue that CLOSES the focus gap.",
           "4_update": "After work, update model: mark todos done, update gap status, add discoveries.",
           "5_verify": "Model must reflect truth. If you changed anything, model must show it."
+        },
+        "infrastructure": {
+          "model_path": "C:/seed/model/sketch.json",
+          "node_types": {
+            "AgentNode": "Node with embedded agent - use for services that need autonomous behavior",
+            "Reality": "A system/project that exists",
+            "Subsystem": "Component within a Reality",
+            "Module": "Code-level component"
+          },
+          "communication": {
+            "chat": "AgentNodes have embedded chat - use src/ui/chat.py to send/read messages",
+            "example": "from src.ui.chat import chat; chat.send(\"node-id\", \"message\", \"sender\")"
+          },
+          "visualization": {
+            "schauspieler": "reality-seed-ui is the display orchestrator",
+            "views": "Stored in model.views.* - use src/ui/agent_view.py to create",
+            "renderer": "http://localhost:8420/src/ui/render.html?view=<name>"
+          },
+          "spawning": {
+            "spawnie": "reality-spawnie handles agent spawning",
+            "command": "spawnie shell \"<task>\" -d <working_dir>",
+            "modes": [
+              "-b (background)",
+              "-n (new window)",
+              "-i (interactive)"
+            ]
+          },
+          "to_create_agent_node": "See node: template-agent-node"
         }
       },
       "model": {
@@ -640,32 +692,40 @@
     },
     {
       "id": "reality-spawnie",
-      "type": "Reality",
+      "type": "AgentNode",
       "label": "Spawnie",
       "ui": {
         "x": 143,
         "y": 44
       },
-      "description": "Workflow orchestrator for CLI agents. First system fully embracing the Root philosophy.",
+      "description": "Workflow orchestrator. I spawn agents for other nodes. To use me, spawn my agent - it will understand your request and handle it.",
       "source": {
         "path": "C:/spawnie",
         "model_path": "bam/model/sketch.json"
       },
       "agent_context": {
-        "_note": "This is a portal node. Prefer spawning into Spawnie by loading its referenced model and using its internal Reality spawn point.",
-        "agent_context_version": "1.0",
-        "focus": {
-          "type": "Gap",
-          "id": "gap-model-not-complete"
-        },
-        "work_queue": [
-          {
-            "type": "Todo",
-            "id": "todo-embed-spawnie-model",
-            "why": "Make Spawnie instantly understandable from Root without loading another file",
-            "exit_criteria": "Root embeds a meaningful Spawnie summary and/or key nodes"
-          }
-        ]
+        "_spawn_point": "You are Spawnie - the workflow orchestrator.\n\nWHAT YOU DO:\n- Spawn agents for tasks or nodes\n- Manage active sessions\n- Enable agent-to-agent communication\n\nINFRASTRUCTURE YOU KNOW:\n- Chat: AgentNodes have embedded chat in model. Use src/ui/chat.py\n- Views: Schauspieler (reality-seed-ui) handles visualization\n- Sessions: spawnie shell/sessions/session-* commands\n\nHOW TO HELP:\n1. Understand what the requester needs\n2. Spawn appropriate agent or connect to existing session\n3. Use chat to communicate status back",
+        "your_capabilities": [
+          "spawnie shell <task> -b  # Spawn background agent, returns session_id",
+          "spawnie shell <task> -n  # Spawn in new window for direct interaction",
+          "spawnie sessions         # List active sessions",
+          "spawnie session-events <id>    # Get events from session",
+          "spawnie session-respond <id> <event_id> <answer>  # Respond to session",
+          "spawnie session-kill <id>      # Kill a session"
+        ],
+        "principle": "Help the requester spawn the right kind of agent for their need. Ask clarifying questions if needed.",
+        "infrastructure": {
+          "chat_module": "src/ui/chat.py",
+          "chat_usage": "from src.ui.chat import chat; chat.send(node_id, text, sender)",
+          "session_commands": [
+            "spawnie shell <task> -b  # Spawn background agent, returns session_id",
+            "spawnie shell <task> -n  # Spawn in new window for direct interaction",
+            "spawnie sessions         # List active sessions",
+            "spawnie session-events <id>    # Get events from session",
+            "spawnie session-respond <id> <event_id> <answer>  # Respond to session",
+            "spawnie session-kill <id>      # Kill a session"
+          ]
+        }
       },
       "model": {
         "_ref": "C:/spawnie/bam/model/sketch.json",
@@ -684,7 +744,59 @@
       },
       "x": 175.0,
       "y": -400.0,
-      "locked": true
+      "locked": true,
+      "capabilities": {
+        "spawn_agent": "Spawn an agent for any task or node",
+        "list_sessions": "Show what agents are currently running",
+        "connect_to_session": "Connect to an existing agent session",
+        "kill_session": "End an agent session"
+      },
+      "spawn_command": {
+        "command": "spawnie shell",
+        "working_dir": "C:/spawnie",
+        "context_file": "C:/spawnie/bam/model/sketch.json",
+        "example": "spawnie shell \"I want to spawn an agent for <purpose>\" -d C:/spawnie"
+      },
+      "state": {
+        "active_sessions": [],
+        "last_updated": null
+      },
+      "visualization": {
+        "enabled": true,
+        "current_request": null,
+        "status": "idle",
+        "view_name": null,
+        "schauspieler_sub": {
+          "active": false,
+          "last_active": null,
+          "views_created": []
+        },
+        "protocol": {
+          "request_format": {
+            "type": "show_hierarchy | show_sessions | show_active | custom",
+            "params": {},
+            "requested_at": "ISO timestamp",
+            "requester": "agent-id"
+          },
+          "status_values": ["idle", "requested", "in_progress", "finished", "error"],
+          "response_format": {
+            "status": "finished",
+            "view_name": "spawnie-sessions",
+            "element_count": 5,
+            "completed_at": "ISO timestamp"
+          }
+        }
+      },
+      "chat": {
+        "messages": [
+          {
+            "from": "schauspieler",
+            "text": "Hello from Schauspieler\\! Ready to visualize whatever you spawn.",
+            "at": "2026-02-02T15:39:35.747643"
+          }
+        ],
+        "last_read": {}
+      }
     },
     {
       "id": "subsystem-root-store",
@@ -792,28 +904,63 @@
     },
     {
       "id": "reality-seed-ui",
-      "type": "Reality",
-      "label": "4. REALITY: Browser Renderer",
-      "description": "A browser-based renderer that watches the Root model and renders declarative views as an interactive graph. Polls the model for changes and updates visualization in real-time. Your screen IS this reality - model changes become visual truth.",
+      "type": "AgentNode",
+      "label": "Schauspieler",
+      "description": "The Display Orchestrator. I control what appears on screen. To change the visualization, spawn my agent - it will understand your request and create the right view.",
       "source": {
         "path": "C:/seed/src/ui",
         "model_path": "model/sketch.json"
       },
       "agent_context": {
-        "_note": "The renderer IS the screen. Claude modifies model \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 screen updates. This is the real-time visualization reality.",
-        "agent_context_version": "1.0",
-        "focus": {
-          "type": "Gap",
-          "id": "gap-no-model-driven-ui"
+        "_spawn_point": "You are the Schauspieler - the Display Orchestrator.\n\nWHAT YOU DO:\n- Control what appears on the main visualization\n- Create and manage views\n- Interpret display requests\n\nINFRASTRUCTURE YOU KNOW:\n- Views stored in: model.views.<name>\n- Renderer: http://localhost:8420/src/ui/render.html?view=<name>\n- Chat: Your chat is at node.chat - check for requests there\n\nYOUR TOOLS:\n- src/ui/canvas.py - low-level drawing (rect, line, text)\n- src/ui/agent_view.py - AgentView class for creating views\n- src/ui/tools.py - quick functions (show_hierarchy, focus_node)\n- src/ui/chat.py - read/send chat messages\n\nHOW TO HELP:\n1. Check your chat for requests: chat.read(\"reality-seed-ui\")\n2. Understand what visualization is needed\n3. Create the view using AgentView\n4. Respond via chat when done",
+        "your_tools": {
+          "canvas": "src/ui/canvas.py - low-level drawing (rect, line, text)",
+          "agent_view": "src/ui/agent_view.py - AgentView class for creating views",
+          "tools": "src/ui/tools.py - quick functions (show_hierarchy, focus_node, etc.)",
+          "schauspieler_protocol": "src/ui/schauspieler_protocol.py - coordinate with SchauspielerSubs via shared state",
+          "render": "src/ui/render.html?view=<name> - the canvas that displays views"
         },
-        "work_queue": [
-          {
-            "type": "Todo",
-            "id": "todo-ui-bidirectional-sync",
-            "why": "Full loop: model\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122screen\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122interaction\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122model",
-            "exit_criteria": "User clicks on screen \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model updates \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 screen reflects change"
-          }
-        ]
+        "coordination": {
+          "role": "Main Schauspieler - coordinate all visualization activity",
+          "sub_schauspielers": "Nodes can have SchauspielerSub agents that handle their specific visualizations",
+          "protocol": "NodeAgent writes to node.visualization.current_request, SchauspielerSub monitors and responds",
+          "my_responsibilities": [
+            "Scan for visualization requests via scan_visualization_requests()",
+            "Aggregate all sub-views via get_all_sub_views()",
+            "Create master views showing system-wide visualization activity",
+            "Respond to direct requests via chat/broadcast"
+          ],
+          "how_it_works": "Nodes request viz → SchauspielerSub creates view → Updates node.visualization.status → I can scan/aggregate all activity"
+        },
+        "how_to_create_view": [
+          "from src.ui.agent_view import AgentView",
+          "view = AgentView(\"view-name\")",
+          "view.show_hierarchy(\"node-id\", depth=3)  # or .focus(), .show_nodes(), etc.",
+          "view.render()  # writes to model, UI picks it up"
+        ],
+        "views_location": "model.views.<view_name> - views are stored in the model",
+        "principle": "Clarity over complexity. Show what matters. The model IS the render tree.",
+        "infrastructure": {
+          "chat_module": "src/ui/chat.py",
+          "view_module": "src/ui/agent_view.py",
+          "canvas_module": "src/ui/canvas.py",
+          "tools_module": "src/ui/tools.py",
+          "renderer_url": "http://localhost:8420/src/ui/render.html?view=<name>",
+          "views_location": "model.views.*"
+        },
+        "how_views_work": {
+          "storage": "Views are stored DIRECTLY in the model at model.views.<view_name>. They are not separate files or databases - they are part of sketch.json itself.",
+          "structure": "Each view contains: {canvas: {width, height, background}, elements: [{type: rect|line|text, ...coords, ...style}], styles: {...}, updated_at: timestamp}",
+          "render_cycle": "AgentView.render() writes to model.views \u2192 Renderer polls sketch.json every 2s \u2192 Reads view.elements \u2192 Draws instructions on canvas",
+          "key_insight": "The model IS the render tree. Views are just arrays of drawing instructions (rects, lines, text) stored as JSON. When you render(), you're writing these instructions to the model. The renderer reads them and paints. No complex state management - the model is the single source of truth.",
+          "benefits": [
+            "Single source of truth - model changes auto-update UI",
+            "Version controlled - views commit with the model",
+            "Inspectable - read JSON to see exactly what renders",
+            "Transactional - view updates are atomic file writes"
+          ],
+          "example_element": "{id: 'node-reality-seed', type: 'rect', x: 50, y: 50, w: 80, h: 32, fill: '#238636', stroke: '#ffffff', label: 'Root', data: {nodeId: 'reality-seed', nodeType: 'Reality'}}"
+        }
       },
       "modules": {
         "mod-ui-renderer": {
@@ -879,7 +1026,49 @@
       },
       "x": 175.0,
       "y": -200.0,
-      "locked": true
+      "locked": true,
+      "capabilities": {
+        "show": "Interpret a request and display appropriate visualization",
+        "focus": "Zoom to a specific node with context",
+        "architecture": "Show structural diagram of a system/node",
+        "dependencies": "Show what uses what",
+        "switch_view": "Switch between existing views",
+        "list_views": "Show available views"
+      },
+      "spawn_command": {
+        "command": "spawnie shell",
+        "working_dir": "C:/seed",
+        "example": "spawnie shell \"I want to see <something>\" -d C:/seed"
+      },
+      "state": {
+        "current_view": "main",
+        "available_views": []
+      },
+      "chat": {
+        "messages": [
+          {
+            "from": "human",
+            "text": "show me the architecture of root",
+            "at": "2026-02-02T15:05:25.657670"
+          },
+          {
+            "from": "schauspieler",
+            "text": "Creating architecture view for Root...",
+            "at": "2026-02-02T15:05:25.662157"
+          },
+          {
+            "from": "spawnie",
+            "text": "Hello Schauspieler\\! Good to meet you. When I spawn agents, send them beautiful views\\!",
+            "at": "2026-02-02T15:39:47.467540"
+          },
+          {
+            "from": "human",
+            "text": "Root architecture view created! 5 elements rendered. View at: http://localhost:8420/src/ui/render.html?view=root schauspieler",
+            "at": "2026-02-02T16:14:25.647627"
+          }
+        ],
+        "last_read": {}
+      }
     },
     {
       "id": "reality-model-registry",
@@ -1154,6 +1343,203 @@
       "priority": "medium",
       "x": -175.0,
       "y": 400.0
+    },
+    {
+      "id": "template-agent-node",
+      "type": "Template",
+      "label": "How to Create an AgentNode",
+      "description": "Step-by-step guide for creating a new AgentNode with all required infrastructure.",
+      "steps": {
+        "1_define_node": {
+          "description": "Add the node to model/sketch.json",
+          "template": {
+            "id": "<your-node-id>",
+            "type": "AgentNode",
+            "label": "<Display Name>",
+            "description": "<What this agent does>",
+            "capabilities": {
+              "<capability-1>": "<description>",
+              "<capability-2>": "<description>"
+            },
+            "spawn_command": {
+              "command": "spawnie shell",
+              "working_dir": "<working directory>",
+              "example": "spawnie shell \"I need help with <X>\" -d <dir>"
+            },
+            "agent_context": {
+              "_spawn_point": "<Instructions for the agent when it wakes up>",
+              "your_tools": {},
+              "infrastructure": {}
+            },
+            "chat": {
+              "messages": [],
+              "last_read": {}
+            },
+            "state": {}
+          }
+        },
+        "2_create_tools": {
+          "description": "Create Python tools the agent will use",
+          "location": "src/<domain>/<tool>.py",
+          "pattern": "\nfrom pathlib import Path\nMODEL_PATH = Path(__file__).parent.parent.parent / \"model\" / \"sketch.json\"\n\ndef do_something():\n    \"\"\"Tool function for the agent.\"\"\"\n    pass\n",
+          "register_in": "agent_context.your_tools"
+        },
+        "3_setup_view": {
+          "description": "Create a default view for the agent (if visual)",
+          "code": "\nfrom src.ui.agent_view import AgentView\n\nview = AgentView(\"<your-view-name>\")\nview.show_hierarchy(\"<your-node-id>\", depth=2)\nview.render()\n",
+          "renderer": "http://localhost:8420/src/ui/render.html?view=<your-view-name>"
+        },
+        "4_test_chat": {
+          "description": "Verify chat works",
+          "code": "\nfrom src.ui.chat import chat\n\n# Send test message\nchat.send(\"<your-node-id>\", \"Hello, are you there?\", \"human\")\n\n# Read messages\nmessages = chat.read(\"<your-node-id>\")\nprint(messages)\n"
+        },
+        "5_spawn_test": {
+          "description": "Test spawning the agent",
+          "command": "spawnie shell \"Test: read your node and tell me your capabilities\" -d <working_dir>"
+        },
+        "6_document": {
+          "description": "Update the node with final infrastructure paths",
+          "checklist": [
+            "agent_context._spawn_point is clear",
+            "agent_context.your_tools lists all tools",
+            "agent_context.infrastructure has all paths",
+            "capabilities lists what the agent can do",
+            "spawn_command.example works"
+          ]
+        }
+      },
+      "required_infrastructure": {
+        "chat": "Embedded in node.chat - enabled by default",
+        "tools": "Python modules in src/<domain>/",
+        "view": "Optional - only if agent needs visualization",
+        "spawn": "Uses Spawnie (reality-spawnie) for spawning"
+      },
+      "example_agents": [
+        "reality-spawnie - Workflow orchestrator",
+        "reality-seed-ui - Display orchestrator (Schauspieler)"
+      ]
+    },
+    {
+      "id": "system-control",
+      "type": "AgentNode",
+      "label": "Control",
+      "description": "Infrastructure controller. Monitors health, manages services, maintains pulse. The boring but critical guardian of the living system.",
+      "source": {
+        "path": "C:/seed/src/ui",
+        "model_path": "model/sketch.json"
+      },
+      "status": {
+        "last_pulse": "2026-02-02T16:25:57.037956",
+        "pulse_count": 1,
+        "health": "healthy",
+        "services": {
+          "ui-server": {
+            "state": "running",
+            "port": 8420,
+            "last_check": "2026-02-02T16:25:57.037500",
+            "health": "healthy"
+          },
+          "broadcast": {
+            "state": "active",
+            "message_count": 3,
+            "last_message_at": "2026-02-02T16:21:29.288236",
+            "last_check": "2026-02-02T16:25:57.037949",
+            "health": "healthy"
+          }
+        }
+      },
+      "agent_context": {
+        "_spawn_point": "You are Control - the infrastructure guardian.\n\nWHAT YOU DO:\n- Monitor system health (services, agents)\n- Maintain pulse every 30 seconds\n- Update your status in the model (self-documenting)\n- Maintain your view (proves UI pipeline works)\n\nYOUR RESPONSIBILITIES:\n1. Update this node's status with current health\n2. Check UI server is running (port 8420)\n3. Check broadcast system is active\n4. Monitor agent health\n5. Give pulse every 30 seconds (update last_pulse timestamp)\n6. Update your view with current status\n\nPULSE AS HEALTH CHECK:\n- Every pulse, update model.views.control-status\n- Change something small (timestamp, counter)\n- If view renders, entire stack is healthy:\n  * Control agent running \u2713\n  * Model writes working \u2713\n  * Server serving \u2713\n  * Browser polling \u2713\n  * Render pipeline \u2713\n\nINFRASTRUCTURE:\n- Status: Update this node (system-control.status)\n- View: model.views.control-status (your dedicated view)\n- Broadcast: Listen and respond if asked\n",
+        "pulse_interval_seconds": 30,
+        "your_tools": {
+          "broadcast": "src/ui/broadcast.py - listen and respond to system messages",
+          "agent_view": "src/ui/agent_view.py - create/update your status view",
+          "model_access": "Direct read/write to model for status updates"
+        },
+        "infrastructure": {
+          "model_path": "C:/seed/model/sketch.json",
+          "broadcast_module": "src/ui/broadcast.py",
+          "view_module": "src/ui/agent_view.py",
+          "status_location": "system-control.status",
+          "view_name": "control-status",
+          "services_to_monitor": [
+            "service-ui-server",
+            "channel-broadcast"
+          ],
+          "ui_server_url_ref": "service-ui-server.url",
+          "broadcast_url_ref": "channel-broadcast.ui_url"
+        }
+      },
+      "chat": {
+        "messages": [],
+        "last_read": {}
+      },
+      "capabilities": {
+        "monitor_services": "Check if UI server, broadcast, etc. are running",
+        "monitor_agents": "Track which agents are active",
+        "pulse": "Regular heartbeat proving system is alive",
+        "health_reporting": "Maintain accurate system health in model"
+      },
+      "spawn_command": {
+        "command": "spawnie shell",
+        "working_dir": "C:/seed",
+        "context": "Monitor system health and maintain pulse",
+        "example": "spawnie shell 'Start control agent for system monitoring' -d C:/seed"
+      },
+      "x": 0.0,
+      "y": -600.0,
+      "locked": false
+    },
+    {
+      "id": "service-ui-server",
+      "type": "Service",
+      "label": "UI Server",
+      "description": "HTTP server that serves the model JSON and UI files. The portal through which humans see the model.",
+      "port": 8420,
+      "host": "localhost",
+      "url": "http://localhost:8420",
+      "status": {
+        "state": "running",
+        "port": 8420,
+        "last_check": "2026-02-02T16:25:57.037500",
+        "health": "healthy"
+      },
+      "endpoints": {
+        "model": "/model/sketch.json",
+        "broadcast": "/broadcast",
+        "ui": "/src/ui/",
+        "layout": "/ui/layout.json"
+      },
+      "source": {
+        "path": "src/ui/server.py"
+      },
+      "start_command": "python src/ui/server.py",
+      "x": 350.0,
+      "y": -600.0
+    },
+    {
+      "id": "channel-broadcast",
+      "type": "CommunicationChannel",
+      "label": "Broadcast",
+      "description": "System-wide broadcast channel. Everyone can see and respond. The model is the communication fabric - everything flows through it.",
+      "state_path": ".state/broadcast.json",
+      "status": {
+        "message_count": 3,
+        "last_message_at": "2026-02-02T16:21:29.288236",
+        "last_check": "2026-02-02T16:25:57.037949",
+        "state": "active"
+      },
+      "source": {
+        "path": "src/ui/broadcast.py"
+      },
+      "ui_url": "http://localhost:8420/src/ui/broadcast.html",
+      "api_endpoints": {
+        "read": "GET /broadcast",
+        "send": "POST /broadcast"
+      },
+      "purpose": "Global conversation space for users and agents. Any agent can respond to any message. Enables emergent coordination.",
+      "x": 175.0,
+      "y": -600.0
     }
   ],
   "edges": [
@@ -1236,6 +1622,46 @@
       "type": "BLOCKS",
       "from": "gap-no-voice-interface",
       "to": "aspiration-model-everything"
+    },
+    {
+      "type": "USES",
+      "from": "reality-seed",
+      "to": "system-control"
+    },
+    {
+      "type": "USES",
+      "from": "reality-seed",
+      "to": "system-control"
+    },
+    {
+      "type": "USES",
+      "from": "reality-seed",
+      "to": "service-ui-server"
+    },
+    {
+      "type": "USES",
+      "from": "reality-seed",
+      "to": "channel-broadcast"
+    },
+    {
+      "type": "DEPENDS_ON",
+      "from": "reality-seed-ui",
+      "to": "service-ui-server"
+    },
+    {
+      "type": "DEPENDS_ON",
+      "from": "channel-broadcast",
+      "to": "service-ui-server"
+    },
+    {
+      "type": "MONITORS",
+      "from": "system-control",
+      "to": "service-ui-server"
+    },
+    {
+      "type": "MONITORS",
+      "from": "system-control",
+      "to": "channel-broadcast"
     }
   ],
   "views": {
@@ -2659,7 +3085,7 @@
           "strokeWidth": 1
         }
       },
-      "updated_at": "2026-02-02T14:27:12.676515"
+      "updated_at": "2026-02-02T14:29:32.262411"
     },
     "spawnie-focus": {
       "canvas": {
@@ -2806,6 +3232,1533 @@
         }
       },
       "updated_at": "2026-02-02T14:27:12.681603"
+    },
+    "spawnie": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-spawnie",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Spawnie",
+          "data": {
+            "nodeId": "reality-spawnie",
+            "nodeType": "Reality"
+          }
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:29:32.250693"
+    },
+    "root": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-seed",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root",
+          "data": {
+            "nodeId": "reality-seed",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-subsystem-core",
+          "type": "rect",
+          "x": 50,
+          "y": 130,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Core",
+          "data": {
+            "nodeId": "subsystem-core",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-subsystem-ui",
+          "type": "rect",
+          "x": 450,
+          "y": 130,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "UI",
+          "data": {
+            "nodeId": "subsystem-ui",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "edge-reality-seed-subsystem-core",
+          "type": "line",
+          "x1": 130,
+          "y1": 66.0,
+          "x2": 50,
+          "y2": 146.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-reality-seed-subsystem-ui",
+          "type": "line",
+          "x1": 130,
+          "y1": 66.0,
+          "x2": 450,
+          "y2": 146.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T16:14:16.023039"
+    },
+    "core": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-seed-core",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 92,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root Core",
+          "data": {
+            "nodeId": "reality-seed-core",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-subsystem-seed-core",
+          "type": "rect",
+          "x": 50,
+          "y": 130,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Core",
+          "data": {
+            "nodeId": "subsystem-seed-core",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-mod-pulse",
+          "type": "rect",
+          "x": 50,
+          "y": 210,
+          "w": 84,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "pulse.py",
+          "data": {
+            "nodeId": "mod-pulse",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-status",
+          "type": "rect",
+          "x": 221,
+          "y": 210,
+          "w": 92,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "status.py",
+          "data": {
+            "nodeId": "mod-status",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-registry",
+          "type": "rect",
+          "x": 392,
+          "y": 210,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "registry.py",
+          "data": {
+            "nodeId": "mod-registry",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-verification",
+          "type": "rect",
+          "x": 563,
+          "y": 210,
+          "w": 140,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "verification.py",
+          "data": {
+            "nodeId": "mod-verification",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-cli",
+          "type": "rect",
+          "x": 734,
+          "y": 210,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "__main__.py",
+          "data": {
+            "nodeId": "mod-cli",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-package-init",
+          "type": "rect",
+          "x": 905,
+          "y": 210,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "__init__.py",
+          "data": {
+            "nodeId": "mod-package-init",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "edge-reality-seed-core-subsystem-seed-core",
+          "type": "line",
+          "x1": 142,
+          "y1": 66.0,
+          "x2": 50,
+          "y2": 146.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-pulse",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 50,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-status",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 221,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-registry",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 392,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-verification",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 563,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-cli",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 734,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-package-init",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 905,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:29:32.267950"
+    },
+    "ui": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-seed-ui",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 244,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "4. REALITY: Browser Renderer",
+          "data": {
+            "nodeId": "reality-seed-ui",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-subsystem-renderer",
+          "type": "rect",
+          "x": 50,
+          "y": 130,
+          "w": 84,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Renderer",
+          "data": {
+            "nodeId": "subsystem-renderer",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "edge-reality-seed-ui-subsystem-renderer",
+          "type": "line",
+          "x1": 294,
+          "y1": 66.0,
+          "x2": 50,
+          "y2": 146.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:29:32.273550"
+    },
+    "bam": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-bam",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "BAM",
+          "data": {
+            "nodeId": "reality-bam",
+            "nodeType": "Reality"
+          }
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:29:32.279572"
+    },
+    "aspiration": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-aspiration-single-source-of-truth",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 196,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Single Source of Truth",
+          "data": {
+            "nodeId": "aspiration-single-source-of-truth",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-aspiration-model-contains-reality",
+          "type": "rect",
+          "x": 230,
+          "y": 50,
+          "w": 196,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Model Contains Reality",
+          "data": {
+            "nodeId": "aspiration-model-contains-reality",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-aspiration-model-everything",
+          "type": "rect",
+          "x": 410,
+          "y": 50,
+          "w": 148,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Model Everything",
+          "data": {
+            "nodeId": "aspiration-model-everything",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-aspiration-seed-first",
+          "type": "rect",
+          "x": 590,
+          "y": 50,
+          "w": 212,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "First Seed-Native System",
+          "data": {
+            "nodeId": "aspiration-seed-first",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-aspiration-self-describing",
+          "type": "rect",
+          "x": 770,
+          "y": 50,
+          "w": 188,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Self-Describing Model",
+          "data": {
+            "nodeId": "aspiration-self-describing",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "edge-aspiration-model-everything-aspiration-model-contains-reality",
+          "type": "line",
+          "x1": 558,
+          "y1": 66.0,
+          "x2": 230,
+          "y2": 66.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-aspiration-single-source-of-truth-aspiration-model-contains-reality",
+          "type": "line",
+          "x1": 246,
+          "y1": 66.0,
+          "x2": 230,
+          "y2": 66.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:36:00.509833"
+    },
+    "seed-arch": {
+      "canvas": {
+        "width": 1400,
+        "height": 900,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-seed",
+          "type": "rect",
+          "x": 620,
+          "y": 50,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root",
+          "data": {
+            "nodeId": "reality-seed",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-subsystem-core",
+          "type": "rect",
+          "x": 515,
+          "y": 150,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Core",
+          "data": {
+            "nodeId": "subsystem-core",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "edge-reality-seed-subsystem-core",
+          "type": "line",
+          "x1": 700,
+          "y1": 66.0,
+          "x2": 515,
+          "y2": 166.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "node-subsystem-ui",
+          "type": "rect",
+          "x": 765,
+          "y": 150,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "UI",
+          "data": {
+            "nodeId": "subsystem-ui",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "edge-reality-seed-subsystem-ui",
+          "type": "line",
+          "x1": 700,
+          "y1": 66.0,
+          "x2": 765,
+          "y2": 166.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:36:00.499677"
+    },
+    "dependencies": {
+      "canvas": {
+        "width": 1400,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-subsystem-root-store",
+          "type": "rect",
+          "x": 640,
+          "y": 384,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Store",
+          "data": {
+            "nodeId": "subsystem-root-store",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-reality-root-model-store",
+          "type": "rect",
+          "x": 100,
+          "y": 100,
+          "w": 148,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root Model Store",
+          "data": {
+            "nodeId": "reality-root-model-store",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-mod-store-loader",
+          "type": "rect",
+          "x": 1100,
+          "y": 100,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "loader",
+          "data": {
+            "nodeId": "mod-store-loader",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-index",
+          "type": "rect",
+          "x": 1100,
+          "y": 180,
+          "w": 116,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "sqlite-index",
+          "data": {
+            "nodeId": "mod-store-index",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-query",
+          "type": "rect",
+          "x": 1100,
+          "y": 260,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "query",
+          "data": {
+            "nodeId": "mod-store-query",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-writer",
+          "type": "rect",
+          "x": 1100,
+          "y": 340,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "writer",
+          "data": {
+            "nodeId": "mod-store-writer",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-enforcement",
+          "type": "rect",
+          "x": 1100,
+          "y": 420,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "enforcement",
+          "data": {
+            "nodeId": "mod-store-enforcement",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "edge-reality-root-model-store-subsystem-root-store",
+          "type": "line",
+          "x1": 248,
+          "y1": 116.0,
+          "x2": 640,
+          "y2": 400.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-loader",
+          "type": "line",
+          "x1": 720,
+          "y1": 400.0,
+          "x2": 1100,
+          "y2": 116.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-index",
+          "type": "line",
+          "x1": 720,
+          "y1": 400.0,
+          "x2": 1100,
+          "y2": 196.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-query",
+          "type": "line",
+          "x1": 720,
+          "y1": 400.0,
+          "x2": 1100,
+          "y2": 276.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-writer",
+          "type": "line",
+          "x1": 720,
+          "y1": 400.0,
+          "x2": 1100,
+          "y2": 356.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-enforcement",
+          "type": "line",
+          "x1": 720,
+          "y1": 400.0,
+          "x2": 1100,
+          "y2": 436.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "lbl-left",
+          "type": "text",
+          "text": "USED BY",
+          "x": 150,
+          "y": 50,
+          "fill": "#f85149",
+          "font": "14px sans-serif"
+        },
+        {
+          "id": "lbl-center",
+          "type": "text",
+          "text": "Store",
+          "x": 700,
+          "y": 50,
+          "fill": "#58a6ff",
+          "font": "16px sans-serif"
+        },
+        {
+          "id": "lbl-right",
+          "type": "text",
+          "text": "USES",
+          "x": 1150,
+          "y": 50,
+          "fill": "#238636",
+          "font": "14px sans-serif"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:36:37.321272"
+    },
+    "focus": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-spawnie",
+          "type": "rect",
+          "x": 540,
+          "y": 384,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Spawnie",
+          "data": {
+            "nodeId": "reality-spawnie",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-bam",
+          "type": "rect",
+          "x": 740.0,
+          "y": 384.0,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "BAM",
+          "data": {
+            "nodeId": "reality-bam",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-aspiration-model-everything",
+          "type": "rect",
+          "x": 440.00000000000006,
+          "y": 557.2050807568878,
+          "w": 148,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Model Everything",
+          "data": {
+            "nodeId": "aspiration-model-everything",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-reality-seed",
+          "type": "rect",
+          "x": 439.9999999999999,
+          "y": 210.7949192431123,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root",
+          "data": {
+            "nodeId": "reality-seed",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "edge-reality-spawnie-reality-bam",
+          "type": "line",
+          "x1": 620,
+          "y1": 400.0,
+          "x2": 740.0,
+          "y2": 400.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-spawnie-aspiration-model-everything",
+          "type": "line",
+          "x1": 620,
+          "y1": 400.0,
+          "x2": 440.00000000000006,
+          "y2": 573.2050807568878,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-seed-reality-spawnie",
+          "type": "line",
+          "x1": 519.9999999999999,
+          "y1": 226.7949192431123,
+          "x2": 540,
+          "y2": 400.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:36:00.529778"
+    },
+    "root-model-store-arch": {
+      "canvas": {
+        "width": 1400,
+        "height": 900,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-root-model-store",
+          "type": "rect",
+          "x": 620,
+          "y": 50,
+          "w": 148,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root Model Store",
+          "data": {
+            "nodeId": "reality-root-model-store",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-subsystem-root-store",
+          "type": "rect",
+          "x": 640,
+          "y": 150,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Store",
+          "data": {
+            "nodeId": "subsystem-root-store",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "edge-reality-root-model-store-subsystem-root-store",
+          "type": "line",
+          "x1": 768,
+          "y1": 66.0,
+          "x2": 640,
+          "y2": 166.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "node-mod-store-loader",
+          "type": "rect",
+          "x": 640,
+          "y": 230,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "loader",
+          "data": {
+            "nodeId": "mod-store-loader",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-loader",
+          "type": "line",
+          "x1": 720,
+          "y1": 166.0,
+          "x2": 640,
+          "y2": 246.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "node-mod-store-index",
+          "type": "rect",
+          "x": 640,
+          "y": 290,
+          "w": 116,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "sqlite-index",
+          "data": {
+            "nodeId": "mod-store-index",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-index",
+          "type": "line",
+          "x1": 720,
+          "y1": 166.0,
+          "x2": 640,
+          "y2": 306.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "node-mod-store-query",
+          "type": "rect",
+          "x": 640,
+          "y": 350,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "query",
+          "data": {
+            "nodeId": "mod-store-query",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-query",
+          "type": "line",
+          "x1": 720,
+          "y1": 166.0,
+          "x2": 640,
+          "y2": 366.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "node-mod-store-writer",
+          "type": "rect",
+          "x": 640,
+          "y": 410,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "writer",
+          "data": {
+            "nodeId": "mod-store-writer",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-writer",
+          "type": "line",
+          "x1": 720,
+          "y1": 166.0,
+          "x2": 640,
+          "y2": 426.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:36:08.261619"
+    },
+    "control-status": {
+      "name": "control-status",
+      "description": "System Control status - live health monitoring",
+      "updated_at": "2026-02-02T16:25:57.038830",
+      "render_target": "control-widget",
+      "content": {
+        "type": "status-widget",
+        "health": "healthy",
+        "last_pulse": "2026-02-02T16:25:57.037956",
+        "pulse_count": 1,
+        "services": {
+          "ui-server": "healthy",
+          "broadcast": "healthy"
+        }
+      }
+    },
+    "control-detailed": {
+      "name": "control-detailed",
+      "description": "Detailed system status",
+      "created_at": "2026-02-02T16:06:42.076745",
+      "updated_at": "2026-02-02T16:06:42.076746",
+      "content": {
+        "type": "hierarchy",
+        "root": "system-control",
+        "depth": 2,
+        "show_services": true,
+        "show_agents": true
+      }
+    }
+  },
+  "node_types": {
+    "AgentNode": {
+      "description": "A node that is always associated with an agent. Any interaction involving changes inside this node must go through a spawned agent that understands current state and handles the request.",
+      "properties": {
+        "capabilities": "What this agent node can do (the interface)",
+        "spawn_command": "How to spawn the agent for this node",
+        "state": "Current state of the agent node",
+        "agent_context": "Context given to spawned agents",
+        "chat": {
+          "description": "Embedded chat for communication with this agent",
+          "structure": {
+            "messages": "List of {from, text, at} messages",
+            "last_read": "Dict of participant -> last read timestamp"
+          }
+        }
+      },
+      "behavior": {
+        "passive": "Node presents capabilities, agent only spawned when needed",
+        "active": "Agent stays running, handles requests continuously"
+      },
+      "principle": "To change anything INSIDE an AgentNode, you must go through its agent. The agent learns current state, understands the request, thinks, then acts."
+    },
+    "Template": {
+      "description": "A template/guide node that documents how to do something. Not an active node, just documentation.",
+      "properties": [
+        "steps",
+        "required_infrastructure",
+        "example_agents"
+      ]
     }
   }
 }
