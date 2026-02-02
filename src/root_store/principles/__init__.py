@@ -21,6 +21,7 @@ The enforcement runs at multiple levels:
 - Continuous: Background integrity monitoring
 """
 
-from .core import Principle, PrincipleViolation, PrincipleCheck
+from .core import Principle, PrincipleViolation, PrincipleCheck, PrincipleSeverity
 from .enforcer import PrincipleEnforcer
 from .builtin import INVIOLABLE_PRINCIPLES
+from .external import load_principles_from_file, get_principles, DEFAULT_PRINCIPLES_PATH

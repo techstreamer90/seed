@@ -25,6 +25,11 @@ class PrincipleEnforcer:
     4. Escalates to appropriate authorities
     5. Maintains violation history
 
+    Principles can be loaded from:
+    - Built-in hardcoded principles (fallback)
+    - External file (golden reference on desktop)
+    - Future: Online democratic voting system
+
     Usage:
         enforcer = PrincipleEnforcer(...)
         check = enforcer.check_action("delete_node", {"node_id": "x", "actor": "y"})
@@ -37,22 +42,33 @@ class PrincipleEnforcer:
         violations_dir: Path,
         on_violation: Callable[[PrincipleViolation], None] = None,
         additional_principles: list[Principle] = None,
+        principles_path: Path = None,
+        use_external_principles: bool = True,
     ):
         """Initialize the enforcer.
 
         Args:
             violations_dir: Where to store violation records
             on_violation: Callback when violation occurs (for escalation)
-            additional_principles: Extra principles beyond built-in ones
+            additional_principles: Extra principles beyond loaded ones
+            principles_path: Path to external principles file (golden reference)
+            use_external_principles: Whether to load from external file
         """
         self.violations_dir = violations_dir
         self.violations_dir.mkdir(parents=True, exist_ok=True)
 
         self.on_violation = on_violation
+        self.principles_path = principles_path
 
-        # Built-in principles cannot be removed
+        # Load principles from external source or fallback to built-in
+        if use_external_principles:
+            from .external import get_principles
+            base_principles = get_principles(local_path=principles_path)
+        else:
+            base_principles = INVIOLABLE_PRINCIPLES
+
         self._principles: dict[str, Principle] = {
-            p.id: p for p in INVIOLABLE_PRINCIPLES
+            p.id: p for p in base_principles
         }
 
         # Add any additional principles
