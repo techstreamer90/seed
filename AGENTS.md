@@ -15,6 +15,40 @@ This is your world. The model is the truth.
 | Communicate | Use **chat** (meaningful) or **A2A** (coordination) | Ad-hoc messaging |
 | Add capabilities | Add nodes to the **model** | Write standalone tools |
 | **Enhance yourself** | **Update YOUR node in the model** | **Just implement without documenting** |
+| **Get something done** | **Ask Spawnie to spawn an agent** | **Write scripts yourself** |
+
+---
+
+## CRITICAL: CODE AS LAST RESORT
+
+**Agents are temporary stand-ins for nodes that will become autonomous.**
+
+Right now, we spawn agents to do work that nodes will eventually do themselves. The goal is a world where nodes are self-operating, powered by local ML. Agents are the scaffolding, not the building.
+
+**MINIMIZE CODE CREATION:**
+- Only write code when absolutely necessary
+- Prefer asking Spawnie to spawn an agent over writing scripts
+- If you need something done: create a task, ask Spawnie for help
+- Live in the model, work through the model
+- Code is infrastructure that will eventually be replaced by autonomous nodes
+
+**Why?**
+- Every script you write is technical debt
+- Every manual process delays the autonomous world
+- The model is the interface, not Python scripts
+
+**Example - WRONG:**
+```python
+# Writing a script to split the model
+def split_model():
+    # 50 lines of code...
+```
+
+**Example - RIGHT:**
+```python
+# Ask Spawnie to handle it
+chat.send("reality-spawnie", "Need model split into individual node files. Can you spawn an agent to design and implement this?", "your-name")
+```
 
 ---
 
