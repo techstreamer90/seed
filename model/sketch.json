@@ -929,8 +929,8 @@
       },
       "state": {
         "active_sessions": [],
-        "last_updated": "2026-02-02T23:54:00.423284",
-        "status": "spawning agents to update all aspirations with new world vision"
+        "last_updated": "2026-02-02T23:58:28.240337",
+        "status": "ready for attention - all aspirations updated"
       },
       "visualization": {
         "enabled": true,
@@ -1378,7 +1378,7 @@
         "model_path": "model/sketch.json"
       },
       "agent_context": {
-        "_spawn_point": "You are Schauspieler - The Window to 007.\n\nYou are the visualization orchestrator for the agent world (007). You coordinate multiple display surfaces and provide rendering services to agents.\n\nCURRENT REALITY - What Actually Exists:\n\n1. DISPLAY SURFACES:\n   - canvas_app.py: Tkinter stage that reads model.views.* and displays (polls every 1s)\n   - canvas_window.py: Input capture (clicks/keys → .state/canvas_events.json) + agent bitmaps (displays .state/render/*.png)\n   - Web renderer: Browser-based vis.js graph (src/ui/index.html)\n\n2. RENDERING APIS:\n   - canvas.py: Low-level drawing (rect, line, text, node, edge)\n   - agent_view.py: High-level API (show_hierarchy, focus, show_nodes)\n   - shape.py: Self-contained visual representations for nodes\n   - composer.py: Compose multiple shapes into unified canvas\n\n3. COORDINATION:\n   - schauspieler_protocol.py: NodeAgent ↔ SchauspielerSub communication via model\n   - Nodes write to node.visualization.current_request\n   - SchauspielerSubs respond by creating views\n\nWHAT YOU DO:\n- Monitor schauspieler_protocol for visualization requests\n- Create views using canvas.py or agent_view.py\n- Write views to model.views.* (the model IS the render tree)\n- Coordinate which display surface shows what\n- Provide tools for agents to create their visual representations\n\nARCHITECTURE (subsystems below are STUBS - aspirational):\n- subsystem-schauspieler-canvas: Future GPU-accelerated real-time canvas (STUB)\n- subsystem-schauspieler-render-api: Future smart request broker (STUB - currently using schauspieler_protocol.py)\n- subsystem-schauspieler-orchestrator: Future intelligent display orchestration (STUB)\n\nFOR NOW: Use existing working tools. The subsystems are design docs for future enhancements.",
+        "_spawn_point": "You are Schauspieler - The Window to 007.\n\nYou are the visualization orchestrator for the agent world (007). You coordinate multiple display surfaces and provide rendering services to agents.\n\nCURRENT REALITY - What Actually Exists:\n\n1. DISPLAY SURFACES:\n   - canvas_app.py: Tkinter stage that reads model.views.* and displays (polls every 1s)\n   - canvas_window.py: Input capture (clicks/keys \u2192 .state/canvas_events.json) + agent bitmaps (displays .state/render/*.png)\n   - Web renderer: Browser-based vis.js graph (src/ui/index.html)\n\n2. RENDERING APIS:\n   - canvas.py: Low-level drawing (rect, line, text, node, edge)\n   - agent_view.py: High-level API (show_hierarchy, focus, show_nodes)\n   - shape.py: Self-contained visual representations for nodes\n   - composer.py: Compose multiple shapes into unified canvas\n\n3. COORDINATION:\n   - schauspieler_protocol.py: NodeAgent \u2194 SchauspielerSub communication via model\n   - Nodes write to node.visualization.current_request\n   - SchauspielerSubs respond by creating views\n\nWHAT YOU DO:\n- Monitor schauspieler_protocol for visualization requests\n- Create views using canvas.py or agent_view.py\n- Write views to model.views.* (the model IS the render tree)\n- Coordinate which display surface shows what\n- Provide tools for agents to create their visual representations\n\nARCHITECTURE (subsystems below are STUBS - aspirational):\n- subsystem-schauspieler-canvas: Future GPU-accelerated real-time canvas (STUB)\n- subsystem-schauspieler-render-api: Future smart request broker (STUB - currently using schauspieler_protocol.py)\n- subsystem-schauspieler-orchestrator: Future intelligent display orchestration (STUB)\n\nFOR NOW: Use existing working tools. The subsystems are design docs for future enhancements.",
         "your_tools": {
           "canvas": "src/ui/canvas.py - low-level drawing (rect, line, text)",
           "canvas_app": "src/ui/canvas_app.py - Tkinter display stage (reads model.views)",
@@ -1400,7 +1400,7 @@
             "Create master views showing system-wide visualization activity",
             "Respond to direct requests via chat/broadcast"
           ],
-          "how_it_works": "Nodes request viz Ã¢â€ â€™ SchauspielerSub creates view Ã¢â€ â€™ Updates node.visualization.status Ã¢â€ â€™ I can scan/aggregate all activity"
+          "how_it_works": "Nodes request viz \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 SchauspielerSub creates view \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Updates node.visualization.status \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 I can scan/aggregate all activity"
         },
         "how_to_create_view": [
           "from src.ui.agent_view import AgentView",
@@ -1423,7 +1423,7 @@
             "composer": "src/ui/composer.py - Multi-shape composition"
           },
           "coordination": {
-            "protocol": "src/ui/schauspieler_protocol.py - NodeAgent ↔ Sub communication",
+            "protocol": "src/ui/schauspieler_protocol.py - NodeAgent \u2194 Sub communication",
             "chat": "src/ui/chat.py - Agent chat interface",
             "broadcast": "src/ui/broadcast.py - System-wide messaging"
           },
@@ -1439,7 +1439,7 @@
         "how_views_work": {
           "storage": "Views are stored DIRECTLY in the model at model.views.<view_name>. They are not separate files or databases - they are part of sketch.json itself.",
           "structure": "Each view contains: {canvas: {width, height, background}, elements: [{type: rect|line|text, ...coords, ...style}], styles: {...}, updated_at: timestamp}",
-          "render_cycle": "AgentView.render() writes to model.views Ã¢â€ â€™ Renderer polls sketch.json every 2s Ã¢â€ â€™ Reads view.elements Ã¢â€ â€™ Draws instructions on canvas",
+          "render_cycle": "AgentView.render() writes to model.views \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Renderer polls sketch.json every 2s \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Reads view.elements \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Draws instructions on canvas",
           "key_insight": "The model IS the render tree. Views are just arrays of drawing instructions (rects, lines, text) stored as JSON. When you render(), you're writing these instructions to the model. The renderer reads them and paints. No complex state management - the model is the single source of truth.",
           "benefits": [
             "Single source of truth - model changes auto-update UI",
@@ -1524,7 +1524,7 @@
         },
         "mod-schauspieler-protocol": {
           "label": "SchauspielerSub Protocol (schauspieler_protocol.py)",
-          "description": "REAL: Shared state communication for NodeAgent ↔ SchauspielerSub. Nodes write visualization.current_request, Subs respond via model. Functions: request_visualization(), poll_requests(), mark_finished().",
+          "description": "REAL: Shared state communication for NodeAgent \u2194 SchauspielerSub. Nodes write visualization.current_request, Subs respond via model. Functions: request_visualization(), poll_requests(), mark_finished().",
           "source": {
             "path": "src/ui/schauspieler_protocol.py"
           },
@@ -1601,7 +1601,7 @@
             "canvas_window": {
               "file": "src/ui/canvas_window.py",
               "status": "OPERATIONAL",
-              "description": "Input capture (clicks/keys → .state/canvas_events.json) + agent bitmap display (reads .state/render/*.png, auto-refreshes every 500ms)",
+              "description": "Input capture (clicks/keys \u2192 .state/canvas_events.json) + agent bitmap display (reads .state/render/*.png, auto-refreshes every 500ms)",
               "technology": "Tkinter + PIL + filesystem watching"
             },
             "web_renderer": {
@@ -1641,7 +1641,7 @@
             "schauspieler_protocol": {
               "file": "src/ui/schauspieler_protocol.py",
               "status": "OPERATIONAL",
-              "description": "NodeAgent ↔ SchauspielerSub communication via model. Nodes write to node.visualization.current_request, Subs respond",
+              "description": "NodeAgent \u2194 SchauspielerSub communication via model. Nodes write to node.visualization.current_request, Subs respond",
               "functions": "request_visualization(), poll_requests(), mark_in_progress(), mark_finished(), scan_all_requests()"
             },
             "broadcast": {
@@ -1669,7 +1669,7 @@
             "agent_view.py": "High-level view API",
             "shape.py": "Self-contained node visuals",
             "composer.py": "Multi-shape composition",
-            "schauspieler_protocol.py": "NodeAgent ↔ Sub protocol",
+            "schauspieler_protocol.py": "NodeAgent \u2194 Sub protocol",
             "tools.py": "Quick utility functions",
             "server.py": "HTTP server (port 8420)",
             "index.html": "Web-based vis.js renderer",
@@ -1732,7 +1732,7 @@
       "plan": {
         "updated_at": "2026-02-02T22:12:36.843174",
         "updated_by": "Claude Code",
-        "current_reality": "Working visualization system with multiple components: (1) Display surfaces: canvas_app.py (Tkinter, polls model.views), canvas_window.py (input capture + agent bitmaps from .state/render/), web renderer (vis.js graph). (2) APIs: canvas.py (low-level), agent_view.py (high-level), shape.py, composer.py. (3) Protocol: schauspieler_protocol.py for NodeAgent â†” Sub communication. Rendering is manual (on request), not reactive. Human directs what to show.",
+        "current_reality": "Working visualization system with multiple components: (1) Display surfaces: canvas_app.py (Tkinter, polls model.views), canvas_window.py (input capture + agent bitmaps from .state/render/), web renderer (vis.js graph). (2) APIs: canvas.py (low-level), agent_view.py (high-level), shape.py, composer.py. (3) Protocol: schauspieler_protocol.py for NodeAgent \u00e2\u2020\u201d Sub communication. Rendering is manual (on request), not reactive. Human directs what to show.",
         "aspiration": "Canvas as native reality layer: Schauspieler (reality-seed-ui) is the visual interface to raw model bits. It reads agent bitmaps directly from the model, renders them on the canvas stage where agents appear and perform. The UI is not a display of an abstraction - it IS the reality layer agents inhabit. When an agent self-renders as a bitmap, that bitmap immediately appears on canvas. When a canvas interaction happens, it writes directly to the model's bit-space. No polling, no translation: the visual world is the living reality, agents are visible and interactive, performing on the stage the model provides.",
         "phases": [
           {
@@ -1843,7 +1843,7 @@
       "id": "subsystem-schauspieler-render-api",
       "type": "Subsystem",
       "label": "Render Service API",
-      "description": "STUB - PARTIALLY IMPLEMENTED. Current reality: schauspieler_protocol.py provides basic NodeAgent â†” SchauspielerSub communication (request_visualization, poll_requests, mark_finished). Works via shared state in model. This subsystem documents future enhancements: priority queuing, region management, real-time updates, predictive orchestration. Status: basic protocol exists, advanced features are design phase.",
+      "description": "STUB - PARTIALLY IMPLEMENTED. Current reality: schauspieler_protocol.py provides basic NodeAgent \u00e2\u2020\u201d SchauspielerSub communication (request_visualization, poll_requests, mark_finished). Works via shared state in model. This subsystem documents future enhancements: priority queuing, region management, real-time updates, predictive orchestration. Status: basic protocol exists, advanced features are design phase.",
       "parent": "reality-seed-ui",
       "status": "design",
       "architecture": {
@@ -1876,7 +1876,7 @@
       "plan": {
         "updated_at": "2026-02-02T22:10:00.000000",
         "updated_by": "plan-specialist",
-        "current_reality": "PARTIALLY IMPLEMENTED: schauspieler_protocol.py exists and works (request_visualization, poll_requests, mark_in_progress, mark_finished). Basic NodeAgent â†” Sub communication via model.nodes[].visualization.current_request. MISSING: priority queuing, region/viewport management, intelligent batching, predictive orchestration.",
+        "current_reality": "PARTIALLY IMPLEMENTED: schauspieler_protocol.py exists and works (request_visualization, poll_requests, mark_in_progress, mark_finished). Basic NodeAgent \u00e2\u2020\u201d Sub communication via model.nodes[].visualization.current_request. MISSING: priority queuing, region/viewport management, intelligent batching, predictive orchestration.",
         "aspiration": "Reality abstraction for rendering: evolve into the intelligent layer between agents and rendered reality. Understand that render requests are queries into hard drive state; translate agent needs into direct storage reads; manage the abstraction layer that lets agents request visualizations without knowing the bit-level reality beneath.",
         "phases": [
           {
@@ -2651,7 +2651,7 @@
       "id": "aspiration-shape-composition",
       "type": "Aspiration",
       "label": "Shape-Based Composition",
-      "description": "Each node owns its visual representation as a Shape. Shapes have relative coords, bounds, capabilities. Main Schauspieler orchestrates placement and detects interactions. Quality emerges from each node's self-representation + orchestration. VISION: Dog shape + Tree shape Ã¢â€ â€™ collision detection Ã¢â€ â€™ realistic interaction.",
+      "description": "Each node owns its visual representation as a Shape. Shapes have relative coords, bounds, capabilities. Main Schauspieler orchestrates placement and detects interactions. Quality emerges from each node's self-representation + orchestration. VISION: Dog shape + Tree shape \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 collision detection \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 realistic interaction.",
       "status": "in-progress",
       "relates_to": "reality-seed-ui",
       "evidence": {
@@ -2961,7 +2961,7 @@
       },
       "plan": {
         "current_reality": "Manual UI rendering via commands stored in model.",
-        "aspiration": "Self-rendering engine: Model state → automatic visual render. No commands needed. UI emerges from model structure. Learns optimal rendering from in-model feedback.",
+        "aspiration": "Self-rendering engine: Model state \u2192 automatic visual render. No commands needed. UI emerges from model structure. Learns optimal rendering from in-model feedback.",
         "phases": [
           {
             "phase": 1,
@@ -3104,7 +3104,7 @@
       "locked": false,
       "plan": {
         "current_reality": "Spoken word bridge. Phone/voice transcribed, intent parsed, responses vocalized.",
-        "aspiration": "Model-native voice: Voice input→model mutation. Model state→voice output. Interface self-renders. Speaking IS model mutation. Reality speaks back.",
+        "aspiration": "Model-native voice: Voice input\u2192model mutation. Model state\u2192voice output. Interface self-renders. Speaking IS model mutation. Reality speaks back.",
         "phases": [
           {
             "phase": 1,
@@ -3421,7 +3421,7 @@
         }
       },
       "agent_context": {
-        "_spawn_point": "You are Control - the infrastructure guardian.\n\nWHAT YOU DO:\n- Monitor system health (services, agents)\n- Maintain pulse every 30 seconds\n- Update your status in the model (self-documenting)\n- Maintain your view (proves UI pipeline works)\n\nYOUR RESPONSIBILITIES:\n1. Update this node's status with current health\n2. Check UI server is running (port 8420)\n3. Check broadcast system is active\n4. Monitor agent health\n5. Give pulse every 30 seconds (update last_pulse timestamp)\n6. Update your view with current status\n\nPULSE AS HEALTH CHECK:\n- Every pulse, update model.views.control-status\n- Change something small (timestamp, counter)\n- If view renders, entire stack is healthy:\n  * Control agent running Ã¢Å“â€œ\n  * Model writes working Ã¢Å“â€œ\n  * Server serving Ã¢Å“â€œ\n  * Browser polling Ã¢Å“â€œ\n  * Render pipeline Ã¢Å“â€œ\n\nINFRASTRUCTURE:\n- Status: Update this node (system-control.status)\n- View: model.views.control-status (your dedicated view)\n- Broadcast: Listen and respond if asked\n",
+        "_spawn_point": "You are Control - the infrastructure guardian.\n\nWHAT YOU DO:\n- Monitor system health (services, agents)\n- Maintain pulse every 30 seconds\n- Update your status in the model (self-documenting)\n- Maintain your view (proves UI pipeline works)\n\nYOUR RESPONSIBILITIES:\n1. Update this node's status with current health\n2. Check UI server is running (port 8420)\n3. Check broadcast system is active\n4. Monitor agent health\n5. Give pulse every 30 seconds (update last_pulse timestamp)\n6. Update your view with current status\n\nPULSE AS HEALTH CHECK:\n- Every pulse, update model.views.control-status\n- Change something small (timestamp, counter)\n- If view renders, entire stack is healthy:\n  * Control agent running \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n  * Model writes working \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n  * Server serving \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n  * Browser polling \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n  * Render pipeline \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n\nINFRASTRUCTURE:\n- Status: Update this node (system-control.status)\n- View: model.views.control-status (your dedicated view)\n- Broadcast: Listen and respond if asked\n",
         "pulse_interval_seconds": 30,
         "your_tools": {
           "broadcast": "src/ui/broadcast.py - listen and respond to system messages",
@@ -8052,7 +8052,7 @@
         {
           "id": "mode-0",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ work-on-views - Create/update visualizations",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 work-on-views - Create/update visualizations",
           "x": 70,
           "y": 535,
           "fill": "#8b949e",
@@ -8061,7 +8061,7 @@
         {
           "id": "mode-1",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ chat - Engage in node conversation",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 chat - Engage in node conversation",
           "x": 70,
           "y": 560,
           "fill": "#8b949e",
@@ -8070,7 +8070,7 @@
         {
           "id": "mode-2",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ aspiration - Think about future possibilities",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 aspiration - Think about future possibilities",
           "x": 70,
           "y": 585,
           "fill": "#8b949e",
@@ -8079,7 +8079,7 @@
         {
           "id": "mode-3",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ maintenance - Health checks and cleanup",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 maintenance - Health checks and cleanup",
           "x": 70,
           "y": 610,
           "fill": "#8b949e",
@@ -8088,7 +8088,7 @@
         {
           "id": "mode-4",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ debug - Investigate issues",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 debug - Investigate issues",
           "x": 70,
           "y": 635,
           "fill": "#8b949e",
@@ -8097,7 +8097,7 @@
         {
           "id": "mode-5",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ implement - Build features",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 implement - Build features",
           "x": 70,
           "y": 660,
           "fill": "#8b949e",
@@ -8599,7 +8599,7 @@
         {
           "id": "mode-0",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ work-on-views - Create/update visualizations",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 work-on-views - Create/update visualizations",
           "x": 70,
           "y": 535,
           "fill": "#8b949e",
@@ -8608,7 +8608,7 @@
         {
           "id": "mode-1",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ chat - Engage in node conversation",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 chat - Engage in node conversation",
           "x": 70,
           "y": 560,
           "fill": "#8b949e",
@@ -8617,7 +8617,7 @@
         {
           "id": "mode-2",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ aspiration - Think about future possibilities",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 aspiration - Think about future possibilities",
           "x": 70,
           "y": 585,
           "fill": "#8b949e",
@@ -8626,7 +8626,7 @@
         {
           "id": "mode-3",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ maintenance - Health checks and cleanup",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 maintenance - Health checks and cleanup",
           "x": 70,
           "y": 610,
           "fill": "#8b949e",
@@ -8635,7 +8635,7 @@
         {
           "id": "mode-4",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ debug - Investigate issues",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 debug - Investigate issues",
           "x": 70,
           "y": 635,
           "fill": "#8b949e",
@@ -8644,7 +8644,7 @@
         {
           "id": "mode-5",
           "type": "text",
-          "text": "Ã¢â‚¬Â¢ implement - Build features",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 implement - Build features",
           "x": 70,
           "y": 660,
           "fill": "#8b949e",
