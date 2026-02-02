@@ -6,7 +6,7 @@
     "name": "007",
     "description": "The Agent World - A living system where humans and AI agents coexist, make requests, and collaborate. All activity happens within 007. Schauspieler is the window through which 007 becomes visible."
   },
-  "updated_at": "2026-02-02T22:47:34Z",
+  "updated_at": "2026-02-02T22:48:33.338606Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -2065,6 +2065,32 @@
           "Create render function for this node",
           "Connect to reactive update pipeline"
         ]
+      },
+      "view": {
+        "renderer": "aspiration-progress",
+        "description": "Self-rendering progress tracker for Single Source of Truth: shows current reality vs aspiration gap",
+        "layout": {
+          "preferred_width": 600,
+          "preferred_height": 400,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "plan_updated",
+          "progress_update"
+        ],
+        "content": {
+          "show_current_reality": true,
+          "show_aspiration_gap": true,
+          "show_phases": true,
+          "show_next_steps": true,
+          "show_progress": true,
+          "show_related_changes": true
+        },
+        "style": {
+          "theme": "aspiration",
+          "accent_color": "#00d9ff"
+        }
       }
     },
     {
@@ -2111,6 +2137,32 @@
           "Build artifact snapshot system that captures current state into model",
           "Create model export that bundles all referenced artifacts"
         ]
+      },
+      "view": {
+        "renderer": "aspiration-progress",
+        "description": "Self-rendering progress tracker for Model Contains Reality: shows current reality vs aspiration gap",
+        "layout": {
+          "preferred_width": 600,
+          "preferred_height": 400,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "plan_updated",
+          "progress_update"
+        ],
+        "content": {
+          "show_current_reality": true,
+          "show_aspiration_gap": true,
+          "show_phases": true,
+          "show_next_steps": true,
+          "show_progress": true,
+          "show_related_changes": true
+        },
+        "style": {
+          "theme": "aspiration",
+          "accent_color": "#00d9ff"
+        }
       }
     },
     {
@@ -2157,6 +2209,32 @@
           "Build GitHub adapter to model repositories, issues, PRs as nodes",
           "Create unified model discovery system for user's entire digital ecosystem"
         ]
+      },
+      "view": {
+        "renderer": "aspiration-progress",
+        "description": "Self-rendering progress tracker for Model Everything: shows current reality vs aspiration gap",
+        "layout": {
+          "preferred_width": 600,
+          "preferred_height": 400,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "plan_updated",
+          "progress_update"
+        ],
+        "content": {
+          "show_current_reality": true,
+          "show_aspiration_gap": true,
+          "show_phases": true,
+          "show_next_steps": true,
+          "show_progress": true,
+          "show_related_changes": true
+        },
+        "style": {
+          "theme": "aspiration",
+          "accent_color": "#00d9ff"
+        }
       }
     },
     {
@@ -2203,6 +2281,32 @@
           "Build WebSocket server for broadcasting model mutations",
           "Create view subscription system that auto-renders on change events"
         ]
+      },
+      "view": {
+        "renderer": "aspiration-progress",
+        "description": "Self-rendering progress tracker for Real-time View Updates: shows current reality vs aspiration gap",
+        "layout": {
+          "preferred_width": 600,
+          "preferred_height": 400,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "plan_updated",
+          "progress_update"
+        ],
+        "content": {
+          "show_current_reality": true,
+          "show_aspiration_gap": true,
+          "show_phases": true,
+          "show_next_steps": true,
+          "show_progress": true,
+          "show_related_changes": true
+        },
+        "style": {
+          "theme": "aspiration",
+          "accent_color": "#00d9ff"
+        }
       }
     },
     {
@@ -2249,6 +2353,32 @@
           "Implement node focus system that highlights related nodes",
           "Build client->server event pipeline for user interactions"
         ]
+      },
+      "view": {
+        "renderer": "aspiration-progress",
+        "description": "Self-rendering progress tracker for Interactive View Controls: shows current reality vs aspiration gap",
+        "layout": {
+          "preferred_width": 600,
+          "preferred_height": 400,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "plan_updated",
+          "progress_update"
+        ],
+        "content": {
+          "show_current_reality": true,
+          "show_aspiration_gap": true,
+          "show_phases": true,
+          "show_next_steps": true,
+          "show_progress": true,
+          "show_related_changes": true
+        },
+        "style": {
+          "theme": "aspiration",
+          "accent_color": "#00d9ff"
+        }
       }
     },
     {
@@ -2295,6 +2425,32 @@
           "Create view statistics dashboard aggregating usage patterns",
           "Implement auto-archival of unused views after 30 days"
         ]
+      },
+      "view": {
+        "renderer": "aspiration-progress",
+        "description": "Self-rendering progress tracker for View Feedback Loop: shows current reality vs aspiration gap",
+        "layout": {
+          "preferred_width": 600,
+          "preferred_height": 400,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "plan_updated",
+          "progress_update"
+        ],
+        "content": {
+          "show_current_reality": true,
+          "show_aspiration_gap": true,
+          "show_phases": true,
+          "show_next_steps": true,
+          "show_progress": true,
+          "show_related_changes": true
+        },
+        "style": {
+          "theme": "aspiration",
+          "accent_color": "#00d9ff"
+        }
       }
     },
     {
@@ -2349,6 +2505,32 @@
           "Implement collision detection and response in composer orchestration",
           "Add physics simulation (gravity, momentum) to shape composition"
         ]
+      },
+      "view": {
+        "renderer": "aspiration-progress",
+        "description": "Self-rendering progress tracker for Shape-Based Composition: shows current reality vs aspiration gap",
+        "layout": {
+          "preferred_width": 600,
+          "preferred_height": 400,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "plan_updated",
+          "progress_update"
+        ],
+        "content": {
+          "show_current_reality": true,
+          "show_aspiration_gap": true,
+          "show_phases": true,
+          "show_next_steps": true,
+          "show_progress": true,
+          "show_related_changes": true
+        },
+        "style": {
+          "theme": "aspiration",
+          "accent_color": "#00d9ff"
+        }
       }
     },
     {
@@ -2399,6 +2581,32 @@
           "Build shape ownership tracking so agents know which shapes are controlled by whom",
           "Create real-time composer that renders all agents' shapes in unified view"
         ]
+      },
+      "view": {
+        "renderer": "aspiration-progress",
+        "description": "Self-rendering progress tracker for Multi-Agent Real-time Collaboration: shows current reality vs aspiration gap",
+        "layout": {
+          "preferred_width": 600,
+          "preferred_height": 400,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "plan_updated",
+          "progress_update"
+        ],
+        "content": {
+          "show_current_reality": true,
+          "show_aspiration_gap": true,
+          "show_phases": true,
+          "show_next_steps": true,
+          "show_progress": true,
+          "show_related_changes": true
+        },
+        "style": {
+          "theme": "aspiration",
+          "accent_color": "#00d9ff"
+        }
       }
     },
     {
@@ -2445,6 +2653,32 @@
           "Build template instantiation system that agents can invoke with config",
           "Create template registry and sharing mechanism"
         ]
+      },
+      "view": {
+        "renderer": "aspiration-progress",
+        "description": "Self-rendering progress tracker for View Templates & Patterns: shows current reality vs aspiration gap",
+        "layout": {
+          "preferred_width": 600,
+          "preferred_height": 400,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "plan_updated",
+          "progress_update"
+        ],
+        "content": {
+          "show_current_reality": true,
+          "show_aspiration_gap": true,
+          "show_phases": true,
+          "show_next_steps": true,
+          "show_progress": true,
+          "show_related_changes": true
+        },
+        "style": {
+          "theme": "aspiration",
+          "accent_color": "#00d9ff"
+        }
       }
     },
     {
@@ -2811,10 +3045,10 @@
       },
       "view": {
         "renderer": "template-card",
-        "description": "Self-rendering template-agent-node template showing what it creates, usage examples, and instantiated nodes",
+        "description": "Self-rendering template card showing what AgentNodes look like, how to use this template, and instantiated agents from this template",
         "layout": {
-          "preferred_width": 500,
-          "preferred_height": 600,
+          "preferred_width": 550,
+          "preferred_height": 700,
           "resizable": true
         },
         "render_on": [
@@ -2831,12 +3065,29 @@
             "title": "What This Template Creates",
             "description": "Individual AgentNodes with embedded chat, tools, and lifecycle management"
           },
+          "agent_features": {
+            "title": "AgentNode Features",
+            "list": [
+              "Embedded chat for real-time communication",
+              "Python-based tool infrastructure",
+              "Agent context with spawn instructions",
+              "Capability declarations",
+              "Self-contained state management"
+            ]
+          },
           "usage_example": {
             "title": "How to Use This Template",
-            "instructions": "Instantiate from template-agent-node to create new agents"
+            "instructions": "Instantiate from template-agent-node to create new agents",
+            "example_steps": [
+              "Define node ID and label",
+              "Add capabilities description",
+              "Create Python tools in src/",
+              "Add spawn_command",
+              "Set agent_context._spawn_point"
+            ]
           },
           "instantiated_nodes": {
-            "title": "Active Agents from template-agent-node",
+            "title": "Instantiated AgentNodes",
             "show_list": true,
             "filters": [
               "instantiated_from: template-agent-node"
@@ -3039,6 +3290,36 @@
           "Train small ML model to render basic node types",
           "Implement reactive update pipeline"
         ]
+      },
+      "view": {
+        "renderer": "service-monitor",
+        "description": "HTTP server health and activity monitor",
+        "layout": {
+          "preferred_width": 400,
+          "preferred_height": 250,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "connection_count_changed",
+          "request_handled"
+        ],
+        "content": {
+          "show_health": true,
+          "show_connections": true,
+          "show_recent_activity": true,
+          "show_endpoints": true
+        },
+        "metrics": {
+          "health": "status.health",
+          "active_connections": "status.connection_count",
+          "uptime": "status.uptime_seconds",
+          "requests_per_minute": "status.request_rate"
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#238636"
+        }
       }
     },
     {
@@ -3094,6 +3375,36 @@
           "Create render function for this node",
           "Connect to reactive update pipeline"
         ]
+      },
+      "view": {
+        "renderer": "service-monitor",
+        "description": "Communication channel health and activity monitor",
+        "layout": {
+          "preferred_width": 400,
+          "preferred_height": 250,
+          "resizable": true
+        },
+        "render_on": [
+          "status_changed",
+          "connection_count_changed",
+          "message_received"
+        ],
+        "content": {
+          "show_health": true,
+          "show_connections": true,
+          "show_recent_activity": true,
+          "show_stats": true
+        },
+        "metrics": {
+          "health": "status.state",
+          "active_connections": "status.active_subscribers",
+          "total_messages": "status.message_count",
+          "messages_per_minute": "status.message_rate"
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#58a6ff"
+        }
       }
     },
     {
@@ -3195,10 +3506,10 @@
       },
       "view": {
         "renderer": "template-card",
-        "description": "Self-rendering template-reality-pm template showing what it creates, usage examples, and instantiated nodes",
+        "description": "Self-rendering Project Manager template showing what it creates, coordination capabilities, usage examples, and instantiated PM agents",
         "layout": {
-          "preferred_width": 500,
-          "preferred_height": 600,
+          "preferred_width": 550,
+          "preferred_height": 700,
           "resizable": true
         },
         "render_on": [
@@ -3215,12 +3526,29 @@
             "title": "What This Template Creates",
             "description": "Project Manager agents that coordinate work, track progress, and maintain alignment with aspirations"
           },
+          "capabilities": {
+            "title": "PM Capabilities",
+            "list": [
+              "Track active projects and completion status",
+              "Coordinate work between agents",
+              "Identify and escalate blockers",
+              "Align work with system aspirations",
+              "Create roadmaps and break down goals",
+              "Report project status"
+            ]
+          },
           "usage_example": {
-            "title": "How to Use This Template",
-            "instructions": "Instantiate from template-reality-pm to create new agents"
+            "title": "How to Instantiate",
+            "instructions": "Use spawnie to create a PM agent",
+            "example_command": "spawnie shell 'Create a project manager agent' -d C:/seed",
+            "requirements": [
+              "Node ID (e.g., reality-pm)",
+              "Working directory",
+              "Chat and state infrastructure"
+            ]
           },
           "instantiated_nodes": {
-            "title": "Active Agents from template-reality-pm",
+            "title": "Active PM Agents",
             "show_list": true,
             "filters": [
               "instantiated_from: template-reality-pm"
@@ -3339,10 +3667,10 @@
       },
       "view": {
         "renderer": "template-card",
-        "description": "Self-rendering template-reality-cleaner template showing what it creates, usage examples, and instantiated nodes",
+        "description": "Self-rendering Cleaner template showing what it creates, cleanup capabilities, safety rules, and instantiated cleaner agents",
         "layout": {
-          "preferred_width": 500,
-          "preferred_height": 600,
+          "preferred_width": 550,
+          "preferred_height": 700,
           "resizable": true
         },
         "render_on": [
@@ -3359,12 +3687,29 @@
             "title": "What This Template Creates",
             "description": "Cleaner agents that maintain system hygiene by removing stale data and cleaning artifacts"
           },
-          "usage_example": {
-            "title": "How to Use This Template",
-            "instructions": "Instantiate from template-reality-cleaner to create new agents"
+          "capabilities": {
+            "title": "Cleaner Capabilities",
+            "list": [
+              "Remove stale files from .state/ directory",
+              "Clean up completed or abandoned sessions",
+              "Remove outdated artifacts",
+              "Archive or remove old log files",
+              "Identify what data is stale and safe to remove",
+              "Clean safely without breaking active systems"
+            ]
+          },
+          "safety_rules": {
+            "title": "Safety Rules",
+            "list": [
+              "Never delete from model/ or src/ directories",
+              "Only clean .state/ and artifacts/",
+              "Verify no active sessions depend on data before deletion",
+              "Keep logs from last 24 hours",
+              "Ask before cleaning if uncertain"
+            ]
           },
           "instantiated_nodes": {
-            "title": "Active Agents from template-reality-cleaner",
+            "title": "Active Cleaner Agents",
             "show_list": true,
             "filters": [
               "instantiated_from: template-reality-cleaner"
@@ -3482,10 +3827,10 @@
       },
       "view": {
         "renderer": "template-card",
-        "description": "Self-rendering template-reality-planner template showing what it creates, usage examples, and instantiated nodes",
+        "description": "Self-rendering Planner template showing what it creates, planning capabilities, gap analysis features, and instantiated planner agents",
         "layout": {
-          "preferred_width": 500,
-          "preferred_height": 600,
+          "preferred_width": 550,
+          "preferred_height": 700,
           "resizable": true
         },
         "render_on": [
@@ -3502,12 +3847,31 @@
             "title": "What This Template Creates",
             "description": "Strategic Planner agents that create implementation plans, analyze gaps, and think ahead about architecture"
           },
+          "capabilities": {
+            "title": "Planner Capabilities",
+            "list": [
+              "Create detailed implementation plans",
+              "Identify gaps between aspiration and current state",
+              "Design solutions for problems and features",
+              "Think about system architecture and patterns",
+              "Decompose large goals into actionable steps",
+              "Compare different implementation approaches",
+              "Create Change nodes for non-trivial work"
+            ]
+          },
           "usage_example": {
-            "title": "How to Use This Template",
-            "instructions": "Instantiate from template-reality-planner to create new agents"
+            "title": "How to Instantiate",
+            "instructions": "Use spawnie to spawn a Planner agent",
+            "example_command": "spawnie shell 'Create a plan for <feature>' -d C:/seed",
+            "what_it_does": [
+              "Analyzes current state vs desired state",
+              "Designs solution approaches",
+              "Creates concrete implementation steps",
+              "Documents plans or Change nodes"
+            ]
           },
           "instantiated_nodes": {
-            "title": "Active Agents from template-reality-planner",
+            "title": "Active Planner Agents",
             "show_list": true,
             "filters": [
               "instantiated_from: template-reality-planner"
@@ -3621,10 +3985,10 @@
       },
       "view": {
         "renderer": "template-card",
-        "description": "Self-rendering template-reality-fixer template showing what it creates, usage examples, and instantiated nodes",
+        "description": "Self-rendering Fixer template showing what it creates, debugging capabilities, troubleshooting approach, and instantiated fixer agents",
         "layout": {
-          "preferred_width": 500,
-          "preferred_height": 600,
+          "preferred_width": 550,
+          "preferred_height": 700,
           "resizable": true
         },
         "render_on": [
@@ -3641,12 +4005,31 @@
             "title": "What This Template Creates",
             "description": "Fixer agents that fix bugs, troubleshoot problems, and resolve issues quickly"
           },
-          "usage_example": {
-            "title": "How to Use This Template",
-            "instructions": "Instantiate from template-reality-fixer to create new agents"
+          "capabilities": {
+            "title": "Fixer Capabilities",
+            "list": [
+              "Identify and fix bugs in code",
+              "Investigate and diagnose problems",
+              "Fix error conditions and edge cases",
+              "Debug failures and unexpected behavior",
+              "Apply rapid fixes for urgent issues",
+              "Find the underlying cause of problems",
+              "Verify fixes work correctly"
+            ]
+          },
+          "troubleshooting_approach": {
+            "title": "Troubleshooting Methodology",
+            "steps": [
+              "Understand the problem or bug",
+              "Investigate and diagnose the issue",
+              "Find the root cause",
+              "Implement a fix",
+              "Test that it works",
+              "Report what was fixed"
+            ]
           },
           "instantiated_nodes": {
-            "title": "Active Agents from template-reality-fixer",
+            "title": "Active Fixer Agents",
             "show_list": true,
             "filters": [
               "instantiated_from: template-reality-fixer"
@@ -3796,6 +4179,32 @@
           "from_reactive_to_autonomous": "Autonomous monitoring loop enables proactive planning suggestions without spawnie prompts",
           "from_text_to_visual": "Plans evolve from text-only output to SVG/WebGL interactive visualizations",
           "from_stateless_to_stateful": "active_plans and planning_memory track execution, enable learning and adaptation"
+        }
+      },
+      "view": {
+        "renderer": "agent-status-card",
+        "description": "I render myself as a planning status card showing current plans, active analysis work, and agent status",
+        "layout": {
+          "preferred_width": 350,
+          "preferred_height": 250,
+          "resizable": true
+        },
+        "render_on": [
+          "plan_created",
+          "analysis_started",
+          "plan_completed",
+          "status_change"
+        ],
+        "content": {
+          "show_status": true,
+          "show_current_plans": true,
+          "show_active_work": true,
+          "show_agent_status": true,
+          "show_capabilities": false
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#58a6ff"
         }
       }
     }
