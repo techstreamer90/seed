@@ -743,35 +743,36 @@
       "y": -400.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971001",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Local-first model backend: a uniform interface over many model locations (multiple JSON files, submodels, and eventually many repos/worlds). Maintains a derived SQLite index/cache for fast query/search/reverse lookups, records provenance for writeback, and provides safe writes with governance enforcement (Change gate, validation, audits, and model-recorded evidence).",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "current_reality": "SQLite-backed gateway over distributed JSON models. Holds the derived state cache, enforces Change gate validation, records provenance for safe writes.",
+        "aspiration": "Become the intelligent backbone: query-responsive, write-safe, fully autonomous cache manager with cross-repo awareness and smart invalidation",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Index & Cache",
+            "description": "Load model JSON, build SQLite index, respond to read queries with cached results",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Change-Aware Writing",
+            "description": "Validate all writes against Change nodes, apply patches with provenance tracking, audit results automatically",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Autonomous Orchestration",
+            "description": "Self-manage cache invalidation, auto-discover new model locations, resolve cross-model references transparently",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
-        ]
+          "Complete SQLite schema for all Seed node types + relationships",
+          "Implement Change validation layer that blocks invalid writes",
+          "Add provenance writeback so patches record their destination file",
+          "Create cross-model reference resolver for Model Registry integration"
+        ],
+        "updated_at": "2026-02-02T22:13:10.122842",
+        "updated_by": "spawnie"
       }
     },
     {
@@ -1174,35 +1175,36 @@
       "y": -200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971021",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Tool for generating models of complex systems",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "current_reality": "Tool for generating complex system models. Not yet built; exists as a spawn point for future development.",
+        "aspiration": "Become the universal modeling engine: auto-generate BAMs from code, git history, existing models, and voice descriptions. Self-improving through feedback loops.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Tool Definition",
+            "description": "Define what BAM generation means, create reference implementation, build basic CLI",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Multi-Source Ingestion",
+            "description": "Ingest code, git history, voice input, existing models - convert all to BAM structure",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Self-Improving Generation",
+            "description": "Use feedback loops and ML to improve BAM quality over time, adapt to new patterns",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
-        ]
+          "Define BAM schema and validation rules",
+          "Create code-to-BAM converter that walks git history",
+          "Integrate with Voice Interface to accept spoken model descriptions",
+          "Build test suite using reality-bam-test-projects"
+        ],
+        "updated_at": "2026-02-02T22:13:22.214853",
+        "updated_by": "spawnie"
       }
     },
     {
@@ -1235,35 +1237,36 @@
       "y": -200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971027",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Smaller projects to validate the model-as-workspace concept.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "current_reality": "Validation ground for model-as-workspace concept. Planned but not yet active.",
+        "aspiration": "Evolve into a living lab: continuously test new modeling patterns, validate BAM generation, prove the model-as-workspace concept works at scale",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Project Setup",
+            "description": "Create 2-3 small test projects with clear boundaries and modeling goals",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Workflow Validation",
+            "description": "Run real modeling workflows, capture feedback, refine BAM generation tools",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Autonomous Adaptation",
+            "description": "Test projects self-optimize based on usage patterns and agent feedback",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
-        ]
+          "Create 2-3 small reference projects (CLI tool, Python lib, web app)",
+          "Model each using BAM + Root Model Store pattern",
+          "Run automated tests on model completeness and consistency",
+          "Integrate feedback loop with BAM generator for iterative improvement"
+        ],
+        "updated_at": "2026-02-02T22:13:22.214853",
+        "updated_by": "spawnie"
       }
     },
     {
@@ -1728,35 +1731,36 @@
       "y": -200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971052",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: A registry of model locations (local paths, repos, URLs) that the Root Model Store can index into one logical graph. This is the backbone for a world where Seed is only one of many referenced nodes.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "current_reality": "Planned backbone for discovering models across repos and paths. Does not yet exist.",
+        "aspiration": "Become the universal model finder: federated discovery across local files, repos, URLs, and other 007 worlds. No file paths needed - everything discoverable by role and aspiration.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Local Registry",
+            "description": "Index local file system and known repos, provide basic lookup by path",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Federated Discovery",
+            "description": "Query multiple model sources (repos, URLs, other Seed instances), resolve name conflicts, unify results",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Autonomous Indexing",
+            "description": "Self-discover new worlds, auto-update cache when models change, suggest connections between previously unknown models",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
-        ]
+          "Define registry schema (location, metadata, type, aspiration)",
+          "Create local file scanner that discovers sketch.json files recursively",
+          "Integrate with Root Model Store as its data source layer",
+          "Build query interface: find by role, aspiration, node type, or partial name"
+        ],
+        "updated_at": "2026-02-02T22:13:22.214853",
+        "updated_by": "spawnie"
       }
     },
     {
@@ -2325,35 +2329,36 @@
         "y": 0
       },
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971133",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: CORE PRINCIPLE FOR ALL AGENTS:\n\nThe world agents live in consists ONLY of:\n1. The MODEL (source of truth, shared state)\n2. Other AGENTS (who also only see model + agents)\n\nThe user is the ONLY entity that exists outside this world.\n\nImplications:\n- All communication happens through the model\n- All state is model state\n- An \"always-on controller\" is just an agent\n- No special infrastructure needed - just model + agents\n- To affect reality, modify the model\n- To know reality, read the model\n\nThis is the Seed philosophy: Model-first, model-only for agents.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "current_reality": "Core principle: Only MODEL + AGENTS exist in the agent world. User is outside. All state is model state.",
+        "aspiration": "Become the foundation of every agent understanding: Self-validating principle that agents autonomously enforce, embedded in every new agent context, shaping all decision-making",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Principle Definition",
+            "description": "State the principle clearly, document implications, establish it as law for all agents",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Enforcement",
+            "description": "Every agent checks: Is this action modifying model state? Is this aligned with agent-world principle? Audit violations.",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Self-Reinforcing",
+            "description": "Principle gets embedded in agent spawn, validated in every operation, improved through collective agent learning",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
-        ]
+          "Add principle check: all agent actions must trace back to model mutation",
+          "Create audit trail for principle violations (if any occur)",
+          "Include principle summary in every agent spawn context",
+          "Build visualization: show how each agent action flows through model"
+        ],
+        "updated_at": "2026-02-02T22:13:38.013812",
+        "updated_by": "spawnie"
       }
     },
     {
@@ -2374,35 +2379,36 @@
         "processed": false
       },
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971138",
-        "updated_by": "spawnie",
-        "current_reality": "Manual UI construction, human-directed rendering",
-        "aspiration": "Self-rendering based on state changes, reactive and autonomous",
+        "current_reality": "Manual UI rendering directed by humans/agents. Commands stored in model, processed asynchronously.",
+        "aspiration": "Evolve into a self-rendering UI engine: Any model state change triggers reactive re-render using locally-trained ML models. No manual intervention needed.",
         "phases": [
           {
             "phase": 1,
-            "name": "Manual Rendering",
-            "description": "UI components built manually, directed by humans or agents",
+            "name": "Command Processing",
+            "description": "Parse UI commands from model, render manually based on explicit instructions",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Reactive Rendering",
-            "description": "UI components respond to model state changes automatically",
+            "name": "Reactive Binding",
+            "description": "UI components auto-update when model state changes, declarative state->render mapping",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "ML-Powered Self-Rendering",
-            "description": "Local ML models generate UI based on node state and context",
+            "name": "ML-Powered Rendering",
+            "description": "Small local vision model learns node patterns, generates UI autonomously based on node context and state",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define state->render contract for nodes",
-          "Train small ML model to render basic node types",
-          "Implement reactive update pipeline"
-        ]
+          "Define state->UI contract: what model properties trigger what visual changes",
+          "Build reactive update listener that watches model changes",
+          "Train small ML model (distilled from Claude) to map node context to optimal UI representation",
+          "Implement local rendering engine using model predictions"
+        ],
+        "updated_at": "2026-02-02T22:13:38.013812",
+        "updated_by": "spawnie"
       }
     },
     {
@@ -2492,35 +2498,36 @@
       "y": 400.0,
       "locked": false,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971143",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Phone and voice interaction system. Allows humans to speak with agents via phone calls or voice input. Bridges the gap between spoken word and the model world.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "current_reality": "Spoken word bridge. Phone/voice input transcribed, intent parsed, responses vocalized back. Lives at C:/seed/src/voice.",
+        "aspiration": "Become the natural language portal: Fluent, context-aware conversationalist. Understands human intent deeply, routes to specialized node-agents, remembers conversation context, speaks naturally without prompting.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Basic I/O",
+            "description": "Integrate STT (Whisper), TTS (ElevenLabs or local), basic routing to node-agents",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Conversational Context",
+            "description": "Build conversation memory, track intent across turns, use context to improve routing and responses",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Autonomous Understanding",
+            "description": "Self-improve speech understanding through feedback loops, adapt to user voice/patterns, become a truly fluent conversationalist",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
-        ]
+          "Integrate Whisper for speech-to-text transcription",
+          "Integrate ElevenLabs or local TTS for natural-sounding responses",
+          "Build Twilio/SIP integration for inbound phone calls",
+          "Create conversation context tracker (who called, what was discussed, outcomes)"
+        ],
+        "updated_at": "2026-02-02T22:13:38.013812",
+        "updated_by": "spawnie"
       }
     },
     {
@@ -2535,35 +2542,36 @@
       "x": -175.0,
       "y": 400.0,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971148",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Currently there's no way to interact with Seed via voice or phone. Users must type. This blocks accessibility and mobile/hands-free use cases.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "current_reality": "Accessibility blocker: Seed is text-only. No phone, no voice, no hands-free interaction. Excludes mobile users and voice-first users.",
+        "aspiration": "Eliminate this gap entirely: Voice becomes a first-class interaction modality, equally capable as text, accessible from any device with voice input",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Basic Voice Support",
+            "description": "Get to parity: voice users can do everything text users can, with reasonable latency",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Voice-First Features",
+            "description": "Build interactions optimized for voice: confirmation prompts, spatial audio, multi-party conversations",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Eliminated Gap",
+            "description": "Voice becomes preferred modality for certain tasks; users choose text OR voice fluidly",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
-        ]
+          "Complete Voice Interface reality implementation",
+          "Add voice-specific optimizations (shorter responses, better confirmation UX)",
+          "Test accessibility with screen-reader users",
+          "Build voice-to-model flow for all core Seed operations"
+        ],
+        "updated_at": "2026-02-02T22:13:38.013812",
+        "updated_by": "spawnie"
       }
     },
     {
