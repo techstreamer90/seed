@@ -432,6 +432,85 @@
             color: #6e7681;
         }
 
+        /* World Overview Styles */
+        .world-overview {
+            font-size: 13px;
+        }
+
+        .world-summary {
+            color: #8b949e;
+            padding: 8px 0 16px 0;
+            border-bottom: 1px solid #30363d;
+            margin-bottom: 12px;
+        }
+
+        .world-section {
+            margin-bottom: 16px;
+        }
+
+        .world-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #58a6ff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .world-node {
+            padding: 6px 8px;
+            margin: 2px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .world-node:hover {
+            background: #21262d;
+        }
+
+        .world-node.world-child {
+            margin-left: 16px;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        .world-node-label {
+            color: #c9d1d9;
+        }
+
+        .world-node-id {
+            font-size: 10px;
+            color: #6e7681;
+            font-family: monospace;
+        }
+
+        .world-node-type {
+            font-size: 10px;
+            color: #8b949e;
+            background: #21262d;
+            padding: 1px 6px;
+            border-radius: 8px;
+        }
+
+        .world-more {
+            font-size: 11px;
+            color: #6e7681;
+            padding: 4px 8px;
+            margin-left: 16px;
+        }
+
+        .world-type-count {
+            font-size: 12px;
+            color: #8b949e;
+            padding: 2px 8px;
+        }
+
         /* Node highlight effect */
         .node-highlight {
             animation: highlightPulse 2s ease-out;
@@ -931,6 +1010,10 @@
                     );
                     break;
 
+                case 'world':
+                    showWorldOverview(cmd.params.depth || 2);
+                    break;
+
                 case 'clear':
                     hideMessage();
                     hideStatusPanel();
@@ -1054,6 +1137,105 @@
         function hideStatusPanel() {
             const panel = document.getElementById('status-panel');
             panel.classList.remove('visible');
+        }
+
+        // Show world overview - "This is your world" quick map
+        function showWorldOverview(maxDepth = 2) {
+            const panel = document.getElementById('status-panel');
+            const tree = document.getElementById('status-tree');
+            const title = panel.querySelector('.status-panel-title');
+
+            title.textContent = 'This Is Your World';
+
+            // Build world overview HTML
+            let html = '<div class="world-overview">';
+
+            // Group nodes by type
+            const nodesByType = {};
+            model.nodes.forEach(node => {
+                const type = node.type || 'Unknown';
+                if (!nodesByType[type]) nodesByType[type] = [];
+                nodesByType[type].push(node);
+            });
+
+            // Count summary
+            const totalNodes = model.nodes.length;
+            const totalEdges = model.edges ? model.edges.length : 0;
+            html += `<div class="world-summary">${totalNodes} nodes, ${totalEdges} edges</div>`;
+
+            // Priority order
+            const priorityTypes = ['Reality', 'Subsystem', 'Aspiration', 'Gap', 'Todo', 'Concept'];
+
+            // Show Realities first
+            if (nodesByType['Reality']) {
+                html += '<div class="world-section">';
+                html += '<div class="world-section-title">REALITIES (entry points)</div>';
+                nodesByType['Reality']
+                    .sort((a, b) => (a.label || a.id).localeCompare(b.label || b.id))
+                    .forEach(node => {
+                        const status = node.status ? ` [${node.status}]` : '';
+                        html += `<div class="world-node" onclick="onWorldNodeClick('${node.id}')">`;
+                        html += `<span class="world-node-label">${node.label || node.id}${status}</span>`;
+                        html += `<span class="world-node-id">${node.id}</span>`;
+                        html += '</div>';
+
+                        // Show children if depth allows
+                        if (maxDepth > 1) {
+                            const children = getChildNodes(node.id);
+                            children.slice(0, 5).forEach(child => {
+                                html += `<div class="world-node world-child" onclick="onWorldNodeClick('${child.id}')">`;
+                                html += `<span class="world-node-label">${child.label || child.id}</span>`;
+                                html += `<span class="world-node-type">${child.type}</span>`;
+                                html += '</div>';
+                            });
+                            if (children.length > 5) {
+                                html += `<div class="world-more">+${children.length - 5} more</div>`;
+                            }
+                        }
+                    });
+                html += '</div>';
+            }
+
+            // Show other priority types
+            ['Aspiration', 'Gap', 'Todo'].forEach(type => {
+                if (nodesByType[type] && nodesByType[type].length > 0) {
+                    html += '<div class="world-section">';
+                    html += `<div class="world-section-title">${type.toUpperCase()}S (${nodesByType[type].length})</div>`;
+                    nodesByType[type]
+                        .sort((a, b) => (a.label || a.id).localeCompare(b.label || b.id))
+                        .slice(0, 8)
+                        .forEach(node => {
+                            const status = node.status ? ` [${node.status}]` : '';
+                            html += `<div class="world-node" onclick="onWorldNodeClick('${node.id}')">`;
+                            html += `<span class="world-node-label">${node.label || node.id}${status}</span>`;
+                            html += '</div>';
+                        });
+                    if (nodesByType[type].length > 8) {
+                        html += `<div class="world-more">+${nodesByType[type].length - 8} more</div>`;
+                    }
+                    html += '</div>';
+                }
+            });
+
+            // Show counts of other types
+            const otherTypes = Object.keys(nodesByType).filter(t => !priorityTypes.includes(t));
+            if (otherTypes.length > 0) {
+                html += '<div class="world-section">';
+                html += '<div class="world-section-title">OTHER TYPES</div>';
+                otherTypes.sort().forEach(type => {
+                    html += `<div class="world-type-count">${type}: ${nodesByType[type].length}</div>`;
+                });
+                html += '</div>';
+            }
+
+            html += '</div>';
+            tree.innerHTML = html;
+            panel.classList.add('visible');
+        }
+
+        // Handle click on world overview node
+        function onWorldNodeClick(nodeId) {
+            focusOnNode(nodeId, 1.0, true);
         }
 
         // Build hierarchical status tree HTML

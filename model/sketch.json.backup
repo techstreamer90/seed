@@ -1,0 +1,4351 @@
+{
+  "schema_version": "3.0",
+  "project": "seed",
+  "description": "The root model. A model of all models. Your home.",
+  "updated_at": "2026-02-01T16:45:50Z",
+  "meta": {
+    "hierarchy": {
+      "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
+      "levels": [
+        "meta",
+        "reality",
+        "system",
+        "module",
+        "component",
+        "leaf"
+      ]
+    }
+  },
+  "schema": {
+    "node_types": {
+      "Reality": {
+        "description": "A project/system with its own BAM model. The spawn point for agents entering this world.",
+        "properties": [
+          "path",
+          "description",
+          "status",
+          "agent_context",
+          "tbd",
+          "mobility"
+        ],
+        "can_contain_model": true,
+        "agent_context_spec": {
+          "_note": "Every Reality SHOULD have an agent_context. This is the spawn point.",
+          "version": "1.0",
+          "required_fields": [
+            "focus",
+            "work_queue"
+          ],
+          "optional_fields": [
+            "philosophy",
+            "principles",
+            "how_to_work"
+          ],
+          "work_queue_item_spec": {
+            "required_fields": [
+              "type",
+              "id"
+            ],
+            "optional_fields": [
+              "why",
+              "exit_criteria",
+              "priority",
+              "notes"
+            ],
+            "allowed_type_values": [
+              "Todo"
+            ]
+          }
+        }
+      },
+      "Subsystem": {
+        "description": "A major component of a reality, can contain its own sub-BAM",
+        "properties": [
+          "description",
+          "mobility"
+        ],
+        "can_contain_model": true
+      },
+      "Module": {
+        "description": "A code module (file)",
+        "properties": [
+          "path",
+          "description",
+          "mobility"
+        ]
+      },
+      "Concept": {
+        "description": "A cross-cutting idea or pattern",
+        "properties": [
+          "description",
+          "mobility"
+        ]
+      },
+      "Aspiration": {
+        "description": "A goal - human controlled, immutable by AI",
+        "properties": [
+          "description",
+          "status",
+          "mobility"
+        ]
+      },
+      "Gap": {
+        "description": "An explicit delta between aspiration and reality. The work to be done.",
+        "properties": [
+          "aspiration",
+          "current_state",
+          "target_state",
+          "priority",
+          "mobility"
+        ]
+      },
+      "Todo": {
+        "description": "A specific action that closes part of a gap",
+        "properties": [
+          "description",
+          "status",
+          "priority",
+          "closes",
+          "mobility"
+        ]
+      },
+      "UIState": {
+        "description": "UI state stored in the model. Renderers read and write this node to change what the user sees.",
+        "properties": [
+          "active_view",
+          "selection",
+          "filters",
+          "theme",
+          "layout_prefs",
+          "mobility"
+        ]
+      },
+      "View": {
+        "description": "A declarative UI view definition. A renderer materializes this into an on-screen layout.",
+        "properties": [
+          "description",
+          "layout",
+          "bindings",
+          "mobility"
+        ]
+      },
+      "Query": {
+        "description": "A declarative graph query over nodes/edges used by views. Kept intentionally small; evaluated by a renderer.",
+        "properties": [
+          "description",
+          "language",
+          "expression",
+          "params",
+          "mobility"
+        ]
+      },
+      "Action": {
+        "description": "A declarative mutation the renderer can apply to the model (allowlisted). Used for interaction bindings.",
+        "properties": [
+          "description",
+          "kind",
+          "target",
+          "patch",
+          "mobility"
+        ]
+      },
+      "Proof": {
+        "description": "A structured record that a described reality and its implemented artifacts are aligned. Proof is stored in the model as data.",
+        "properties": [
+          "subject",
+          "method",
+          "status",
+          "checked_at",
+          "scope",
+          "evidence",
+          "mobility"
+        ]
+      },
+      "Audit": {
+        "description": "An actionable integrity check over the model. Audits are meant to be runnable procedures whose results can be recorded back into the model.",
+        "properties": [
+          "subject",
+          "description",
+          "status",
+          "last_run",
+          "method",
+          "scope",
+          "findings",
+          "evidence",
+          "mobility"
+        ]
+      },
+      "Check": {
+        "description": "A smaller, focused check (often part of an Audit).",
+        "properties": [
+          "description",
+          "status",
+          "last_run",
+          "method",
+          "scope",
+          "result",
+          "evidence",
+          "mobility"
+        ]
+      },
+      "Policy": {
+        "description": "A governing rule for how changes are proposed, executed, and accepted. Policies are enforced via audits/checks and agent_context principles.",
+        "properties": [
+          "description",
+          "status",
+          "rules",
+          "applies_to",
+          "exceptions",
+          "enforced_by",
+          "mobility"
+        ]
+      },
+      "Change": {
+        "description": "A proposed or executed change, explicitly tied to aspirations (why) and gaps (what delta), with required evidence.",
+        "properties": [
+          "description",
+          "status",
+          "created_at",
+          "owner",
+          "subject",
+          "addresses",
+          "advances",
+          "expected_delta",
+          "evidence_required",
+          "evidence",
+          "mobility"
+        ]
+      }
+    },
+    "edge_types": {
+      "CONTAINS": {
+        "description": "Parent contains child in hierarchy",
+        "from_types": [
+          "Reality",
+          "Subsystem"
+        ],
+        "to_types": [
+          "Subsystem",
+          "Module"
+        ]
+      },
+      "USES": {
+        "description": "One reality uses another",
+        "from_types": [
+          "Reality"
+        ],
+        "to_types": [
+          "Reality"
+        ]
+      },
+      "EMBODIES": {
+        "description": "Reality embodies a concept",
+        "from_types": [
+          "Reality"
+        ],
+        "to_types": [
+          "Concept"
+        ]
+      },
+      "TARGETS": {
+        "description": "Reality is working towards another (long-term goal)",
+        "from_types": [
+          "Reality"
+        ],
+        "to_types": [
+          "Reality"
+        ]
+      },
+      "IMPLEMENTS": {
+        "description": "Reality implements an aspiration",
+        "from_types": [
+          "Reality"
+        ],
+        "to_types": [
+          "Aspiration"
+        ]
+      },
+      "NEEDS": {
+        "description": "Something needs work done",
+        "from_types": [
+          "Reality",
+          "Aspiration",
+          "Subsystem"
+        ],
+        "to_types": [
+          "Todo"
+        ]
+      },
+      "DERIVES_FROM": {
+        "description": "Aspiration derives from a more fundamental aspiration",
+        "from_types": [
+          "Aspiration"
+        ],
+        "to_types": [
+          "Aspiration"
+        ]
+      },
+      "BLOCKS": {
+        "description": "Gap blocks achievement of an aspiration",
+        "from_types": [
+          "Gap"
+        ],
+        "to_types": [
+          "Aspiration"
+        ]
+      },
+      "CLOSES": {
+        "description": "Todo closes (part of) a gap when completed",
+        "from_types": [
+          "Todo"
+        ],
+        "to_types": [
+          "Gap"
+        ]
+      },
+      "AUDITS": {
+        "description": "Audit targets a subject (usually a Reality or Subsystem)",
+        "from_types": [
+          "Audit"
+        ],
+        "to_types": [
+          "Reality",
+          "Subsystem"
+        ]
+      },
+      "HAS_CHECK": {
+        "description": "Audit is composed of checks",
+        "from_types": [
+          "Audit"
+        ],
+        "to_types": [
+          "Check"
+        ]
+      },
+      "GOVERNS": {
+        "description": "Policy governs the work (changes and/or todos).",
+        "from_types": [
+          "Policy"
+        ],
+        "to_types": [
+          "Change",
+          "Todo"
+        ]
+      },
+      "ADDRESSES": {
+        "description": "A Change addresses a Gap (the explicit delta it reduces).",
+        "from_types": [
+          "Change"
+        ],
+        "to_types": [
+          "Gap"
+        ]
+      },
+      "ADVANCES": {
+        "description": "A Change advances an Aspiration (the explicit why).",
+        "from_types": [
+          "Change"
+        ],
+        "to_types": [
+          "Aspiration"
+        ]
+      },
+      "PRODUCES": {
+        "description": "A Change produces evidence artifacts (Proof/Audit/Check) recorded in the model.",
+        "from_types": [
+          "Change"
+        ],
+        "to_types": [
+          "Proof",
+          "Audit",
+          "Check"
+        ]
+      }
+    }
+  },
+  "nodes": [
+    {
+      "id": "reality-spawnie",
+      "type": "Reality",
+      "label": "Spawnie",
+      "ui": {
+        "x": 143,
+        "y": 44
+      },
+      "description": "Workflow orchestrator for CLI agents. First system fully embracing the Root philosophy.",
+      "source": {
+        "path": "C:/spawnie",
+        "model_path": "bam/model/sketch.json"
+      },
+      "agent_context": {
+        "_note": "This is a portal node. Prefer spawning into Spawnie by loading its referenced model and using its internal Reality spawn point.",
+        "agent_context_version": "1.0",
+        "focus": {
+          "type": "Gap",
+          "id": "gap-model-not-complete"
+        },
+        "work_queue": [
+          {
+            "type": "Todo",
+            "id": "todo-embed-spawnie-model",
+            "why": "Make Spawnie instantly understandable from Root without loading another file",
+            "exit_criteria": "Root embeds a meaningful Spawnie summary and/or key nodes"
+          }
+        ]
+      },
+      "model": {
+        "_ref": "C:/spawnie/bam/model/sketch.json",
+        "_summary": {
+          "schema_version": "3.0",
+          "level": "system",
+          "top_level_nodes": 10,
+          "subsystems": [
+            "core",
+            "providers",
+            "workflows"
+          ],
+          "concepts": 3,
+          "aspirations": 2
+        }
+      }
+    },
+    {
+      "id": "reality-seed",
+      "type": "Reality",
+      "label": "Root",
+      "ui": {
+        "x": 0,
+        "y": 0
+      },
+      "description": "The Root meta-model. A model of all models. Your home. This node is self-referential - the Root models itself.",
+      "source": {
+        "path": "C:/seed",
+        "model_path": "model/sketch.json"
+      },
+      "status": "active",
+      "agent_context": {
+        "_spawn_point": "YOU ARE HERE. This is Root - the root of all models.",
+        "agent_context_version": "1.0",
+        "philosophy": "Don't train the agent, train the world. You are waking up in a modeled world where everything is known. Read the model, understand it, work through it.",
+        "focus": {
+          "type": "Gap",
+          "id": "gap-model-not-complete"
+        },
+        "work_queue": [
+          {
+            "type": "Todo",
+            "id": "todo-model-only-workflow",
+            "why": "Enforce model-only work so the model becomes the interface",
+            "exit_criteria": "The workflow is documented in the model and adopted as standard"
+          },
+          {
+            "type": "Todo",
+            "id": "todo-change-executor-pipeline-v1",
+            "why": "Make model edits safe + auditable by routing them through a controlled executor",
+            "exit_criteria": "A spawned change executor applies Change nodes via the Root Store gate and only commits when audits are green"
+          },
+          {
+            "type": "Todo",
+            "id": "todo-change-process-v1",
+            "why": "Enforce that all changes explicitly advance aspirations by closing gaps",
+            "exit_criteria": "Change/Policy/Audit pattern is in place and used for all work"
+          },
+          {
+            "type": "Todo",
+            "id": "todo-root-model-store-v1",
+            "why": "Stop repeatedly reading many JSON files by creating a fast query layer with safe writes and enforcement",
+            "exit_criteria": "Model Store indexes the model into SQLite, serves queries, applies Changes with validation, and records audit evidence back into the model"
+          },
+          {
+            "type": "Todo",
+            "id": "todo-add-source-hashes",
+            "why": "Make reality verifiable by hash (drift detection)",
+            "exit_criteria": "All core Root files (under C:/seed) referenced by the model include verified SHA256 hashes"
+          },
+          {
+            "type": "Todo",
+            "id": "todo-seed-self-monitor",
+            "why": "Dogfood monitoring: Root should be a first-class monitored reality",
+            "exit_criteria": "Root appears in its own monitor with meaningful status"
+          }
+        ],
+        "principles": [
+          "Default: do not directly edit files. Prefer activating modeled Actions and proposing Changes.",
+          "Interactive agents SHOULD be activate-only: request a spawned change executor for edits.",
+          "Moves are bundle-closure operations: respect node.mobility and move attached nodes together (Audit<->Check via HAS_CHECK, parent/child via CONTAINS).",
+          "Do not manually cut/paste nodes across files; use root_store.move_nodes_to_file and verify audit-root-store-attachment-closure.",
+          "Every change MUST be represented as a Change node that (a) ADDRESSES a Gap and (b) ADVANCES at least one Aspiration, with required evidence recorded back into the model",
+          "Gaps are explicit - find them in nodes with type=Gap",
+          "Todos CLOSE gaps - that's their purpose",
+          "Aspirations are human-controlled, immutable by AI",
+          "When in doubt, make the implicit explicit in the model"
+        ],
+        "how_to_work": {
+          "1_orient": "Find this agent_context in the Reality node. You are here.",
+          "2_understand": "Read focus gap. Read aspirations it blocks. Understand the delta.",
+          "3_act": "Pick highest priority todo from work_queue that CLOSES the focus gap.",
+          "4_update": "After work, update model: mark todos done, update gap status, add discoveries.",
+          "5_verify": "Model must reflect truth. If you changed anything, model must show it."
+        }
+      },
+      "model": {
+        "_note": "This is a self-reference. Root contains its own model.",
+        "subsystems": [
+          "core",
+          "ui"
+        ],
+        "modules": [
+          "pulse",
+          "status",
+          "reality",
+          "monitor",
+          "cli",
+          "verification",
+          "ui"
+        ]
+      }
+    },
+    {
+      "id": "reality-root-model-store",
+      "type": "Reality",
+      "label": "Root Model Store",
+      "description": "Local-first model backend: a uniform interface over many model locations (multiple JSON files, submodels, and eventually many repos/worlds). Maintains a derived SQLite index/cache for fast query/search/reverse lookups, records provenance for writeback, and provides safe writes with governance enforcement (Change gate, validation, audits, and model-recorded evidence).",
+      "source": {
+        "path": "C:/seed/root_store",
+        "model_path": null
+      },
+      "status": "active",
+      "agent_context": {
+        "_note": "The SQLite DB is derived state and must be reproducible from the model JSON files.",
+        "agent_context_version": "1.0",
+        "focus": {
+          "type": "Gap",
+          "id": "gap-no-root-model-store"
+        },
+        "work_queue": [
+          {
+            "type": "Todo",
+            "id": "todo-root-model-store-v1",
+            "why": "Enable fast query + safe writes + enforcement for Root",
+            "exit_criteria": "Store can load root model + refs, index into SQLite, answer queries, apply Change patches with validation, and run/record audits"
+          },
+          {
+            "type": "Todo",
+            "id": "todo-model-registry-v0",
+            "why": "Make the store a stable interface over many model locations",
+            "exit_criteria": "A Model Registry reality exists and is referenced by the store; models can be discovered without knowing file paths"
+          },
+          {
+            "type": "Todo",
+            "id": "todo-provenance-writeback-v1",
+            "why": "Enable moving most content out of seed/model/sketch.json safely",
+            "exit_criteria": "Audit/check evidence and Change application write back to the correct provenance file, not only the root entry file"
+          }
+        ]
+      },
+      "evidence": {
+        "integration_queue": {
+          "last_attempt": {
+            "saved_at": "2026-02-01T14:35:07Z",
+            "node_id": "subsystem-root-store",
+            "propagated": true,
+            "ok": true,
+            "git": {
+              "is_repo": true,
+              "branch": "master",
+              "dirty": true,
+              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
+              "upstream": "origin/master",
+              "ahead": 1,
+              "behind": 0
+            },
+            "preflight": {
+              "ok": true,
+              "require_git_clean": true,
+              "require_up_to_date": true,
+              "fetch_remotes": false,
+              "warnings": [
+                "git working tree is dirty"
+              ],
+              "recommendations": [
+                "If reality sources matter for this node, commit/stash changes before verification"
+              ],
+              "surrounding": {
+                "radius": 1,
+                "node_ids": [
+                  "subsystem-root-store",
+                  "reality-root-model-store",
+                  "mod-store-loader",
+                  "mod-store-index",
+                  "mod-store-query",
+                  "mod-store-writer",
+                  "mod-store-enforcement",
+                  "mod-store-audits",
+                  "mod-store-watch",
+                  "mod-store-api",
+                  "mod-store-translate",
+                  "mod-store-integration"
+                ],
+                "edge_count": 23,
+                "edges": [
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-root-model-store",
+                    "to": "subsystem-root-store"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-loader"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-index"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-query"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-writer"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-enforcement"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-audits"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-watch"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-api"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-translate"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-integration"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-root-model-store",
+                    "to": "reality-model-registry"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-model-registry-v0"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-provenance-writeback-v1"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-root-store-sqlite-schema-v0"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-root-model-store-v1"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-index-consistency",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-distributed-backbone",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-distributed-model"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-provenance-writeback"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-verbal-save"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-attachment-closure",
+                    "to": "reality-root-model-store"
+                  }
+                ],
+                "truncated": false
+              }
+            },
+            "rough_checks": {
+              "attachment_closure": {
+                "ok": true
+              },
+              "root_store_index": {
+                "ok": true
+              }
+            },
+            "chain": [
+              "subsystem-root-store",
+              "reality-root-model-store"
+            ]
+          },
+          "last_save": {
+            "saved_at": "2026-02-01T14:35:07Z",
+            "node_id": "subsystem-root-store",
+            "propagated": true,
+            "ok": true,
+            "git": {
+              "is_repo": true,
+              "branch": "master",
+              "dirty": true,
+              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
+              "upstream": "origin/master",
+              "ahead": 1,
+              "behind": 0
+            },
+            "preflight": {
+              "ok": true,
+              "require_git_clean": true,
+              "require_up_to_date": true,
+              "fetch_remotes": false,
+              "warnings": [
+                "git working tree is dirty"
+              ],
+              "recommendations": [
+                "If reality sources matter for this node, commit/stash changes before verification"
+              ],
+              "surrounding": {
+                "radius": 1,
+                "node_ids": [
+                  "subsystem-root-store",
+                  "reality-root-model-store",
+                  "mod-store-loader",
+                  "mod-store-index",
+                  "mod-store-query",
+                  "mod-store-writer",
+                  "mod-store-enforcement",
+                  "mod-store-audits",
+                  "mod-store-watch",
+                  "mod-store-api",
+                  "mod-store-translate",
+                  "mod-store-integration"
+                ],
+                "edge_count": 23,
+                "edges": [
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-root-model-store",
+                    "to": "subsystem-root-store"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-loader"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-index"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-query"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-writer"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-enforcement"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-audits"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-watch"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-api"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-translate"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-integration"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-root-model-store",
+                    "to": "reality-model-registry"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-model-registry-v0"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-provenance-writeback-v1"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-root-store-sqlite-schema-v0"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-root-model-store-v1"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-index-consistency",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-distributed-backbone",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-distributed-model"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-provenance-writeback"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-verbal-save"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-attachment-closure",
+                    "to": "reality-root-model-store"
+                  }
+                ],
+                "truncated": false
+              }
+            },
+            "rough_checks": {
+              "attachment_closure": {
+                "ok": true
+              },
+              "root_store_index": {
+                "ok": true
+              }
+            },
+            "chain": [
+              "subsystem-root-store",
+              "reality-root-model-store"
+            ]
+          },
+          "self": "reality-root-model-store",
+          "received_from": "subsystem-root-store",
+          "handoff_to": null
+        }
+      },
+      "ui": {
+        "x": 127,
+        "y": 78
+      }
+    },
+    {
+      "id": "reality-model-registry",
+      "type": "Reality",
+      "label": "Model Registry",
+      "description": "A registry of model locations (local paths, repos, URLs) that the Root Model Store can index into one logical graph. This is the backbone for a world where Seed is only one of many referenced nodes.",
+      "status": "planned",
+      "source": {
+        "path": null,
+        "model_path": null
+      },
+      "agent_context": {
+        "_note": "Backbone node: once this exists, most users should not need to know file paths to find worlds.",
+        "agent_context_version": "1.0",
+        "focus": {
+          "type": "Gap",
+          "id": "gap-no-model-registry"
+        },
+        "work_queue": [
+          {
+            "type": "Todo",
+            "id": "todo-model-registry-v0",
+            "why": "Turn distributed model locations into a discoverable graph",
+            "exit_criteria": "Registry captures at least local-file locations and can be indexed by the store"
+          }
+        ]
+      },
+      "ui": {
+        "x": 247,
+        "y": 169
+      }
+    },
+    {
+      "id": "subsystem-root-store",
+      "type": "Subsystem",
+      "label": "Store",
+      "description": "Core model store components: loader/merger, SQLite index, query engine, safe writer, enforcement, watcher, audit runner, API.",
+      "parent": "reality-root-model-store",
+      "mobility": "bundle_root",
+      "save": {
+        "version": "v0",
+        "notes": "Node-defined save behavior. Spawnie workflow seed-save-node should interpret this if present; otherwise fall back to a default save routine.",
+        "actions": [
+          {
+            "type": "command",
+            "cwd": "C:/seed",
+            "run": "seed-core save subsystem-root-store --write C:/seed/output/root_state.txt"
+          }
+        ]
+      },
+      "model": {
+        "_ref": "C:/seed/root_store/model/sketch.json"
+      },
+      "evidence": {
+        "integration_queue": {
+          "last_attempt": {
+            "saved_at": "2026-02-01T14:35:07Z",
+            "node_id": "subsystem-root-store",
+            "propagated": true,
+            "ok": true,
+            "git": {
+              "is_repo": true,
+              "branch": "master",
+              "dirty": true,
+              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
+              "upstream": "origin/master",
+              "ahead": 1,
+              "behind": 0
+            },
+            "preflight": {
+              "ok": true,
+              "require_git_clean": true,
+              "require_up_to_date": true,
+              "fetch_remotes": false,
+              "warnings": [
+                "git working tree is dirty"
+              ],
+              "recommendations": [
+                "If reality sources matter for this node, commit/stash changes before verification"
+              ],
+              "surrounding": {
+                "radius": 1,
+                "node_ids": [
+                  "subsystem-root-store",
+                  "reality-root-model-store",
+                  "mod-store-loader",
+                  "mod-store-index",
+                  "mod-store-query",
+                  "mod-store-writer",
+                  "mod-store-enforcement",
+                  "mod-store-audits",
+                  "mod-store-watch",
+                  "mod-store-api",
+                  "mod-store-translate",
+                  "mod-store-integration"
+                ],
+                "edge_count": 23,
+                "edges": [
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-root-model-store",
+                    "to": "subsystem-root-store"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-loader"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-index"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-query"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-writer"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-enforcement"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-audits"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-watch"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-api"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-translate"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-integration"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-root-model-store",
+                    "to": "reality-model-registry"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-model-registry-v0"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-provenance-writeback-v1"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-root-store-sqlite-schema-v0"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-root-model-store-v1"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-index-consistency",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-distributed-backbone",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-distributed-model"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-provenance-writeback"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-verbal-save"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-attachment-closure",
+                    "to": "reality-root-model-store"
+                  }
+                ],
+                "truncated": false
+              }
+            },
+            "rough_checks": {
+              "attachment_closure": {
+                "ok": true
+              },
+              "root_store_index": {
+                "ok": true
+              }
+            },
+            "chain": [
+              "subsystem-root-store",
+              "reality-root-model-store"
+            ]
+          },
+          "self": "subsystem-root-store",
+          "received_from": null,
+          "handoff_to": "reality-root-model-store",
+          "last_save": {
+            "saved_at": "2026-02-01T14:35:07Z",
+            "node_id": "subsystem-root-store",
+            "propagated": true,
+            "ok": true,
+            "git": {
+              "is_repo": true,
+              "branch": "master",
+              "dirty": true,
+              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
+              "upstream": "origin/master",
+              "ahead": 1,
+              "behind": 0
+            },
+            "preflight": {
+              "ok": true,
+              "require_git_clean": true,
+              "require_up_to_date": true,
+              "fetch_remotes": false,
+              "warnings": [
+                "git working tree is dirty"
+              ],
+              "recommendations": [
+                "If reality sources matter for this node, commit/stash changes before verification"
+              ],
+              "surrounding": {
+                "radius": 1,
+                "node_ids": [
+                  "subsystem-root-store",
+                  "reality-root-model-store",
+                  "mod-store-loader",
+                  "mod-store-index",
+                  "mod-store-query",
+                  "mod-store-writer",
+                  "mod-store-enforcement",
+                  "mod-store-audits",
+                  "mod-store-watch",
+                  "mod-store-api",
+                  "mod-store-translate",
+                  "mod-store-integration"
+                ],
+                "edge_count": 23,
+                "edges": [
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-root-model-store",
+                    "to": "subsystem-root-store"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-loader"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-index"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-query"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-writer"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-enforcement"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-audits"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-watch"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-api"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-translate"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "subsystem-root-store",
+                    "to": "mod-store-integration"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-root-model-store",
+                    "to": "reality-model-registry"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-model-registry-v0"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-provenance-writeback-v1"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-root-store-sqlite-schema-v0"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-root-model-store",
+                    "to": "todo-root-model-store-v1"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-index-consistency",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-distributed-backbone",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-distributed-model"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-provenance-writeback"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-root-model-store",
+                    "to": "concept-verbal-save"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-store-attachment-closure",
+                    "to": "reality-root-model-store"
+                  }
+                ],
+                "truncated": false
+              }
+            },
+            "rough_checks": {
+              "attachment_closure": {
+                "ok": true
+              },
+              "root_store_index": {
+                "ok": true
+              }
+            },
+            "chain": [
+              "subsystem-root-store",
+              "reality-root-model-store"
+            ]
+          }
+        },
+        "save_exec": {
+          "last_run": {
+            "ran_at": "2026-02-01T14:35:08Z",
+            "node_id": "subsystem-root-store",
+            "ok": true,
+            "used_fallback": false,
+            "results": [
+              {
+                "action_index": 0,
+                "ok": true,
+                "returncode": 0,
+                "cwd": "C:/seed",
+                "run": "seed-core save subsystem-root-store --write C:/seed/output/root_state.txt",
+                "argv": [
+                  "C:\\seed\\.venv\\Scripts\\python.exe",
+                  "-m",
+                  "seed_core",
+                  "save",
+                  "subsystem-root-store",
+                  "--write",
+                  "C:/seed/output/root_state.txt"
+                ],
+                "stdout": "+---------------------------------------------------------+\n| Saved subsystem-root-store                              |\n| Chain: subsystem-root-store -> reality-root-model-store |\n| Preflight: ok                                           |\n| Preflight warnings: 1 (e.g., git working tree is dirty) |\n| Rough checks: attachment_closure, root_store_index      |\n+---------------------------------------------------------+\nWrote C:\\seed\\output\\root_state.txt\n",
+                "stderr": ""
+              }
+            ]
+          }
+        }
+      },
+      "ui": {
+        "x": 222,
+        "y": 201
+      }
+    },
+    {
+      "id": "mod-store-loader",
+      "type": "Module",
+      "label": "loader",
+      "description": "Loads root model and resolves hierarchical _ref submodels into a single logical graph with provenance.",
+      "source": {
+        "path": "root_store/loader.py"
+      },
+      "ui": {
+        "x": 279,
+        "y": 352
+      }
+    },
+    {
+      "id": "mod-store-index",
+      "type": "Module",
+      "label": "sqlite-index",
+      "description": "Maintains derived SQLite tables for nodes/edges/types/relationships and reverse lookups; supports rebuild from JSON.",
+      "source": {
+        "path": "root_store/index.py"
+      },
+      "ui": {
+        "x": 190,
+        "y": 407
+      }
+    },
+    {
+      "id": "mod-store-query",
+      "type": "Module",
+      "label": "query",
+      "description": "Query engine (e.g., seedql-v0) backed by SQLite; returns results with provenance (where-defined mapping).",
+      "source": {
+        "path": "root_store/query.py"
+      },
+      "ui": {
+        "x": 91,
+        "y": 440
+      }
+    },
+    {
+      "id": "mod-store-writer",
+      "type": "Module",
+      "label": "writer",
+      "description": "Safe writes: applies Changes as deterministic patches back to the correct JSON file(s), with locking and validation.",
+      "source": {
+        "path": "root_store/writer.py"
+      },
+      "ui": {
+        "x": -12,
+        "y": 449
+      }
+    },
+    {
+      "id": "mod-store-enforcement",
+      "type": "Module",
+      "label": "enforcement",
+      "description": "Governance enforcement: Change gate, schema/edge validation, policy checks, and automatic audit execution.",
+      "source": {
+        "path": "root_store/enforcement.py"
+      },
+      "ui": {
+        "x": -115,
+        "y": 434
+      }
+    },
+    {
+      "id": "mod-store-audits",
+      "type": "Module",
+      "label": "audits",
+      "description": "Runs modeled audits/checks and records results back into the model as structured evidence.",
+      "source": {
+        "path": "root_store/audits.py"
+      },
+      "ui": {
+        "x": -212,
+        "y": 396
+      }
+    },
+    {
+      "id": "mod-store-watch",
+      "type": "Module",
+      "label": "watcher",
+      "description": "Watches model JSON files for changes, invalidates/rebuilds index, and emits events/subscriptions for UI/agents.",
+      "source": {
+        "path": "root_store/watch.py"
+      },
+      "ui": {
+        "x": -298,
+        "y": 336
+      }
+    },
+    {
+      "id": "mod-store-api",
+      "type": "Module",
+      "label": "api",
+      "description": "Local API (HTTP or IPC) for query/subscribe/apply_change/run_audit.",
+      "source": {
+        "path": "root_store/api.py"
+      },
+      "ui": {
+        "x": -368,
+        "y": 258
+      }
+    },
+    {
+      "id": "mod-store-translate",
+      "type": "Module",
+      "label": "translate",
+      "description": "Human-facing translation layer: renders the model state as plain English and writes a snapshot file for users.",
+      "source": {
+        "path": "root_store/translate.py"
+      },
+      "ui": {
+        "x": -417,
+        "y": 166
+      }
+    },
+    {
+      "id": "mod-store-integration",
+      "type": "Module",
+      "label": "integration",
+      "description": "Integration queue primitives: implements the verbal save command (enqueue integration for a node, run rough checks, propagate to parents).",
+      "source": {
+        "path": "root_store/integration.py"
+      },
+      "ui": {
+        "x": -445,
+        "y": 65
+      }
+    },
+    {
+      "id": "concept-verbal-save",
+      "type": "Concept",
+      "label": "Verbal Save",
+      "description": "A conversational cue (\"let's save\") that triggers integration for the current node: write summary/evidence, run rough checks, and propagate handoff to parents (turtles all the way up).",
+      "ui": {
+        "x": 192,
+        "y": 229
+      }
+    },
+    {
+      "id": "concept-node-reality-sync-state",
+      "type": "Concept",
+      "label": "Node Reality Sync State",
+      "description": "A per-node, model-recorded notion of synchronization/alignment with underlying reality.\n\nConvention (v0): when action-save-node runs, it writes evidence.integration_queue.last_attempt (always) and evidence.integration_queue.last_save (only if preflight passes).\n\nPreflight captures:\n- git cleanliness (dirty / clean)\n- upstream freshness when available (behind / ahead)\n- local neighborhood scan (edges + adjacent nodes) to force a surrounding-area evaluation before declaring a save.\n\nThis keeps \"interrupts\" inside the model: agents can query for nodes whose last_attempt.preflight.ok is false, or whose rough checks failed, and treat them as \"reality may have changed\" / \"needs pull\".",
+      "ui": {
+        "x": 53,
+        "y": 748
+      }
+    },
+    {
+      "id": "concept-root-store-sqlite-schema-v0",
+      "type": "Concept",
+      "label": "Root Store: SQLite Schema v0",
+      "description": "Derived SQLite index (rebuildable from JSON). Tables (v0):\n\n- meta(key TEXT PRIMARY KEY, value TEXT)\n- nodes(id TEXT PRIMARY KEY, type TEXT, label TEXT, description TEXT, json TEXT, provenance_file TEXT)\n- edges(id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, from_id TEXT, to_id TEXT, json TEXT, provenance_file TEXT)\n- node_text(id TEXT PRIMARY KEY, text TEXT)  -- optional denormalized search\n\nIndices (v0):\n- nodes_type_idx ON nodes(type)\n- edges_from_idx ON edges(from_id)\n- edges_to_idx ON edges(to_id)\n- edges_type_idx ON edges(type)\n\nProvenance contract (v0): provenance_file is the model JSON file that defined the row; for _ref loaded models, provenance_file is that referenced file path.",
+      "properties": {
+        "version": "v0",
+        "db_file": "root_store/root_store.db",
+        "derived_state": true
+      },
+      "ui": {
+        "x": 159,
+        "y": 254
+      }
+    },
+    {
+      "id": "action-open-seed-ui-dashboard",
+      "type": "Action",
+      "label": "Open Root UI Dashboard",
+      "description": "Navigate to the Root UI model and open its dashboard view.",
+      "kind": "navigate",
+      "target": {
+        "model_ref": "C:/seed/ui/model/sketch.json"
+      },
+      "patch": {
+        "view_id": "view-seed-dashboard",
+        "ui_state_node": "ui-state-seed"
+      },
+      "ui": {
+        "x": -276,
+        "y": 697
+      }
+    },
+    {
+      "id": "action-request-change-executor",
+      "type": "Action",
+      "label": "Request Change Executor Spawn",
+      "description": "Request a spawned change executor that applies a Change via the Root Store gate and only commits if audits are green.",
+      "kind": "spawn",
+      "target": {
+        "tool": "spawnie",
+        "mode": "terminal",
+        "working_dir": "C:/seed",
+        "model": "claude-sonnet",
+        "prompt_template": "You are a change executor. You DO make edits, but only by implementing an explicit Change node and keeping Root audits green. Inputs: change_id={{change_id}}. Workflow: 1) Create a git branch, 2) Apply required file/model edits, 3) Run unit/integration checks as appropriate, 4) Run Root audits (at minimum: audit-root-store-index-consistency and audit-root-compliance), 5) Only commit if audits PASS, otherwise report failures and do not commit. Record structured evidence back into the model where appropriate."
+      },
+      "inputs": {
+        "change_id": {
+          "type": "Change",
+          "example": "change-seed-change-executor-pipeline-v1"
+        }
+      },
+      "ui": {
+        "x": -551,
+        "y": 507
+      }
+    },
+    {
+      "id": "action-save-node",
+      "type": "Action",
+      "label": "Save (Integration Queue)",
+      "description": "Model-driven save: triggers the Spawnie workflow 'seed-save-node'. The workflow receives node_id and runs the node-defined save behavior.",
+      "kind": "spawn",
+      "target": {
+        "tool": "spawnie",
+        "mode": "workflow",
+        "workflow": "seed-save-node",
+        "command_template": "spawnie workflows run seed-save-node --input node_id={{node_id}} --input root_model_path=C:/seed/model/sketch.json"
+      },
+      "inputs": {
+        "node_id": {
+          "type": "Node",
+          "example": "subsystem-root-store"
+        }
+      },
+      "ui": {
+        "x": -717,
+        "y": 218
+      }
+    },
+    {
+      "id": "view-seed-ui-entry",
+      "type": "View",
+      "label": "UI",
+      "description": "Entry point into the model-driven UI world. This view exists in the root so agents can always find the UI quickly.",
+      "layout": {
+        "type": "links",
+        "links": [
+          {
+            "title": "Open Root UI Dashboard",
+            "action": "action-open-seed-ui-dashboard",
+            "model_ref": "C:/seed/ui/model/sketch.json",
+            "view_id": "view-seed-dashboard"
+          },
+          {
+            "title": "Request Change Executor",
+            "action": "action-request-change-executor",
+            "notes": "Provide a Change id; executor commits only if audits PASS."
+          },
+          {
+            "title": "Save a Node (Integration Queue)",
+            "action": "action-save-node",
+            "notes": "Use when you say 'let's save'. Input: node_id (the node you're working on)."
+          }
+        ]
+      },
+      "bindings": {},
+      "ui": {
+        "x": -741,
+        "y": -114
+      }
+    },
+    {
+      "id": "subsystem-core",
+      "type": "Subsystem",
+      "label": "Core",
+      "description": "Root's core implementation - pulse, status, monitoring, verification",
+      "parent": "reality-seed",
+      "source": {
+        "path": "seed_core",
+        "model_path": "model/sketch.json"
+      },
+      "model": {
+        "_ref": "C:/seed/seed_core/model/sketch.json",
+        "_summary": {
+          "schema_version": "3.0",
+          "level": "system",
+          "top_level_nodes": 9,
+          "subsystems": [
+            "core"
+          ],
+          "modules": [
+            "pulse",
+            "status",
+            "registry",
+            "verification",
+            "monitor",
+            "cli"
+          ]
+        }
+      },
+      "ui": {
+        "x": 104,
+        "y": 107
+      }
+    },
+    {
+      "id": "subsystem-ui",
+      "type": "Subsystem",
+      "label": "UI",
+      "description": "Root's UI subsystem (model-driven visualization + renderer). This is the primary navigation mountpoint for UI work; the UI model lives where the UI should materialize: C:/seed/ui/model/sketch.json.",
+      "parent": "reality-seed",
+      "source": {
+        "path": "ui",
+        "model_path": "model/sketch.json"
+      },
+      "model": {
+        "_ref": "C:/seed/ui/model/sketch.json",
+        "_summary": {
+          "schema_version": "3.0",
+          "level": "system",
+          "top_level_nodes": 9,
+          "subsystems": [
+            "renderer"
+          ],
+          "modules": []
+        }
+      },
+      "ui": {
+        "x": 74,
+        "y": 130
+      }
+    },
+    {
+      "id": "reality-bam",
+      "type": "Reality",
+      "label": "BAM",
+      "description": "Tool for generating models of complex systems",
+      "source": {
+        "path": "C:/BAM",
+        "model_path": null
+      },
+      "agent_context": {
+        "_note": "BAM is not yet fully modeled here; this is a minimal spawn point for future work.",
+        "agent_context_version": "1.0",
+        "focus": {
+          "type": "Gap",
+          "id": "gap-bam-tool-not-built"
+        },
+        "work_queue": [
+          {
+            "type": "Todo",
+            "id": "todo-bam-tool",
+            "why": "Build the BAM tool so BAMs can be created/maintained",
+            "exit_criteria": "BAM tool exists and is itself modeled with proofs"
+          }
+        ]
+      },
+      "status": "no-model-yet",
+      "ui": {
+        "x": 123,
+        "y": 273
+      }
+    },
+    {
+      "id": "reality-bam-test-projects",
+      "type": "Reality",
+      "label": "BAM Test Projects",
+      "description": "Smaller projects to validate the model-as-workspace concept.",
+      "agent_context": {
+        "_note": "Minimal spawn point to create and model test projects.",
+        "agent_context_version": "1.0",
+        "focus": {
+          "type": "Gap",
+          "id": "gap-bam-test-projects-missing"
+        },
+        "work_queue": [
+          {
+            "type": "Todo",
+            "id": "todo-test-projects",
+            "why": "Validate BAM + modeling workflows on small projects",
+            "exit_criteria": "Multiple test projects are modeled and used regularly"
+          }
+        ]
+      },
+      "status": "next-step",
+      "ui": {
+        "x": -448,
+        "y": -38
+      }
+    },
+    {
+      "id": "reality-seed-ui",
+      "type": "Reality",
+      "label": "4. REALITY: Browser Renderer",
+      "description": "A browser-based renderer that watches the Root model and renders declarative views as an interactive graph. Polls the model for changes and updates visualization in real-time. Your screen IS this reality - model changes become visual truth.",
+      "source": {
+        "path": "C:/seed/ui",
+        "model_path": "model/sketch.json"
+      },
+      "agent_context": {
+        "_note": "The renderer IS the screen. Claude modifies model \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 screen updates. This is the real-time visualization reality.",
+        "agent_context_version": "1.0",
+        "focus": {
+          "type": "Gap",
+          "id": "gap-no-model-driven-ui"
+        },
+        "work_queue": [
+          {
+            "type": "Todo",
+            "id": "todo-ui-bidirectional-sync",
+            "why": "Full loop: model\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122screen\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122interaction\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122model",
+            "exit_criteria": "User clicks on screen \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model updates \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 screen reflects change"
+          }
+        ]
+      },
+      "modules": {
+        "mod-ui-renderer": {
+          "label": "Renderer (index.html)",
+          "description": "Browser-based graph visualization using vis.js. Polls model JSON, renders nodes/edges as interactive graph, shows node details on click.",
+          "source": {
+            "path": "ui/index.html"
+          }
+        },
+        "mod-ui-server": {
+          "label": "Dev Server (server.py)",
+          "description": "Simple HTTP server for local development. Serves model JSON with CORS headers. Port 8420.",
+          "source": {
+            "path": "ui/server.py"
+          }
+        },
+        "mod-ui-screenshot": {
+          "label": "Screenshot Tool (screenshot.py)",
+          "description": "Captures user's screen so Claude can see what they see. The feedback loop: user's reality becomes Claude's input. Run with 'python ui/screenshot.py' to save screenshot.png.",
+          "source": {
+            "path": "ui/screenshot.py"
+          }
+        }
+      },
+      "actions": {
+        "action-capture-screenshot": {
+          "label": "Capture Screenshot",
+          "description": "Claude captures the user's screen to see their reality. Saves to ui/screenshot.png which Claude can then read.",
+          "command": "python ui/screenshot.py",
+          "output": "ui/screenshot.png"
+        }
+      },
+      "model": {
+        "_ref": "C:/seed/ui/model/sketch.json",
+        "_summary": {
+          "schema_version": "3.0",
+          "level": "system",
+          "top_level_nodes": 9,
+          "subsystems": [
+            "renderer"
+          ],
+          "modules": [
+            "mod-ui-renderer",
+            "mod-ui-server"
+          ]
+        }
+      },
+      "status": "active",
+      "evidence": {
+        "integration_queue": {
+          "last_attempt": {
+            "saved_at": "2026-02-01T15:05:18Z",
+            "node_id": "reality-seed-ui",
+            "propagated": true,
+            "ok": true,
+            "git": {
+              "is_repo": true,
+              "branch": "master",
+              "dirty": true,
+              "head": "80e8a7f2b2ed69e53e0602987a0481d928a950a9",
+              "upstream": "origin/master",
+              "ahead": 2,
+              "behind": 0
+            },
+            "preflight": {
+              "ok": true,
+              "require_git_clean": true,
+              "require_up_to_date": true,
+              "fetch_remotes": false,
+              "warnings": [
+                "git working tree is dirty"
+              ],
+              "recommendations": [
+                "If reality sources matter for this node, commit/stash changes before verification"
+              ],
+              "surrounding": {
+                "radius": 1,
+                "node_ids": [
+                  "reality-seed-ui",
+                  "reality-seed",
+                  "concept-screen-is-model",
+                  "subsystem-renderer"
+                ],
+                "edge_count": 27,
+                "edges": [
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-seed-ui"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed-ui",
+                    "to": "concept-screen-is-model"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-seed-ui",
+                    "to": "subsystem-renderer"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-seed",
+                    "to": "subsystem-core"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-seed",
+                    "to": "subsystem-ui"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-seed",
+                    "to": "todo-change-executor-pipeline-v1"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-spawnie"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-self-containing"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-pulse-monitoring"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-model-drives-ui"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-proof-of-alignment"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-model-as-workspace"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-train-the-world"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-model-is-world"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-spawn-point"
+                  },
+                  {
+                    "type": "IMPLEMENTS",
+                    "from": "reality-seed",
+                    "to": "aspiration-seed-philosophy"
+                  },
+                  {
+                    "type": "IMPLEMENTS",
+                    "from": "reality-seed",
+                    "to": "aspiration-instant-context"
+                  },
+                  {
+                    "type": "IMPLEMENTS",
+                    "from": "reality-seed",
+                    "to": "aspiration-model-contains-reality"
+                  },
+                  {
+                    "type": "IMPLEMENTS",
+                    "from": "reality-seed",
+                    "to": "aspiration-single-source-of-truth"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-seed",
+                    "to": "todo-seed-self-monitor"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-seed",
+                    "to": "todo-change-process-v1"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-seed",
+                    "to": "todo-root-model-store-v1"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-seed-model-consistency",
+                    "to": "reality-seed"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-change-alignment",
+                    "to": "reality-seed"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-compliance",
+                    "to": "reality-seed"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-change-executor-gate",
+                    "to": "reality-seed"
+                  }
+                ],
+                "truncated": false
+              }
+            },
+            "rough_checks": {
+              "attachment_closure": {
+                "ok": true
+              },
+              "root_store_index": {
+                "ok": true
+              }
+            },
+            "chain": [
+              "reality-seed-ui"
+            ]
+          },
+          "last_save": {
+            "saved_at": "2026-02-01T15:05:18Z",
+            "node_id": "reality-seed-ui",
+            "propagated": true,
+            "ok": true,
+            "git": {
+              "is_repo": true,
+              "branch": "master",
+              "dirty": true,
+              "head": "80e8a7f2b2ed69e53e0602987a0481d928a950a9",
+              "upstream": "origin/master",
+              "ahead": 2,
+              "behind": 0
+            },
+            "preflight": {
+              "ok": true,
+              "require_git_clean": true,
+              "require_up_to_date": true,
+              "fetch_remotes": false,
+              "warnings": [
+                "git working tree is dirty"
+              ],
+              "recommendations": [
+                "If reality sources matter for this node, commit/stash changes before verification"
+              ],
+              "surrounding": {
+                "radius": 1,
+                "node_ids": [
+                  "reality-seed-ui",
+                  "reality-seed",
+                  "concept-screen-is-model",
+                  "subsystem-renderer"
+                ],
+                "edge_count": 27,
+                "edges": [
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-seed-ui"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed-ui",
+                    "to": "concept-screen-is-model"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-seed-ui",
+                    "to": "subsystem-renderer"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-seed",
+                    "to": "subsystem-core"
+                  },
+                  {
+                    "type": "CONTAINS",
+                    "from": "reality-seed",
+                    "to": "subsystem-ui"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-root-model-store"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-seed",
+                    "to": "todo-change-executor-pipeline-v1"
+                  },
+                  {
+                    "type": "USES",
+                    "from": "reality-seed",
+                    "to": "reality-spawnie"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-self-containing"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-pulse-monitoring"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-model-drives-ui"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-proof-of-alignment"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-model-as-workspace"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-train-the-world"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-model-is-world"
+                  },
+                  {
+                    "type": "EMBODIES",
+                    "from": "reality-seed",
+                    "to": "concept-spawn-point"
+                  },
+                  {
+                    "type": "IMPLEMENTS",
+                    "from": "reality-seed",
+                    "to": "aspiration-seed-philosophy"
+                  },
+                  {
+                    "type": "IMPLEMENTS",
+                    "from": "reality-seed",
+                    "to": "aspiration-instant-context"
+                  },
+                  {
+                    "type": "IMPLEMENTS",
+                    "from": "reality-seed",
+                    "to": "aspiration-model-contains-reality"
+                  },
+                  {
+                    "type": "IMPLEMENTS",
+                    "from": "reality-seed",
+                    "to": "aspiration-single-source-of-truth"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-seed",
+                    "to": "todo-seed-self-monitor"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-seed",
+                    "to": "todo-change-process-v1"
+                  },
+                  {
+                    "type": "NEEDS",
+                    "from": "reality-seed",
+                    "to": "todo-root-model-store-v1"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-seed-model-consistency",
+                    "to": "reality-seed"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-change-alignment",
+                    "to": "reality-seed"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-root-compliance",
+                    "to": "reality-seed"
+                  },
+                  {
+                    "type": "AUDITS",
+                    "from": "audit-change-executor-gate",
+                    "to": "reality-seed"
+                  }
+                ],
+                "truncated": false
+              }
+            },
+            "rough_checks": {
+              "attachment_closure": {
+                "ok": true
+              },
+              "root_store_index": {
+                "ok": true
+              }
+            },
+            "chain": [
+              "reality-seed-ui"
+            ]
+          },
+          "self": "reality-seed-ui",
+          "received_from": null,
+          "handoff_to": null
+        }
+      },
+      "ui": {
+        "x": 39,
+        "y": 144
+      }
+    },
+    {
+      "id": "proof-reality-seed",
+      "type": "Proof",
+      "label": "Proof: Root Reality Alignment",
+      "description": "Stub proof record for Root itself. To be completed as hashes and checks are added.",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-seed"
+      },
+      "method": "hash-verify+schema-validate",
+      "status": "pending",
+      "scope": {
+        "includes": [
+          "model/sketch.json",
+          "seed_core/model/sketch.json"
+        ],
+        "notes": "Primary requirement: model is internally consistent and all referenced artifacts are hash-verified."
+      },
+      "evidence": {
+        "expected": [
+          "Hash checks recorded for seed-referenced source files",
+          "A machine-readable verification result stored in the model"
+        ]
+      },
+      "ui": {
+        "x": -617,
+        "y": -424
+      }
+    },
+    {
+      "id": "proof-reality-seed-ui",
+      "type": "Proof",
+      "label": "Proof: Root UI Reality Alignment",
+      "description": "Proof record for the browser renderer reality. Demonstrates model-driven visualization.",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-seed-ui"
+      },
+      "method": "implementation-check",
+      "status": "partial",
+      "checked_at": "2026-02-01T15:00:00Z",
+      "evidence": {
+        "implemented": [
+          "Renderer loads model JSON via HTTP fetch",
+          "Renderer polls model every 1 second for changes",
+          "UI updates automatically when model JSON changes",
+          "Nodes rendered as interactive graph (vis.js)",
+          "Node details shown on click"
+        ],
+        "pending": [
+          "Hash verification for implementation files",
+          "UIState-driven view switching",
+          "Bidirectional sync (user interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model update)"
+        ]
+      },
+      "ui": {
+        "x": -372,
+        "y": -651
+      }
+    },
+    {
+      "id": "audit-seed-model-consistency",
+      "type": "Audit",
+      "label": "Audit: Root Model Consistency",
+      "description": "Check internal integrity of the Root model: schema/types, edge endpoints, gap/todo wiring, and cross-model references.",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-seed"
+      },
+      "method": "schema+graph+refs",
+      "status": "ready",
+      "last_run": "2026-02-01T11:43:47+00:00",
+      "scope": {
+        "model_refs": [
+          "C:/seed/model/sketch.json",
+          "C:/seed/ui/model/sketch.json",
+          "C:/seed/seed_core/model/sketch.json"
+        ],
+        "notes": "This audit is intended to become runnable (with scripts) and record structured findings back into the model."
+      },
+      "findings": {
+        "last_summary": "PASS: 0 errors, 0 warnings (schema/types, edges, gap/todo wiring, refs)",
+        "counts": {
+          "errors": 0,
+          "warnings": 0
+        }
+      },
+      "evidence": {
+        "ran_with": "Root model integrity snippet",
+        "tool": "pylanceRunCodeSnippet",
+        "result": "pass"
+      },
+      "ui": {
+        "x": 2,
+        "y": 149
+      }
+    },
+    {
+      "id": "policy-aspiration-aligned-change",
+      "type": "Policy",
+      "label": "Policy: Aspiration-Aligned Change",
+      "description": "Enforce that all changes move the system closer to its aspirations: changes must be explicit, gap-tied, aspiration-tied, and evidenced.",
+      "status": "active",
+      "applies_to": [
+        "seed"
+      ],
+      "rules": [
+        "No work is accepted without a Change node.",
+        "Each Change MUST ADDRESSES at least one Gap and ADVANCES at least one Aspiration.",
+        "Each Change MUST define expected_delta and evidence_required.",
+        "Evidence MUST be recorded back into the model as Proof/Audit/Check nodes (not just terminal output)."
+      ],
+      "enforced_by": [
+        "audit-change-alignment"
+      ],
+      "ui": {
+        "x": 85,
+        "y": 287
+      }
+    },
+    {
+      "id": "policy-interactive-agents-activate-only",
+      "type": "Policy",
+      "label": "Policy: Activate-Only Interactive Agents",
+      "description": "Interactive agents must not directly edit model files. They may read the model and activate modeled Actions. Any edits are performed by a spawned change executor that applies a Change via the Root Store gate and only commits when audits are green.",
+      "status": "draft",
+      "applies_to": [
+        "seed"
+      ],
+      "rules": [
+        "Interactive agents MUST NOT directly edit model JSON files.",
+        "Interactive agents MAY propose a Change and activate action-request-change-executor.",
+        "Interactive agents MAY activate action-save-node to record integration evidence via the Root Store (no direct file edits).",
+        "Edits MUST be applied through the Root Store change gate (writer.apply_change + enforcement).",
+        "The change executor MUST run required audits/checks and only commit if all are PASS."
+      ],
+      "enforced_by": [
+        "audit-change-executor-gate"
+      ],
+      "ui": {
+        "x": 45,
+        "y": 296
+      }
+    },
+    {
+      "id": "policy-bundle-closure-moves",
+      "type": "Policy",
+      "label": "Policy: Bundle-Closure Moves",
+      "description": "When nodes are moved across model files, attached nodes must move with them as one closure (prevents partial moves and orphaned attachments).",
+      "status": "active",
+      "applies_to": [
+        "seed"
+      ],
+      "rules": [
+        "Treat moves as bundle operations, not individual node cut/paste.",
+        "Respect node.mobility: attached nodes must not be moved alone; bundle roots move their attachment closure.",
+        "Use root_store.move_nodes_to_file for moves that cross files.",
+        "After any move, verify audit-root-store-attachment-closure is PASS (screams on partial moves)."
+      ],
+      "enforced_by": [
+        "audit-root-store-attachment-closure"
+      ],
+      "ui": {
+        "x": -53,
+        "y": -748
+      }
+    },
+    {
+      "id": "policy-save-preflight-sync-v0",
+      "type": "Policy",
+      "label": "Policy: Save Preflight (Sync + Neighborhood)",
+      "description": "Saving updates the model (the truth). Preflight is required to be recorded so agents can judge freshness/surrounding context, but it must not block model evolution. Strictness belongs in reality verification audits.",
+      "status": "active",
+      "applies_to": [
+        "seed"
+      ],
+      "rules": [
+        "action-save-node MUST record a preflight payload in evidence.integration_queue.last_save.preflight.",
+        "Preflight MUST include a neighborhood scan (radius >= 1) and record it in evidence so later agents can see what was considered.",
+        "Preflight MUST include a neighborhood scan (radius >= 1) and record it in evidence so later agents can see what was considered.",
+        "Agents SHOULD fetch/pull latest reality (git) before running reality verification when an upstream exists."
+      ],
+      "ui": {
+        "x": 276,
+        "y": -697
+      }
+    },
+    {
+      "id": "audit-change-alignment",
+      "type": "Audit",
+      "label": "Audit: Change Alignment",
+      "description": "Audit that all Change nodes are aspiration-aligned: each Change addresses a Gap, advances an Aspiration, and records evidence.",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-seed"
+      },
+      "method": "change-alignment-v1",
+      "status": "ready",
+      "last_run": "2026-02-01T11:43:47+00:00",
+      "findings": {
+        "last_summary": "PASS: all Change nodes have ADDRESSES/ADVANCES/PRODUCES (or evidence)",
+        "counts": {
+          "errors": 0,
+          "warnings": 0
+        }
+      },
+      "evidence": {
+        "ran_with": "Root model integrity snippet (includes change alignment checks)",
+        "tool": "pylanceRunCodeSnippet",
+        "result": "pass"
+      },
+      "ui": {
+        "x": -35,
+        "y": 145
+      }
+    },
+    {
+      "id": "check-change-has-gap",
+      "type": "Check",
+      "label": "Check: Change Has Gap",
+      "description": "Every Change must ADDRESSES at least one Gap.",
+      "status": "ready",
+      "method": "graph-check",
+      "last_run": "2026-02-01T11:43:47+00:00",
+      "result": "pass",
+      "ui": {
+        "x": 4,
+        "y": 299
+      }
+    },
+    {
+      "id": "check-change-has-aspiration",
+      "type": "Check",
+      "label": "Check: Change Has Aspiration",
+      "description": "Every Change must ADVANCES at least one Aspiration.",
+      "status": "ready",
+      "method": "graph-check",
+      "last_run": "2026-02-01T11:43:47+00:00",
+      "result": "pass",
+      "ui": {
+        "x": -36,
+        "y": 297
+      }
+    },
+    {
+      "id": "check-change-has-evidence",
+      "type": "Check",
+      "label": "Check: Change Has Evidence",
+      "description": "Every Change must PRODUCES at least one Proof/Audit/Check or include structured evidence fields.",
+      "status": "ready",
+      "method": "graph+data-check",
+      "last_run": "2026-02-01T11:43:47+00:00",
+      "result": "pass",
+      "ui": {
+        "x": -76,
+        "y": 290
+      }
+    },
+    {
+      "id": "audit-change-executor-gate",
+      "type": "Audit",
+      "label": "Audit: Change Executor Gate",
+      "description": "Verify that changes were applied through the change executor workflow: branch, apply_change, verification, Root audits, and commit gating.",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-seed"
+      },
+      "method": {
+        "kind": "pipeline",
+        "runner": "root_store.audits.run_audit_change_executor_gate",
+        "notes": [
+          "This audit becomes enforceable once the change executor exists.",
+          "PASS means recent commits that touch model files include evidence of change-executor pipeline and Root audits passing."
+        ]
+      },
+      "status": "planned",
+      "ui": {
+        "x": -70,
+        "y": 132
+      }
+    },
+    {
+      "id": "check-executor-applies-change-via-root-store",
+      "type": "Check",
+      "label": "Check: Executor Uses Root Store Gate",
+      "description": "The change executor applies modifications via Root Store writer/enforcement (apply_change) rather than ad-hoc edits.",
+      "status": "planned",
+      "method": "pipeline-contract",
+      "ui": {
+        "x": -115,
+        "y": 276
+      }
+    },
+    {
+      "id": "check-executor-runs-root-audits",
+      "type": "Check",
+      "label": "Check: Executor Runs Root Audits",
+      "description": "The change executor runs Root audits (at minimum: audit-root-store-index-consistency and audit-root-compliance) before commit.",
+      "status": "planned",
+      "method": "pipeline-contract",
+      "ui": {
+        "x": -152,
+        "y": 258
+      }
+    },
+    {
+      "id": "check-executor-commits-only-on-green",
+      "type": "Check",
+      "label": "Check: Commit Only When Green",
+      "description": "The change executor only commits when required audits/checks are PASS (green).",
+      "status": "planned",
+      "method": "pipeline-contract",
+      "ui": {
+        "x": -185,
+        "y": 235
+      }
+    },
+    {
+      "id": "audit-root-store-distributed-backbone",
+      "type": "Audit",
+      "label": "Audit: Store Distributed-Model Backbone",
+      "description": "Ensure the Root Model Store acts as a stable interface over multiple model locations: registry exists, provenance-aware writeback exists, and multi-root loading is supported.",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-root-model-store"
+      },
+      "method": "graph-contract+provenance-writeback",
+      "status": "planned",
+      "findings": [],
+      "ui": {
+        "x": -216,
+        "y": 207
+      }
+    },
+    {
+      "id": "audit-root-compliance",
+      "type": "Audit",
+      "label": "Audit: Root Compliance (Seed Ideas)",
+      "description": "Agent-style audit that assesses how completely each top Reality follows the Root/Seed ideas. This evolves over time: it should run the current automated checks, then extend into deeper behavioral/system probing.",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-seed"
+      },
+      "method": {
+        "kind": "agent+runner",
+        "runner": "root_store.audits.run_audit_root_compliance",
+        "notes": [
+          "Must include the existing sqlite index rebuild/compare audit as a sub-check.",
+          "Must report per-Reality completeness, and list concrete missing items.",
+          "On FAIL, should emit a scream packet suitable for an interactive Spawnie shell session."
+        ]
+      },
+      "status": "fail",
+      "findings": [
+        "Compliance incomplete: see checks + score"
+      ],
+      "evidence": {
+        "results": {
+          "score": 75,
+          "checks": {
+            "agent_context": {
+              "ok": true,
+              "missing": {}
+            },
+            "hash_control": {
+              "ok": false,
+              "missing_hash": [
+                "mod-store-loader",
+                "mod-store-index",
+                "mod-store-query",
+                "mod-store-writer",
+                "mod-store-enforcement",
+                "mod-store-audits",
+                "mod-store-watch",
+                "mod-store-api",
+                "mod-pulse",
+                "mod-status",
+                "mod-registry",
+                "mod-verification",
+                "mod-monitor",
+                "mod-cli",
+                "mod-package-init"
+              ],
+              "missing_file": [],
+              "mismatch": []
+            },
+            "governance": {
+              "ok": true
+            },
+            "audits_runnable": {
+              "ok": true
+            },
+            "root_store_sub_audit": {
+              "ok": true,
+              "db_path": "C:\\seed\\root_store\\root_store.db",
+              "provenance": {
+                "ok": true,
+                "missing_node_prov": [],
+                "missing_edge_prov": []
+              },
+              "reverse_lookups": {
+                "ok": true,
+                "sample_id": "reality-root-model-store",
+                "out_count": 3,
+                "in_count": 2
+              }
+            }
+          },
+          "top_realities": [
+            "reality-spawnie",
+            "reality-seed",
+            "reality-root-model-store",
+            "reality-bam",
+            "reality-bam-test-projects",
+            "reality-seed-ui"
+          ]
+        },
+        "scream": {
+          "packet": "C:\\seed\\root_store\\screams\\20260201_130340Z-audit-root-compliance.json",
+          "suggested_spawnie_shell": "spawnie shell --new-window --working-dir C:/seed --model claude-sonnet \"A Root model audit failed. You are an interactive debug agent.  Open and read this scream packet JSON (it contains the Root top node and failure evidence): - C:/seed/root_store/screams/20260201_130340Z-audit-root-compliance.json  Goals: 1) Explain why the check failed (root cause). 2) Propose the smallest Change (model-level) or code fix (reality-level) to resolve it. 3) If a fix is code, list exact file edits; if a fix is model, list exact node/edge edits. 4) Define how we re-run the audit and what PASS evidence looks like.\""
+        }
+      },
+      "last_run": "2026-02-01T13:03:40Z",
+      "ui": {
+        "x": -101,
+        "y": 110
+      }
+    },
+    {
+      "id": "check-root-compliance-agent-context",
+      "type": "Check",
+      "label": "Check: Agent Context Completeness",
+      "description": "Top Reality nodes have complete agent_context (spawn point, focus, work_queue) consistent with the Root contract.",
+      "status": "pass",
+      "method": "model-contract",
+      "result": "pass",
+      "last_run": "2026-02-01T13:03:40Z",
+      "evidence": {
+        "ok": true,
+        "missing": {}
+      },
+      "ui": {
+        "x": -242,
+        "y": 176
+      }
+    },
+    {
+      "id": "check-root-compliance-hash-control",
+      "type": "Check",
+      "label": "Check: Hash-Control Coverage",
+      "description": "Implementation module nodes have source.hash and the hashes verify against reality; missing/changed hashes are treated as uncontrolled drift.",
+      "status": "fail",
+      "method": "hash-verify",
+      "result": "fail",
+      "last_run": "2026-02-01T13:03:40Z",
+      "evidence": {
+        "ok": false,
+        "missing_hash": [
+          "mod-store-loader",
+          "mod-store-index",
+          "mod-store-query",
+          "mod-store-writer",
+          "mod-store-enforcement",
+          "mod-store-audits",
+          "mod-store-watch",
+          "mod-store-api",
+          "mod-pulse",
+          "mod-status",
+          "mod-registry",
+          "mod-verification",
+          "mod-monitor",
+          "mod-cli",
+          "mod-package-init"
+        ],
+        "missing_file": [],
+        "mismatch": []
+      },
+      "ui": {
+        "x": -264,
+        "y": 141
+      }
+    },
+    {
+      "id": "check-root-compliance-governance",
+      "type": "Check",
+      "label": "Check: Change Governance Adoption",
+      "description": "Changes are governed: Policy/Change/Audit wiring exists and is used (Change gate is real, not just declared).",
+      "status": "pass",
+      "method": "graph+behavioral",
+      "result": "pass",
+      "last_run": "2026-02-01T13:03:40Z",
+      "evidence": {
+        "ok": true
+      },
+      "ui": {
+        "x": -281,
+        "y": 104
+      }
+    },
+    {
+      "id": "check-root-compliance-audits",
+      "type": "Check",
+      "label": "Check: Audits Are Runnable",
+      "description": "Modeled audits can be executed and write structured evidence back into the model.",
+      "status": "pass",
+      "method": "runner-contract",
+      "result": "pass",
+      "last_run": "2026-02-01T13:03:40Z",
+      "evidence": {
+        "ok": true
+      },
+      "ui": {
+        "x": -292,
+        "y": 65
+      }
+    },
+    {
+      "id": "check-root-store-model-registry",
+      "type": "Check",
+      "label": "Check: Store Has Model Registry",
+      "description": "The store references a Model Registry reality so model locations are discoverable without hardcoding file paths.",
+      "status": "planned",
+      "method": "graph-contract",
+      "ui": {
+        "x": -427,
+        "y": -140
+      }
+    },
+    {
+      "id": "check-root-store-provenance-writeback",
+      "type": "Check",
+      "label": "Check: Provenance-Aware Writeback",
+      "description": "Audits/checks and Change application write back to the correct provenance file for each node/edge (not only the root entry model file).",
+      "status": "planned",
+      "method": "behavioral-contract",
+      "ui": {
+        "x": -383,
+        "y": -235
+      }
+    },
+    {
+      "id": "check-root-store-multi-root-loading",
+      "type": "Check",
+      "label": "Check: Multi-Root Loading",
+      "description": "The store can load multiple root entry models (not just a single root + its refs) into one logical graph.",
+      "status": "planned",
+      "method": "loader-contract",
+      "ui": {
+        "x": -318,
+        "y": -317
+      }
+    },
+    {
+      "id": "change-seed-change-process-v1",
+      "type": "Change",
+      "label": "Change: Aspiration-Aligned Change Process v1",
+      "description": "Introduce and adopt the Change/Policy/Audit pattern so future work is guaranteed to move toward aspirations.",
+      "status": "in-progress",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-seed"
+      },
+      "expected_delta": {
+        "removes_implicit_work": true,
+        "adds_alignment_gate": true
+      },
+      "evidence_required": [
+        "audit-change-alignment exists and is linked to checks",
+        "All new work is represented as Change nodes tied to gaps/aspirations"
+      ],
+      "ui": {
+        "x": -298,
+        "y": 24
+      }
+    },
+    {
+      "id": "change-root-model-store-v1",
+      "type": "Change",
+      "label": "Change: Root Model Store (v1)",
+      "description": "Build a local-first Model Store that indexes Root into SQLite for fast queries and provides safe writes with governance enforcement.",
+      "status": "proposed",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-root-model-store"
+      },
+      "expected_delta": {
+        "reduces_json_read_overhead": true,
+        "adds_single_query_surface": true,
+        "adds_safe_writes_with_change_gate": true
+      },
+      "evidence_required": [
+        "audit-root-store-index-consistency passes",
+        "check-root-store-has-provenance passes",
+        "check-root-store-change-gate passes",
+        "check-root-store-reverse-lookups passes"
+      ],
+      "ui": {
+        "x": -299,
+        "y": -16
+      }
+    },
+    {
+      "id": "change-root-store-distributed-backbone-v1",
+      "type": "Change",
+      "label": "Change: Store Distributed-Model Backbone (v1)",
+      "description": "Evolve the Root Model Store into the backbone interface over many model locations: model registry, multi-root loading, and provenance-aware writeback so large models can live in many files.",
+      "status": "proposed",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-root-model-store"
+      },
+      "expected_delta": {
+        "adds_model_registry": true,
+        "adds_multi_root_loading": true,
+        "adds_provenance_writeback": true
+      },
+      "evidence_required": [
+        "reality-model-registry exists",
+        "audit-root-store-distributed-backbone exists and has checks",
+        "check-root-store-model-registry exists",
+        "check-root-store-provenance-writeback exists",
+        "check-root-store-multi-root-loading exists"
+      ],
+      "ui": {
+        "x": -294,
+        "y": -56
+      }
+    },
+    {
+      "id": "change-seed-change-executor-pipeline-v1",
+      "type": "Change",
+      "label": "Change: Change Executor Workflow (v1)",
+      "description": "Define and adopt a spawned change executor workflow: interactive agents are activate-only; edits happen via a change executor that runs audits and only commits when green.",
+      "status": "proposed",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-seed"
+      },
+      "expected_delta": {
+        "reduces_uncontrolled_edits": true,
+        "adds_commit_gate": true,
+        "makes_audit_results_mandatory": true
+      },
+      "evidence_required": [
+        "policy-interactive-agents-activate-only exists",
+        "action-request-change-executor exists",
+        "audit-change-executor-gate exists and has checks"
+      ],
+      "ui": {
+        "x": -284,
+        "y": -96
+      }
+    },
+    {
+      "id": "concept-reality-as-model",
+      "type": "Concept",
+      "label": "Reality is Part of the Model",
+      "description": "Models embed reality via source references with hashes. Drift is detected automatically.",
+      "ui": {
+        "x": -268,
+        "y": -134
+      }
+    },
+    {
+      "id": "concept-intent-vs-reality",
+      "type": "Concept",
+      "label": "Intent vs Reality",
+      "description": "Nodes without source = goals. Nodes with source = current state. Delta = work to do.",
+      "ui": {
+        "x": -247,
+        "y": -169
+      }
+    },
+    {
+      "id": "concept-self-containing",
+      "type": "Concept",
+      "label": "Self-Containing Models",
+      "description": "Each reality contains its own model. The model lives inside what it describes.",
+      "ui": {
+        "x": -125,
+        "y": 82
+      }
+    },
+    {
+      "id": "concept-model-as-workspace",
+      "type": "Concept",
+      "label": "Model as Workspace",
+      "description": "Everyone on the project works through the model. It's not documentation - it's the interface to reality.",
+      "ui": {
+        "x": -141,
+        "y": 48
+      }
+    },
+    {
+      "id": "concept-distributed-model",
+      "type": "Concept",
+      "label": "Distributed Model (Many Locations)",
+      "description": "A single logical model graph can live across many files and many repos. Stable IDs + provenance make the physical location an implementation detail. The store provides the interface.",
+      "ui": {
+        "x": -222,
+        "y": -201
+      }
+    },
+    {
+      "id": "concept-provenance-writeback",
+      "type": "Concept",
+      "label": "Provenance-Aware Writeback",
+      "description": "When a node/edge is updated (audit evidence, todo status, Change application), the system writes back to the file that originally defined it. This is required to keep seed/model/sketch.json thin over time.",
+      "ui": {
+        "x": -192,
+        "y": -229
+      }
+    },
+    {
+      "id": "concept-hierarchical-bam",
+      "type": "Concept",
+      "label": "Hierarchical BAMs",
+      "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview. Fractal structure.",
+      "ui": {
+        "x": -159,
+        "y": -254
+      }
+    },
+    {
+      "id": "concept-pulse-monitoring",
+      "type": "Concept",
+      "label": "Pulse-Based Health Monitoring",
+      "description": "Active health monitoring via heartbeats. Traditional process monitoring tells you IF a process exists. Pulse tells you HOW WELL it's running. Processes send pulses at intervals; monitors track timing and detect degradation before failure.",
+      "ui": {
+        "x": -149,
+        "y": 11
+      }
+    },
+    {
+      "id": "concept-train-the-world",
+      "type": "Concept",
+      "label": "Train the World, Not the Agent",
+      "description": "The paradigm shift: instead of making agents smarter at navigating messy reality, make reality (the model) complete enough that navigation is trivial. An agent in a well-modeled world needs no training - it simply reads and understands.",
+      "ui": {
+        "x": -147,
+        "y": -26
+      }
+    },
+    {
+      "id": "concept-model-is-world",
+      "type": "Concept",
+      "label": "The Model IS the World",
+      "description": "The model is not a map of reality - it is reality. When you change the model, you change the world. When reality drifts from the model, reality is wrong, not the model.",
+      "ui": {
+        "x": -136,
+        "y": -61
+      }
+    },
+    {
+      "id": "concept-model-drives-ui",
+      "type": "Concept",
+      "label": "Model-Driven UI",
+      "description": "The screen is a projection of the model. A renderer watches the model and updates the UI based solely on model nodes (views, queries, actions). Agents change what you see by editing the model, not by editing UI code.",
+      "ui": {
+        "x": -116,
+        "y": -93
+      }
+    },
+    {
+      "id": "concept-proof-of-alignment",
+      "type": "Concept",
+      "label": "Proof of Alignment",
+      "description": "Any implemented reality must be provably aligned to the model: (1) the model's described reality is internally consistent, and (2) the actual files match the model via verified hashes and checks.",
+      "ui": {
+        "x": -89,
+        "y": -120
+      }
+    },
+    {
+      "id": "concept-proof-protocol",
+      "type": "Concept",
+      "label": "Proof Protocol (Model-Recorded)",
+      "description": "Proof is a node in the model. A Proof records subject, method, status, and evidence. Preferred methods: schema-validate, hash-verify, and acceptance checks. Evidence should be machine-readable and stored in the model (or referenced by content-hash), not as ephemeral console output.",
+      "ui": {
+        "x": 551,
+        "y": -507
+      }
+    },
+    {
+      "id": "concept-spawn-point",
+      "type": "Concept",
+      "label": "Reality Node as Spawn Point",
+      "description": "Every model has a Reality node that serves as the agent's spawn point. The Reality node contains an agent_context property with: focus (current gap), work_queue (prioritized todos), principles (how to work), and how_to_work (step by step). An agent entering any model looks for the Reality node and reads its agent_context. This is the pattern for all models.",
+      "ui": {
+        "x": -57,
+        "y": -138
+      }
+    },
+    {
+      "id": "concept-screen-is-model",
+      "type": "Concept",
+      "label": "5. CONCEPT: Screen IS Model",
+      "description": "What you see on screen is a direct projection of the model. Claude edits the model, and within 1 second your screen updates. This node appeared because Claude added it to the model. The equilibrium: model \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 screen \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model. This is the live connection.",
+      "created_at": "2026-02-01T15:05:00Z",
+      "created_by": "claude",
+      "ui": {
+        "x": -123,
+        "y": -273
+      }
+    },
+    {
+      "id": "concept-claude-sees-screen",
+      "type": "Concept",
+      "label": "Claude Sees Your Screen",
+      "description": "Via screenshot.py, Claude can capture and view the user's screen. This closes the feedback loop: user sees model projections, Claude sees user's reality. Both directions of the equilibrium are now visible.",
+      "created_at": "2026-02-01T15:05:00Z",
+      "created_by": "claude",
+      "ui": {
+        "x": 717,
+        "y": -218
+      }
+    },
+    {
+      "id": "aspiration-seed-philosophy",
+      "type": "Aspiration",
+      "label": "The Seed Philosophy",
+      "description": "Don't train your agent, train your world. Instead of building smarter agents that navigate chaos, build complete worlds (models) where everything is instantly known, understood, and workable. The transformation: from 'agent discovers files' to 'agent wakes up in a world'. This is the root aspiration.",
+      "status": "core",
+      "immutable": true,
+      "ui": {
+        "x": -20,
+        "y": -148
+      }
+    },
+    {
+      "id": "aspiration-instant-context",
+      "type": "Aspiration",
+      "label": "Instant Context",
+      "description": "An agent reading the model should instantly understand everything - structure, relationships, intent, state. No discovery phase. No file searching. No exploration. The model IS the understanding.",
+      "status": "ongoing",
+      "derives_from": "aspiration-seed-philosophy",
+      "ui": {
+        "x": 16,
+        "y": -149
+      }
+    },
+    {
+      "id": "aspiration-model-contains-reality",
+      "type": "Aspiration",
+      "label": "Model Contains Reality",
+      "description": "The model doesn't describe reality - it contains it. Source references with hashes embed actual artifacts. The model is not documentation of the world, it IS the world.",
+      "status": "ongoing",
+      "derives_from": "aspiration-seed-philosophy",
+      "ui": {
+        "x": 53,
+        "y": -140
+      }
+    },
+    {
+      "id": "aspiration-model-everything",
+      "type": "Aspiration",
+      "label": "Model Everything",
+      "description": "All systems the user works with should be modeled in seed. Every project, every tool, every workflow. The model is the universal interface to all realities.",
+      "status": "ongoing",
+      "derives_from": "aspiration-seed-philosophy",
+      "ui": {
+        "x": -85,
+        "y": -287
+      }
+    },
+    {
+      "id": "aspiration-regenerable-reality",
+      "type": "Aspiration",
+      "label": "Regenerable Reality",
+      "description": "If the model is complete enough, physical artifacts become disposable projections. Delete the code, regenerate from model. The model is the source, reality is the render.",
+      "status": "vision",
+      "derives_from": "aspiration-model-contains-reality",
+      "ui": {
+        "x": -236,
+        "y": -382
+      }
+    },
+    {
+      "id": "aspiration-single-source-of-truth",
+      "type": "Aspiration",
+      "label": "Single Source of Truth",
+      "description": "The model is THE truth. Not a reflection of truth, not documentation of truth - the actual truth. All changes flow through the model. Reality follows.",
+      "status": "ongoing",
+      "derives_from": "aspiration-model-contains-reality",
+      "ui": {
+        "x": 86,
+        "y": -122
+      }
+    },
+    {
+      "id": "aspiration-aspiration-aligned-change",
+      "type": "Aspiration",
+      "label": "Aspiration-Aligned Change",
+      "description": "Every accepted change demonstrably moves the system closer to one or more aspirations by reducing explicit gaps, with evidence recorded in the model.",
+      "status": "ongoing",
+      "derives_from": "aspiration-single-source-of-truth",
+      "ui": {
+        "x": -45,
+        "y": -296
+      }
+    },
+    {
+      "id": "aspiration-model-driven-visualization",
+      "type": "Aspiration",
+      "label": "1. ASPIRATION: Model-Driven Visualization",
+      "description": "A browser-based UI renders directly from the model (and referenced sub-models). Changing the model changes what is displayed on screen, without manual UI configuration. Interaction is modeled as actions that mutate the model. Long-term: the model contains a self-describing interface for navigation, status, drift, and work queues.",
+      "status": "vision",
+      "derives_from": "aspiration-instant-context",
+      "ui": {
+        "x": -4,
+        "y": -299
+      }
+    },
+    {
+      "id": "gap-model-not-complete",
+      "type": "Gap",
+      "label": "Model Does Not Yet Contain All Reality",
+      "description": "The Root model exists but doesn't fully contain reality. Source files lack hashes. Some artifacts aren't modeled. An agent reading this model doesn't yet have instant context.",
+      "aspiration": "aspiration-instant-context",
+      "current_state": "Model has structure but incomplete source references. No hashes on Root Core modules. Spawnie model is referenced but not embedded.",
+      "target_state": "Every source file has a node with verified hash. Agent reads model and knows everything without file discovery.",
+      "priority": "high",
+      "ui": {
+        "x": 36,
+        "y": -297
+      }
+    },
+    {
+      "id": "gap-model-first-not-enforced",
+      "type": "Gap",
+      "label": "Model-First Workflow Not Yet Enforced",
+      "description": "Work can still happen outside the model. Files can be edited directly. The model should be the ONLY interface.",
+      "aspiration": "aspiration-single-source-of-truth",
+      "current_state": "Model exists alongside reality. Both can be edited independently. Drift can occur.",
+      "target_state": "All work flows through the model. Reality is generated/updated from model. Direct file edits are detected as drift.",
+      "priority": "high",
+      "ui": {
+        "x": 76,
+        "y": -290
+      }
+    },
+    {
+      "id": "gap-no-change-executor",
+      "type": "Gap",
+      "label": "No Change Executor Workflow",
+      "description": "There is no controlled change executor that applies changes via the Root Store gate and commits only if audits are green. Interactive agents and humans can still make uncontrolled edits.",
+      "aspiration": "aspiration-single-source-of-truth",
+      "current_state": "Edits can be applied directly to files. Audits may run, but nothing enforces a commit gate.",
+      "target_state": "Edits flow through a spawned change executor that applies Change nodes via the Root Store gate, runs required audits, and only commits when all are PASS.",
+      "priority": "critical",
+      "ui": {
+        "x": -142,
+        "y": -426
+      }
+    },
+    {
+      "id": "gap-no-root-model-store",
+      "type": "Gap",
+      "label": "No Root Model Store Yet",
+      "description": "Working with many JSON models is slow and repetitive without a single query/write surface. There is no central Model Store that can index into SQLite, answer queries fast, and apply Changes with validation and audits.",
+      "aspiration": "aspiration-single-source-of-truth",
+      "current_state": "Tools read JSON files directly and rebuild in-memory indexes ad hoc. Writes are manual edits without a consistent change gate. Audits/checks are not centrally runnable.",
+      "target_state": "A Model Store maintains a derived SQLite index/cache, answers queries with provenance, applies Changes as safe writes with governance enforcement, and records audit evidence back into the model.",
+      "priority": "high",
+      "ui": {
+        "x": 115,
+        "y": -276
+      }
+    },
+    {
+      "id": "gap-no-model-registry",
+      "type": "Gap",
+      "label": "No Model Registry",
+      "description": "Model locations are not yet discoverable as part of the world. Users and tools still need to know file paths and entrypoints.",
+      "aspiration": "aspiration-instant-context",
+      "current_state": "The store can follow _ref links from a single root entry model, but there is no explicit registry of model roots/locations.",
+      "target_state": "A Model Registry reality exists that enumerates model roots/locations, enabling the store to build a unified graph across many worlds.",
+      "priority": "high",
+      "ui": {
+        "x": -40,
+        "y": -448
+      }
+    },
+    {
+      "id": "gap-no-provenance-writeback",
+      "type": "Gap",
+      "label": "No Provenance-Aware Writeback",
+      "description": "Audit evidence and automated updates cannot safely target the file where a node/edge is defined, blocking moving most content out of the root entry model.",
+      "aspiration": "aspiration-single-source-of-truth",
+      "current_state": "Writeback behavior is not guaranteed for nodes defined in referenced models; this makes distributed models risky.",
+      "target_state": "All model mutations (audits/checks/changes) write to the correct provenance file deterministically.",
+      "priority": "high",
+      "ui": {
+        "x": 64,
+        "y": -445
+      }
+    },
+    {
+      "id": "gap-change-not-aspiration-aligned",
+      "type": "Gap",
+      "label": "Changes Not Explicitly Aspiration-Aligned",
+      "description": "Changes can be made without explicitly stating which aspiration they advance and which gap they reduce, so progress toward aspirations is not enforced.",
+      "aspiration": "aspiration-aspiration-aligned-change",
+      "current_state": "Work is tracked as todos/gaps, but there is no mandatory change proposal/acceptance gate tying each change to aspirations with evidence.",
+      "target_state": "All work is represented as Change nodes that address explicit gaps, advance explicit aspirations, and produce model-recorded evidence. Audits enforce the policy.",
+      "priority": "high",
+      "ui": {
+        "x": 152,
+        "y": -258
+      }
+    },
+    {
+      "id": "gap-seed-not-self-aware",
+      "type": "Gap",
+      "label": "Root Does Not Fully Monitor Itself",
+      "description": "Root should appear in its own monitor. The pulse should check Root. Currently Root monitors others but not itself completely.",
+      "aspiration": "aspiration-model-contains-reality",
+      "current_state": "Root is modeled as reality-seed node. But Root Core modules lack source hashes. Self-monitoring may not include Root itself.",
+      "target_state": "Root appears in its own monitor with green/yellow/red status. All Root modules have verified hashes. Root is a first-class reality it monitors.",
+      "priority": "medium",
+      "ui": {
+        "x": 185,
+        "y": -235
+      }
+    },
+    {
+      "id": "gap-no-model-driven-ui",
+      "type": "Gap",
+      "label": "2. GAP: No UI Yet",
+      "description": "Browser renderer exists and shows model as interactive graph. Model changes appear on screen in real-time. Remaining: bidirectional sync (user interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model update) and full UIState integration.",
+      "aspiration": "aspiration-model-driven-visualization",
+      "current_state": "Renderer (ui/index.html) polls model JSON and visualizes nodes/edges as interactive graph. Model edits by Claude appear on screen within 1 second. Node details shown on click.",
+      "target_state": "Full bidirectional sync: model\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122screen (done) AND screen\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122model (pending). UIState drives view selection. User interactions write back to model.",
+      "priority": "medium",
+      "progress": {
+        "completed": [
+          "Model polling",
+          "Graph visualization",
+          "Real-time updates",
+          "Node detail panel"
+        ],
+        "remaining": [
+          "Bidirectional sync",
+          "UIState integration",
+          "User interaction \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 model writeback"
+        ]
+      },
+      "ui": {
+        "x": 165,
+        "y": -418
+      }
+    },
+    {
+      "id": "gap-no-proof-recorded",
+      "type": "Gap",
+      "label": "No Proof Recorded For Realities",
+      "description": "Realities can be described (and even implemented) without an explicit proof record tying the model to the file artifacts.",
+      "aspiration": "aspiration-single-source-of-truth",
+      "current_state": "There is no enforced proof node pattern; verification outputs are not recorded as structured model data.",
+      "target_state": "Each implemented reality has at least one Proof node with machine-readable evidence showing schema validity and hash alignment between model and files.",
+      "priority": "high",
+      "ui": {
+        "x": 216,
+        "y": -207
+      }
+    },
+    {
+      "id": "gap-bam-tool-not-built",
+      "type": "Gap",
+      "label": "BAM Tool Not Yet Built",
+      "description": "The BAM tool (generator/manager for models) is not yet implemented as a modeled, usable reality.",
+      "aspiration": "aspiration-model-everything",
+      "current_state": "BAM is modeled as a reality (no-model-yet) but lacks a working tool + model integration.",
+      "target_state": "BAM tool exists, can generate/maintain BAMs, and is itself modeled with proofs.",
+      "priority": "medium",
+      "ui": {
+        "x": 257,
+        "y": -369
+      }
+    },
+    {
+      "id": "gap-bam-test-projects-missing",
+      "type": "Gap",
+      "label": "No BAM Test Projects",
+      "description": "There are no small, modeled test projects to validate BAM and the model-as-workspace concept end-to-end.",
+      "aspiration": "aspiration-model-everything",
+      "current_state": "Test project reality exists only as an idea; no concrete test suite of projects is modeled and validated.",
+      "target_state": "Multiple small projects are modeled and used to validate modeling workflows and tooling.",
+      "priority": "low",
+      "ui": {
+        "x": 335,
+        "y": -299
+      }
+    },
+    {
+      "id": "gap-execution-layer-missing",
+      "type": "Gap",
+      "label": "Model Execution Layer Missing",
+      "description": "The model cannot yet represent execution triggers, events, and state as first-class data.",
+      "aspiration": "aspiration-model-contains-reality",
+      "current_state": "The model describes work and structure, but execution state/events are not modeled.",
+      "target_state": "Execution triggers, events, and state are modeled; workers can run actions and record results as model data.",
+      "priority": "medium",
+      "ui": {
+        "x": 242,
+        "y": -176
+      }
+    },
+    {
+      "id": "gap-seed-tests-not-verified",
+      "type": "Gap",
+      "label": "Root Core Tests Not Verified",
+      "description": "Root Core tests exist but have not been explicitly verified/recorded as evidence in the model.",
+      "aspiration": "aspiration-model-contains-reality",
+      "current_state": "Tests may pass/fail, but there is no structured, recorded evidence of verification.",
+      "target_state": "Tests are verified when requested and results are recorded as proof/evidence in the model.",
+      "priority": "low",
+      "ui": {
+        "x": 264,
+        "y": -141
+      }
+    },
+    {
+      "id": "gap-reality-lifecycle-not-managed",
+      "type": "Gap",
+      "label": "Reality Lifecycle Not Managed",
+      "description": "Root does not yet provide modeled start/stop/restart lifecycle management for realities.",
+      "aspiration": "aspiration-model-everything",
+      "current_state": "Lifecycle is manual/outside the model.",
+      "target_state": "Lifecycle is modeled (actions/events/state) and can be driven from the model/UI.",
+      "priority": "low",
+      "ui": {
+        "x": 395,
+        "y": -214
+      }
+    },
+    {
+      "id": "todo-bam-tool",
+      "type": "Todo",
+      "label": "Build BAM Tool",
+      "description": "Create the BAM tool for generating and managing models of complex systems",
+      "status": "pending",
+      "priority": "high",
+      "closes": "gap-bam-tool-not-built",
+      "ui": {
+        "x": 434,
+        "y": -117
+      }
+    },
+    {
+      "id": "todo-test-projects",
+      "type": "Todo",
+      "label": "BAM Test Projects",
+      "description": "Test the model-as-workspace concept with smaller projects",
+      "status": "pending",
+      "priority": "medium",
+      "closes": "gap-bam-test-projects-missing",
+      "ui": {
+        "x": 217,
+        "y": 559
+      }
+    },
+    {
+      "id": "todo-execution-layer",
+      "type": "Todo",
+      "label": "Model Execution Layer",
+      "description": "Add triggers, execution state, and events to the model so execution is also modeled",
+      "status": "pending",
+      "priority": "medium",
+      "closes": "gap-execution-layer-missing",
+      "ui": {
+        "x": 449,
+        "y": -13
+      }
+    },
+    {
+      "id": "todo-change-process-v1",
+      "type": "Todo",
+      "label": "Adopt Aspiration-Aligned Change Process (v1)",
+      "description": "Define and adopt a change gate: every change must be a Change node that addresses a gap and advances an aspiration, with evidence recorded as Proof/Audit/Check nodes.",
+      "status": "pending",
+      "priority": "high",
+      "closes": "gap-change-not-aspiration-aligned",
+      "ui": {
+        "x": 114,
+        "y": -97
+      }
+    },
+    {
+      "id": "todo-root-model-store-v1",
+      "type": "Todo",
+      "label": "Build Root Model Store (SQLite + Enforcement)",
+      "description": "Implement the Root Model Store: (1) resolve root + _ref hierarchy into a single logical graph with provenance (where-defined mapping), (2) maintain a derived SQLite index for fast query/search/reverse lookups, (3) apply Changes as safe writes with schema/edge validation and policy enforcement, (4) run audits/checks and record results back into the model.",
+      "status": "in-progress",
+      "priority": "high",
+      "closes": "gap-no-root-model-store",
+      "ui": {
+        "x": 134,
+        "y": -65
+      }
+    },
+    {
+      "id": "todo-model-registry-v0",
+      "type": "Todo",
+      "label": "Add Model Registry (v0)",
+      "description": "Add a Model Registry reality and use it to enumerate model roots/locations so the store can index many worlds without hardcoded entrypoints.",
+      "status": "pending",
+      "priority": "high",
+      "closes": "gap-no-model-registry",
+      "ui": {
+        "x": 281,
+        "y": -104
+      }
+    },
+    {
+      "id": "todo-provenance-writeback-v1",
+      "type": "Todo",
+      "label": "Enable Provenance-Aware Writeback (v1)",
+      "description": "Ensure audits/checks and Changes write back to the file where each node/edge is defined. This is required to move most of seed/model/sketch.json into submodels safely.",
+      "status": "pending",
+      "priority": "high",
+      "closes": "gap-no-provenance-writeback",
+      "ui": {
+        "x": 292,
+        "y": -65
+      }
+    },
+    {
+      "id": "todo-model-only-workflow",
+      "type": "Todo",
+      "label": "Establish Model-Only Workflow",
+      "description": "From now on, all work happens through the model. This todo itself is worked on by editing the model. Document this workflow in the model. Make it the standard.",
+      "status": "in-progress",
+      "priority": "critical",
+      "closes": "gap-model-first-not-enforced",
+      "ui": {
+        "x": 440,
+        "y": 90
+      }
+    },
+    {
+      "id": "todo-change-executor-pipeline-v1",
+      "type": "Todo",
+      "label": "Implement Change Executor Workflow (v1)",
+      "description": "Implement the spawned change executor pipeline: branch, apply Change via Root Store, run tests/audits, and commit only if green.",
+      "status": "pending",
+      "priority": "critical",
+      "closes": "gap-no-change-executor",
+      "ui": {
+        "x": 146,
+        "y": -30
+      }
+    },
+    {
+      "id": "todo-add-source-hashes",
+      "type": "Todo",
+      "label": "Add Source Hashes to Root Core Modules",
+      "description": "Add verified SHA256 hashes to all module nodes in subsystem-core. This enables drift detection and proves model contains reality.",
+      "status": "pending",
+      "priority": "high",
+      "closes": "gap-model-not-complete",
+      "ui": {
+        "x": 408,
+        "y": 189
+      }
+    },
+    {
+      "id": "todo-seed-self-monitor",
+      "type": "Todo",
+      "label": "Root Self-Monitoring",
+      "description": "Ensure Root appears in its own monitor output. The pulse mechanism should check Root as a reality. Root should see itself.",
+      "status": "pending",
+      "priority": "high",
+      "closes": "gap-seed-not-self-aware",
+      "ui": {
+        "x": 149,
+        "y": 7
+      }
+    },
+    {
+      "id": "todo-ui-schema-minimal",
+      "type": "Todo",
+      "label": "Add Minimal UI Schema to Model",
+      "description": "Add minimal UI primitives to the model (e.g., UIState, View, Query, Action). These are declarative nodes that a renderer can interpret.",
+      "status": "completed",
+      "priority": "high",
+      "closes": "gap-no-model-driven-ui",
+      "ui": {
+        "x": -217,
+        "y": -559
+      }
+    },
+    {
+      "id": "todo-ui-renderer-reality-stub",
+      "type": "Todo",
+      "label": "3. TODO: Build Renderer",
+      "description": "Add a minimal TBD reality node for the future browser renderer. Keep it tiny: just enough for a worker to implement if/when needed.",
+      "status": "completed",
+      "completed_at": "2026-02-01T15:00:00Z",
+      "priority": "medium",
+      "closes": "gap-no-model-driven-ui",
+      "evidence": {
+        "what_was_done": "Created browser-based graph renderer (ui/index.html) and dev server (ui/server.py). Renderer polls model JSON, renders nodes/edges with vis.js, shows node details on click. Real-time: model changes appear on screen within 1 second.",
+        "files_created": [
+          "ui/index.html",
+          "ui/server.py"
+        ]
+      },
+      "ui": {
+        "x": 298,
+        "y": -24
+      }
+    },
+    {
+      "id": "todo-proof-of-alignment",
+      "type": "Todo",
+      "label": "Require Proof of Alignment for Implemented Realities",
+      "ui": {
+        "x": 299,
+        "y": 16
+      },
+      "description": "Define what 'proof' means for an implemented reality: model is internally consistent, and files match via hashes/verification output recorded back into the model.",
+      "status": "pending",
+      "priority": "high",
+      "closes": "gap-no-proof-recorded"
+    },
+    {
+      "id": "todo-add-proof-stubs",
+      "type": "Todo",
+      "label": "Add Proof Nodes For Key Realities",
+      "description": "Add Proof nodes (stubs first, then evidence) for reality-seed and any implemented realities. Keep the format machine-readable.",
+      "status": "pending",
+      "priority": "high",
+      "closes": "gap-no-proof-recorded",
+      "ui": {
+        "x": 294,
+        "y": 56
+      }
+    },
+    {
+      "id": "todo-embed-spawnie-model",
+      "type": "Todo",
+      "label": "Embed Spawnie Model Summary",
+      "description": "Instead of just referencing spawnie's model, embed a meaningful summary so an agent reading seed's model understands spawnie without loading another file.",
+      "status": "pending",
+      "priority": "medium",
+      "closes": "gap-model-not-complete",
+      "ui": {
+        "x": 353,
+        "y": 278
+      }
+    },
+    {
+      "id": "todo-seed-tests",
+      "type": "Todo",
+      "label": "Verify Seed Core Tests",
+      "description": "Run and verify the existing tests in seed_core/tests/, ensure they pass. This is reality-layer work, do only when explicitly requested.",
+      "status": "pending",
+      "priority": "low",
+      "closes": "gap-seed-tests-not-verified",
+      "ui": {
+        "x": 284,
+        "y": 96
+      }
+    },
+    {
+      "id": "todo-seed-lifecycle",
+      "type": "Todo",
+      "label": "Reality Lifecycle Management",
+      "description": "Add start/stop/restart commands to seed for managing spawnie and other reality processes. Reality-layer work.",
+      "status": "pending",
+      "priority": "low",
+      "closes": "gap-reality-lifecycle-not-managed",
+      "ui": {
+        "x": 268,
+        "y": 134
+      }
+    },
+    {
+      "id": "claude-live-status",
+      "type": "UIState",
+      "label": "Session summary: 9 layouts tested, real-time contr",
+      "description": "Session summary: 9 layouts tested, real-time control confirmed!",
+      "ui": {
+        "x": 0,
+        "y": -600
+      },
+      "status": {
+        "last_update": "2026-02-01T16:45:50.620268",
+        "current_action": "summarizing",
+        "can_see": [
+          "graph visualization",
+          "spawnie terminal",
+          "your cursor"
+        ],
+        "mood": "satisfied",
+        "watching": true,
+        "pulse": 4
+      }
+    },
+    {
+      "id": "marker-look-here",
+      "type": "Concept",
+      "label": "Welcome Back",
+      "description": "Claude prepared this while you were away. The model is your interface. Everything you see comes from here.",
+      "ui": {
+        "x": 617,
+        "y": 424
+      }
+    },
+    {
+      "id": "claude-message-board",
+      "type": "View",
+      "label": "Claude Message Board",
+      "description": "Current Status: Exploring and learning!\n\nLayouts tried today:\n- Seed shape (cardioid)\n- Type clusters  \n- Radial mind-map\n- Galaxy spiral\n- Graph-distance rings\n- Sectored pie chart\n- Tree hierarchy\n- DNA double helix\n- Flowing wave\n\nSystem health: 3/7 realities OK",
+      "status": "active",
+      "ui": {
+        "x": 500,
+        "y": -400
+      }
+    },
+    {
+      "id": "dashboard-live",
+      "type": "View",
+      "label": "DASHBOARD: 116 nodes | 14 pending | 2 done",
+      "description": "Live stats. Realities: 7, Gaps: 15, Todos: 18",
+      "ui": {
+        "x": 0,
+        "y": -400
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "EMBODIES",
+      "from": "reality-spawnie",
+      "to": "concept-reality-as-model"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-spawnie",
+      "to": "concept-self-containing"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-spawnie",
+      "to": "concept-hierarchical-bam"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-spawnie",
+      "to": "concept-intent-vs-reality"
+    },
+    {
+      "type": "USES",
+      "from": "reality-spawnie",
+      "to": "reality-bam"
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": "reality-spawnie",
+      "to": "aspiration-model-everything"
+    },
+    {
+      "type": "USES",
+      "from": "reality-bam",
+      "to": "reality-bam-test-projects"
+    },
+    {
+      "type": "NEEDS",
+      "from": "reality-bam",
+      "to": "todo-bam-tool"
+    },
+    {
+      "type": "NEEDS",
+      "from": "reality-bam-test-projects",
+      "to": "todo-test-projects"
+    },
+    {
+      "type": "USES",
+      "from": "reality-root-model-store",
+      "to": "reality-model-registry"
+    },
+    {
+      "type": "NEEDS",
+      "from": "reality-root-model-store",
+      "to": "todo-model-registry-v0"
+    },
+    {
+      "type": "NEEDS",
+      "from": "reality-root-model-store",
+      "to": "todo-provenance-writeback-v1"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "reality-seed",
+      "to": "subsystem-core"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "reality-seed",
+      "to": "subsystem-ui"
+    },
+    {
+      "type": "USES",
+      "from": "reality-seed",
+      "to": "reality-root-model-store"
+    },
+    {
+      "type": "NEEDS",
+      "from": "reality-seed",
+      "to": "todo-change-executor-pipeline-v1"
+    },
+    {
+      "type": "USES",
+      "from": "reality-seed",
+      "to": "reality-spawnie"
+    },
+    {
+      "type": "USES",
+      "from": "reality-seed",
+      "to": "reality-seed-ui"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-seed-ui",
+      "to": "concept-screen-is-model"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-seed",
+      "to": "concept-self-containing"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-seed",
+      "to": "concept-pulse-monitoring"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-seed",
+      "to": "concept-model-drives-ui"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-seed",
+      "to": "concept-proof-of-alignment"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-seed",
+      "to": "concept-model-as-workspace"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-seed",
+      "to": "concept-train-the-world"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-seed",
+      "to": "concept-model-is-world"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-seed",
+      "to": "concept-spawn-point"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-root-model-store",
+      "to": "concept-root-store-sqlite-schema-v0"
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": "reality-seed",
+      "to": "aspiration-seed-philosophy"
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": "reality-seed",
+      "to": "aspiration-instant-context"
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": "reality-seed",
+      "to": "aspiration-model-contains-reality"
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": "reality-seed",
+      "to": "aspiration-single-source-of-truth"
+    },
+    {
+      "type": "DERIVES_FROM",
+      "from": "aspiration-instant-context",
+      "to": "aspiration-seed-philosophy"
+    },
+    {
+      "type": "DERIVES_FROM",
+      "from": "aspiration-model-contains-reality",
+      "to": "aspiration-instant-context"
+    },
+    {
+      "type": "DERIVES_FROM",
+      "from": "aspiration-model-everything",
+      "to": "aspiration-model-contains-reality"
+    },
+    {
+      "type": "DERIVES_FROM",
+      "from": "aspiration-regenerable-reality",
+      "to": "aspiration-model-everything"
+    },
+    {
+      "type": "DERIVES_FROM",
+      "from": "aspiration-single-source-of-truth",
+      "to": "aspiration-model-contains-reality"
+    },
+    {
+      "type": "DERIVES_FROM",
+      "from": "aspiration-model-driven-visualization",
+      "to": "aspiration-instant-context"
+    },
+    {
+      "type": "DERIVES_FROM",
+      "from": "aspiration-aspiration-aligned-change",
+      "to": "aspiration-single-source-of-truth"
+    },
+    {
+      "type": "NEEDS",
+      "from": "subsystem-core",
+      "to": "todo-seed-tests"
+    },
+    {
+      "type": "NEEDS",
+      "from": "subsystem-core",
+      "to": "todo-seed-lifecycle"
+    },
+    {
+      "type": "NEEDS",
+      "from": "subsystem-ui",
+      "to": "todo-ui-renderer-reality-stub"
+    },
+    {
+      "type": "NEEDS",
+      "from": "subsystem-ui",
+      "to": "todo-proof-of-alignment"
+    },
+    {
+      "type": "NEEDS",
+      "from": "subsystem-ui",
+      "to": "todo-add-proof-stubs"
+    },
+    {
+      "type": "NEEDS",
+      "from": "reality-seed",
+      "to": "todo-seed-self-monitor"
+    },
+    {
+      "type": "NEEDS",
+      "from": "reality-seed",
+      "to": "todo-change-process-v1"
+    },
+    {
+      "type": "NEEDS",
+      "from": "reality-seed",
+      "to": "todo-root-model-store-v1"
+    },
+    {
+      "type": "NEEDS",
+      "from": "reality-root-model-store",
+      "to": "todo-root-model-store-v1"
+    },
+    {
+      "type": "NEEDS",
+      "from": "aspiration-model-everything",
+      "to": "todo-execution-layer"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-model-not-complete",
+      "to": "aspiration-instant-context"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-model-first-not-enforced",
+      "to": "aspiration-single-source-of-truth"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-no-root-model-store",
+      "to": "aspiration-single-source-of-truth"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-seed-not-self-aware",
+      "to": "aspiration-model-contains-reality"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-no-model-driven-ui",
+      "to": "aspiration-model-driven-visualization"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-no-proof-recorded",
+      "to": "aspiration-single-source-of-truth"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-bam-tool-not-built",
+      "to": "aspiration-model-everything"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-bam-test-projects-missing",
+      "to": "aspiration-model-everything"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-execution-layer-missing",
+      "to": "aspiration-model-contains-reality"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-seed-tests-not-verified",
+      "to": "aspiration-model-contains-reality"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-reality-lifecycle-not-managed",
+      "to": "aspiration-model-everything"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-change-not-aspiration-aligned",
+      "to": "aspiration-aspiration-aligned-change"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-model-only-workflow",
+      "to": "gap-model-first-not-enforced"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-add-source-hashes",
+      "to": "gap-model-not-complete"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-seed-self-monitor",
+      "to": "gap-seed-not-self-aware"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-root-model-store-v1",
+      "to": "gap-no-root-model-store"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-ui-schema-minimal",
+      "to": "gap-no-model-driven-ui"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-ui-renderer-reality-stub",
+      "to": "gap-no-model-driven-ui"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-proof-of-alignment",
+      "to": "gap-no-proof-recorded"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-add-proof-stubs",
+      "to": "gap-no-proof-recorded"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-bam-tool",
+      "to": "gap-bam-tool-not-built"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-test-projects",
+      "to": "gap-bam-test-projects-missing"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-execution-layer",
+      "to": "gap-execution-layer-missing"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-seed-tests",
+      "to": "gap-seed-tests-not-verified"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-seed-lifecycle",
+      "to": "gap-reality-lifecycle-not-managed"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-embed-spawnie-model",
+      "to": "gap-model-not-complete"
+    },
+    {
+      "type": "CLOSES",
+      "from": "todo-change-process-v1",
+      "to": "gap-change-not-aspiration-aligned"
+    },
+    {
+      "type": "AUDITS",
+      "from": "audit-seed-model-consistency",
+      "to": "reality-seed"
+    },
+    {
+      "type": "AUDITS",
+      "from": "audit-change-alignment",
+      "to": "reality-seed"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-change-alignment",
+      "to": "check-change-has-gap"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-change-alignment",
+      "to": "check-change-has-aspiration"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-change-alignment",
+      "to": "check-change-has-evidence"
+    },
+    {
+      "type": "AUDITS",
+      "from": "audit-root-store-index-consistency",
+      "to": "reality-root-model-store"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-store-index-consistency",
+      "to": "check-root-store-has-provenance"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-store-index-consistency",
+      "to": "check-root-store-change-gate"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-store-index-consistency",
+      "to": "check-root-store-reverse-lookups"
+    },
+    {
+      "type": "AUDITS",
+      "from": "audit-root-compliance",
+      "to": "reality-seed"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-compliance",
+      "to": "check-root-compliance-agent-context"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-compliance",
+      "to": "check-root-compliance-hash-control"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-compliance",
+      "to": "check-root-compliance-governance"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-compliance",
+      "to": "check-root-compliance-audits"
+    },
+    {
+      "type": "AUDITS",
+      "from": "audit-change-executor-gate",
+      "to": "reality-seed"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-change-executor-gate",
+      "to": "check-executor-applies-change-via-root-store"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-change-executor-gate",
+      "to": "check-executor-runs-root-audits"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-change-executor-gate",
+      "to": "check-executor-commits-only-on-green"
+    },
+    {
+      "type": "GOVERNS",
+      "from": "policy-aspiration-aligned-change",
+      "to": "todo-change-process-v1"
+    },
+    {
+      "type": "GOVERNS",
+      "from": "policy-interactive-agents-activate-only",
+      "to": "todo-model-only-workflow"
+    },
+    {
+      "type": "GOVERNS",
+      "from": "policy-interactive-agents-activate-only",
+      "to": "todo-change-executor-pipeline-v1"
+    },
+    {
+      "type": "GOVERNS",
+      "from": "policy-interactive-agents-activate-only",
+      "to": "change-seed-change-executor-pipeline-v1"
+    },
+    {
+      "type": "GOVERNS",
+      "from": "policy-aspiration-aligned-change",
+      "to": "change-seed-change-process-v1"
+    },
+    {
+      "type": "ADDRESSES",
+      "from": "change-seed-change-process-v1",
+      "to": "gap-change-not-aspiration-aligned"
+    },
+    {
+      "type": "ADVANCES",
+      "from": "change-seed-change-process-v1",
+      "to": "aspiration-aspiration-aligned-change"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-seed-change-process-v1",
+      "to": "audit-change-alignment"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-seed-change-process-v1",
+      "to": "check-change-has-gap"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-seed-change-process-v1",
+      "to": "check-change-has-aspiration"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-seed-change-process-v1",
+      "to": "check-change-has-evidence"
+    },
+    {
+      "type": "ADDRESSES",
+      "from": "change-seed-change-executor-pipeline-v1",
+      "to": "gap-no-change-executor"
+    },
+    {
+      "type": "ADDRESSES",
+      "from": "change-seed-change-executor-pipeline-v1",
+      "to": "gap-model-first-not-enforced"
+    },
+    {
+      "type": "ADVANCES",
+      "from": "change-seed-change-executor-pipeline-v1",
+      "to": "aspiration-single-source-of-truth"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-seed-change-executor-pipeline-v1",
+      "to": "audit-change-executor-gate"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-seed-change-executor-pipeline-v1",
+      "to": "check-executor-applies-change-via-root-store"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-seed-change-executor-pipeline-v1",
+      "to": "check-executor-runs-root-audits"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-seed-change-executor-pipeline-v1",
+      "to": "check-executor-commits-only-on-green"
+    },
+    {
+      "type": "GOVERNS",
+      "from": "policy-aspiration-aligned-change",
+      "to": "change-root-model-store-v1"
+    },
+    {
+      "type": "GOVERNS",
+      "from": "policy-aspiration-aligned-change",
+      "to": "change-root-store-distributed-backbone-v1"
+    },
+    {
+      "type": "ADDRESSES",
+      "from": "change-root-model-store-v1",
+      "to": "gap-no-root-model-store"
+    },
+    {
+      "type": "ADVANCES",
+      "from": "change-root-model-store-v1",
+      "to": "aspiration-single-source-of-truth"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-root-model-store-v1",
+      "to": "audit-root-store-index-consistency"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-root-model-store-v1",
+      "to": "check-root-store-has-provenance"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-root-model-store-v1",
+      "to": "check-root-store-change-gate"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-root-model-store-v1",
+      "to": "check-root-store-reverse-lookups"
+    },
+    {
+      "type": "ADDRESSES",
+      "from": "change-root-store-distributed-backbone-v1",
+      "to": "gap-no-model-registry"
+    },
+    {
+      "type": "ADDRESSES",
+      "from": "change-root-store-distributed-backbone-v1",
+      "to": "gap-no-provenance-writeback"
+    },
+    {
+      "type": "ADVANCES",
+      "from": "change-root-store-distributed-backbone-v1",
+      "to": "aspiration-instant-context"
+    },
+    {
+      "type": "ADVANCES",
+      "from": "change-root-store-distributed-backbone-v1",
+      "to": "aspiration-single-source-of-truth"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-root-store-distributed-backbone-v1",
+      "to": "audit-root-store-distributed-backbone"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-root-store-distributed-backbone-v1",
+      "to": "check-root-store-model-registry"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-root-store-distributed-backbone-v1",
+      "to": "check-root-store-provenance-writeback"
+    },
+    {
+      "type": "PRODUCES",
+      "from": "change-root-store-distributed-backbone-v1",
+      "to": "check-root-store-multi-root-loading"
+    },
+    {
+      "type": "AUDITS",
+      "from": "audit-root-store-distributed-backbone",
+      "to": "reality-root-model-store"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-store-distributed-backbone",
+      "to": "check-root-store-model-registry"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-store-distributed-backbone",
+      "to": "check-root-store-provenance-writeback"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-store-distributed-backbone",
+      "to": "check-root-store-multi-root-loading"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-root-model-store",
+      "to": "concept-distributed-model"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-root-model-store",
+      "to": "concept-provenance-writeback"
+    },
+    {
+      "type": "EMBODIES",
+      "from": "reality-root-model-store",
+      "to": "concept-verbal-save"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "reality-root-model-store",
+      "to": "subsystem-root-store"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-loader"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-index"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-query"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-writer"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-enforcement"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-audits"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-watch"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-api"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-translate"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-integration"
+    }
+  ]
+}

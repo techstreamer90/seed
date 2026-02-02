@@ -1,0 +1,41 @@
+{
+  "subscriptions": [
+    {
+      "entity_id": "guardian:ethics1",
+      "event_patterns": [
+        "principle.*",
+        "authority.*",
+        "system.escalation",
+        "system.guardian_alert"
+      ],
+      "priority": "emergency",
+      "requires_ack": true,
+      "active": true,
+      "created_at": "2026-02-02T11:42:23.666639Z"
+    },
+    {
+      "entity_id": "human:alice",
+      "event_patterns": [
+        "authority.consensus_required",
+        "system.escalation",
+        "principle.violation"
+      ],
+      "priority": "urgent",
+      "requires_ack": true,
+      "active": true,
+      "created_at": "2026-02-02T11:42:23.667143Z"
+    },
+    {
+      "entity_id": "guardian:ethics1",
+      "event_patterns": [
+        "principle.*",
+        "node.*"
+      ],
+      "priority": "urgent",
+      "requires_ack": false,
+      "active": true,
+      "created_at": "2026-02-02T11:42:23.667555Z"
+    }
+  ],
+  "updated_at": "2026-02-02T11:42:23.667563Z"
+}

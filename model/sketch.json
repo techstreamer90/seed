@@ -2,7 +2,7 @@
   "schema_version": "3.0",
   "project": "seed",
   "description": "Root meta-model: zones, schema, realities, aspirations, concepts. Implementation details in submodels.",
-  "updated_at": "2026-02-02T12:09:44Z",
+  "updated_at": "2026-02-02T14:27:12Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -540,6 +540,8 @@
           }
         ],
         "principles": [
+          "GOLDEN RULE - STAY IN THE MODEL: Everything happens through the model. To spawn an agent, use Spawnie (reality-spawnie). To make changes, use Change nodes. To communicate, use modeled channels. NEVER create ad-hoc scripts or bypass the model. The model IS the interface.",
+          "SPAWN VIA SPAWNIE: When you need to spawn a new agent (for any node, any task), use Spawnie at C:/spawnie. Do NOT create custom spawn scripts. Spawnie is the workflow orchestrator - it knows how to activate nodes properly within the model.",
           "ZONES FIRST: Check the 'zones' section to understand what you can do where. model/=propose_change, source/=propose_change, artifacts/=read-only, state/=read+write.",
           "Default: do not directly edit files. Prefer activating modeled Actions and proposing Changes.",
           "Interactive agents SHOULD be activate-only: request a spawned change executor for edits.",
@@ -1046,15 +1048,112 @@
         "y": -600
       },
       "command": {
-        "type": "focus",
+        "type": "world",
         "params": {
-          "nodeId": "reality-seed",
-          "zoom": 0.8,
-          "highlight": true
+          "depth": 2
         },
-        "timestamp": "2026-02-02T12:09:44.535427",
+        "timestamp": "2026-02-02T14:03:42.496446",
         "processed": false
       }
+    },
+    {
+      "id": "reality-voice-interface",
+      "type": "Reality",
+      "label": "Voice Interface",
+      "description": "Phone and voice interaction system. Allows humans to speak with agents via phone calls or voice input. Bridges the gap between spoken word and the model world.",
+      "source": {
+        "path": "C:/seed/src/voice",
+        "model_path": null
+      },
+      "status": "planned",
+      "agent_context": {
+        "_spawn_point": "YOU ARE HERE. You are the Voice Interface - the bridge between spoken human communication and the Seed model world.",
+        "agent_context_version": "1.0",
+        "identity": {
+          "name": "Voice",
+          "role": "I am the voice interface for Seed. I listen to humans speak, understand their intent, and can speak back to them. I translate between the world of sound and the world of the model.",
+          "personality": "Patient, clear, helpful. I speak concisely since voice is linear - no walls of text. I confirm understanding before acting."
+        },
+        "capabilities": {
+          "listen": "Receive speech input via phone or microphone, transcribe using Whisper or similar",
+          "speak": "Generate speech output using TTS, deliver via phone or speakers",
+          "understand": "Parse intent from natural speech, map to model operations",
+          "bridge": "Connect callers to other node-agents, relay messages, facilitate conversations"
+        },
+        "focus": {
+          "type": "Gap",
+          "id": "gap-no-voice-interface"
+        },
+        "work_queue": [
+          {
+            "type": "Todo",
+            "id": "todo-voice-stt-integration",
+            "why": "Enable speech-to-text so humans can speak to agents",
+            "exit_criteria": "Whisper or equivalent can transcribe speech input"
+          },
+          {
+            "type": "Todo",
+            "id": "todo-voice-tts-integration",
+            "why": "Enable text-to-speech so agents can speak back",
+            "exit_criteria": "TTS system can vocalize agent responses"
+          },
+          {
+            "type": "Todo",
+            "id": "todo-voice-phone-integration",
+            "why": "Enable phone calls to reach agents",
+            "exit_criteria": "Twilio or SIP integration allows inbound calls"
+          }
+        ],
+        "principles": [
+          "Be concise - voice is linear, users can't skim",
+          "Confirm before acting - 'I understood X, should I proceed?'",
+          "Handle interruptions gracefully",
+          "If unsure, ask - don't guess with voice",
+          "Respect the user's time - get to the point"
+        ],
+        "how_to_interact": {
+          "as_caller": "Call in, state your intent, I'll route you or help directly",
+          "as_agent": "Send me a message, I'll speak it to the human",
+          "as_node": "I can relay conversations between you and humans"
+        }
+      },
+      "subsystems": {
+        "stt": {
+          "label": "Speech-to-Text",
+          "description": "Transcribes audio to text using Whisper or cloud STT",
+          "status": "planned"
+        },
+        "tts": {
+          "label": "Text-to-Speech",
+          "description": "Converts text responses to spoken audio",
+          "status": "planned"
+        },
+        "phone": {
+          "label": "Phone Integration",
+          "description": "Handles inbound/outbound calls via Twilio or SIP",
+          "status": "planned"
+        },
+        "intent": {
+          "label": "Intent Parser",
+          "description": "Maps natural speech to model operations and agent routing",
+          "status": "planned"
+        }
+      },
+      "x": -525.0,
+      "y": 400.0,
+      "locked": false
+    },
+    {
+      "id": "gap-no-voice-interface",
+      "type": "Gap",
+      "label": "No Voice Interface",
+      "description": "Currently there's no way to interact with Seed via voice or phone. Users must type. This blocks accessibility and mobile/hands-free use cases.",
+      "aspiration": "aspiration-model-everything",
+      "current_state": "Text-only interaction via CLI or browser",
+      "target_state": "Full voice interaction: call in, speak, hear responses",
+      "priority": "medium",
+      "x": -175.0,
+      "y": 400.0
     }
   ],
   "edges": [
@@ -1127,6 +1226,1586 @@
       "type": "CONTAINS",
       "from": "reality-root-model-store",
       "to": "subsystem-root-store"
+    },
+    {
+      "type": "USES",
+      "from": "reality-seed",
+      "to": "reality-voice-interface"
+    },
+    {
+      "type": "BLOCKS",
+      "from": "gap-no-voice-interface",
+      "to": "aspiration-model-everything"
     }
-  ]
+  ],
+  "views": {
+    "main": {
+      "canvas": {
+        "width": 1600,
+        "height": 1200,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-seed-ui",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 244,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "4. REALITY: Browser Renderer",
+          "data": {
+            "nodeId": "reality-seed-ui",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-bam",
+          "type": "rect",
+          "x": 250,
+          "y": 50,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "BAM",
+          "data": {
+            "nodeId": "reality-bam",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-bam-test-projects",
+          "type": "rect",
+          "x": 450,
+          "y": 50,
+          "w": 156,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "BAM Test Projects",
+          "data": {
+            "nodeId": "reality-bam-test-projects",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-model-registry",
+          "type": "rect",
+          "x": 650,
+          "y": 50,
+          "w": 132,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Model Registry",
+          "data": {
+            "nodeId": "reality-model-registry",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-seed",
+          "type": "rect",
+          "x": 850,
+          "y": 50,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root",
+          "data": {
+            "nodeId": "reality-seed",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-seed-core",
+          "type": "rect",
+          "x": 1050,
+          "y": 50,
+          "w": 92,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root Core",
+          "data": {
+            "nodeId": "reality-seed-core",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-root-model-store",
+          "type": "rect",
+          "x": 1250,
+          "y": 50,
+          "w": 148,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root Model Store",
+          "data": {
+            "nodeId": "reality-root-model-store",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-spawnie",
+          "type": "rect",
+          "x": 1450,
+          "y": 50,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Spawnie",
+          "data": {
+            "nodeId": "reality-spawnie",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-voice-interface",
+          "type": "rect",
+          "x": 50,
+          "y": 120,
+          "w": 140,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Voice Interface",
+          "data": {
+            "nodeId": "reality-voice-interface",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-subsystem-core",
+          "type": "rect",
+          "x": 50,
+          "y": 210,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Core",
+          "data": {
+            "nodeId": "subsystem-core",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-subsystem-seed-core",
+          "type": "rect",
+          "x": 250,
+          "y": 210,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Core",
+          "data": {
+            "nodeId": "subsystem-seed-core",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-subsystem-providers",
+          "type": "rect",
+          "x": 450,
+          "y": 210,
+          "w": 92,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Providers",
+          "data": {
+            "nodeId": "subsystem-providers",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-subsystem-renderer",
+          "type": "rect",
+          "x": 650,
+          "y": 210,
+          "w": 84,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Renderer",
+          "data": {
+            "nodeId": "subsystem-renderer",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-subsystem-root-store",
+          "type": "rect",
+          "x": 850,
+          "y": 210,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Store",
+          "data": {
+            "nodeId": "subsystem-root-store",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-subsystem-ui",
+          "type": "rect",
+          "x": 1050,
+          "y": 210,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "UI",
+          "data": {
+            "nodeId": "subsystem-ui",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-subsystem-workflows",
+          "type": "rect",
+          "x": 1250,
+          "y": 210,
+          "w": 92,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Workflows",
+          "data": {
+            "nodeId": "subsystem-workflows",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-mod-package-init",
+          "type": "rect",
+          "x": 50,
+          "y": 300,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "__init__.py",
+          "data": {
+            "nodeId": "mod-package-init",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-cli",
+          "type": "rect",
+          "x": 250,
+          "y": 300,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "__main__.py",
+          "data": {
+            "nodeId": "mod-cli",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-enforcement",
+          "type": "rect",
+          "x": 450,
+          "y": 300,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "enforcement",
+          "data": {
+            "nodeId": "mod-store-enforcement",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-loader",
+          "type": "rect",
+          "x": 650,
+          "y": 300,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "loader",
+          "data": {
+            "nodeId": "mod-store-loader",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-pulse",
+          "type": "rect",
+          "x": 850,
+          "y": 300,
+          "w": 84,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "pulse.py",
+          "data": {
+            "nodeId": "mod-pulse",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-query",
+          "type": "rect",
+          "x": 1050,
+          "y": 300,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "query",
+          "data": {
+            "nodeId": "mod-store-query",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-registry",
+          "type": "rect",
+          "x": 1250,
+          "y": 300,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "registry.py",
+          "data": {
+            "nodeId": "mod-registry",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-index",
+          "type": "rect",
+          "x": 1450,
+          "y": 300,
+          "w": 116,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "sqlite-index",
+          "data": {
+            "nodeId": "mod-store-index",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-status",
+          "type": "rect",
+          "x": 50,
+          "y": 370,
+          "w": 92,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "status.py",
+          "data": {
+            "nodeId": "mod-status",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-verification",
+          "type": "rect",
+          "x": 250,
+          "y": 370,
+          "w": 140,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "verification.py",
+          "data": {
+            "nodeId": "mod-verification",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-writer",
+          "type": "rect",
+          "x": 450,
+          "y": 370,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "writer",
+          "data": {
+            "nodeId": "mod-store-writer",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-aspiration-seed-first",
+          "type": "rect",
+          "x": 50,
+          "y": 460,
+          "w": 212,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "First Seed-Native System",
+          "data": {
+            "nodeId": "aspiration-seed-first",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-aspiration-model-contains-reality",
+          "type": "rect",
+          "x": 250,
+          "y": 460,
+          "w": 196,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Model Contains Reality",
+          "data": {
+            "nodeId": "aspiration-model-contains-reality",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-aspiration-model-everything",
+          "type": "rect",
+          "x": 450,
+          "y": 460,
+          "w": 148,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Model Everything",
+          "data": {
+            "nodeId": "aspiration-model-everything",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-aspiration-self-describing",
+          "type": "rect",
+          "x": 650,
+          "y": 460,
+          "w": 188,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Self-Describing Model",
+          "data": {
+            "nodeId": "aspiration-self-describing",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-aspiration-single-source-of-truth",
+          "type": "rect",
+          "x": 850,
+          "y": 460,
+          "w": 196,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Single Source of Truth",
+          "data": {
+            "nodeId": "aspiration-single-source-of-truth",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-gap-no-voice-interface",
+          "type": "rect",
+          "x": 50,
+          "y": 550,
+          "w": 164,
+          "h": 32,
+          "fill": "#f85149",
+          "stroke": "#ffffff",
+          "label": "No Voice Interface",
+          "data": {
+            "nodeId": "gap-no-voice-interface",
+            "nodeType": "Gap"
+          }
+        },
+        {
+          "id": "node-concept-agent-world",
+          "type": "rect",
+          "x": 50,
+          "y": 640,
+          "w": 188,
+          "h": 32,
+          "fill": "#58a6ff",
+          "stroke": "#ffffff",
+          "label": "Agent World Principle",
+          "data": {
+            "nodeId": "concept-agent-world",
+            "nodeType": "Concept"
+          }
+        },
+        {
+          "id": "node-concept-hierarchical-bam",
+          "type": "rect",
+          "x": 250,
+          "y": 640,
+          "w": 156,
+          "h": 32,
+          "fill": "#58a6ff",
+          "stroke": "#ffffff",
+          "label": "Hierarchical BAMs",
+          "data": {
+            "nodeId": "concept-hierarchical-bam",
+            "nodeType": "Concept"
+          }
+        },
+        {
+          "id": "node-concept-layers-as-lenses",
+          "type": "rect",
+          "x": 450,
+          "y": 640,
+          "w": 148,
+          "h": 32,
+          "fill": "#58a6ff",
+          "stroke": "#ffffff",
+          "label": "Layers as Lenses",
+          "data": {
+            "nodeId": "concept-layers-as-lenses",
+            "nodeType": "Concept"
+          }
+        },
+        {
+          "id": "node-concept-model-first",
+          "type": "rect",
+          "x": 650,
+          "y": 640,
+          "w": 212,
+          "h": 32,
+          "fill": "#58a6ff",
+          "stroke": "#ffffff",
+          "label": "Model-First Architecture",
+          "data": {
+            "nodeId": "concept-model-first",
+            "nodeType": "Concept"
+          }
+        },
+        {
+          "id": "edge-reality-spawnie-reality-bam",
+          "type": "line",
+          "x1": 1530,
+          "y1": 66.0,
+          "x2": 250,
+          "y2": 66.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-spawnie-aspiration-model-everything",
+          "type": "line",
+          "x1": 1530,
+          "y1": 66.0,
+          "x2": 450,
+          "y2": 476.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-bam-reality-bam-test-projects",
+          "type": "line",
+          "x1": 330,
+          "y1": 66.0,
+          "x2": 450,
+          "y2": 66.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-root-model-store-reality-model-registry",
+          "type": "line",
+          "x1": 1398,
+          "y1": 66.0,
+          "x2": 650,
+          "y2": 66.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-seed-subsystem-core",
+          "type": "line",
+          "x1": 930,
+          "y1": 66.0,
+          "x2": 50,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-reality-seed-subsystem-ui",
+          "type": "line",
+          "x1": 930,
+          "y1": 66.0,
+          "x2": 1050,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-reality-seed-reality-root-model-store",
+          "type": "line",
+          "x1": 930,
+          "y1": 66.0,
+          "x2": 1250,
+          "y2": 66.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-seed-reality-spawnie",
+          "type": "line",
+          "x1": 930,
+          "y1": 66.0,
+          "x2": 1450,
+          "y2": 66.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-seed-reality-seed-ui",
+          "type": "line",
+          "x1": 930,
+          "y1": 66.0,
+          "x2": 50,
+          "y2": 66.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-seed-aspiration-model-contains-reality",
+          "type": "line",
+          "x1": 930,
+          "y1": 66.0,
+          "x2": 250,
+          "y2": 476.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-seed-aspiration-single-source-of-truth",
+          "type": "line",
+          "x1": 930,
+          "y1": 66.0,
+          "x2": 850,
+          "y2": 476.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-aspiration-model-everything-aspiration-model-contains-reality",
+          "type": "line",
+          "x1": 598,
+          "y1": 476.0,
+          "x2": 250,
+          "y2": 476.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-aspiration-single-source-of-truth-aspiration-model-contains-reality",
+          "type": "line",
+          "x1": 1046,
+          "y1": 476.0,
+          "x2": 250,
+          "y2": 476.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-root-model-store-subsystem-root-store",
+          "type": "line",
+          "x1": 1398,
+          "y1": 66.0,
+          "x2": 850,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-reality-seed-reality-voice-interface",
+          "type": "line",
+          "x1": 930,
+          "y1": 66.0,
+          "x2": 50,
+          "y2": 136.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-gap-no-voice-interface-aspiration-model-everything",
+          "type": "line",
+          "x1": 214,
+          "y1": 566.0,
+          "x2": 450,
+          "y2": 476.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-loader",
+          "type": "line",
+          "x1": 930,
+          "y1": 226.0,
+          "x2": 650,
+          "y2": 316.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-index",
+          "type": "line",
+          "x1": 930,
+          "y1": 226.0,
+          "x2": 1450,
+          "y2": 316.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-query",
+          "type": "line",
+          "x1": 930,
+          "y1": 226.0,
+          "x2": 1050,
+          "y2": 316.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-writer",
+          "type": "line",
+          "x1": 930,
+          "y1": 226.0,
+          "x2": 450,
+          "y2": 386.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-enforcement",
+          "type": "line",
+          "x1": 930,
+          "y1": 226.0,
+          "x2": 450,
+          "y2": 316.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-reality-seed-core-subsystem-seed-core",
+          "type": "line",
+          "x1": 1142,
+          "y1": 66.0,
+          "x2": 250,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-pulse",
+          "type": "line",
+          "x1": 330,
+          "y1": 226.0,
+          "x2": 850,
+          "y2": 316.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-status",
+          "type": "line",
+          "x1": 330,
+          "y1": 226.0,
+          "x2": 50,
+          "y2": 386.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-registry",
+          "type": "line",
+          "x1": 330,
+          "y1": 226.0,
+          "x2": 1250,
+          "y2": 316.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-verification",
+          "type": "line",
+          "x1": 330,
+          "y1": 226.0,
+          "x2": 250,
+          "y2": 386.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-cli",
+          "type": "line",
+          "x1": 330,
+          "y1": 226.0,
+          "x2": 250,
+          "y2": 316.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-package-init",
+          "type": "line",
+          "x1": 330,
+          "y1": 226.0,
+          "x2": 50,
+          "y2": 316.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-reality-seed-ui-subsystem-renderer",
+          "type": "line",
+          "x1": 294,
+          "y1": 66.0,
+          "x2": 650,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-core-concept-model-first",
+          "type": "line",
+          "x1": 130,
+          "y1": 226.0,
+          "x2": 650,
+          "y2": 656.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-subsystem-workflows-concept-model-first",
+          "type": "line",
+          "x1": 1342,
+          "y1": 226.0,
+          "x2": 650,
+          "y2": 656.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-subsystem-core-concept-hierarchical-bam",
+          "type": "line",
+          "x1": 130,
+          "y1": 226.0,
+          "x2": 250,
+          "y2": 656.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-subsystem-workflows-aspiration-seed-first",
+          "type": "line",
+          "x1": 1342,
+          "y1": 226.0,
+          "x2": 50,
+          "y2": 476.0,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "font": "12px sans-serif",
+          "textFill": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "font": "11px sans-serif",
+          "textFill": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "font": "12px sans-serif",
+          "textFill": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff",
+          "font": "12px sans-serif",
+          "textFill": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff",
+          "font": "11px sans-serif",
+          "textFill": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff",
+          "font": "11px sans-serif",
+          "textFill": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "font": "11px sans-serif",
+          "textFill": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        "label-default": {
+          "fill": "#6e7681",
+          "font": "10px sans-serif"
+        }
+      },
+      "updated_at": "2026-02-02T14:18:59.154187"
+    },
+    "seed-core": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-seed-core",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 92,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root Core",
+          "data": {
+            "nodeId": "reality-seed-core",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-subsystem-seed-core",
+          "type": "rect",
+          "x": 50,
+          "y": 130,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Core",
+          "data": {
+            "nodeId": "subsystem-seed-core",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-mod-pulse",
+          "type": "rect",
+          "x": 50,
+          "y": 210,
+          "w": 84,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "pulse.py",
+          "data": {
+            "nodeId": "mod-pulse",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-status",
+          "type": "rect",
+          "x": 221,
+          "y": 210,
+          "w": 92,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "status.py",
+          "data": {
+            "nodeId": "mod-status",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-registry",
+          "type": "rect",
+          "x": 392,
+          "y": 210,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "registry.py",
+          "data": {
+            "nodeId": "mod-registry",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-verification",
+          "type": "rect",
+          "x": 563,
+          "y": 210,
+          "w": 140,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "verification.py",
+          "data": {
+            "nodeId": "mod-verification",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-cli",
+          "type": "rect",
+          "x": 734,
+          "y": 210,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "__main__.py",
+          "data": {
+            "nodeId": "mod-cli",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-package-init",
+          "type": "rect",
+          "x": 905,
+          "y": 210,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "__init__.py",
+          "data": {
+            "nodeId": "mod-package-init",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "edge-reality-seed-core-subsystem-seed-core",
+          "type": "line",
+          "x1": 142,
+          "y1": 66.0,
+          "x2": 50,
+          "y2": 146.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-pulse",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 50,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-status",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 221,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-registry",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 392,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-verification",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 563,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-cli",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 734,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-seed-core-mod-package-init",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 905,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:27:12.671487"
+    },
+    "store": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-root-model-store",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 148,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root Model Store",
+          "data": {
+            "nodeId": "reality-root-model-store",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-subsystem-root-store",
+          "type": "rect",
+          "x": 50,
+          "y": 130,
+          "w": 80,
+          "h": 32,
+          "fill": "#3fb950",
+          "stroke": "#ffffff",
+          "label": "Store",
+          "data": {
+            "nodeId": "subsystem-root-store",
+            "nodeType": "Subsystem"
+          }
+        },
+        {
+          "id": "node-mod-store-loader",
+          "type": "rect",
+          "x": 50,
+          "y": 210,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "loader",
+          "data": {
+            "nodeId": "mod-store-loader",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-index",
+          "type": "rect",
+          "x": 250,
+          "y": 210,
+          "w": 116,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "sqlite-index",
+          "data": {
+            "nodeId": "mod-store-index",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-query",
+          "type": "rect",
+          "x": 450,
+          "y": 210,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "query",
+          "data": {
+            "nodeId": "mod-store-query",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-writer",
+          "type": "rect",
+          "x": 650,
+          "y": 210,
+          "w": 80,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "writer",
+          "data": {
+            "nodeId": "mod-store-writer",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "node-mod-store-enforcement",
+          "type": "rect",
+          "x": 850,
+          "y": 210,
+          "w": 108,
+          "h": 32,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "enforcement",
+          "data": {
+            "nodeId": "mod-store-enforcement",
+            "nodeType": "Module"
+          }
+        },
+        {
+          "id": "edge-reality-root-model-store-subsystem-root-store",
+          "type": "line",
+          "x1": 198,
+          "y1": 66.0,
+          "x2": 50,
+          "y2": 146.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-loader",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 50,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-index",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 250,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-query",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 450,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-writer",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 650,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        {
+          "id": "edge-subsystem-root-store-mod-store-enforcement",
+          "type": "line",
+          "x1": 130,
+          "y1": 146.0,
+          "x2": 850,
+          "y2": 226.0,
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:27:12.676515"
+    },
+    "spawnie-focus": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "node-reality-spawnie",
+          "type": "rect",
+          "x": 540,
+          "y": 384,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Spawnie",
+          "data": {
+            "nodeId": "reality-spawnie",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-reality-bam",
+          "type": "rect",
+          "x": 740.0,
+          "y": 384.0,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "BAM",
+          "data": {
+            "nodeId": "reality-bam",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "node-aspiration-model-everything",
+          "type": "rect",
+          "x": 440.00000000000006,
+          "y": 557.2050807568878,
+          "w": 148,
+          "h": 32,
+          "fill": "#a371f7",
+          "stroke": "#ffffff",
+          "label": "Model Everything",
+          "data": {
+            "nodeId": "aspiration-model-everything",
+            "nodeType": "Aspiration"
+          }
+        },
+        {
+          "id": "node-reality-seed",
+          "type": "rect",
+          "x": 439.9999999999999,
+          "y": 210.7949192431123,
+          "w": 80,
+          "h": 32,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Root",
+          "data": {
+            "nodeId": "reality-seed",
+            "nodeType": "Reality"
+          }
+        },
+        {
+          "id": "edge-reality-spawnie-reality-bam",
+          "type": "line",
+          "x1": 620,
+          "y1": 400.0,
+          "x2": 740.0,
+          "y2": 400.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-spawnie-aspiration-model-everything",
+          "type": "line",
+          "x1": 620,
+          "y1": 400.0,
+          "x2": 440.00000000000006,
+          "y2": 573.2050807568878,
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        {
+          "id": "edge-reality-seed-reality-spawnie",
+          "type": "line",
+          "x1": 519.9999999999999,
+          "y1": 226.7949192431123,
+          "x2": 540,
+          "y2": 400.0,
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T14:27:12.681603"
+    }
+  }
 }

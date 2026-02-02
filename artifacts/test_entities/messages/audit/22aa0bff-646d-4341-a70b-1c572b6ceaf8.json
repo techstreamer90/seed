@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-02-02T11:42:23.669429Z",
+  "message_id": "22aa0bff-646d-4341-a70b-1c572b6ceaf8",
+  "from": "test",
+  "to": "guardian:ethics1",
+  "subject": "[EVENT] node.modified",
+  "priority": "urgent",
+  "result": {
+    "message_id": "22aa0bff-646d-4341-a70b-1c572b6ceaf8",
+    "success": true,
+    "delivered_to": "guardian:ethics1",
+    "delivered_via": "model",
+    "acknowledged": false,
+    "escalated_to": null,
+    "error": null
+  },
+  "escalated": false
+}

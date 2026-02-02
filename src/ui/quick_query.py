@@ -223,6 +223,116 @@ def get_related(
     return results
 
 
+def get_world_overview(depth: int = 2, model_path: Optional[Path] = None) -> str:
+    """Get "This is your world" overview - a quick map of all nodes.
+
+    Shows nodes grouped by type, with hierarchy for Reality nodes.
+    This is the goto function when you need to orient yourself.
+
+    Args:
+        depth: How many levels deep to show for hierarchies
+        model_path: Optional custom model path
+
+    Returns:
+        Text overview of the entire world
+    """
+    graph = _get_graph(model_path)
+
+    lines: List[str] = []
+    lines.append("=" * 60)
+    lines.append("THIS IS YOUR WORLD")
+    lines.append("=" * 60)
+    lines.append("")
+
+    # Count nodes by type
+    type_counts: Dict[str, int] = {}
+    for node in graph.nodes.values():
+        ntype = node.get("type", "Unknown")
+        type_counts[ntype] = type_counts.get(ntype, 0) + 1
+
+    lines.append(f"Total: {len(graph.nodes)} nodes, {len(graph.edges)} edges")
+    lines.append("")
+
+    # Priority order for types
+    priority_types = ["Reality", "Subsystem", "Module", "Aspiration", "Gap", "Todo", "Concept"]
+
+    # Show Realities first with their hierarchy
+    lines.append("-" * 40)
+    lines.append("REALITIES (your main entry points)")
+    lines.append("-" * 40)
+
+    realities = [(nid, n) for nid, n in graph.nodes.items() if n.get("type") == "Reality"]
+    realities.sort(key=lambda x: (x[1].get("label") or x[0]).lower())
+
+    for nid, node in realities:
+        label = node.get("label") or nid
+        status = node.get("status", "")
+        status_str = f" [{status}]" if status else ""
+        lines.append(f"  * {label}{status_str}")
+        lines.append(f"    id: {nid}")
+
+        # Show children (subsystems, modules) to depth
+        children = []
+        for edge in graph.edges:
+            if edge.get("type") == "CONTAINS" and edge.get("from") == nid:
+                child_id = edge.get("to")
+                if child_id in graph.nodes:
+                    child = graph.nodes[child_id]
+                    children.append((child_id, child))
+
+        # Also check parent field
+        for child_id, child in graph.nodes.items():
+            if child.get("parent") == nid and (child_id, child) not in children:
+                children.append((child_id, child))
+
+        if children and depth > 1:
+            for child_id, child in sorted(children, key=lambda x: (x[1].get("label") or x[0]).lower()):
+                child_label = child.get("label") or child_id
+                child_type = child.get("type", "")
+                lines.append(f"      - {child_label} ({child_type})")
+
+        lines.append("")
+
+    # Show other important types
+    for ntype in ["Aspiration", "Gap", "Todo", "Concept"]:
+        nodes_of_type = [(nid, n) for nid, n in graph.nodes.items() if n.get("type") == ntype]
+        if not nodes_of_type:
+            continue
+
+        lines.append("-" * 40)
+        lines.append(f"{ntype.upper()}S ({len(nodes_of_type)})")
+        lines.append("-" * 40)
+
+        nodes_of_type.sort(key=lambda x: (x[1].get("label") or x[0]).lower())
+        for nid, node in nodes_of_type[:10]:  # Limit to 10 per type
+            label = node.get("label") or nid
+            status = node.get("status", "")
+            status_str = f" [{status}]" if status else ""
+            lines.append(f"  * {label}{status_str}")
+            lines.append(f"    id: {nid}")
+
+        if len(nodes_of_type) > 10:
+            lines.append(f"  ... and {len(nodes_of_type) - 10} more")
+        lines.append("")
+
+    # Summary of other types
+    other_types = [t for t in type_counts.keys() if t not in priority_types]
+    if other_types:
+        lines.append("-" * 40)
+        lines.append("OTHER NODE TYPES")
+        lines.append("-" * 40)
+        for ntype in sorted(other_types):
+            lines.append(f"  {ntype}: {type_counts[ntype]}")
+        lines.append("")
+
+    lines.append("=" * 60)
+    lines.append("Use ui.focus('node-id') to zoom to a node")
+    lines.append("Use ui.status('node-id') to see hierarchy")
+    lines.append("=" * 60)
+
+    return "\n".join(lines)
+
+
 def query(query_text: str, model_path: Optional[Path] = None) -> str:
     """Natural language query interface.
 

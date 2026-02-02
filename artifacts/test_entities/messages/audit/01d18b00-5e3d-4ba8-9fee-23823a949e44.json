@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-02-02T11:42:23.666342Z",
+  "message_id": "01d18b00-5e3d-4ba8-9fee-23823a949e44",
+  "from": "system:test",
+  "to": "guardian:ethics1",
+  "subject": "Test message",
+  "priority": "normal",
+  "result": {
+    "message_id": "01d18b00-5e3d-4ba8-9fee-23823a949e44",
+    "success": true,
+    "delivered_to": "guardian:ethics1",
+    "delivered_via": "model",
+    "acknowledged": false,
+    "escalated_to": null,
+    "error": null
+  },
+  "escalated": false
+}

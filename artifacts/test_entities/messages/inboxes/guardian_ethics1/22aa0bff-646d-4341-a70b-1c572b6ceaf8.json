@@ -1,0 +1,23 @@
+{
+  "id": "22aa0bff-646d-4341-a70b-1c572b6ceaf8",
+  "from_entity": "test",
+  "to_entity": "guardian:ethics1",
+  "subject": "[EVENT] node.modified",
+  "body": {
+    "type": "node.modified",
+    "source": "test",
+    "subject": "reality-seed",
+    "data": {
+      "change": "test"
+    },
+    "timestamp": "2026-02-02T11:42:23.667924Z"
+  },
+  "priority": "urgent",
+  "requires_ack": false,
+  "created_at": "2026-02-02T11:42:23.668479Z",
+  "expires_at": null,
+  "delivered": true,
+  "delivered_at": "2026-02-02T11:42:23.669083Z",
+  "acknowledged": false,
+  "acknowledged_at": null
+}

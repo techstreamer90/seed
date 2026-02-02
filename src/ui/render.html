@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seed - Canvas Renderer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+            height: 100vh;
+            overflow: hidden;
+        }
+        header {
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+        header h1 { font-size: 14px; color: #58a6ff; font-weight: 500; }
+        .status { color: #8b949e; }
+        .status-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            background: #238636;
+            border-radius: 50%;
+            margin-right: 6px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        #canvas-container {
+            width: 100%;
+            height: calc(100vh - 40px);
+            overflow: auto;
+        }
+        canvas {
+            display: block;
+        }
+        /* Tooltip */
+        #tooltip {
+            position: fixed;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 12px;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        #tooltip .tt-label { color: #f0f6fc; font-weight: 500; }
+        #tooltip .tt-type { color: #8b949e; font-size: 11px; }
+        #tooltip .tt-id { color: #6e7681; font-size: 10px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Seed - Canvas</h1>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <select id="view-select" onchange="switchView(this.value)" style="background: #21262d; color: #c9d1d9; border: 1px solid #30363d; padding: 4px 8px; border-radius: 4px; font-size: 12px;">
+                <option value="main">main</option>
+            </select>
+            <div class="status">
+                <span class="status-dot"></span>
+                <span id="status-text">Watching...</span>
+                <span id="elem-count"></span>
+            </div>
+        </div>
+    </header>
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div id="tooltip">
+        <div class="tt-label"></div>
+        <div class="tt-type"></div>
+        <div class="tt-id"></div>
+    </div>
+
+    <script>
+        const CONFIG = {
+            modelPath: '/model/sketch.json',
+            pollInterval: 500,
+            viewName: new URLSearchParams(window.location.search).get('view') || 'main'
+        };
+
+        let lastViewHash = null;
+        let currentView = null;
+        let allViews = [];
+        let canvas, ctx;
+        let hoveredElement = null;
+
+        function init() {
+            canvas = document.getElementById('canvas');
+            ctx = canvas.getContext('2d');
+
+            canvas.addEventListener('mousemove', onMouseMove);
+            canvas.addEventListener('click', onClick);
+
+            // Update title with view name
+            document.querySelector('h1').textContent = `Seed - ${CONFIG.viewName}`;
+
+            poll();
+        }
+
+        function switchView(viewName) {
+            CONFIG.viewName = viewName;
+            lastViewHash = null;
+            document.querySelector('h1').textContent = `Seed - ${viewName}`;
+            history.pushState({}, '', `?view=${viewName}`);
+        }
+
+        async function poll() {
+            try {
+                const response = await fetch(CONFIG.modelPath + '?t=' + Date.now());
+                const model = await response.json();
+
+                // Update view selector
+                const newViews = Object.keys(model.views || {}).sort();
+                if (JSON.stringify(newViews) !== JSON.stringify(allViews)) {
+                    allViews = newViews;
+                    const select = document.getElementById('view-select');
+                    select.innerHTML = allViews.map(v =>
+                        `<option value="${v}" ${v === CONFIG.viewName ? 'selected' : ''}>${v}</option>`
+                    ).join('');
+                }
+
+                const view = model.views?.[CONFIG.viewName];
+                if (view) {
+                    const hash = JSON.stringify(view).length + '-' + (view.updated_at || '');
+                    if (hash !== lastViewHash) {
+                        lastViewHash = hash;
+                        currentView = view;
+                        render(view);
+                        document.getElementById('status-text').textContent = 'Updated';
+                        setTimeout(() => {
+                            document.getElementById('status-text').textContent = 'Watching...';
+                        }, 1000);
+                    }
+                }
+            } catch (e) {
+                console.error('Poll error:', e);
+            }
+
+            setTimeout(poll, CONFIG.pollInterval);
+        }
+
+        function render(view) {
+            const config = view.canvas || { width: 1200, height: 800, background: '#0d1117' };
+            const elements = view.elements || [];
+            const styles = view.styles || {};
+
+            // Set canvas size
+            canvas.width = config.width;
+            canvas.height = config.height;
+
+            // Clear and fill background
+            ctx.fillStyle = config.background;
+            ctx.fillRect(0, 0, config.width, config.height);
+
+            // Draw elements in order (lines first, then rects, then text)
+            const lines = elements.filter(e => e.type === 'line');
+            const rects = elements.filter(e => e.type === 'rect');
+            const texts = elements.filter(e => e.type === 'text');
+
+            // Draw lines (edges)
+            for (const elem of lines) {
+                const style = elem.style ? styles[elem.style] : {};
+                ctx.beginPath();
+                ctx.moveTo(elem.x1, elem.y1);
+                ctx.lineTo(elem.x2, elem.y2);
+                ctx.strokeStyle = elem.stroke || style.stroke || '#30363d';
+                ctx.lineWidth = elem.strokeWidth || style.strokeWidth || 1;
+                ctx.stroke();
+
+                // Arrow head
+                const angle = Math.atan2(elem.y2 - elem.y1, elem.x2 - elem.x1);
+                const headLen = 8;
+                ctx.beginPath();
+                ctx.moveTo(elem.x2, elem.y2);
+                ctx.lineTo(elem.x2 - headLen * Math.cos(angle - Math.PI/6), elem.y2 - headLen * Math.sin(angle - Math.PI/6));
+                ctx.moveTo(elem.x2, elem.y2);
+                ctx.lineTo(elem.x2 - headLen * Math.cos(angle + Math.PI/6), elem.y2 - headLen * Math.sin(angle + Math.PI/6));
+                ctx.stroke();
+            }
+
+            // Draw rects (nodes)
+            for (const elem of rects) {
+                const style = elem.style ? styles[elem.style] : {};
+                const fill = elem.fill || style.fill || '#6e7681';
+                const stroke = elem.stroke || style.stroke || '#ffffff';
+                const font = elem.font || style.font || '12px sans-serif';
+                const textFill = style.textFill || '#ffffff';
+
+                // Rectangle with rounded corners
+                const radius = 4;
+                ctx.beginPath();
+                ctx.roundRect(elem.x, elem.y, elem.w, elem.h, radius);
+                ctx.fillStyle = fill;
+                ctx.fill();
+                ctx.strokeStyle = stroke;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Label
+                if (elem.label) {
+                    ctx.fillStyle = textFill;
+                    ctx.font = font;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(elem.label, elem.x + elem.w/2, elem.y + elem.h/2);
+                }
+
+                // Highlight if hovered
+                if (hoveredElement && hoveredElement.id === elem.id) {
+                    ctx.strokeStyle = '#58a6ff';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+            }
+
+            // Draw text elements
+            for (const elem of texts) {
+                const style = elem.style ? styles[elem.style] : {};
+                ctx.fillStyle = elem.fill || style.fill || '#c9d1d9';
+                ctx.font = elem.font || style.font || '12px sans-serif';
+                ctx.textAlign = elem.align || 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(elem.text, elem.x, elem.y);
+            }
+
+            // Update count
+            document.getElementById('elem-count').textContent = `${elements.length} elements`;
+        }
+
+        function onMouseMove(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Find element under cursor
+            const elements = currentView?.elements || [];
+            hoveredElement = null;
+
+            for (const elem of elements) {
+                if (elem.type === 'rect') {
+                    if (x >= elem.x && x <= elem.x + elem.w &&
+                        y >= elem.y && y <= elem.y + elem.h) {
+                        hoveredElement = elem;
+                        break;
+                    }
+                }
+            }
+
+            // Update tooltip
+            const tooltip = document.getElementById('tooltip');
+            if (hoveredElement) {
+                tooltip.style.display = 'block';
+                tooltip.style.left = (e.clientX + 10) + 'px';
+                tooltip.style.top = (e.clientY + 10) + 'px';
+                tooltip.querySelector('.tt-label').textContent = hoveredElement.label || '';
+                tooltip.querySelector('.tt-type').textContent = hoveredElement.data?.nodeType || '';
+                tooltip.querySelector('.tt-id').textContent = hoveredElement.data?.nodeId || hoveredElement.id;
+                canvas.style.cursor = 'pointer';
+            } else {
+                tooltip.style.display = 'none';
+                canvas.style.cursor = 'default';
+            }
+
+            // Re-render to show hover state
+            if (currentView) render(currentView);
+        }
+
+        function onClick(e) {
+            if (hoveredElement && hoveredElement.data?.nodeId) {
+                console.log('Clicked:', hoveredElement.data.nodeId);
+                // Could send click event back to model here
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

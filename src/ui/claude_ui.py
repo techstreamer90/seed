@@ -194,6 +194,33 @@ class ClaudeUI:
 
         return get_children(node_id)
 
+    def world(self, depth: int = 2, show_in_ui: bool = True) -> str:
+        """Show "This is your world" - a quick overview of all nodes.
+
+        This is the goto command when you need to orient yourself.
+        Returns a text overview and optionally shows it in the UI.
+
+        Args:
+            depth: How many levels deep to show in hierarchy (default 2)
+            show_in_ui: Whether to also show the world panel in the UI
+
+        Returns:
+            Text overview of the world for Claude to read
+        """
+        from src.ui.quick_query import get_world_overview
+
+        # Get text overview
+        overview = get_world_overview(depth)
+
+        # Optionally show in UI
+        if show_in_ui:
+            self._send_command(
+                "world",
+                {"depth": depth},
+            )
+
+        return overview
+
 
 # Global instance for easy import
 ui = ClaudeUI()

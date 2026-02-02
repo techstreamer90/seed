@@ -1,0 +1,51 @@
+{
+  "entities": [
+    {
+      "id": "guardian:ethics1",
+      "type": "ethical_ai",
+      "authority": 30,
+      "channels": [
+        "model"
+      ],
+      "status": "active",
+      "workspace_id": null,
+      "session_id": null,
+      "escalation_path": [],
+      "last_seen": null,
+      "metadata": {}
+    },
+    {
+      "id": "human:alice",
+      "type": "human",
+      "authority": 40,
+      "channels": [
+        "model",
+        "external"
+      ],
+      "status": "active",
+      "workspace_id": null,
+      "session_id": null,
+      "escalation_path": [],
+      "last_seen": null,
+      "metadata": {}
+    },
+    {
+      "id": "node:reality-seed",
+      "type": "node",
+      "authority": 20,
+      "channels": [
+        "model"
+      ],
+      "status": "dormant",
+      "workspace_id": null,
+      "session_id": null,
+      "escalation_path": [
+        "guardian:ethics1",
+        "human:alice"
+      ],
+      "last_seen": null,
+      "metadata": {}
+    }
+  ],
+  "updated_at": "2026-02-02T11:42:23.664565Z"
+}

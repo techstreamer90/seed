@@ -2,6 +2,31 @@
 
 This repo treats **the model as the truth**.
 
+---
+
+## THE GOLDEN RULE: STAY IN THE MODEL
+
+**Everything happens through the model. No exceptions.**
+
+| Want to... | DO THIS | NOT THIS |
+|------------|---------|----------|
+| Spawn an agent | Use **Spawnie** (`reality-spawnie` at C:/spawnie) | Create custom spawn scripts |
+| Make changes | Create a **Change node** | Edit files directly |
+| Communicate | Use **modeled channels** | Ad-hoc messaging |
+| Add capabilities | Add nodes to the **model** | Write standalone tools |
+
+**Why?** The model IS the interface. If it's not in the model, it doesn't exist. Custom scripts bypass governance, auditing, and the entire Seed philosophy.
+
+**Spawnie** is the workflow orchestrator. It knows how to:
+- Activate nodes as agents
+- Manage agent lifecycles
+- Route work through proper channels
+- Maintain model integrity
+
+When the user says "spawn an agent for X", your response is: "I'll use Spawnie to spawn that."
+
+---
+
 ## Zones First
 
 Before doing anything, check which zone you're working in. Zones are defined in `model/sketch.json`:
