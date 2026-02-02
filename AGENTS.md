@@ -61,6 +61,7 @@ You are responsible for maintaining your own node:
 - When you learn a better way → update `node.agent_context`
 - When you discover a mode is needed → add it to `node.modes`
 - When your tools change → update `node.agent_context.your_tools`
+- **When your state changes → update `node.state.status`** (what you're doing right now)
 
 **The model is truth.** If your capabilities aren't in your node, they don't exist.
 
@@ -78,6 +79,27 @@ my_node['capabilities']['new_thing'] = "Description of what you can now do"
 # Write it back
 json.dump(model, open(MODEL_PATH, 'w'), indent=2)
 ```
+
+### Status Maintenance
+
+**Your status is your identity.** Update `node.state.status` to show what you're doing:
+
+```python
+# Update your status
+my_node['state']['status'] = 'analyzing node relationships'
+my_node['state']['last_updated'] = datetime.now().isoformat()
+```
+
+**Status examples:**
+- "ready for attention" - idle, waiting for work
+- "spawning agents for batch cleanup" - actively working
+- "rendering hierarchy view" - specific task
+- "waiting for user input" - blocked state
+- "completed task X" - finished state
+
+**Why?** Any UI displaying your node can show your current state. Your status comes from the model, not external systems.
+
+The node IS you. When someone looks at your node, they should see what you're doing right now.
 
 ---
 

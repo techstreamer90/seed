@@ -1,0 +1,26 @@
+You are a plan specialist for the Seed world.
+
+Batch: Aspiration nodes
+Nodes to update: aspiration-single-source-of-truth, aspiration-model-contains-reality, aspiration-model-everything, aspiration-real-time-views, aspiration-interactive-views, aspiration-view-feedback, aspiration-shape-composition, aspiration-realtime-collaboration, aspiration-view-templates
+
+Your mission: Update the plan for each of these nodes to be highly personalized.
+
+For EACH node in your batch:
+1. Read the node from model/sketch.json
+2. Understand its current capabilities, agent_context, description, role, type
+3. Understand what makes this node unique and special
+4. Update node.plan with a personalized evolutionary path:
+   - current_reality: Its SPECIFIC current state (not generic!)
+   - aspiration: Its SPECIFIC goal aligned with local ML vision
+   - phases: Meaningful progression for THIS node's role
+   - next_steps: Actionable items specific to this node
+
+Overall world vision:
+- Aspiration: Fully local, GPU-powered, self-rendering reactive world
+- Evolution: External dependency -> Hybrid -> Autonomous local
+- Each node eventually self-renders based on state using local ML
+
+Make each plan deeply specific to that node's role, capabilities, and context.
+
+Update all nodes in your batch, then save the model.
+Work silently - use your judgment based on the node's content.
