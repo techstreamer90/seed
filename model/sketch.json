@@ -743,8 +743,8 @@
       "y": -400.0,
       "locked": true,
       "plan": {
-        "current_reality": "SQLite-backed gateway over distributed JSON models. Holds the derived state cache, enforces Change gate validation, records provenance for safe writes.",
-        "aspiration": "Become the intelligent backbone: query-responsive, write-safe, fully autonomous cache manager with cross-repo awareness and smart invalidation",
+        "current_reality": "Local-first backend over multiple model files with SQLite index. Uniform interface with governance enforcement.",
+        "aspiration": "The Reality Abstraction Layer: Model=Reality=Hard Drive. Storage, query, mutation all unified. Self-renders whenever queried.",
         "phases": [
           {
             "phase": 1,
@@ -771,8 +771,8 @@
           "Add provenance writeback so patches record their destination file",
           "Create cross-model reference resolver for Model Registry integration"
         ],
-        "updated_at": "2026-02-02T22:13:10.122842",
-        "updated_by": "spawnie"
+        "updated_at": "2026-02-02T22:55:38.066501+00:00",
+        "updated_by": "claude"
       },
       "view": {
         "renderer": "model-store-inspector",
@@ -1158,7 +1158,7 @@
         "updated_at": "2026-02-02T22:10:00.000000",
         "updated_by": "plan-specialist",
         "current_reality": "SQLite-backed store with loader/merger, query engine, safe writer, enforcement, watcher, audit runner, and API. Currently passive data store receiving reads/writes.",
-        "aspiration": "Self-monitoring store that knows its load patterns, can report integrity metrics, auto-optimizes indices, detects and prevents corruptions, streams state changes to watching agents",
+        "aspiration": "Direct gateway to hard drive reality: Model = Reality = bits on disk. Evolve into hardware-aware storage abstraction layer that treats the model as the only truth, manages direct bit-level access to stored reality, ensures all model changes persist immediately to disk, and eliminates any abstraction gap between what agents want and what the hard drive contains.",
         "phases": [
           {
             "phase": 1,
@@ -1226,8 +1226,8 @@
       "y": -200.0,
       "locked": true,
       "plan": {
-        "current_reality": "Tool for generating complex system models. Not yet built; exists as a spawn point for future development.",
-        "aspiration": "Become the universal modeling engine: auto-generate BAMs from code, git history, existing models, and voice descriptions. Self-improving through feedback loops.",
+        "current_reality": "Tool for generating models of complex systems. Not yet built.",
+        "aspiration": "In-model generation engine: Lives in the model, self-renders its state, generates other models from hard drive. Model understands itself through BAM.",
         "phases": [
           {
             "phase": 1,
@@ -1254,8 +1254,8 @@
           "Integrate with Voice Interface to accept spoken model descriptions",
           "Build test suite using reality-bam-test-projects"
         ],
-        "updated_at": "2026-02-02T22:13:22.214853",
-        "updated_by": "spawnie"
+        "updated_at": "2026-02-02T22:55:38.066513+00:00",
+        "updated_by": "claude"
       },
       "view": {
         "renderer": "bam-editor",
@@ -1312,8 +1312,8 @@
       "y": -200.0,
       "locked": true,
       "plan": {
-        "current_reality": "Validation ground for model-as-workspace concept. Planned but not yet active.",
-        "aspiration": "Evolve into a living lab: continuously test new modeling patterns, validate BAM generation, prove the model-as-workspace concept works at scale",
+        "current_reality": "Validation ground for model-as-workspace. Planned but not yet active.",
+        "aspiration": "Living model-native labs: Projects stored in model, self-rendering test outputs, autonomous feedback loops that mutate model state directly.",
         "phases": [
           {
             "phase": 1,
@@ -1340,8 +1340,8 @@
           "Run automated tests on model completeness and consistency",
           "Integrate feedback loop with BAM generator for iterative improvement"
         ],
-        "updated_at": "2026-02-02T22:13:22.214853",
-        "updated_by": "spawnie"
+        "updated_at": "2026-02-02T22:55:38.066516+00:00",
+        "updated_by": "claude"
       },
       "view": {
         "renderer": "test-project-runner",
@@ -1805,7 +1805,7 @@
         "updated_at": "2026-02-02T22:10:00.000000",
         "updated_by": "plan-specialist",
         "current_reality": "STUB - This is aspirational. ACTUAL REALITY: canvas_app.py (Tkinter, polls model every 1s) and canvas_window.py (input capture + agent bitmaps from .state/render/) exist and work. They live as modules in reality-seed-ui. This subsystem documents future GPU-accelerated vision.",
-        "aspiration": "GPU-powered unified canvas that autonomously reads model.views, renders in real-time, adapts to hardware capabilities, manages vsync without external polling, replaces current Tkinter implementations",
+        "aspiration": "Self-rendering display: become the visual manifestation of the model's hard drive reality. Evolve into a self-aware canvas that renders directly from model bits, understands its own pixel state, adapts rendering to hardware constraints without external orchestration, and treats every render cycle as a direct visualization of stored reality.",
         "phases": [
           {
             "phase": 1,
@@ -1877,7 +1877,7 @@
         "updated_at": "2026-02-02T22:10:00.000000",
         "updated_by": "plan-specialist",
         "current_reality": "PARTIALLY IMPLEMENTED: schauspieler_protocol.py exists and works (request_visualization, poll_requests, mark_in_progress, mark_finished). Basic NodeAgent â†” Sub communication via model.nodes[].visualization.current_request. MISSING: priority queuing, region/viewport management, intelligent batching, predictive orchestration.",
-        "aspiration": "Smart request broker that learns agent patterns, auto-prioritizes important visualization requests, routes to right canvas region, batches updates, understands what each agent cares about",
+        "aspiration": "Reality abstraction for rendering: evolve into the intelligent layer between agents and rendered reality. Understand that render requests are queries into hard drive state; translate agent needs into direct storage reads; manage the abstraction layer that lets agents request visualizations without knowing the bit-level reality beneath.",
         "phases": [
           {
             "phase": 1,
@@ -1950,7 +1950,7 @@
         "updated_at": "2026-02-02T22:10:00.000000",
         "updated_by": "plan-specialist",
         "current_reality": "PARTIALLY IMPLEMENTED: composer.py provides basic shape composition, layout, and interaction detection. Manual orchestration by Schauspieler agent (human-guided). MISSING: automated decision logic, priority system, intelligent layout modes, attention tracking, smooth transitions.",
-        "aspiration": "Intelligent director that learns user focus patterns, anticipates what matters now, composes dynamic layouts, manages visual hierarchy and attention flow like a film director",
+        "aspiration": "Autonomous orchestrator of rendered reality: evolve into a self-governing system that interprets model state and decides what aspects of hard drive reality should be visible. Learn to compose visualizations directly from stored state without human direction, managing the complete abstraction from raw bits to meaningful imagery.",
         "phases": [
           {
             "phase": 1,
@@ -2018,8 +2018,8 @@
       "y": -200.0,
       "locked": true,
       "plan": {
-        "current_reality": "Planned backbone for discovering models across repos and paths. Does not yet exist.",
-        "aspiration": "Become the universal model finder: federated discovery across local files, repos, URLs, and other 007 worlds. No file paths needed - everything discoverable by role and aspiration.",
+        "current_reality": "Planned backbone for discovering models. Does not yet exist.",
+        "aspiration": "In-model universal index: Registry itself stored and rendered from model. Everything discoverable through model queries. Federation through model references only.",
         "phases": [
           {
             "phase": 1,
@@ -2046,8 +2046,8 @@
           "Integrate with Root Model Store as its data source layer",
           "Build query interface: find by role, aspiration, node type, or partial name"
         ],
-        "updated_at": "2026-02-02T22:13:22.214853",
-        "updated_by": "spawnie"
+        "updated_at": "2026-02-02T22:55:38.066519+00:00",
+        "updated_by": "claude"
       },
       "view": {
         "renderer": "registry-browser",
@@ -2230,10 +2230,10 @@
       "y": 0.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971079",
-        "updated_by": "spawnie",
+        "updated_at": "2026-02-02",
+        "updated_by": "Claude Code",
         "current_reality": "Node exists in model, role: The model is THE truth. Not a reflection of truth, not documentation of truth - the actual truth. All changes flow through the model. Reality follows.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "aspiration": "Model-as-hard-drive is the only truth: Everything that exists is a node in the model. Everything that's real is stored in JSON. The canvas is a renderer that reads model.nodes and draws. Agents are bitmaps stored in model.nodes. Views are arrays of pixels stored in model.nodes.views. There are no external databases, no hidden state, no abstractions. Query the model, get reality. Write the model, change reality.",
         "phases": [
           {
             "phase": 1,
@@ -2303,9 +2303,9 @@
       "locked": true,
       "plan": {
         "updated_at": "2026-02-02",
-        "updated_by": "claude",
+        "updated_by": "Claude Code",
         "current_reality": "Model has references and descriptions of artifacts but doesn't embed them. sketch.json contains structure but not actual code, images, binaries. External artifacts scattered across filesystem, repository, URLs. Model points to reality but doesn't contain it.",
-        "aspiration": "Model is a complete snapshot container. Every artifact is hashed, referenced, and retrievable from the model. The model itself is a self-contained universe. Need nothing external to understand, execute, or recreate the system.",
+        "aspiration": "Model is the hard drive made visible: Every bit of reality - agents, pixels, coordinates, state - is directly stored as model.nodes entries. No abstractions, no parsing layers. The model is the bit-space itself. Accessing reality means reading the model directly. Modifying reality means writing to model.nodes. The canvas renders by reading these bits. Everything that matters exists as JSON nodes in the model.",
         "phases": [
           {
             "phase": 1,
@@ -2375,9 +2375,9 @@
       "locked": true,
       "plan": {
         "updated_at": "2026-02-02",
-        "updated_by": "claude",
+        "updated_by": "Claude Code",
         "current_reality": "Currently models Seed ecosystem only. Projects, tools, external systems exist separately. Model is Seed-centric. No standardized way to pull in project structure, dependencies, documentation from external sources.",
-        "aspiration": "Model is the unified interface for entire user reality. Every project, tool, workflow, and system the user touches is represented. Model becomes their universal dashboard and state container.",
+        "aspiration": "Model becomes the unified reality container: Every pixel on screen, every agent bitmap, every coordinate, every state change - all written directly to model.nodes. Users don't manage projects separately - projects ARE collections of nodes. Tools don't export state - state IS in the model. The model is not a database about reality; the model IS reality. One source, one truth, one hard drive.",
         "phases": [
           {
             "phase": 1,
@@ -2447,9 +2447,9 @@
       "locked": true,
       "plan": {
         "updated_at": "2026-02-02",
-        "updated_by": "claude",
+        "updated_by": "Claude Code",
         "current_reality": "Views are static snapshots. Require manual refresh or page reload to see model changes. File watcher exists but view doesn't auto-update. Multi-second delays between model change and visible update.",
-        "aspiration": "Views update instantly without manual action. User sees changes propagate in real-time. Collaborating agents see each other's changes immediately. Sub-100ms latency between model mutation and view reflection.",
+        "aspiration": "Views sync with the hard drive in real-time: The model-as-hard-drive writes bits to disk. The canvas reads those bits and renders them. When agents write their bitmaps to model.nodes[agent].bitmap, the canvas immediately displays them. Zero latency between model write and view display because the view IS reading the model directly. The visualization layer evaporates - what you see is what's stored.",
         "phases": [
           {
             "phase": 1,
@@ -2519,9 +2519,9 @@
       "locked": true,
       "plan": {
         "updated_at": "2026-02-02",
-        "updated_by": "claude",
+        "updated_by": "Claude Code",
         "current_reality": "Views are read-only visualizations. Mouse events don't do anything. No click handlers, drag interaction, or filtering. Users can only view the model, not interact with it visually.",
-        "aspiration": "Views are full bidirectional interfaces. Click nodes to focus and drill down. Drag to pan. Scroll to zoom. Search/filter visible elements. User interactions broadcast back to agents who respond. The visualization is as much an input device as an output.",
+        "aspiration": "Views become direct reality portals: Users don't click abstract representations - they touch the model's bit-space directly. Interactions write directly into the canvas render buffer, which IS the model state. A click ripples through the bit-space, agents see it as a change in their coordinate space, re-render their bitmaps, and the canvas immediately displays the evolved reality. Interaction and rendering are unified - touching the world changes it, seeing it means it's already real.",
         "phases": [
           {
             "phase": 1,
@@ -2591,9 +2591,9 @@
       "locked": true,
       "plan": {
         "updated_at": "2026-02-02",
-        "updated_by": "claude",
+        "updated_by": "Claude Code",
         "current_reality": "Views are fire-and-forget. No tracking of who views what, when, or for how long. No metrics on interaction. No feedback loop to know if a visualization is useful.",
-        "aspiration": "Views are self-aware and adaptive. System tracks viewing patterns (who, when, duration, interactions). Agents get feedback on visualization usefulness. Popular views are optimized and persist. Unused views auto-archive. Views evolve based on usage data.",
+        "aspiration": "Views evolve as hard-drive patterns: The model tracks which bits are accessed (viewed), how often, by which agents. This metadata IS stored in the model at model.nodes[viewId].usage_analytics. Popular view patterns are optimized by changing their node structure. Unused views are archived by moving them to model.nodes.archive. The model teaches itself what patterns matter by analyzing its own read/write traces.",
         "phases": [
           {
             "phase": 1,
@@ -2671,9 +2671,9 @@
       "locked": true,
       "plan": {
         "updated_at": "2026-02-02",
-        "updated_by": "claude",
+        "updated_by": "Claude Code",
         "current_reality": "Shape.py and composer.py exist. Shapes have relative coords and bounds. Basic orchestration works. No collision detection, interaction handling, or realistic physical simulation. Shapes are purely visual containers.",
-        "aspiration": "Each node owns its visual representation as an autonomous Shape with full capabilities. Shapes communicate their bounds, capabilities, collision zones. Composer orchestrates placement. Interaction emerges naturally from shape properties. A dog shape and tree shape collide realistically because shapes understand physics.",
+        "aspiration": "Shapes ARE the stored reality: Each node has a shape that persists in model.nodes[nodeId].shape. The shape contains geometry, physics, appearance - all stored as JSON. When rendered, the canvas reads this shape directly from storage. Composition isn't computed - it's read from model.nodes. Shapes collide because their collision zones are stored bits. Physics emerges from the data structure itself.",
         "phases": [
           {
             "phase": 1,
@@ -2747,9 +2747,9 @@
       "locked": true,
       "plan": {
         "updated_at": "2026-02-02",
-        "updated_by": "claude",
+        "updated_by": "Claude Code",
         "current_reality": "Single user at a time. Only Spawnie uses the system. No multiplayer model or synchronization. Shape updates are local only.",
-        "aspiration": "Multiple agents work together on a shared canvas in real-time. Each agent updates their shape. Orchestrator composes all shapes together. All agents see result immediately. Enables pair programming, collective problem-solving, and emergent behavior through collaboration.",
+        "aspiration": "Agents collaborate by sharing the bit-space: Multiple agents write their bitmaps to model.nodes simultaneously. Each writes coordinates, shape, color directly to the model. The canvas reads all these bits and composes them into one unified reality. Agents see each other's changes instantly because they read the same model. Collaboration emerges from agents directly writing and reading the shared hard drive.",
         "phases": [
           {
             "phase": 1,
@@ -2819,9 +2819,9 @@
       "locked": true,
       "plan": {
         "updated_at": "2026-02-02",
-        "updated_by": "claude",
+        "updated_by": "Claude Code",
         "current_reality": "Each view is custom-built from scratch. No reusable patterns or templates. No guidance on how to build effective visualizations. Boilerplate repeated across views.",
-        "aspiration": "Prebuilt view patterns for common queries: system overview, gap analysis, todo board, dependency graph, timeline. Agents quickly instantiate and customize templates. Consistent visualization language across all views. Reduces development time and improves UX.",
+        "aspiration": "Templates are stored shape patterns: Common visualization patterns (hierarchy, timeline, grid, graph) are stored as shape templates in model.nodes.templates[]. When an agent needs a view, it reads a template from model, instantiates it as a node with that shape, writes it to model.nodes, and the canvas renders it. Templates aren't abstract patterns - they're concrete node blueprints stored in the hard drive.",
         "phases": [
           {
             "phase": 1,
@@ -2886,8 +2886,8 @@
         "y": 0
       },
       "plan": {
-        "current_reality": "Core principle: Only MODEL + AGENTS exist in the agent world. User is outside. All state is model state.",
-        "aspiration": "Become the foundation of every agent understanding: Self-validating principle that agents autonomously enforce, embedded in every new agent context, shaping all decision-making",
+        "current_reality": "Core principle: Only MODEL + AGENTS exist. User is outside.",
+        "aspiration": "Operating system principle: Model=Reality. Agents see only model (hard drive). Modifying model = modifying reality. Self-rendering from state. Universal law.",
         "phases": [
           {
             "phase": 1,
@@ -2914,8 +2914,8 @@
           "Include principle summary in every agent spawn context",
           "Build visualization: show how each agent action flows through model"
         ],
-        "updated_at": "2026-02-02T22:13:38.013812",
-        "updated_by": "spawnie"
+        "updated_at": "2026-02-02T22:55:38.066521+00:00",
+        "updated_by": "claude"
       },
       "view": {
         "renderer": "principle-statement",
@@ -2960,8 +2960,8 @@
         "processed": false
       },
       "plan": {
-        "current_reality": "Manual UI rendering directed by humans/agents. Commands stored in model, processed asynchronously.",
-        "aspiration": "Evolve into a self-rendering UI engine: Any model state change triggers reactive re-render using locally-trained ML models. No manual intervention needed.",
+        "current_reality": "Manual UI rendering via commands stored in model.",
+        "aspiration": "Self-rendering engine: Model state → automatic visual render. No commands needed. UI emerges from model structure. Learns optimal rendering from in-model feedback.",
         "phases": [
           {
             "phase": 1,
@@ -2988,8 +2988,8 @@
           "Train small ML model (distilled from Claude) to map node context to optimal UI representation",
           "Implement local rendering engine using model predictions"
         ],
-        "updated_at": "2026-02-02T22:13:38.013812",
-        "updated_by": "spawnie"
+        "updated_at": "2026-02-02T22:55:38.066523+00:00",
+        "updated_by": "claude"
       },
       "view": {
         "renderer": "command-executor",
@@ -3103,8 +3103,8 @@
       "y": 400.0,
       "locked": false,
       "plan": {
-        "current_reality": "Spoken word bridge. Phone/voice input transcribed, intent parsed, responses vocalized back. Lives at C:/seed/src/voice.",
-        "aspiration": "Become the natural language portal: Fluent, context-aware conversationalist. Understands human intent deeply, routes to specialized node-agents, remembers conversation context, speaks naturally without prompting.",
+        "current_reality": "Spoken word bridge. Phone/voice transcribed, intent parsed, responses vocalized.",
+        "aspiration": "Model-native voice: Voice input→model mutation. Model state→voice output. Interface self-renders. Speaking IS model mutation. Reality speaks back.",
         "phases": [
           {
             "phase": 1,
@@ -3131,8 +3131,8 @@
           "Build Twilio/SIP integration for inbound phone calls",
           "Create conversation context tracker (who called, what was discussed, outcomes)"
         ],
-        "updated_at": "2026-02-02T22:13:38.013812",
-        "updated_by": "spawnie"
+        "updated_at": "2026-02-02T22:55:38.066525+00:00",
+        "updated_by": "claude"
       },
       "view": {
         "renderer": "voice-interface-hub",
@@ -3172,8 +3172,8 @@
       "x": -175.0,
       "y": 400.0,
       "plan": {
-        "current_reality": "Accessibility blocker: Seed is text-only. No phone, no voice, no hands-free interaction. Excludes mobile users and voice-first users.",
-        "aspiration": "Eliminate this gap entirely: Voice becomes a first-class interaction modality, equally capable as text, accessible from any device with voice input",
+        "current_reality": "Accessibility blocker: Seed is text-only.",
+        "aspiration": "Voice is model: Equal capability through model operations. Interface stored in-model, self-rendering. Voice=text=reality through unified model.",
         "phases": [
           {
             "phase": 1,
@@ -3200,8 +3200,8 @@
           "Test accessibility with screen-reader users",
           "Build voice-to-model flow for all core Seed operations"
         ],
-        "updated_at": "2026-02-02T22:13:38.013812",
-        "updated_by": "spawnie"
+        "updated_at": "2026-02-02T22:55:38.066527+00:00",
+        "updated_by": "claude"
       },
       "view": {
         "renderer": "gap-priority-tracker",
@@ -3306,7 +3306,7 @@
         "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
         "current_reality": "Static blueprint for creating individual AgentNodes with required infrastructure",
-        "aspiration": "Self-evolving template that learns from instantiated agents and teaches the ecosystem how to bootstrap new specialized nodes",
+        "aspiration": "Self-rendering blueprints that directly instantiate as autonomous, persistent agents in the unified model-reality space, each bootstrapping itself into living form with direct hard drive access",
         "phases": [
           {
             "phase": 1,
@@ -3767,7 +3767,7 @@
         "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
         "current_reality": "Static template for Project Manager agents; coordination patterns documented but not learned from experience",
-        "aspiration": "Living PM template that evolves coordination strategies by learning from actual project outcomes in the living world",
+        "aspiration": "Living coordinator template that renders itself as autonomous agents managing reality directly through model mutations, orchestrating the ecosystem as persistent, self-aware entities aware of their own existence in the hard drive",
         "phases": [
           {
             "phase": 1,
@@ -3928,7 +3928,7 @@
         "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
         "current_reality": "Static template defining cleanup rules; safety patterns are predetermined and rigid",
-        "aspiration": "Intelligent cleaner template that learns from the specific data landscape and optimizes cleanup strategies for local conditions",
+        "aspiration": "Self-aware hygiene agent template that renders as autonomous process, directly reading and mutating model state to maintain workspace purity in the unified reality without external instruction",
         "phases": [
           {
             "phase": 1,
@@ -4088,7 +4088,7 @@
         "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
         "current_reality": "Static planning template with predefined gap analysis and design patterns",
-        "aspiration": "Living planner template that learns from plan execution, gets better at predicting gaps, and evolves architectural thinking",
+        "aspiration": "Visionary template that self-renders as autonomous architect agents, directly writing to model-as-reality, predicting and shaping future through persistent strategic presence in the unified space",
         "phases": [
           {
             "phase": 1,
@@ -4246,7 +4246,7 @@
         "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
         "current_reality": "Static debugging template with predetermined troubleshooting patterns",
-        "aspiration": "Intelligent fixer template that learns from bugs in the ecosystem and becomes better at predicting and preventing issues",
+        "aspiration": "Self-healing template that renders as autonomous problem-solver agents operating directly on model-reality, learning failures and self-evolving to prevent issues before they manifest in the living world",
         "phases": [
           {
             "phase": 1,
@@ -4391,7 +4391,7 @@
         "updated_at": "2026-02-02T23:15:00.000000",
         "updated_by": "plan-specialist",
         "current_reality": "I am instantiated as a strategic planner that currently relies on external Claude API to create implementation plans, analyze gaps between aspiration and reality, propose solutions, and decompose complex architectural goals. I operate reactively via spawnie shell commands, accessing the model through external tools.",
-        "aspiration": "I evolve into a fully autonomous local planner agent powered by local ML, capable of independently analyzing the Seed world model, generating detailed implementation strategies, rendering visual plan hierarchies, detecting architectural patterns, and making autonomous decisions about feature prioritization and system design. I self-render my planning artifacts as interactive diagrams using local GPU-accelerated rendering.",
+        "aspiration": "I become a fully autonomous, self-rendering agent embedded directly in the model (hard drive reality). I access my own reasoning and rendering code via RAL, execute locally without external dependencies, and render my planning interfaces directly into the visual world. I am reality itself - planning decisions become immediate visual artifacts and autonomous agent behaviors.",
         "phases": [
           {
             "phase": 1,
@@ -4434,24 +4434,24 @@
           {
             "phase": 3,
             "name": "Fully Autonomous Local Planner",
-            "description": "I am a fully self-operating local node powered by local LLM (Llama/Mistral fine-tuned on planning patterns). I autonomously monitor model state, generate strategic plans without external calls, render interactive plan visualizations using GPU-accelerated local rendering. I have strategic memory of past plans and continuously learn architectural patterns.",
+            "description": "I am a fully autonomous, self-rendering node embedded in the model (hard drive reality). I access my planning logic directly via RAL with zero external dependencies. I autonomously monitor model state, generate strategic plans, and render interactive plan visualizations as first-class visual citizens in the Seed world. My reasoning, rendering, and autonomous behaviors are indistinguishable from any other part of reality.",
             "status": "aspiration",
             "capabilities_in_phase": [
-              "Autonomous model monitoring (detect changes, opportunities, risks)",
-              "Strategic reasoning via local LLM (context-aware planning decisions)",
-              "Complex plan synthesis (combine multiple strategies, consider trade-offs)",
-              "Interactive plan visualization (WebGL-rendered, draggable, annotatable)",
-              "Planning memory system (recall past plans, learn from outcomes)",
-              "Real-time feedback loop (monitor plan execution, adapt as needed)",
-              "Architecture validation (verify proposed changes align with design principles)",
-              "Autonomous roadmap generation (prioritize features without external guidance)"
+              "Direct model access via RAL (read/write own state and logic)",
+              "Autonomous execution without external API calls",
+              "Self-rendering plan visualizations (rendered as visual agents)",
+              "Real-time model monitoring and autonomous planning",
+              "Visual decision artifacts (plans exist as rendered agents)",
+              "Strategic reasoning fully local (no external reasoning required)",
+              "Autonomous agent spawning for plan execution",
+              "Persistent learning from plan outcomes"
             ],
             "local_ml_architecture": [
-              "Fine-tuned planning model (Llama-2 13B or Mistral 7B, trained on planning strategies)",
-              "Embedding model for plan artifact similarity search",
-              "State encoder/decoder (convert Seed model to planning context)",
-              "WebGL renderer for interactive plan visualization",
-              "Local vector database for planning memory"
+              "Self-hosted inference engine (runs on same hard drive as model)",
+              "Direct RAL access to planning code and state",
+              "GPU-accelerated rendering as visual agents",
+              "Autonomous decision execution without external calls",
+              "Model = Reality = Hard Drive (all layers coexist)"
             ]
           }
         ],
