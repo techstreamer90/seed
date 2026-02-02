@@ -9,7 +9,7 @@ This module provides:
 Core principle: Every entity must be reachable. No silent failures.
 """
 
-from .registry import EntityRegistry, Entity, EntityType, EntityStatus
-from .channels import Channel, ModelChannel, ExternalChannel
+from .registry import EntityRegistry, Entity, EntityType, EntityStatus, AuthorityLevel
+from .channels import Channel, ModelChannel, WorkspaceChannel, ExternalChannel, ChannelMessage
 from .delivery import MessageBus, Message, DeliveryResult
-from .subscriptions import SubscriptionManager, Subscription
+from .subscriptions import SubscriptionManager, Subscription, Event, EventTypes
