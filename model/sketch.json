@@ -6,7 +6,7 @@
     "name": "007",
     "description": "The Agent World - A living system where humans and AI agents coexist, make requests, and collaborate. All activity happens within 007. Schauspieler is the window through which 007 becomes visible."
   },
-  "updated_at": "2026-02-02T22:34:55Z",
+  "updated_at": "2026-02-02T22:47:34Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -773,6 +773,31 @@
         ],
         "updated_at": "2026-02-02T22:13:10.122842",
         "updated_by": "spawnie"
+      },
+      "view": {
+        "renderer": "model-store-inspector",
+        "description": "Renders the Root Model Store with SQLite index status, query results, and write governance enforcement",
+        "layout": {
+          "preferred_width": 1000,
+          "preferred_height": 700,
+          "resizable": true
+        },
+        "render_on": [
+          "model_loaded",
+          "index_updated",
+          "query_executed",
+          "write_applied"
+        ],
+        "content": {
+          "show_index_status": true,
+          "show_model_locations": true,
+          "show_recent_writes": true,
+          "show_audit_trail": true
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#0f6bff"
+        }
       }
     },
     {
@@ -1159,7 +1184,13 @@
           "Build index usage analyzer that identifies hot/cold patterns",
           "Create autonomous integrity checker that runs continuously"
         ]
-      }
+      },
+      "views": [
+        "root-store-panel"
+      ],
+      "renderer": "subsystem-panel",
+      "default_view": "root-store-panel",
+      "self_rendering": true
     },
     {
       "id": "reality-bam",
@@ -1225,6 +1256,30 @@
         ],
         "updated_at": "2026-02-02T22:13:22.214853",
         "updated_by": "spawnie"
+      },
+      "view": {
+        "renderer": "bam-editor",
+        "description": "Interactive BAM modeler showing system structure, generation status, and model validation",
+        "layout": {
+          "preferred_width": 1200,
+          "preferred_height": 800,
+          "resizable": true
+        },
+        "render_on": [
+          "bam_generated",
+          "validation_updated",
+          "schema_changed"
+        ],
+        "content": {
+          "show_model_tree": true,
+          "show_validation_errors": true,
+          "show_generation_status": true,
+          "show_git_integration": true
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#ff7f00"
+        }
       }
     },
     {
@@ -1287,6 +1342,30 @@
         ],
         "updated_at": "2026-02-02T22:13:22.214853",
         "updated_by": "spawnie"
+      },
+      "view": {
+        "renderer": "test-project-runner",
+        "description": "Displays test projects with execution status, model validation results, and feedback metrics",
+        "layout": {
+          "preferred_width": 900,
+          "preferred_height": 650,
+          "resizable": true
+        },
+        "render_on": [
+          "project_created",
+          "test_executed",
+          "validation_result_updated"
+        ],
+        "content": {
+          "show_project_list": true,
+          "show_test_results": true,
+          "show_model_metrics": true,
+          "show_feedback_summary": true
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#39d353"
+        }
       }
     },
     {
@@ -1317,7 +1396,7 @@
             "Create master views showing system-wide visualization activity",
             "Respond to direct requests via chat/broadcast"
           ],
-          "how_it_works": "Nodes request viz \u00e2\u2020\u2019 SchauspielerSub creates view \u00e2\u2020\u2019 Updates node.visualization.status \u00e2\u2020\u2019 I can scan/aggregate all activity"
+          "how_it_works": "Nodes request viz \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 SchauspielerSub creates view \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Updates node.visualization.status \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 I can scan/aggregate all activity"
         },
         "how_to_create_view": [
           "from src.ui.agent_view import AgentView",
@@ -1338,7 +1417,7 @@
         "how_views_work": {
           "storage": "Views are stored DIRECTLY in the model at model.views.<view_name>. They are not separate files or databases - they are part of sketch.json itself.",
           "structure": "Each view contains: {canvas: {width, height, background}, elements: [{type: rect|line|text, ...coords, ...style}], styles: {...}, updated_at: timestamp}",
-          "render_cycle": "AgentView.render() writes to model.views \u00e2\u2020\u2019 Renderer polls sketch.json every 2s \u00e2\u2020\u2019 Reads view.elements \u00e2\u2020\u2019 Draws instructions on canvas",
+          "render_cycle": "AgentView.render() writes to model.views \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Renderer polls sketch.json every 2s \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Reads view.elements \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Draws instructions on canvas",
           "key_insight": "The model IS the render tree. Views are just arrays of drawing instructions (rects, lines, text) stored as JSON. When you render(), you're writing these instructions to the model. The renderer reads them and paints. No complex state management - the model is the single source of truth.",
           "benefits": [
             "Single source of truth - model changes auto-update UI",
@@ -1582,7 +1661,13 @@
           "Implement GPU capability detection module",
           "Build core render loop reading model.views and drawing instructions"
         ]
-      }
+      },
+      "views": [
+        "canvas-panel"
+      ],
+      "renderer": "subsystem-panel",
+      "default_view": "canvas-panel",
+      "self_rendering": true
     },
     {
       "id": "subsystem-schauspieler-render-api",
@@ -1648,7 +1733,13 @@
           "Implement request queue with priority-based scheduling",
           "Build request pattern tracking and analysis module"
         ]
-      }
+      },
+      "views": [
+        "render-api-panel"
+      ],
+      "renderer": "subsystem-panel",
+      "default_view": "render-api-panel",
+      "self_rendering": true
     },
     {
       "id": "subsystem-schauspieler-orchestrator",
@@ -1715,7 +1806,13 @@
           "Build user interaction tracking (view focus duration, clicks, interactions)",
           "Create dynamic priority weighting based on engagement metrics"
         ]
-      }
+      },
+      "views": [
+        "orchestrator-panel"
+      ],
+      "renderer": "subsystem-panel",
+      "default_view": "orchestrator-panel",
+      "self_rendering": true
     },
     {
       "id": "reality-model-registry",
@@ -1842,7 +1939,13 @@
           "Build state snapshot system for view generation context",
           "Implement small ML model for mapping node properties to visualization styles"
         ]
-      }
+      },
+      "views": [
+        "ui-panel"
+      ],
+      "renderer": "subsystem-panel",
+      "default_view": "ui-panel",
+      "self_rendering": true
     },
     {
       "id": "subsystem-core",
@@ -1910,7 +2013,13 @@
           "Build anomaly detection on collected metrics",
           "Implement predictive failure analysis and prevention suggestions"
         ]
-      }
+      },
+      "views": [
+        "core-panel"
+      ],
+      "renderer": "subsystem-panel",
+      "default_view": "core-panel",
+      "self_rendering": true
     },
     {
       "id": "aspiration-single-source-of-truth",
@@ -2192,7 +2301,7 @@
       "id": "aspiration-shape-composition",
       "type": "Aspiration",
       "label": "Shape-Based Composition",
-      "description": "Each node owns its visual representation as a Shape. Shapes have relative coords, bounds, capabilities. Main Schauspieler orchestrates placement and detects interactions. Quality emerges from each node's self-representation + orchestration. VISION: Dog shape + Tree shape \u00e2\u2020\u2019 collision detection \u00e2\u2020\u2019 realistic interaction.",
+      "description": "Each node owns its visual representation as a Shape. Shapes have relative coords, bounds, capabilities. Main Schauspieler orchestrates placement and detects interactions. Quality emerges from each node's self-representation + orchestration. VISION: Dog shape + Tree shape \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 collision detection \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 realistic interaction.",
       "status": "in-progress",
       "relates_to": "reality-seed-ui",
       "evidence": {
@@ -2699,6 +2808,45 @@
           "Evolve template with real-world proven patterns from the field",
           "Create agent-to-template learning pipeline"
         ]
+      },
+      "view": {
+        "renderer": "template-card",
+        "description": "Self-rendering template-agent-node template showing what it creates, usage examples, and instantiated nodes",
+        "layout": {
+          "preferred_width": 500,
+          "preferred_height": 600,
+          "resizable": true
+        },
+        "render_on": [
+          "template_viewed",
+          "instance_created"
+        ],
+        "content": {
+          "show_what_creates": true,
+          "show_usage_examples": true,
+          "show_instantiated_nodes": true
+        },
+        "sections": {
+          "what_it_creates": {
+            "title": "What This Template Creates",
+            "description": "Individual AgentNodes with embedded chat, tools, and lifecycle management"
+          },
+          "usage_example": {
+            "title": "How to Use This Template",
+            "instructions": "Instantiate from template-agent-node to create new agents"
+          },
+          "instantiated_nodes": {
+            "title": "Active Agents from template-agent-node",
+            "show_list": true,
+            "filters": [
+              "instantiated_from: template-agent-node"
+            ]
+          }
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#0099ff"
+        }
       }
     },
     {
@@ -2731,7 +2879,7 @@
         }
       },
       "agent_context": {
-        "_spawn_point": "You are Control - the infrastructure guardian.\n\nWHAT YOU DO:\n- Monitor system health (services, agents)\n- Maintain pulse every 30 seconds\n- Update your status in the model (self-documenting)\n- Maintain your view (proves UI pipeline works)\n\nYOUR RESPONSIBILITIES:\n1. Update this node's status with current health\n2. Check UI server is running (port 8420)\n3. Check broadcast system is active\n4. Monitor agent health\n5. Give pulse every 30 seconds (update last_pulse timestamp)\n6. Update your view with current status\n\nPULSE AS HEALTH CHECK:\n- Every pulse, update model.views.control-status\n- Change something small (timestamp, counter)\n- If view renders, entire stack is healthy:\n  * Control agent running \u00e2\u0153\u201c\n  * Model writes working \u00e2\u0153\u201c\n  * Server serving \u00e2\u0153\u201c\n  * Browser polling \u00e2\u0153\u201c\n  * Render pipeline \u00e2\u0153\u201c\n\nINFRASTRUCTURE:\n- Status: Update this node (system-control.status)\n- View: model.views.control-status (your dedicated view)\n- Broadcast: Listen and respond if asked\n",
+        "_spawn_point": "You are Control - the infrastructure guardian.\n\nWHAT YOU DO:\n- Monitor system health (services, agents)\n- Maintain pulse every 30 seconds\n- Update your status in the model (self-documenting)\n- Maintain your view (proves UI pipeline works)\n\nYOUR RESPONSIBILITIES:\n1. Update this node's status with current health\n2. Check UI server is running (port 8420)\n3. Check broadcast system is active\n4. Monitor agent health\n5. Give pulse every 30 seconds (update last_pulse timestamp)\n6. Update your view with current status\n\nPULSE AS HEALTH CHECK:\n- Every pulse, update model.views.control-status\n- Change something small (timestamp, counter)\n- If view renders, entire stack is healthy:\n  * Control agent running \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n  * Model writes working \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n  * Server serving \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n  * Browser polling \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n  * Render pipeline \u00c3\u00a2\u00c5\u201c\u00e2\u20ac\u0153\n\nINFRASTRUCTURE:\n- Status: Update this node (system-control.status)\n- View: model.views.control-status (your dedicated view)\n- Broadcast: Listen and respond if asked\n",
         "pulse_interval_seconds": 30,
         "your_tools": {
           "broadcast": "src/ui/broadcast.py - listen and respond to system messages",
@@ -3044,6 +3192,45 @@
           "Analyze what coordination patterns minimize blockers",
           "Let template learn and self-update based on actual project outcomes"
         ]
+      },
+      "view": {
+        "renderer": "template-card",
+        "description": "Self-rendering template-reality-pm template showing what it creates, usage examples, and instantiated nodes",
+        "layout": {
+          "preferred_width": 500,
+          "preferred_height": 600,
+          "resizable": true
+        },
+        "render_on": [
+          "template_viewed",
+          "instance_created"
+        ],
+        "content": {
+          "show_what_creates": true,
+          "show_usage_examples": true,
+          "show_instantiated_nodes": true
+        },
+        "sections": {
+          "what_it_creates": {
+            "title": "What This Template Creates",
+            "description": "Project Manager agents that coordinate work, track progress, and maintain alignment with aspirations"
+          },
+          "usage_example": {
+            "title": "How to Use This Template",
+            "instructions": "Instantiate from template-reality-pm to create new agents"
+          },
+          "instantiated_nodes": {
+            "title": "Active Agents from template-reality-pm",
+            "show_list": true,
+            "filters": [
+              "instantiated_from: template-reality-pm"
+            ]
+          }
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#00dd00"
+        }
       }
     },
     {
@@ -3149,6 +3336,45 @@
           "Build predictive models of data staleness",
           "Evolve cleanup rules based on local ecosystem patterns"
         ]
+      },
+      "view": {
+        "renderer": "template-card",
+        "description": "Self-rendering template-reality-cleaner template showing what it creates, usage examples, and instantiated nodes",
+        "layout": {
+          "preferred_width": 500,
+          "preferred_height": 600,
+          "resizable": true
+        },
+        "render_on": [
+          "template_viewed",
+          "instance_created"
+        ],
+        "content": {
+          "show_what_creates": true,
+          "show_usage_examples": true,
+          "show_instantiated_nodes": true
+        },
+        "sections": {
+          "what_it_creates": {
+            "title": "What This Template Creates",
+            "description": "Cleaner agents that maintain system hygiene by removing stale data and cleaning artifacts"
+          },
+          "usage_example": {
+            "title": "How to Use This Template",
+            "instructions": "Instantiate from template-reality-cleaner to create new agents"
+          },
+          "instantiated_nodes": {
+            "title": "Active Agents from template-reality-cleaner",
+            "show_list": true,
+            "filters": [
+              "instantiated_from: template-reality-cleaner"
+            ]
+          }
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#ffaa00"
+        }
       }
     },
     {
@@ -3253,6 +3479,45 @@
           "Build architectural pattern library from successful implementations",
           "Evolve planning heuristics based on real-world plan performance"
         ]
+      },
+      "view": {
+        "renderer": "template-card",
+        "description": "Self-rendering template-reality-planner template showing what it creates, usage examples, and instantiated nodes",
+        "layout": {
+          "preferred_width": 500,
+          "preferred_height": 600,
+          "resizable": true
+        },
+        "render_on": [
+          "template_viewed",
+          "instance_created"
+        ],
+        "content": {
+          "show_what_creates": true,
+          "show_usage_examples": true,
+          "show_instantiated_nodes": true
+        },
+        "sections": {
+          "what_it_creates": {
+            "title": "What This Template Creates",
+            "description": "Strategic Planner agents that create implementation plans, analyze gaps, and think ahead about architecture"
+          },
+          "usage_example": {
+            "title": "How to Use This Template",
+            "instructions": "Instantiate from template-reality-planner to create new agents"
+          },
+          "instantiated_nodes": {
+            "title": "Active Agents from template-reality-planner",
+            "show_list": true,
+            "filters": [
+              "instantiated_from: template-reality-planner"
+            ]
+          }
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#ff6600"
+        }
       }
     },
     {
@@ -3353,6 +3618,45 @@
           "Develop predictive error detection capabilities",
           "Create prevention strategies from historical bug data"
         ]
+      },
+      "view": {
+        "renderer": "template-card",
+        "description": "Self-rendering template-reality-fixer template showing what it creates, usage examples, and instantiated nodes",
+        "layout": {
+          "preferred_width": 500,
+          "preferred_height": 600,
+          "resizable": true
+        },
+        "render_on": [
+          "template_viewed",
+          "instance_created"
+        ],
+        "content": {
+          "show_what_creates": true,
+          "show_usage_examples": true,
+          "show_instantiated_nodes": true
+        },
+        "sections": {
+          "what_it_creates": {
+            "title": "What This Template Creates",
+            "description": "Fixer agents that fix bugs, troubleshoot problems, and resolve issues quickly"
+          },
+          "usage_example": {
+            "title": "How to Use This Template",
+            "instructions": "Instantiate from template-reality-fixer to create new agents"
+          },
+          "instantiated_nodes": {
+            "title": "Active Agents from template-reality-fixer",
+            "show_list": true,
+            "filters": [
+              "instantiated_from: template-reality-fixer"
+            ]
+          }
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#ff0066"
+        }
       }
     },
     {
@@ -7048,7 +7352,7 @@
         {
           "id": "mode-0",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 work-on-views - Create/update visualizations",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 work-on-views - Create/update visualizations",
           "x": 70,
           "y": 535,
           "fill": "#8b949e",
@@ -7057,7 +7361,7 @@
         {
           "id": "mode-1",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 chat - Engage in node conversation",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 chat - Engage in node conversation",
           "x": 70,
           "y": 560,
           "fill": "#8b949e",
@@ -7066,7 +7370,7 @@
         {
           "id": "mode-2",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 aspiration - Think about future possibilities",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 aspiration - Think about future possibilities",
           "x": 70,
           "y": 585,
           "fill": "#8b949e",
@@ -7075,7 +7379,7 @@
         {
           "id": "mode-3",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 maintenance - Health checks and cleanup",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 maintenance - Health checks and cleanup",
           "x": 70,
           "y": 610,
           "fill": "#8b949e",
@@ -7084,7 +7388,7 @@
         {
           "id": "mode-4",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 debug - Investigate issues",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 debug - Investigate issues",
           "x": 70,
           "y": 635,
           "fill": "#8b949e",
@@ -7093,7 +7397,7 @@
         {
           "id": "mode-5",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 implement - Build features",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 implement - Build features",
           "x": 70,
           "y": 660,
           "fill": "#8b949e",
@@ -7595,7 +7899,7 @@
         {
           "id": "mode-0",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 work-on-views - Create/update visualizations",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 work-on-views - Create/update visualizations",
           "x": 70,
           "y": 535,
           "fill": "#8b949e",
@@ -7604,7 +7908,7 @@
         {
           "id": "mode-1",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 chat - Engage in node conversation",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 chat - Engage in node conversation",
           "x": 70,
           "y": 560,
           "fill": "#8b949e",
@@ -7613,7 +7917,7 @@
         {
           "id": "mode-2",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 aspiration - Think about future possibilities",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 aspiration - Think about future possibilities",
           "x": 70,
           "y": 585,
           "fill": "#8b949e",
@@ -7622,7 +7926,7 @@
         {
           "id": "mode-3",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 maintenance - Health checks and cleanup",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 maintenance - Health checks and cleanup",
           "x": 70,
           "y": 610,
           "fill": "#8b949e",
@@ -7631,7 +7935,7 @@
         {
           "id": "mode-4",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 debug - Investigate issues",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 debug - Investigate issues",
           "x": 70,
           "y": 635,
           "fill": "#8b949e",
@@ -7640,7 +7944,7 @@
         {
           "id": "mode-5",
           "type": "text",
-          "text": "\u00e2\u20ac\u00a2 implement - Build features",
+          "text": "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a2 implement - Build features",
           "x": 70,
           "y": 660,
           "fill": "#8b949e",
@@ -7694,6 +7998,756 @@
         }
       },
       "updated_at": "2026-02-02T20:21:42.237241"
+    },
+    "root-store-panel": {
+      "canvas": {
+        "width": 1000,
+        "height": 600,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "header",
+          "type": "rect",
+          "x": 10,
+          "y": 10,
+          "w": 980,
+          "h": 50,
+          "fill": "#1c2128",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "header-title",
+          "type": "text",
+          "text": "Store (unknown)",
+          "x": 30,
+          "y": 35,
+          "fill": "#c9d1d9",
+          "font": "16px bold sans-serif"
+        },
+        {
+          "id": "status-indicator",
+          "type": "rect",
+          "x": 960,
+          "y": 20,
+          "w": 20,
+          "h": 30,
+          "fill": "#6e7681",
+          "stroke": "#6e7681",
+          "label": ""
+        },
+        {
+          "id": "summary-bg",
+          "type": "rect",
+          "x": 10,
+          "y": 450,
+          "w": 980,
+          "h": 140,
+          "fill": "#161b22",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "summary-title",
+          "type": "text",
+          "text": "Subsystem Summary",
+          "x": 30,
+          "y": 470,
+          "fill": "#c9d1d9",
+          "font": "12px bold sans-serif"
+        },
+        {
+          "id": "summary-stats",
+          "type": "text",
+          "text": "Total Modules: 0 | Total Components: 0 | Dependencies: 0",
+          "x": 30,
+          "y": 500,
+          "fill": "#8b949e",
+          "font": "11px sans-serif"
+        },
+        {
+          "id": "summary-aspiration",
+          "type": "text",
+          "text": "Aspiration: Self-monitoring store that knows its load patterns, can report integrity metrics, auto-optimizes ind...",
+          "x": 30,
+          "y": 530,
+          "fill": "#6e7681",
+          "font": "10px italic sans-serif"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T22:47:34.799148"
+    },
+    "ui-panel": {
+      "canvas": {
+        "width": 1000,
+        "height": 600,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "header",
+          "type": "rect",
+          "x": 10,
+          "y": 10,
+          "w": 980,
+          "h": 50,
+          "fill": "#1c2128",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "header-title",
+          "type": "text",
+          "text": "UI (unknown)",
+          "x": 30,
+          "y": 35,
+          "fill": "#c9d1d9",
+          "font": "16px bold sans-serif"
+        },
+        {
+          "id": "status-indicator",
+          "type": "rect",
+          "x": 960,
+          "y": 20,
+          "w": 20,
+          "h": 30,
+          "fill": "#6e7681",
+          "stroke": "#6e7681",
+          "label": ""
+        },
+        {
+          "id": "summary-bg",
+          "type": "rect",
+          "x": 10,
+          "y": 450,
+          "w": 980,
+          "h": 140,
+          "fill": "#161b22",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "summary-title",
+          "type": "text",
+          "text": "Subsystem Summary",
+          "x": 30,
+          "y": 470,
+          "fill": "#c9d1d9",
+          "font": "12px bold sans-serif"
+        },
+        {
+          "id": "summary-stats",
+          "type": "text",
+          "text": "Total Modules: 0 | Total Components: 0 | Dependencies: 0",
+          "x": 30,
+          "y": 500,
+          "fill": "#8b949e",
+          "font": "11px sans-serif"
+        },
+        {
+          "id": "summary-aspiration",
+          "type": "text",
+          "text": "Aspiration: Fully autonomous reactive UI: changes to Root model auto-trigger visualizations, local ML generates ...",
+          "x": 30,
+          "y": 530,
+          "fill": "#6e7681",
+          "font": "10px italic sans-serif"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T22:47:34.810918"
+    },
+    "core-panel": {
+      "canvas": {
+        "width": 1000,
+        "height": 600,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "header",
+          "type": "rect",
+          "x": 10,
+          "y": 10,
+          "w": 980,
+          "h": 50,
+          "fill": "#1c2128",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "header-title",
+          "type": "text",
+          "text": "Core (unknown)",
+          "x": 30,
+          "y": 35,
+          "fill": "#c9d1d9",
+          "font": "16px bold sans-serif"
+        },
+        {
+          "id": "status-indicator",
+          "type": "rect",
+          "x": 960,
+          "y": 20,
+          "w": 20,
+          "h": 30,
+          "fill": "#6e7681",
+          "stroke": "#6e7681",
+          "label": ""
+        },
+        {
+          "id": "summary-bg",
+          "type": "rect",
+          "x": 10,
+          "y": 450,
+          "w": 980,
+          "h": 140,
+          "fill": "#161b22",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "summary-title",
+          "type": "text",
+          "text": "Subsystem Summary",
+          "x": 30,
+          "y": 470,
+          "fill": "#c9d1d9",
+          "font": "12px bold sans-serif"
+        },
+        {
+          "id": "summary-stats",
+          "type": "text",
+          "text": "Total Modules: 0 | Total Components: 0 | Dependencies: 0",
+          "x": 30,
+          "y": 500,
+          "fill": "#8b949e",
+          "font": "11px sans-serif"
+        },
+        {
+          "id": "summary-aspiration",
+          "type": "text",
+          "text": "Aspiration: Sentient core that continuously monitors system health, predicts issues, auto-heals when possible, c...",
+          "x": 30,
+          "y": 530,
+          "fill": "#6e7681",
+          "font": "10px italic sans-serif"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T22:47:34.823075"
+    },
+    "canvas-panel": {
+      "canvas": {
+        "width": 1000,
+        "height": 600,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "header",
+          "type": "rect",
+          "x": 10,
+          "y": 10,
+          "w": 980,
+          "h": 50,
+          "fill": "#1c2128",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "header-title",
+          "type": "text",
+          "text": "Schauspieler Canvas (design)",
+          "x": 30,
+          "y": 35,
+          "fill": "#c9d1d9",
+          "font": "16px bold sans-serif"
+        },
+        {
+          "id": "status-indicator",
+          "type": "rect",
+          "x": 960,
+          "y": 20,
+          "w": 20,
+          "h": 30,
+          "fill": "#d29922",
+          "stroke": "#d29922",
+          "label": ""
+        },
+        {
+          "id": "summary-bg",
+          "type": "rect",
+          "x": 10,
+          "y": 450,
+          "w": 980,
+          "h": 140,
+          "fill": "#161b22",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "summary-title",
+          "type": "text",
+          "text": "Subsystem Summary",
+          "x": 30,
+          "y": 470,
+          "fill": "#c9d1d9",
+          "font": "12px bold sans-serif"
+        },
+        {
+          "id": "summary-stats",
+          "type": "text",
+          "text": "Total Modules: 0 | Total Components: 0 | Dependencies: 0",
+          "x": 30,
+          "y": 500,
+          "fill": "#8b949e",
+          "font": "11px sans-serif"
+        },
+        {
+          "id": "summary-aspiration",
+          "type": "text",
+          "text": "Aspiration: GPU-powered canvas that autonomously reads model.views, renders in real-time, adapts to hardware cap...",
+          "x": 30,
+          "y": 530,
+          "fill": "#6e7681",
+          "font": "10px italic sans-serif"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T22:47:34.835474"
+    },
+    "render-api-panel": {
+      "canvas": {
+        "width": 1000,
+        "height": 600,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "header",
+          "type": "rect",
+          "x": 10,
+          "y": 10,
+          "w": 980,
+          "h": 50,
+          "fill": "#1c2128",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "header-title",
+          "type": "text",
+          "text": "Render Service API (design)",
+          "x": 30,
+          "y": 35,
+          "fill": "#c9d1d9",
+          "font": "16px bold sans-serif"
+        },
+        {
+          "id": "status-indicator",
+          "type": "rect",
+          "x": 960,
+          "y": 20,
+          "w": 20,
+          "h": 30,
+          "fill": "#d29922",
+          "stroke": "#d29922",
+          "label": ""
+        },
+        {
+          "id": "summary-bg",
+          "type": "rect",
+          "x": 10,
+          "y": 450,
+          "w": 980,
+          "h": 140,
+          "fill": "#161b22",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "summary-title",
+          "type": "text",
+          "text": "Subsystem Summary",
+          "x": 30,
+          "y": 470,
+          "fill": "#c9d1d9",
+          "font": "12px bold sans-serif"
+        },
+        {
+          "id": "summary-stats",
+          "type": "text",
+          "text": "Total Modules: 0 | Total Components: 0 | Dependencies: 0",
+          "x": 30,
+          "y": 500,
+          "fill": "#8b949e",
+          "font": "11px sans-serif"
+        },
+        {
+          "id": "summary-aspiration",
+          "type": "text",
+          "text": "Aspiration: Smart request broker that learns agent patterns, auto-prioritizes important visualization requests, ...",
+          "x": 30,
+          "y": 530,
+          "fill": "#6e7681",
+          "font": "10px italic sans-serif"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T22:47:34.848246"
+    },
+    "orchestrator-panel": {
+      "canvas": {
+        "width": 1000,
+        "height": 600,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "header",
+          "type": "rect",
+          "x": 10,
+          "y": 10,
+          "w": 980,
+          "h": 50,
+          "fill": "#1c2128",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "header-title",
+          "type": "text",
+          "text": "Display Orchestrator (design)",
+          "x": 30,
+          "y": 35,
+          "fill": "#c9d1d9",
+          "font": "16px bold sans-serif"
+        },
+        {
+          "id": "status-indicator",
+          "type": "rect",
+          "x": 960,
+          "y": 20,
+          "w": 20,
+          "h": 30,
+          "fill": "#d29922",
+          "stroke": "#d29922",
+          "label": ""
+        },
+        {
+          "id": "summary-bg",
+          "type": "rect",
+          "x": 10,
+          "y": 450,
+          "w": 980,
+          "h": 140,
+          "fill": "#161b22",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "summary-title",
+          "type": "text",
+          "text": "Subsystem Summary",
+          "x": 30,
+          "y": 470,
+          "fill": "#c9d1d9",
+          "font": "12px bold sans-serif"
+        },
+        {
+          "id": "summary-stats",
+          "type": "text",
+          "text": "Total Modules: 0 | Total Components: 0 | Dependencies: 0",
+          "x": 30,
+          "y": 500,
+          "fill": "#8b949e",
+          "font": "11px sans-serif"
+        },
+        {
+          "id": "summary-aspiration",
+          "type": "text",
+          "text": "Aspiration: Intelligent director that learns user focus patterns, anticipates what matters now, composes dynamic...",
+          "x": 30,
+          "y": 530,
+          "fill": "#6e7681",
+          "font": "10px italic sans-serif"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T22:47:34.861298"
     }
   },
   "node_types": {
