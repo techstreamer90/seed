@@ -1,0 +1,166 @@
+{
+  "schema_version": "3.0",
+  "project": "seed-root-store",
+  "description": "Root Store submodel: audits/checks that belong to the Root Model Store reality.",
+  "updated_at": "2026-02-01T00:00:00Z",
+  "nodes": [
+    {
+      "id": "audit-root-store-index-consistency",
+      "type": "Audit",
+      "label": "Audit: Root Store Index Consistency",
+      "description": "Validate that the Model Store's derived SQLite index/cache matches the canonical JSON model (nodes/edges/types/relationships), and that rebuild-from-JSON is deterministic.",
+      "mobility": "attached",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-root-model-store"
+      },
+      "method": "sqlite-index-compare+rebuild",
+      "status": "pass",
+      "findings": [],
+      "last_run": "2026-02-01T15:05:18Z",
+      "evidence": {
+        "results": {
+          "db_path": "C:\\seed\\root_store\\root_store.db",
+          "provenance": {
+            "ok": true,
+            "missing_node_prov": [],
+            "missing_edge_prov": []
+          },
+          "reverse_lookups": {
+            "ok": true,
+            "sample_id": "reality-root-model-store",
+            "out_count": 9,
+            "in_count": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "check-root-store-has-provenance",
+      "type": "Check",
+      "label": "Check: Store Returns Provenance",
+      "description": "Query results include provenance (where-defined mapping) so edits can be written back to the correct JSON file.",
+      "mobility": "attached",
+      "status": "pass",
+      "method": "api-contract",
+      "result": "pass",
+      "last_run": "2026-02-01T15:05:18Z",
+      "evidence": {
+        "ok": true,
+        "missing_node_prov": [],
+        "missing_edge_prov": []
+      }
+    },
+    {
+      "id": "check-root-store-change-gate",
+      "type": "Check",
+      "label": "Check: Store Enforces Change Gate",
+      "description": "Writes happen via apply_change(Change) with policy enforcement; direct edits are treated as drift.",
+      "mobility": "attached",
+      "status": "pass",
+      "method": "behavioral",
+      "result": "pass",
+      "last_run": "2026-02-01T15:05:18Z",
+      "evidence": {
+        "ok": true,
+        "note": "enforcement.validate_change_gate accepts merged graphs and is invoked by writer.apply_change"
+      }
+    },
+    {
+      "id": "check-root-store-reverse-lookups",
+      "type": "Check",
+      "label": "Check: Reverse Lookups",
+      "description": "Store can answer reverse lookups fast (e.g., who NEEDS this todo, what gap does this close).",
+      "mobility": "attached",
+      "status": "pass",
+      "method": "query-contract",
+      "result": "pass",
+      "last_run": "2026-02-01T15:05:18Z",
+      "evidence": {
+        "ok": true,
+        "sample_id": "reality-root-model-store",
+        "out_count": 9,
+        "in_count": 4
+      }
+    },
+    {
+      "id": "audit-root-store-attachment-closure",
+      "type": "Audit",
+      "label": "Audit: Attachment Closure (Move Safety)",
+      "description": "Ensure structural attachments are co-located so moving a node requires moving its attached nodes too (prevents partial moves).",
+      "mobility": "attached",
+      "subject": {
+        "type": "Reality",
+        "id": "reality-root-model-store"
+      },
+      "method": {
+        "kind": "runner",
+        "runner": "root_store.audits.run_audit_root_store_attachment_closure"
+      },
+      "status": "pass",
+      "findings": [],
+      "last_run": "2026-02-01T15:05:18Z",
+      "evidence": {
+        "results": {
+          "checks": {
+            "has_check_colocated": {
+              "ok": true,
+              "violations": []
+            },
+            "contains_colocated": {
+              "ok": true,
+              "violations": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "check-root-store-has_check-colocated",
+      "type": "Check",
+      "label": "Check: HAS_CHECK Co-located",
+      "description": "If an Audit HAS_CHECK a Check, both must live in the same model file (same provenance) so moving the audit moves its checks.",
+      "mobility": "attached",
+      "status": "pass",
+      "method": "provenance-contract",
+      "result": "pass",
+      "last_run": "2026-02-01T15:05:18Z",
+      "evidence": {
+        "ok": true,
+        "violations": []
+      }
+    },
+    {
+      "id": "check-root-store-contains-colocated",
+      "type": "Check",
+      "label": "Check: CONTAINS Co-located",
+      "description": "If a parent CONTAINS a child, both must live in the same model file (same provenance) so bundle moves are consistent.",
+      "mobility": "attached",
+      "status": "pass",
+      "method": "provenance-contract",
+      "result": "pass",
+      "last_run": "2026-02-01T15:05:18Z",
+      "evidence": {
+        "ok": true,
+        "violations": []
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "AUDITS",
+      "from": "audit-root-store-attachment-closure",
+      "to": "reality-root-model-store"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-store-attachment-closure",
+      "to": "check-root-store-has_check-colocated"
+    },
+    {
+      "type": "HAS_CHECK",
+      "from": "audit-root-store-attachment-closure",
+      "to": "check-root-store-contains-colocated"
+    }
+  ]
+}

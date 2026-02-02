@@ -1,0 +1,96 @@
+{
+  "schema_version": "3.0",
+  "project": "seed-core",
+  "description": "Root core implementation model (hierarchical sub-model under Root).",
+  "updated_at": "2026-02-01T13:20:00Z",
+
+  "nodes": [
+    {
+      "id": "reality-seed-core",
+      "type": "Reality",
+      "label": "Root Core",
+      "description": "Root's core implementation: pulse, status, monitoring, verification, and CLI.",
+      "source": {
+        "path": "C:/seed/seed_core",
+        "model_path": "model/sketch.json"
+      },
+      "status": "active",
+      "agent_context": {
+        "_spawn_point": "YOU ARE HERE. This is Root Core (implementation sub-model).",
+        "agent_context_version": "1.0",
+        "focus": {
+          "type": "Gap",
+          "id": "gap-seed-not-self-aware"
+        },
+        "work_queue": [
+          {
+            "type": "Todo",
+            "id": "todo-add-source-hashes",
+            "why": "Enable drift detection for Root Core source files",
+            "exit_criteria": "All module nodes have source.hash set and verify passes"
+          }
+        ]
+      }
+    },
+    {
+      "id": "subsystem-seed-core",
+      "type": "Subsystem",
+      "label": "Core",
+      "description": "Root Core modules",
+      "parent": "reality-seed-core"
+    },
+
+    {
+      "id": "mod-pulse",
+      "type": "Module",
+      "label": "pulse.py",
+      "description": "Heartbeat mechanism for checking reality health",
+      "source": {"path": "pulse.py"}
+    },
+    {
+      "id": "mod-status",
+      "type": "Module",
+      "label": "status.py",
+      "description": "Status aggregation across all realities",
+      "source": {"path": "status.py"}
+    },
+    {
+      "id": "mod-registry",
+      "type": "Module",
+      "label": "registry.py",
+      "description": "Reality registry (loads realities from Root model)",
+      "source": {"path": "registry.py"}
+    },
+    {
+      "id": "mod-verification",
+      "type": "Module",
+      "label": "verification.py",
+      "description": "Hash-based drift detection",
+      "source": {"path": "verification.py"}
+    },
+    {
+      "id": "mod-cli",
+      "type": "Module",
+      "label": "__main__.py",
+      "description": "CLI entry point",
+      "source": {"path": "__main__.py"}
+    },
+    {
+      "id": "mod-package-init",
+      "type": "Module",
+      "label": "__init__.py",
+      "description": "Package exports",
+      "source": {"path": "__init__.py"}
+    }
+  ],
+
+  "edges": [
+    {"type": "CONTAINS", "from": "reality-seed-core", "to": "subsystem-seed-core"},
+    {"type": "CONTAINS", "from": "subsystem-seed-core", "to": "mod-pulse"},
+    {"type": "CONTAINS", "from": "subsystem-seed-core", "to": "mod-status"},
+    {"type": "CONTAINS", "from": "subsystem-seed-core", "to": "mod-registry"},
+    {"type": "CONTAINS", "from": "subsystem-seed-core", "to": "mod-verification"},
+    {"type": "CONTAINS", "from": "subsystem-seed-core", "to": "mod-cli"},
+    {"type": "CONTAINS", "from": "subsystem-seed-core", "to": "mod-package-init"}
+  ]
+}

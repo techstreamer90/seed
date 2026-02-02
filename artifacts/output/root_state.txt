@@ -1,0 +1,39 @@
+Root — current state
+
+What’s wrong (needs attention):
+- Audit: Root Compliance (Seed Ideas): Compliance incomplete: see checks + score
+
+More detail captured here: C:\seed\root_store\screams\20260201_130340Z-audit-root-compliance.json
+
+Questions / decisions needed:
+- Hash coverage is incomplete. Decide: do we auto-add file hashes now (requires a controlled change executor), or defer?
+
+What Root thinks we should do next:
+- Establish Model-Only Workflow (in-progress)
+- Implement Change Executor Workflow (v1) (pending)
+- Adopt Aspiration-Aligned Change Process (v1) (pending)
+- Build Root Model Store (SQLite + Enforcement) (in-progress)
+- Add Source Hashes to Root Core Modules (pending)
+- Root Self-Monitoring (pending)
+
+Big gaps (why things aren’t done yet):
+- No Change Executor Workflow
+- Model Does Not Yet Contain All Reality
+- Model-First Workflow Not Yet Enforced
+- No Root Model Store Yet
+- No Model Registry
+- No Provenance-Aware Writeback
+- Changes Not Explicitly Aspiration-Aligned
+- No Model-Driven UI Yet
+- No Proof Recorded For Realities
+
+What exists in this world:
+- Spawnie
+- Root (active)
+- Root Model Store (active)
+- Model Registry (planned)
+- BAM (no-model-yet)
+- BAM Test Projects (next-step)
+- Root UI (Browser Renderer) (tbd)
+
+Model: C:/seed/model/sketch.json

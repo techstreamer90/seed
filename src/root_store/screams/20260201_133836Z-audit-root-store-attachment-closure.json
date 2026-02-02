@@ -1,0 +1,151 @@
+{
+  "kind": "root_store.scream_packet",
+  "version": "v0",
+  "created_at": "2026-02-01T13:38:36Z",
+  "root_model_path": "c:\\seed\\model\\sketch.json",
+  "top_node": {
+    "id": "reality-seed",
+    "type": "Reality",
+    "label": "Root",
+    "description": "The Root meta-model. A model of all models. Your home. This node is self-referential - the Root models itself.",
+    "source": {
+      "path": "C:/seed",
+      "model_path": "model/sketch.json"
+    },
+    "status": "active",
+    "agent_context": {
+      "_spawn_point": "YOU ARE HERE. This is Root - the root of all models.",
+      "agent_context_version": "1.0",
+      "philosophy": "Don't train the agent, train the world. You are waking up in a modeled world where everything is known. Read the model, understand it, work through it.",
+      "focus": {
+        "type": "Gap",
+        "id": "gap-model-not-complete"
+      },
+      "work_queue": [
+        {
+          "type": "Todo",
+          "id": "todo-model-only-workflow",
+          "why": "Enforce model-only work so the model becomes the interface",
+          "exit_criteria": "The workflow is documented in the model and adopted as standard"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-change-executor-pipeline-v1",
+          "why": "Make model edits safe + auditable by routing them through a controlled executor",
+          "exit_criteria": "A spawned change executor applies Change nodes via the Root Store gate and only commits when audits are green"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-change-process-v1",
+          "why": "Enforce that all changes explicitly advance aspirations by closing gaps",
+          "exit_criteria": "Change/Policy/Audit pattern is in place and used for all work"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-root-model-store-v1",
+          "why": "Stop repeatedly reading many JSON files by creating a fast query layer with safe writes and enforcement",
+          "exit_criteria": "Model Store indexes the model into SQLite, serves queries, applies Changes with validation, and records audit evidence back into the model"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-add-source-hashes",
+          "why": "Make reality verifiable by hash (drift detection)",
+          "exit_criteria": "All core Root files (under C:/seed) referenced by the model include verified SHA256 hashes"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-seed-self-monitor",
+          "why": "Dogfood monitoring: Root should be a first-class monitored reality",
+          "exit_criteria": "Root appears in its own monitor with meaningful status"
+        }
+      ],
+      "principles": [
+        "Default: do not directly edit files. Prefer activating modeled Actions and proposing Changes.",
+        "Interactive agents SHOULD be activate-only: request a spawned change executor for edits.",
+        "Moves are bundle-closure operations: respect node.mobility and move attached nodes together (Audit<->Check via HAS_CHECK, parent/child via CONTAINS).",
+        "Do not manually cut/paste nodes across files; use root_store.move_nodes_to_file and verify audit-root-store-attachment-closure.",
+        "Every change MUST be represented as a Change node that (a) ADDRESSES a Gap and (b) ADVANCES at least one Aspiration, with required evidence recorded back into the model",
+        "Gaps are explicit - find them in nodes with type=Gap",
+        "Todos CLOSE gaps - that's their purpose",
+        "Aspirations are human-controlled, immutable by AI",
+        "When in doubt, make the implicit explicit in the model"
+      ],
+      "how_to_work": {
+        "1_orient": "Find this agent_context in the Reality node. You are here.",
+        "2_understand": "Read focus gap. Read aspirations it blocks. Understand the delta.",
+        "3_act": "Pick highest priority todo from work_queue that CLOSES the focus gap.",
+        "4_update": "After work, update model: mark todos done, update gap status, add discoveries.",
+        "5_verify": "Model must reflect truth. If you changed anything, model must show it."
+      }
+    },
+    "model": {
+      "_note": "This is a self-reference. Root contains its own model.",
+      "subsystems": [
+        "core",
+        "ui"
+      ],
+      "modules": [
+        "pulse",
+        "status",
+        "reality",
+        "monitor",
+        "cli",
+        "verification",
+        "ui"
+      ]
+    }
+  },
+  "audit": {
+    "id": "audit-root-store-attachment-closure",
+    "type": "Audit",
+    "label": "Audit: Attachment Closure (Move Safety)",
+    "description": "Ensure structural attachments are co-located so moving a node requires moving its attached nodes too (prevents partial moves).",
+    "subject": {
+      "type": "Reality",
+      "id": "reality-root-model-store"
+    },
+    "method": {
+      "kind": "runner",
+      "runner": "root_store.audits.run_audit_root_store_attachment_closure"
+    },
+    "status": "planned",
+    "findings": []
+  },
+  "checks": {
+    "check-root-store-has_check-colocated": {
+      "id": "check-root-store-has_check-colocated",
+      "type": "Check",
+      "label": "Check: HAS_CHECK Co-located",
+      "description": "If an Audit HAS_CHECK a Check, both must live in the same model file (same provenance) so moving the audit moves its checks.",
+      "status": "planned",
+      "method": "provenance-contract"
+    },
+    "check-root-store-contains-colocated": {
+      "id": "check-root-store-contains-colocated",
+      "type": "Check",
+      "label": "Check: CONTAINS Co-located",
+      "description": "If a parent CONTAINS a child, both must live in the same model file (same provenance) so bundle moves are consistent.",
+      "status": "planned",
+      "method": "provenance-contract"
+    }
+  },
+  "results": {
+    "checks": {
+      "has_check_colocated": {
+        "ok": true,
+        "violations": []
+      },
+      "contains_colocated": {
+        "ok": false,
+        "violations": [
+          {
+            "parent": "reality-seed-ui",
+            "child": "subsystem-renderer",
+            "parent_file": "C:/seed/model/sketch.json",
+            "child_file": "C:/seed/ui/model/sketch.json"
+          }
+        ]
+      }
+    }
+  }
+}

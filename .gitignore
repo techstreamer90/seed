@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Coverage
+.coverage
+htmlcov/
+
+# Artifacts that shouldn't be committed
+artifacts/db/
+artifacts/htmlcov/
+artifacts/.coverage
+
+# OS
+.DS_Store
+Thumbs.db

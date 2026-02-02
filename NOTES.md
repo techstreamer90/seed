@@ -1,20 +1,45 @@
 # Notes for Future Claude
 
+## Current Operating Rules (2026-02-02)
+
+- **ZONES FIRST**: Check `model/sketch.json` zones section before any file operation
+- Model is the truth; edit it directly (with Change nodes for traceability)
+- Save is model-first: use `seed-core save <node_id>` to record structured evidence
+- Verification is strict: use `seed-core verify` to detect drift
+- See AGENTS.md for the zones-first workflow
+
 ## What is Seed?
 
 Seed is the **meta-model**. A model of all models. The user's home.
 
 ```
-seed/                     ← you are here
-├── model/
-│   └── sketch.json       ← lists all realities the user works with
-│
-├── Spawnie → C:/spawnie/bam/
-├── BAM → C:/BAM (no model yet)
-└── ...future realities
+seed/                           ← you are here
+├── model/sketch.json           # THE TRUTH (zones, schema, nodes, edges)
+├── src/                        # Source code
+│   ├── seed_core/              # Core Python package
+│   ├── root_store/             # Model store (SQLite, query, writes)
+│   └── ui/                     # Browser renderer
+├── artifacts/                  # Generated (read-only)
+├── tools/                      # Scripts and tests
+└── .state/                     # Runtime state (writable)
 ```
 
 Each "reality" is a project that contains its own BAM model. Seed tracks them all.
+
+## Zones (Agent Permissions)
+
+Defined in `model/sketch.json`:
+
+| Zone | Paths | Agent Can |
+|------|-------|-----------|
+| model | `model/` | read, propose_change |
+| source | `src/` | read, propose_change |
+| artifacts | `artifacts/` | read only |
+| tools | `tools/` | read, invoke, propose_change |
+| state | `.state/`, ui screenshots/layout | read, write |
+| docs | `*.md` | read only |
+
+**Key**: Direct writes only in state zone. Everything else needs Change nodes or human approval.
 
 ## The Hierarchy
 
@@ -22,12 +47,15 @@ Each "reality" is a project that contains its own BAM model. Seed tracks them al
 seed (meta-model)
  │
  ├── reality: Spawnie
- │     └── C:/spawnie/bam/model/sketch.json (hierarchical, ~10 top-level nodes)
+ │     └── C:/spawnie/bam/model/sketch.json
  │
- ├── reality: BAM
- │     └── no model yet
+ ├── reality: Root Model Store
+ │     └── C:/seed/src/root_store/model/sketch.json
  │
- └── ...more realities as you add them
+ ├── reality: Browser Renderer (UI)
+ │     └── C:/seed/src/ui/model/sketch.json
+ │
+ └── ...more realities
 ```
 
 ## Core Concepts (captured in sketch.json)
@@ -275,6 +303,94 @@ Benefits:
 - Same pattern at every level
 - Scales to large models
 
+## Seed-Core
+
+**seed-core** is a standalone Python package that provides the foundational building blocks for monitoring and managing spawned processes across all realities.
+
+### What is Seed-Core?
+
+Seed-core is the **universal monitoring layer** for the seed ecosystem. It provides:
+- Process health monitoring via the Pulse mechanism
+- Status aggregation across all realities
+- Hash verification to detect drift
+- CLI tools for ecosystem management
+- TUI monitor for real-time visualization
+
+### Architecture
+
+```
+src/seed_core/
+├── pulse.py          ← Heartbeat mechanism for process health
+├── status.py         ← Status aggregation across realities
+├── verification.py   ← Hash verification for drift detection
+├── registry.py       ← Reality discovery and lookup
+├── reality.py        ← Reality status checking
+├── __main__.py       ← CLI entry point
+├── model/            ← seed_core's own BAM model
+└── tests/            ← Test suite
+```
+
+### The Pulse Mechanism
+
+**Why Pulse?** Traditional process monitoring (PID checks, exit codes) tells you *if* a process is running, but not *how well*. Pulse provides **health monitoring**:
+
+- **Active Pulsing**: Processes send heartbeat signals at regular intervals
+- **Passive Monitoring**: External observer checks pulse timing
+- **Health States**: healthy, degraded, unhealthy, unknown
+- **Configurable Timeouts**: Per-process pulse intervals and timeout thresholds
+
+Example:
+```python
+from seed_core.pulse import PulseMonitor
+
+monitor = PulseMonitor(timeout=10.0)
+monitor.register_process("worker-1", interval=2.0)
+monitor.pulse("worker-1")  # Send heartbeat
+
+health = monitor.check_health("worker-1")
+print(health.status)  # "healthy"
+```
+
+### CLI Commands
+
+```bash
+# Check overall seed ecosystem status
+seed-core status
+
+# Check if spawnie is running
+seed-core pulse
+
+# List all known realities
+seed-core reality list
+
+# Check a specific reality
+seed-core reality check /path/to/reality
+```
+
+### Integration with Seed
+
+Seed-core is **infrastructure**, not domain logic:
+- It provides monitoring primitives
+- Other systems (like spawnie) use it for health tracking
+- It operates independently of any specific reality
+- It's the "nervous system" that detects when reality diverges from the model
+
+### Key Design Principles
+
+1. **Universal**: Works across all realities, not tied to spawnie
+2. **Lightweight**: Minimal dependencies (psutil, pydantic)
+3. **Non-intrusive**: Processes opt-in to monitoring
+4. **Model-aware**: Integrates with BAM models for verification
+
+### Status: IMPLEMENTED (2026-02-01)
+
+- ✅ Pulse mechanism with health monitoring
+- ✅ Status aggregation across realities
+- ✅ Hash verification for drift detection
+- ✅ CLI with status, pulse, and reality commands
+- ✅ TUI monitor (Rich-based, real-time)
+- ✅ Complete test coverage
+
 ## Built
 
 - 2026-01-31 (Friday night): Created seed, moved spawnie model into spawnie, reshaped seed as meta-model
@@ -282,3 +398,5 @@ Benefits:
 - 2026-02-01 (Saturday, later): Documented model-first principle - workflows, configs, and all definitions belong in the model, not physical files
 - 2026-02-01 (Saturday, evening): **IMPLEMENTED model-first workflows** - migrated 4 workflows to BAM model nodes, modified spawnie to read from model first with file fallback
 - 2026-02-01 (Saturday, night): **Schema 3.0** - hierarchical BAMs, layers as lenses, restructured spawnie with subsystems
+- 2026-02-01 (Sunday morning): **IMPLEMENTED seed-core** - universal monitoring layer with Pulse, Status, Verification, CLI, and TUI monitor
+- 2026-02-02 (Sunday): **ZONES + RESTRUCTURE** - Added Zone schema type, defined 6 zones with agent permissions, reorganized directory structure (src/, artifacts/, tools/, .state/), updated all model references

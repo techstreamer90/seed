@@ -1,0 +1,320 @@
+{
+  "kind": "root_store.scream_packet",
+  "version": "v0",
+  "created_at": "2026-02-01T13:03:40Z",
+  "root_model_path": "C:\\seed\\model\\sketch.json",
+  "top_node": {
+    "id": "reality-seed",
+    "type": "Reality",
+    "label": "Root",
+    "description": "The Root meta-model. A model of all models. Your home. This node is self-referential - the Root models itself.",
+    "source": {
+      "path": "C:/seed",
+      "model_path": "model/sketch.json"
+    },
+    "status": "active",
+    "agent_context": {
+      "_spawn_point": "YOU ARE HERE. This is Root - the root of all models.",
+      "agent_context_version": "1.0",
+      "philosophy": "Don't train the agent, train the world. You are waking up in a modeled world where everything is known. Read the model, understand it, work through it.",
+      "focus": {
+        "type": "Gap",
+        "id": "gap-model-not-complete"
+      },
+      "work_queue": [
+        {
+          "type": "Todo",
+          "id": "todo-model-only-workflow",
+          "why": "Enforce model-only work so the model becomes the interface",
+          "exit_criteria": "The workflow is documented in the model and adopted as standard"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-change-executor-pipeline-v1",
+          "why": "Make model edits safe + auditable by routing them through a controlled executor",
+          "exit_criteria": "A spawned change executor applies Change nodes via the Root Store gate and only commits when audits are green"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-change-process-v1",
+          "why": "Enforce that all changes explicitly advance aspirations by closing gaps",
+          "exit_criteria": "Change/Policy/Audit pattern is in place and used for all work"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-root-model-store-v1",
+          "why": "Stop repeatedly reading many JSON files by creating a fast query layer with safe writes and enforcement",
+          "exit_criteria": "Model Store indexes the model into SQLite, serves queries, applies Changes with validation, and records audit evidence back into the model"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-add-source-hashes",
+          "why": "Make reality verifiable by hash (drift detection)",
+          "exit_criteria": "All core Root files (under C:/seed) referenced by the model include verified SHA256 hashes"
+        },
+        {
+          "type": "Todo",
+          "id": "todo-seed-self-monitor",
+          "why": "Dogfood monitoring: Root should be a first-class monitored reality",
+          "exit_criteria": "Root appears in its own monitor with meaningful status"
+        }
+      ],
+      "principles": [
+        "Default: do not directly edit files. Prefer activating modeled Actions and proposing Changes.",
+        "Interactive agents SHOULD be activate-only: request a spawned change executor for edits.",
+        "Every change MUST be represented as a Change node that (a) ADDRESSES a Gap and (b) ADVANCES at least one Aspiration, with required evidence recorded back into the model",
+        "Gaps are explicit - find them in nodes with type=Gap",
+        "Todos CLOSE gaps - that's their purpose",
+        "Aspirations are human-controlled, immutable by AI",
+        "When in doubt, make the implicit explicit in the model"
+      ],
+      "how_to_work": {
+        "1_orient": "Find this agent_context in the Reality node. You are here.",
+        "2_understand": "Read focus gap. Read aspirations it blocks. Understand the delta.",
+        "3_act": "Pick highest priority todo from work_queue that CLOSES the focus gap.",
+        "4_update": "After work, update model: mark todos done, update gap status, add discoveries.",
+        "5_verify": "Model must reflect truth. If you changed anything, model must show it."
+      }
+    },
+    "model": {
+      "_note": "This is a self-reference. Root contains its own model.",
+      "subsystems": [
+        "core",
+        "ui"
+      ],
+      "modules": [
+        "pulse",
+        "status",
+        "reality",
+        "monitor",
+        "cli",
+        "verification",
+        "ui"
+      ]
+    }
+  },
+  "audit": {
+    "id": "audit-root-compliance",
+    "type": "Audit",
+    "label": "Audit: Root Compliance (Seed Ideas)",
+    "description": "Agent-style audit that assesses how completely each top Reality follows the Root/Seed ideas. This evolves over time: it should run the current automated checks, then extend into deeper behavioral/system probing.",
+    "subject": {
+      "type": "Reality",
+      "id": "reality-seed"
+    },
+    "method": {
+      "kind": "agent+runner",
+      "runner": "root_store.audits.run_audit_root_compliance",
+      "notes": [
+        "Must include the existing sqlite index rebuild/compare audit as a sub-check.",
+        "Must report per-Reality completeness, and list concrete missing items.",
+        "On FAIL, should emit a scream packet suitable for an interactive Spawnie shell session."
+      ]
+    },
+    "status": "fail",
+    "findings": [
+      "Compliance incomplete: see checks + score"
+    ],
+    "evidence": {
+      "results": {
+        "score": 75,
+        "checks": {
+          "agent_context": {
+            "ok": true,
+            "missing": {}
+          },
+          "hash_control": {
+            "ok": false,
+            "missing_hash": [
+              "mod-store-loader",
+              "mod-store-index",
+              "mod-store-query",
+              "mod-store-writer",
+              "mod-store-enforcement",
+              "mod-store-audits",
+              "mod-store-watch",
+              "mod-store-api",
+              "mod-pulse",
+              "mod-status",
+              "mod-registry",
+              "mod-verification",
+              "mod-monitor",
+              "mod-cli",
+              "mod-package-init"
+            ],
+            "missing_file": [],
+            "mismatch": []
+          },
+          "governance": {
+            "ok": true
+          },
+          "audits_runnable": {
+            "ok": true
+          },
+          "root_store_sub_audit": {
+            "ok": true,
+            "db_path": "c:\\seed\\root_store\\root_store.db",
+            "provenance": {
+              "ok": true,
+              "missing_node_prov": [],
+              "missing_edge_prov": []
+            },
+            "reverse_lookups": {
+              "ok": true,
+              "sample_id": "reality-root-model-store",
+              "out_count": 3,
+              "in_count": 2
+            }
+          }
+        },
+        "top_realities": [
+          "reality-spawnie",
+          "reality-seed",
+          "reality-root-model-store",
+          "reality-bam",
+          "reality-bam-test-projects",
+          "reality-seed-ui"
+        ]
+      },
+      "scream": {
+        "packet": "c:\\seed\\root_store\\screams\\20260201_123218Z-audit-root-compliance.json",
+        "suggested_spawnie_shell": "spawnie shell --new-window --working-dir C:/seed --model claude-sonnet \"A Root model audit failed. You are an interactive debug agent.  Open and read this scream packet JSON (it contains the Root top node and failure evidence): - c:/seed/root_store/screams/20260201_123218Z-audit-root-compliance.json  Goals: 1) Explain why the check failed (root cause). 2) Propose the smallest Change (model-level) or code fix (reality-level) to resolve it. 3) If a fix is code, list exact file edits; if a fix is model, list exact node/edge edits. 4) Define how we re-run the audit and what PASS evidence looks like.\""
+      }
+    },
+    "last_run": "2026-02-01T12:32:18Z"
+  },
+  "checks": {
+    "check-root-compliance-agent-context": {
+      "id": "check-root-compliance-agent-context",
+      "type": "Check",
+      "label": "Check: Agent Context Completeness",
+      "description": "Top Reality nodes have complete agent_context (spawn point, focus, work_queue) consistent with the Root contract.",
+      "status": "pass",
+      "method": "model-contract",
+      "result": "pass",
+      "last_run": "2026-02-01T12:32:18Z",
+      "evidence": {
+        "ok": true,
+        "missing": {}
+      }
+    },
+    "check-root-compliance-hash-control": {
+      "id": "check-root-compliance-hash-control",
+      "type": "Check",
+      "label": "Check: Hash-Control Coverage",
+      "description": "Implementation module nodes have source.hash and the hashes verify against reality; missing/changed hashes are treated as uncontrolled drift.",
+      "status": "fail",
+      "method": "hash-verify",
+      "result": "fail",
+      "last_run": "2026-02-01T12:32:18Z",
+      "evidence": {
+        "ok": false,
+        "missing_hash": [
+          "mod-store-loader",
+          "mod-store-index",
+          "mod-store-query",
+          "mod-store-writer",
+          "mod-store-enforcement",
+          "mod-store-audits",
+          "mod-store-watch",
+          "mod-store-api",
+          "mod-pulse",
+          "mod-status",
+          "mod-registry",
+          "mod-verification",
+          "mod-monitor",
+          "mod-cli",
+          "mod-package-init"
+        ],
+        "missing_file": [],
+        "mismatch": []
+      }
+    },
+    "check-root-compliance-governance": {
+      "id": "check-root-compliance-governance",
+      "type": "Check",
+      "label": "Check: Change Governance Adoption",
+      "description": "Changes are governed: Policy/Change/Audit wiring exists and is used (Change gate is real, not just declared).",
+      "status": "pass",
+      "method": "graph+behavioral",
+      "result": "pass",
+      "last_run": "2026-02-01T12:32:18Z",
+      "evidence": {
+        "ok": true
+      }
+    },
+    "check-root-compliance-audits": {
+      "id": "check-root-compliance-audits",
+      "type": "Check",
+      "label": "Check: Audits Are Runnable",
+      "description": "Modeled audits can be executed and write structured evidence back into the model.",
+      "status": "pass",
+      "method": "runner-contract",
+      "result": "pass",
+      "last_run": "2026-02-01T12:32:18Z",
+      "evidence": {
+        "ok": true
+      }
+    }
+  },
+  "results": {
+    "score": 75,
+    "checks": {
+      "agent_context": {
+        "ok": true,
+        "missing": {}
+      },
+      "hash_control": {
+        "ok": false,
+        "missing_hash": [
+          "mod-store-loader",
+          "mod-store-index",
+          "mod-store-query",
+          "mod-store-writer",
+          "mod-store-enforcement",
+          "mod-store-audits",
+          "mod-store-watch",
+          "mod-store-api",
+          "mod-pulse",
+          "mod-status",
+          "mod-registry",
+          "mod-verification",
+          "mod-monitor",
+          "mod-cli",
+          "mod-package-init"
+        ],
+        "missing_file": [],
+        "mismatch": []
+      },
+      "governance": {
+        "ok": true
+      },
+      "audits_runnable": {
+        "ok": true
+      },
+      "root_store_sub_audit": {
+        "ok": true,
+        "db_path": "C:\\seed\\root_store\\root_store.db",
+        "provenance": {
+          "ok": true,
+          "missing_node_prov": [],
+          "missing_edge_prov": []
+        },
+        "reverse_lookups": {
+          "ok": true,
+          "sample_id": "reality-root-model-store",
+          "out_count": 3,
+          "in_count": 2
+        }
+      }
+    },
+    "top_realities": [
+      "reality-spawnie",
+      "reality-seed",
+      "reality-root-model-store",
+      "reality-bam",
+      "reality-bam-test-projects",
+      "reality-seed-ui"
+    ]
+  }
+}
