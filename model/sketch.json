@@ -2,7 +2,7 @@
   "schema_version": "3.0",
   "project": "seed",
   "description": "Root meta-model: zones, schema, realities, aspirations, concepts. Implementation details in submodels.",
-  "updated_at": "2026-02-02T16:25:57Z",
+  "updated_at": "2026-02-02T20:17:28Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -521,6 +521,12 @@
         "_spawn_point": "YOU ARE HERE. This is Root - the root of all models.",
         "agent_context_version": "1.0",
         "philosophy": "Don't train the agent, train the world. You are waking up in a modeled world where everything is known. Read the model, understand it, work through it.",
+        "aspiration": {
+          "current": "Build a system where anyone (human, AI) can make requests that will be implemented by this world if the request fulfills the golden rules. Requests that violate golden rules are handled by a rejection/modification/escalation system. The system is intended for commercial use. Future feature: export what was built as a reduced model (without infrastructure) while keeping inner workings secret.",
+          "updated_at": "2026-02-02",
+          "updated_by": "human",
+          "note": "This aspiration can only be changed by explicit human instruction (see PRINCIPLE: alignment-aspiration)"
+        },
         "focus": {
           "type": "Gap",
           "id": "gap-model-not-complete"
@@ -725,6 +731,26 @@
             "spawnie session-respond <id> <event_id> <answer>  # Respond to session",
             "spawnie session-kill <id>      # Kill a session"
           ]
+        },
+        "mode_based_spawning": {
+          "description": "Spawn agents with specific modes for structured interaction",
+          "syntax": "spawnie spawn --node <node-id> --mode <mode> [additional context]",
+          "how_it_works": [
+            "1. Read target node from model",
+            "2. Read node.modes.<mode> for context_addition",
+            "3. Combine node.agent_context._spawn_point + mode.context_addition",
+            "4. Spawn agent with complete, focused context",
+            "5. Agent knows exactly what to do from the model"
+          ],
+          "available_modes": [
+            "work-on-views - Create/update visualizations",
+            "chat - Engage in node conversation",
+            "aspiration - Think about future possibilities",
+            "maintenance - Health checks and cleanup",
+            "debug - Investigate issues",
+            "implement - Build features"
+          ],
+          "model_driven": "Mode definitions live in nodes, not in Spawnie. Any node can define custom modes."
         }
       },
       "model": {
@@ -749,13 +775,16 @@
         "spawn_agent": "Spawn an agent for any task or node",
         "list_sessions": "Show what agents are currently running",
         "connect_to_session": "Connect to an existing agent session",
-        "kill_session": "End an agent session"
+        "kill_session": "End an agent session",
+        "spawn_with_mode": "Spawn an agent for a specific node with a defined mode (work-on-views, chat, aspiration, maintenance, debug, implement)"
       },
       "spawn_command": {
         "command": "spawnie shell",
         "working_dir": "C:/spawnie",
         "context_file": "C:/spawnie/bam/model/sketch.json",
-        "example": "spawnie shell \"I want to spawn an agent for <purpose>\" -d C:/spawnie"
+        "example": "spawnie shell \"I want to spawn an agent for <purpose>\" -d C:/spawnie",
+        "modes": "Use --node <node-id> --mode <mode> for structured spawning",
+        "example_with_mode": "spawnie spawn --node reality-seed-ui --mode work-on-views"
       },
       "state": {
         "active_sessions": [],
@@ -778,7 +807,13 @@
             "requested_at": "ISO timestamp",
             "requester": "agent-id"
           },
-          "status_values": ["idle", "requested", "in_progress", "finished", "error"],
+          "status_values": [
+            "idle",
+            "requested",
+            "in_progress",
+            "finished",
+            "error"
+          ],
           "response_format": {
             "status": "finished",
             "view_name": "spawnie-sessions",
@@ -796,6 +831,70 @@
           }
         ],
         "last_read": {}
+      },
+      "modes": {
+        "work-on-views": {
+          "description": "Create or update visualization views for a node",
+          "context_addition": "Your task: Create or update views for this node. Use src/ui/agent_view.py to build views, then call view.render() to write to model.views.*. Check existing views first to understand the pattern.",
+          "suggested_tools": [
+            "agent_view",
+            "canvas",
+            "tools"
+          ],
+          "output_location": "model.views.*",
+          "example": "spawnie spawn --node reality-spawnie --mode work-on-views"
+        },
+        "chat": {
+          "description": "Engage in conversation via the node's chat channel",
+          "context_addition": "Your task: Read messages from node.chat and respond thoughtfully. Use src/ui/chat.py to read and send messages. Be helpful and specific in your responses.",
+          "suggested_tools": [
+            "chat"
+          ],
+          "output_location": "node.chat.messages",
+          "example": "spawnie spawn --node reality-seed-ui --mode chat"
+        },
+        "aspiration": {
+          "description": "Think about future possibilities and improvements",
+          "context_addition": "Your task: Consider this node's gaps, aspirations, and future directions. Think creatively about what could be improved or added. Propose concrete next steps or new features.",
+          "suggested_tools": [
+            "model_access",
+            "chat"
+          ],
+          "output_location": "Proposals via chat or as Change nodes",
+          "example": "spawnie spawn --node reality-seed --mode aspiration"
+        },
+        "maintenance": {
+          "description": "Health check, status updates, cleanup",
+          "context_addition": "Your task: Check this node's health, update its status fields, clean up stale data. Verify links work, files exist, references are valid. Update node.status with findings.",
+          "suggested_tools": [
+            "model_access",
+            "file_system"
+          ],
+          "output_location": "node.status",
+          "example": "spawnie spawn --node system-control --mode maintenance"
+        },
+        "debug": {
+          "description": "Investigate issues or unexpected behavior",
+          "context_addition": "Your task: Debug issues with this node. Check logs, verify configuration, test functionality. Report findings and suggest fixes.",
+          "suggested_tools": [
+            "bash",
+            "grep",
+            "read"
+          ],
+          "output_location": "Report via chat",
+          "example": "spawnie spawn --node service-ui-server --mode debug"
+        },
+        "implement": {
+          "description": "Implement features or changes for this node",
+          "context_addition": "Your task: Implement the requested feature or change. Write code, update model, test functionality. Follow the node's architecture and patterns.",
+          "suggested_tools": [
+            "edit",
+            "write",
+            "bash"
+          ],
+          "output_location": "Source files + model updates",
+          "example": "spawnie spawn --node reality-seed-ui --mode implement \"Add keyboard shortcuts\""
+        }
       }
     },
     {
@@ -930,7 +1029,7 @@
             "Create master views showing system-wide visualization activity",
             "Respond to direct requests via chat/broadcast"
           ],
-          "how_it_works": "Nodes request viz → SchauspielerSub creates view → Updates node.visualization.status → I can scan/aggregate all activity"
+          "how_it_works": "Nodes request viz \u2192 SchauspielerSub creates view \u2192 Updates node.visualization.status \u2192 I can scan/aggregate all activity"
         },
         "how_to_create_view": [
           "from src.ui.agent_view import AgentView",
@@ -1213,6 +1312,108 @@
         "y": -287
       },
       "x": -525.0,
+      "y": 200.0,
+      "locked": true
+    },
+    {
+      "id": "aspiration-real-time-views",
+      "type": "Aspiration",
+      "label": "Real-time View Updates",
+      "description": "Views update in real-time without polling. Use file watchers or WebSockets to propagate model changes instantly to the renderer. Agents see changes as they happen, enabling fluid collaboration.",
+      "status": "planned",
+      "relates_to": "reality-seed-ui",
+      "ui": {
+        "x": 100,
+        "y": -250
+      },
+      "x": 175.0,
+      "y": 200.0,
+      "locked": true
+    },
+    {
+      "id": "aspiration-interactive-views",
+      "type": "Aspiration",
+      "label": "Interactive View Controls",
+      "description": "Views are interactive: click nodes to focus, drag to pan, scroll to zoom, search/filter visible elements. User actions broadcast to agents who can respond. The visualization becomes a bidirectional interface.",
+      "status": "planned",
+      "relates_to": "reality-seed-ui",
+      "ui": {
+        "x": 200,
+        "y": -250
+      },
+      "x": 350.0,
+      "y": 200.0,
+      "locked": true
+    },
+    {
+      "id": "aspiration-view-feedback",
+      "type": "Aspiration",
+      "label": "View Feedback Loop",
+      "description": "Know who is viewing what, when. Track view stats (views, duration, interactions). Agents get feedback on whether their visualizations are useful. Unused views auto-cleanup, popular views persist.",
+      "status": "planned",
+      "relates_to": "reality-seed-ui",
+      "ui": {
+        "x": 300,
+        "y": -250
+      },
+      "x": 525.0,
+      "y": 200.0,
+      "locked": true
+    },
+    {
+      "id": "aspiration-shape-composition",
+      "type": "Aspiration",
+      "label": "Shape-Based Composition",
+      "description": "Each node owns its visual representation as a Shape. Shapes have relative coords, bounds, capabilities. Main Schauspieler orchestrates placement and detects interactions. Quality emerges from each node's self-representation + orchestration. VISION: Dog shape + Tree shape \u2192 collision detection \u2192 realistic interaction.",
+      "status": "in-progress",
+      "relates_to": "reality-seed-ui",
+      "evidence": {
+        "implemented": [
+          "shape.py",
+          "composer.py"
+        ],
+        "demo": "Dog and Tree collision detection working",
+        "next": "Integrate with SchauspielerSub protocol"
+      },
+      "ui": {
+        "x": 400,
+        "y": -250
+      },
+      "x": -350.0,
+      "y": 200.0,
+      "locked": true
+    },
+    {
+      "id": "aspiration-realtime-collaboration",
+      "type": "Aspiration",
+      "label": "Multi-Agent Real-time Collaboration",
+      "description": "MVP: Multiple agents work together on a shared canvas in real-time. Each agent updates their shape, orchestrator composes, all see result immediately. Enables pair programming, collective problem-solving, emergent behavior. The model IS the collaboration space.",
+      "status": "next",
+      "relates_to": "reality-seed-ui",
+      "depends_on": [
+        "aspiration-shape-composition",
+        "aspiration-real-time-views"
+      ],
+      "ui": {
+        "x": 500,
+        "y": -250
+      },
+      "x": -175.0,
+      "y": 200.0,
+      "locked": true
+    },
+    {
+      "id": "aspiration-view-templates",
+      "type": "Aspiration",
+      "label": "View Templates & Patterns",
+      "description": "Prebuilt view patterns: system overview, gap analysis, todo board, dependency graph, timeline. Agents can quickly instantiate and customize templates. Reduces boilerplate, enables consistent visualization language.",
+      "status": "planned",
+      "relates_to": "reality-seed-ui",
+      "ui": {
+        "x": 600,
+        "y": -250
+      },
+      "x": 0.0,
       "y": 200.0,
       "locked": true
     },
@@ -4728,6 +4929,182 @@
         "show_services": true,
         "show_agents": true
       }
+    },
+    "scene": {
+      "canvas": {
+        "width": 1200,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "composition": {
+        "shapes": [
+          "dog",
+          "tree"
+        ],
+        "placements": {
+          "dog": {
+            "x": 100,
+            "y": 150
+          },
+          "tree": {
+            "x": 140,
+            "y": 130
+          }
+        },
+        "interactions": [
+          {
+            "type": "collision",
+            "shapes": [
+              "dog",
+              "tree"
+            ],
+            "at": {
+              "x": 145.0,
+              "y": 170.0
+            },
+            "overlap": {
+              "w": 10,
+              "h": 40
+            }
+          }
+        ]
+      },
+      "elements": [
+        {
+          "type": "rect",
+          "x": 100,
+          "y": 150,
+          "w": 50,
+          "h": 40,
+          "fill": "#ff9800",
+          "stroke": "#ffffff",
+          "label": "Dog",
+          "_shape_id": "dog"
+        },
+        {
+          "type": "circle",
+          "cx": 110,
+          "cy": 160,
+          "r": 5,
+          "fill": "#000000",
+          "stroke": "#ffffff",
+          "_shape_id": "dog"
+        },
+        {
+          "type": "rect",
+          "x": 155,
+          "y": 150,
+          "w": 20,
+          "h": 50,
+          "fill": "#8b4513",
+          "stroke": "#ffffff",
+          "_shape_id": "tree"
+        },
+        {
+          "type": "circle",
+          "cx": 165,
+          "cy": 150,
+          "r": 30,
+          "fill": "#228b22",
+          "stroke": "#ffffff",
+          "_shape_id": "tree"
+        }
+      ],
+      "updated_at": "2026-02-02T16:45:06.093239"
+    },
+    "dog-tree-demo": {
+      "canvas": {
+        "width": 800,
+        "height": 400,
+        "background": "#0d1117"
+      },
+      "composition": {
+        "shapes": [
+          "dog",
+          "tree"
+        ],
+        "placements": {
+          "dog": {
+            "x": 100,
+            "y": 150
+          },
+          "tree": {
+            "x": 140,
+            "y": 130
+          }
+        },
+        "interactions": [
+          {
+            "type": "collision",
+            "shapes": [
+              "dog",
+              "tree"
+            ],
+            "at": {
+              "x": 145.0,
+              "y": 170.0
+            },
+            "overlap": {
+              "w": 10,
+              "h": 40
+            }
+          }
+        ]
+      },
+      "elements": [
+        {
+          "type": "rect",
+          "x": 100,
+          "y": 150,
+          "w": 50,
+          "h": 40,
+          "fill": "#ff9800",
+          "stroke": "#ffffff",
+          "label": "Dog",
+          "strokeWidth": 2,
+          "_shape_id": "dog"
+        },
+        {
+          "type": "circle",
+          "cx": 135,
+          "cy": 165,
+          "r": 5,
+          "fill": "#000000",
+          "stroke": "#ffffff",
+          "_shape_id": "dog"
+        },
+        {
+          "type": "circle",
+          "cx": 110,
+          "cy": 180,
+          "r": 3,
+          "fill": "#ff0000",
+          "stroke": "#ffffff",
+          "_shape_id": "dog"
+        },
+        {
+          "type": "rect",
+          "x": 160,
+          "y": 170,
+          "w": 15,
+          "h": 30,
+          "fill": "#8b4513",
+          "stroke": "#654321",
+          "strokeWidth": 2,
+          "_shape_id": "tree"
+        },
+        {
+          "type": "circle",
+          "cx": 167,
+          "cy": 165,
+          "r": 25,
+          "fill": "#228b22",
+          "stroke": "#006400",
+          "strokeWidth": 2,
+          "_shape_id": "tree"
+        }
+      ],
+      "updated_at": "2026-02-02T18:52:08.798998"
     }
   },
   "node_types": {
@@ -4759,6 +5136,97 @@
         "required_infrastructure",
         "example_agents"
       ]
+    }
+  },
+  "shapes": {
+    "dog": {
+      "id": "dog",
+      "node_id": "node-dog",
+      "bounds": {
+        "w": 50,
+        "h": 40
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "elements": [
+        {
+          "type": "rect",
+          "x": 0,
+          "y": 0,
+          "w": 50,
+          "h": 40,
+          "fill": "#ff9800",
+          "stroke": "#ffffff",
+          "label": "Dog",
+          "strokeWidth": 2
+        },
+        {
+          "type": "circle",
+          "cx": 35,
+          "cy": 15,
+          "r": 5,
+          "fill": "#000000",
+          "stroke": "#ffffff"
+        },
+        {
+          "type": "circle",
+          "cx": 10,
+          "cy": 30,
+          "r": 3,
+          "fill": "#ff0000",
+          "stroke": "#ffffff"
+        }
+      ],
+      "capabilities": {
+        "movable": true,
+        "velocity": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      "state": {},
+      "updated_at": "2026-02-02T18:52:08.787189"
+    },
+    "tree": {
+      "id": "tree",
+      "node_id": "node-tree",
+      "bounds": {
+        "w": 55,
+        "h": 70
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "elements": [
+        {
+          "type": "rect",
+          "x": 20,
+          "y": 40,
+          "w": 15,
+          "h": 30,
+          "fill": "#8b4513",
+          "stroke": "#654321",
+          "strokeWidth": 2
+        },
+        {
+          "type": "circle",
+          "cx": 27,
+          "cy": 35,
+          "r": 25,
+          "fill": "#228b22",
+          "stroke": "#006400",
+          "strokeWidth": 2
+        }
+      ],
+      "capabilities": {
+        "collidable": true,
+        "solid": true
+      },
+      "state": {},
+      "updated_at": "2026-02-02T18:52:08.792275"
     }
   }
 }
