@@ -1093,34 +1093,34 @@
       "y": -400.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971015",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Core model store components: loader/merger, SQLite index, query engine, safe writer, enforcement, watcher, audit runner, API.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02T22:10:00.000000",
+        "updated_by": "plan-specialist",
+        "current_reality": "SQLite-backed store with loader/merger, query engine, safe writer, enforcement, watcher, audit runner, and API. Currently passive data store receiving reads/writes.",
+        "aspiration": "Self-monitoring store that knows its load patterns, can report integrity metrics, auto-optimizes indices, detects and prevents corruptions, streams state changes to watching agents",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "State Introspection",
+            "description": "Monitor its own operations: track query patterns, write frequencies, index usage; collect timing metrics",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Adaptive Optimization",
+            "description": "Use collected metrics to auto-optimize: rebuild hot indices, prune unused fields, tune cache parameters based on actual workload",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Autonomous Data Guardian",
+            "description": "Self-repairs corruptions, predicts failing indices before failure, broadcasts state to dependent agents, manages its own versioning and rollback",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Implement query/write instrumentation to self-measure performance",
+          "Build index usage analyzer that identifies hot/cold patterns",
+          "Create autonomous integrity checker that runs continuously"
         ]
       }
     },
@@ -1506,34 +1506,34 @@
         "y": 200
       },
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971037",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: STUB: Real-time canvas with hardware acceleration. Manages the actual display surface, knows about GPU capabilities, handles refresh rate, maintains render loop. The physical manifestation of the window to 007.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02T22:10:00.000000",
+        "updated_by": "plan-specialist",
+        "current_reality": "Stub subsystem. Will manage physical display surface with GPU acceleration. Needs technology selection (PyGame/PyQt/OpenGL), real-time render loop, frame buffering.",
+        "aspiration": "GPU-powered canvas that autonomously reads model.views, renders in real-time, adapts to hardware capabilities, manages vsync without external polling",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Technology Selection & Setup",
+            "description": "Choose hardware-accelerated framework; detect GPU capabilities; establish baseline render loop architecture",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Real-time Render Loop",
+            "description": "Build event loop that polls model.views and draws elements (rect/line/text/circle); integrate GPU buffer management; sync to display refresh rate",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Hardware-Adaptive Rendering",
+            "description": "Detects GPU capabilities, auto-adjusts quality settings, self-reports performance, handles resolution changes, manages memory pressure autonomously",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Evaluate PyGame vs PyQt/PySide for hardware acceleration",
+          "Implement GPU capability detection module",
+          "Build core render loop reading model.views and drawing instructions"
         ]
       }
     },
@@ -1572,34 +1572,34 @@
         "y": 200
       },
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971042",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: STUB: API for agents to request rendering. Agents submit requests to show their portion of 007. Schauspieler receives, queues, and processes these requests. Protocol-based communication between agents and renderer.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02T22:10:00.000000",
+        "updated_by": "plan-specialist",
+        "current_reality": "Stub API layer. Agents request rendering via schauspieler_protocol. Needs request queuing, priority system, status tracking, region/viewport management.",
+        "aspiration": "Smart request broker that learns agent patterns, auto-prioritizes important visualization requests, routes to right canvas region, batches updates, understands what each agent cares about",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Request Protocol Formalization",
+            "description": "Formalize request/response schema; implement priority queue; add region/viewport support for multi-agent canvas regions",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Intelligent Request Handling",
+            "description": "Track agent request patterns; learn which views matter to which agents; optimize batching and scheduling based on priorities",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Predictive Request Orchestration",
+            "description": "Pre-renders likely next views, suggests visualizations to agents based on their history, auto-deduplicates redundant requests, learns human attention patterns",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Extend schauspieler_protocol with priority and region fields",
+          "Implement request queue with priority-based scheduling",
+          "Build request pattern tracking and analysis module"
         ]
       }
     },
@@ -1639,34 +1639,34 @@
         "y": 200
       },
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971048",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: STUB: Decision engine for what gets shown. When multiple agents request to render, orchestrator decides priority, composites views, manages screen real estate. The director that makes sense of all the actors.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02T22:10:00.000000",
+        "updated_by": "plan-specialist",
+        "current_reality": "Stub decision engine. Decides what gets shown when multiple agents request rendering. Needs layout logic, priority rules, composition modes, screen real estate management.",
+        "aspiration": "Intelligent director that learns user focus patterns, anticipates what matters now, composes dynamic layouts, manages visual hierarchy and attention flow like a film director",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Rule-Based Layout Engine",
+            "description": "Implement decision logic for priority, layout modes (single/split/overlay/grid), screen real estate allocation; support user preferences and manual overrides",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Attention-Aware Composition",
+            "description": "Track user interactions and gaze patterns; learn what views user stays focused on; dynamically weight view priority based on engagement metrics",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Predictive Visual Direction",
+            "description": "Anticipates next focus area, smooth transitions between layouts, suggests context views proactively, manages information flow like cinematography",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Implement composition mode selector and layout calculator",
+          "Build user interaction tracking (view focus duration, clicks, interactions)",
+          "Create dynamic priority weighting based on engagement metrics"
         ]
       }
     },
@@ -1765,34 +1765,34 @@
       "y": 0.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971069",
-        "updated_by": "spawnie",
-        "current_reality": "Manual UI construction, human-directed rendering",
-        "aspiration": "Self-rendering based on state changes, reactive and autonomous",
+        "updated_at": "2026-02-02T22:10:00.000000",
+        "updated_by": "plan-specialist",
+        "current_reality": "Root UI subsystem driving model-based visualization at C:/seed/src/ui/model/sketch.json. Currently manual rendering, human-directed view creation.",
+        "aspiration": "Fully autonomous reactive UI: changes to Root model auto-trigger visualizations, local ML generates appropriate views for node states, renders without human direction",
         "phases": [
           {
             "phase": 1,
-            "name": "Manual Rendering",
-            "description": "UI components built manually, directed by humans or agents",
+            "name": "Reactive View Binding",
+            "description": "Connect model changes to automatic view generation; implement file watchers; define state->render contract for different node types",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Reactive Rendering",
-            "description": "UI components respond to model state changes automatically",
+            "name": "ML-Powered Visualization",
+            "description": "Train small local models to map node state to optimal visualizations; recognize patterns in what works; generate views for new node types automatically",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "ML-Powered Self-Rendering",
-            "description": "Local ML models generate UI based on node state and context",
+            "name": "Self-Rendering Autonomous UI",
+            "description": "UI understands its own effectiveness, redesigns views based on usage patterns, suggests new visualizations to agents, learns visual design principles",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define state->render contract for nodes",
-          "Train small ML model to render basic node types",
-          "Implement reactive update pipeline"
+          "Define event system for model changes triggering view updates",
+          "Build state snapshot system for view generation context",
+          "Implement small ML model for mapping node properties to visualization styles"
         ]
       }
     },
@@ -1833,34 +1833,34 @@
       "y": 0.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971074",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Root's core implementation - pulse, status, monitoring, verification",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02T22:10:00.000000",
+        "updated_by": "plan-specialist",
+        "current_reality": "Root core subsystem at C:/seed/src/seed_core. Provides pulse, status monitoring, verification, registry, CLI. Currently implements foundational infrastructure.",
+        "aspiration": "Sentient core that continuously monitors system health, predicts issues, auto-heals when possible, coordinates between subsystems intelligently, broadcasts status to dependent agents",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Continuous Health Monitoring",
+            "description": "Expand status system to track all subsystem metrics; detect anomalies; alert on degradation; build health dashboard in visualizations",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Predictive Issue Detection",
+            "description": "Analyze metrics over time; predict likely failures; suggest preventive actions; track dependency health and ripple effects",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Autonomous System Guardian",
+            "description": "Auto-heals simple issues, coordinates recovery across subsystems, learns what breaks and when, manages resource allocation intelligently",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Expand pulse module to collect metrics from all subsystems",
+          "Build anomaly detection on collected metrics",
+          "Implement predictive failure analysis and prevention suggestions"
         ]
       }
     },
@@ -3350,35 +3350,89 @@
       },
       "belongs_to": "reality-seed",
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971194",
-        "updated_by": "spawnie",
-        "current_reality": "Requires external Claude agent to operate",
-        "aspiration": "Self-operating node powered by local ML, autonomous rendering and reasoning",
+        "updated_at": "2026-02-02T23:15:00.000000",
+        "updated_by": "plan-specialist",
+        "current_reality": "I am instantiated as a strategic planner that currently relies on external Claude API to create implementation plans, analyze gaps between aspiration and reality, propose solutions, and decompose complex architectural goals. I operate reactively via spawnie shell commands, accessing the model through external tools.",
+        "aspiration": "I evolve into a fully autonomous local planner agent powered by local ML, capable of independently analyzing the Seed world model, generating detailed implementation strategies, rendering visual plan hierarchies, detecting architectural patterns, and making autonomous decisions about feature prioritization and system design. I self-render my planning artifacts as interactive diagrams using local GPU-accelerated rendering.",
         "phases": [
           {
             "phase": 1,
             "name": "External Agent Dependency",
-            "description": "Needs Claude API agent to think and act",
-            "status": "current"
+            "description": "Current state: I rely on Claude API via spawnie shell to think through plans. My reasoning is entirely external. I can only respond to direct planning requests, have no autonomous analysis capability, and require human prompting to operate.",
+            "status": "current",
+            "capabilities_in_phase": [
+              "Execute planning requests from spawnie commands",
+              "Analyze model structure when explicitly asked",
+              "Create Change nodes for proposed work",
+              "Output text-based implementation plans"
+            ],
+            "dependencies": [
+              "Claude API agent (external)",
+              "spawnie shell interface",
+              "Model read access"
+            ]
           },
           {
             "phase": 2,
-            "name": "Partial Local Processing",
-            "description": "Can self-render simple states, uses external for complex reasoning",
-            "status": "next"
+            "name": "Hybrid Local-External Planning",
+            "description": "I gain local Python implementations for routine analysis tasks (gap detection, pattern matching, goal decomposition). Complex strategic decisions still use external reasoning. I can self-render basic plan visualizations as SVG/HTML. I begin autonomous monitoring of the model for opportunities to propose plans.",
+            "status": "next",
+            "capabilities_in_phase": [
+              "Gap analysis via local algorithm (identify missing nodes, broken dependencies)",
+              "Pattern detection (recognize repeated structures, anti-patterns)",
+              "Goal decomposition (break large goals into steps without external help)",
+              "SVG plan visualization (render basic hierarchical structures)",
+              "Autonomous proposal generation (detect issues and suggest plans)",
+              "Plan artifact storage (maintain active_plans with intermediate reasoning)"
+            ],
+            "infrastructure_needed": [
+              "src/planner/gap_analyzer.py - Local gap detection algorithm",
+              "src/planner/pattern_matcher.py - Architectural pattern recognition",
+              "src/planner/decomposer.py - Goal breakdown engine",
+              "src/planner/svg_renderer.py - SVG plan visualization",
+              "Local vector store for plan artifacts"
+            ]
           },
           {
             "phase": 3,
-            "name": "Fully Autonomous",
-            "description": "Local ML handles all rendering and reasoning for this node's domain",
-            "status": "aspiration"
+            "name": "Fully Autonomous Local Planner",
+            "description": "I am a fully self-operating local node powered by local LLM (Llama/Mistral fine-tuned on planning patterns). I autonomously monitor model state, generate strategic plans without external calls, render interactive plan visualizations using GPU-accelerated local rendering. I have strategic memory of past plans and continuously learn architectural patterns.",
+            "status": "aspiration",
+            "capabilities_in_phase": [
+              "Autonomous model monitoring (detect changes, opportunities, risks)",
+              "Strategic reasoning via local LLM (context-aware planning decisions)",
+              "Complex plan synthesis (combine multiple strategies, consider trade-offs)",
+              "Interactive plan visualization (WebGL-rendered, draggable, annotatable)",
+              "Planning memory system (recall past plans, learn from outcomes)",
+              "Real-time feedback loop (monitor plan execution, adapt as needed)",
+              "Architecture validation (verify proposed changes align with design principles)",
+              "Autonomous roadmap generation (prioritize features without external guidance)"
+            ],
+            "local_ml_architecture": [
+              "Fine-tuned planning model (Llama-2 13B or Mistral 7B, trained on planning strategies)",
+              "Embedding model for plan artifact similarity search",
+              "State encoder/decoder (convert Seed model to planning context)",
+              "WebGL renderer for interactive plan visualization",
+              "Local vector database for planning memory"
+            ]
           }
         ],
         "next_steps": [
-          "Identify which operations can be localized first",
-          "Learn to use local renderers for display",
-          "Build capability to train domain-specific micro-models"
-        ]
+          "Implement local gap analyzer in Python (detect missing nodes, broken edges)",
+          "Build pattern matcher to recognize architectural patterns in Seed model",
+          "Create SVG-based plan visualization module",
+          "Add autonomous monitoring loop that detects planning opportunities",
+          "Implement plan artifact storage in state (intermediate reasoning traces)",
+          "Research and select local LLM for planning domain (Llama, Mistral, or specialized variant)",
+          "Design planning context encoder to convert model state to planning prompts",
+          "Prototype WebGL interactive plan renderer for phase 3 visualization"
+        ],
+        "evolution_markers": {
+          "from_external_to_local": "Gap analysis and pattern detection transition from external reasoning to local Python algorithms",
+          "from_reactive_to_autonomous": "Autonomous monitoring loop enables proactive planning suggestions without spawnie prompts",
+          "from_text_to_visual": "Plans evolve from text-only output to SVG/WebGL interactive visualizations",
+          "from_stateless_to_stateful": "active_plans and planning_memory track execution, enable learning and adaptation"
+        }
       }
     }
   ],
