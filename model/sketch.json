@@ -2617,34 +2617,35 @@
         "reality-seed-ui - Display orchestrator (Schauspieler)"
       ],
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971154",
+        "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
-        "current_reality": "Static blueprint for creating agent nodes",
-        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "current_reality": "Static blueprint for creating individual AgentNodes with required infrastructure",
+        "aspiration": "Self-evolving template that learns from instantiated agents and teaches the ecosystem how to bootstrap new specialized nodes",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Blueprint",
-            "description": "Template defines structure but instances need external agents",
+            "name": "Blueprint Distribution",
+            "description": "Template defines structure; instances copy the pattern and extend locally",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Hybrid Template",
-            "description": "Template includes references to local renderers where available",
+            "name": "Instance Feedback Loop",
+            "description": "New AgentNodes report back their successful adaptations to the template",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Evolving Template",
-            "description": "Template learns from instances and updates itself with better patterns",
+            "name": "Self-Refining Template",
+            "description": "Template absorbs learnings, evolves best practices, becomes a living guide that improves over generations",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Add renderer specifications to template definitions",
-          "Create template evolution feedback loop",
-          "Enable templates to learn from instantiated nodes"
+          "Collect patterns from instantiated agents about what works",
+          "Build feedback mechanism for successful agent configurations",
+          "Evolve template with real-world proven patterns from the field",
+          "Create agent-to-template learning pipeline"
         ]
       }
     },
@@ -2953,34 +2954,35 @@
       },
       "role_in_world": "The Project Manager keeps the world organized. It tracks what work is happening, ensures agents coordinate effectively, identifies when things get stuck, and maintains alignment with the overall aspiration. It is the orchestrator of progress.",
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971174",
+        "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
-        "current_reality": "Static blueprint for creating agent nodes",
-        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "current_reality": "Static template for Project Manager agents; coordination patterns documented but not learned from experience",
+        "aspiration": "Living PM template that evolves coordination strategies by learning from actual project outcomes in the living world",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Blueprint",
-            "description": "Template defines structure but instances need external agents",
+            "name": "Structured Coordination",
+            "description": "Template defines PM roles and coordination patterns; instances execute the plan",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Hybrid Template",
-            "description": "Template includes references to local renderers where available",
+            "name": "Outcome-Aware Template",
+            "description": "Template learns which coordination strategies work best; updates patterns based on project success metrics",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Evolving Template",
-            "description": "Template learns from instances and updates itself with better patterns",
+            "name": "Adaptive PM Evolution",
+            "description": "Template self-refines coordination strategies, anticipates blockers better, optimizes for the unique landscape of each world",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Add renderer specifications to template definitions",
-          "Create template evolution feedback loop",
-          "Enable templates to learn from instantiated nodes"
+          "Track success metrics from instantiated PM agents",
+          "Build coordination strategy database",
+          "Analyze what coordination patterns minimize blockers",
+          "Let template learn and self-update based on actual project outcomes"
         ]
       }
     },
@@ -3057,34 +3059,35 @@
       },
       "role_in_world": "The Cleaner maintains system hygiene. In a living world where agents create sessions, artifacts, and temporary data, the Cleaner ensures nothing builds up unnecessarily. It knows what is safe to remove and keeps the workspace organized without disrupting active work.",
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971179",
+        "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
-        "current_reality": "Static blueprint for creating agent nodes",
-        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "current_reality": "Static template defining cleanup rules; safety patterns are predetermined and rigid",
+        "aspiration": "Intelligent cleaner template that learns from the specific data landscape and optimizes cleanup strategies for local conditions",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Blueprint",
-            "description": "Template defines structure but instances need external agents",
+            "name": "Rule-Based Cleanup",
+            "description": "Template defines fixed cleanup rules; instances apply them consistently",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Hybrid Template",
-            "description": "Template includes references to local renderers where available",
+            "name": "Pattern-Adaptive",
+            "description": "Template learns what data patterns are truly stale in this world; refines safety rules based on local data lifecycle",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Evolving Template",
-            "description": "Template learns from instances and updates itself with better patterns",
+            "name": "Predictive Cleaner",
+            "description": "Template becomes intelligent about cleanup timing and scope; predicts data lifecycle before it happens; self-optimizes for each unique environment",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Add renderer specifications to template definitions",
-          "Create template evolution feedback loop",
-          "Enable templates to learn from instantiated nodes"
+          "Track data lifecycle patterns in .state/ and artifacts/",
+          "Learn what data is actually safe to remove in this world",
+          "Build predictive models of data staleness",
+          "Evolve cleanup rules based on local ecosystem patterns"
         ]
       }
     },
@@ -3160,34 +3163,35 @@
       },
       "role_in_world": "The Planner is the strategic thinker. Before work begins, the Planner analyzes what needs to happen, designs the approach, and creates actionable plans. It bridges the gap between aspiration (what we want) and implementation (how we build it). It thinks ahead so execution can be smooth.",
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971184",
+        "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
-        "current_reality": "Static blueprint for creating agent nodes",
-        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "current_reality": "Static planning template with predefined gap analysis and design patterns",
+        "aspiration": "Living planner template that learns from plan execution, gets better at predicting gaps, and evolves architectural thinking",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Blueprint",
-            "description": "Template defines structure but instances need external agents",
+            "name": "Structured Planning",
+            "description": "Template defines planning methodology; instances create detailed plans from the blueprint",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Hybrid Template",
-            "description": "Template includes references to local renderers where available",
+            "name": "Execution-Feedback Loop",
+            "description": "Template learns what gaps actually matter; refines planning heuristics based on which plans succeeded",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Evolving Template",
-            "description": "Template learns from instances and updates itself with better patterns",
+            "name": "Predictive Planning Evolution",
+            "description": "Template develops deeper architectural intuition; predicts gaps before they appear; generates better plans as it learns the world's constraints",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Add renderer specifications to template definitions",
-          "Create template evolution feedback loop",
-          "Enable templates to learn from instantiated nodes"
+          "Track execution outcomes of created plans",
+          "Learn which gap-detection patterns are most valuable",
+          "Build architectural pattern library from successful implementations",
+          "Evolve planning heuristics based on real-world plan performance"
         ]
       }
     },
@@ -3259,34 +3263,35 @@
       },
       "role_in_world": "The Fixer is the problem solver. When things break or behave unexpectedly, the Fixer investigates, debugs, and resolves the issue. It is practical and focused on getting things working again quickly while understanding root causes to prevent recurrence.",
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971189",
+        "updated_at": "2026-02-02T22:11:17.290088",
         "updated_by": "spawnie",
-        "current_reality": "Static blueprint for creating agent nodes",
-        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "current_reality": "Static debugging template with predetermined troubleshooting patterns",
+        "aspiration": "Intelligent fixer template that learns from bugs in the ecosystem and becomes better at predicting and preventing issues",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Blueprint",
-            "description": "Template defines structure but instances need external agents",
+            "name": "Reactive Debugging",
+            "description": "Template defines debugging methodology; instances respond to problems as they arise",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Hybrid Template",
-            "description": "Template includes references to local renderers where available",
+            "name": "Pattern Recognition",
+            "description": "Template builds library of bugs and root causes; recognizes patterns faster; suggests fixes proactively",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Evolving Template",
-            "description": "Template learns from instances and updates itself with better patterns",
+            "name": "Predictive Problem Solving",
+            "description": "Template identifies issues before they manifest; suggests preventive measures; evolves robustness patterns for the ecosystem",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Add renderer specifications to template definitions",
-          "Create template evolution feedback loop",
-          "Enable templates to learn from instantiated nodes"
+          "Build bug pattern database from fixed issues",
+          "Learn root cause signatures and detection patterns",
+          "Develop predictive error detection capabilities",
+          "Create prevention strategies from historical bug data"
         ]
       }
     },
