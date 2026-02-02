@@ -3008,6 +3008,30 @@
         ],
         "updated_at": "2026-02-02T22:13:38.013812",
         "updated_by": "spawnie"
+      },
+      "view": {
+        "renderer": "gap-priority-tracker",
+        "description": "Displays accessibility gap status, priority tracking, and progress toward full voice parity",
+        "layout": {
+          "preferred_width": 900,
+          "preferred_height": 650,
+          "resizable": true
+        },
+        "render_on": [
+          "priority_updated",
+          "gap_progress_changed",
+          "test_results_updated"
+        ],
+        "content": {
+          "show_current_state": true,
+          "show_target_state": true,
+          "show_phase_progress": true,
+          "show_blocking_issues": true
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#f85149"
+        }
       }
     },
     {
