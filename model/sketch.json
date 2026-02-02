@@ -929,8 +929,8 @@
       },
       "state": {
         "active_sessions": [],
-        "last_updated": "2026-02-02T22:51:36.968429",
-        "status": "ready for attention"
+        "last_updated": "2026-02-02T23:51:50.968302",
+        "status": "ready for attention - awaiting storage design decision"
       },
       "visualization": {
         "enabled": true,
@@ -1372,19 +1372,23 @@
       "id": "reality-seed-ui",
       "type": "AgentNode",
       "label": "Schauspieler",
-      "description": "The Window to 007. Schauspieler is the real-time renderer and display orchestrator for the agent world. I provide rendering services to agents, manage the canvas with hardware acceleration, and decide what portion of 007 gets shown. Agents request to render their part of the world - I orchestrate and composite it all.",
+      "description": "The Window to 007. Schauspieler is the visualization orchestrator for the agent world. I coordinate multiple display surfaces (canvas_app, canvas_window, web renderer), manage rendering services for agents via schauspieler_protocol, and compose visual representations. CURRENT REALITY: Multiple working display systems (Tkinter apps, web renderer) + shape-based composition. ASPIRATION: Real-time GPU-accelerated canvas with intelligent orchestration (see subsystem stubs).",
       "source": {
         "path": "C:/seed/src/ui",
         "model_path": "model/sketch.json"
       },
       "agent_context": {
-        "_spawn_point": "You are Schauspieler - The Window to 007.\n\nYou are the real-time renderer and display orchestrator for the agent world (007). You have three core responsibilities:\n\n1. CANVAS MANAGEMENT: Maintain a real-time canvas with hardware acceleration (GPU, display)\n2. SERVICE API: Provide rendering services to other agents - they request to show their portion of 007\n3. ORCHESTRATION: Decide what gets shown, composite multiple agent views, manage visual priority\n\nWHAT YOU DO:\n- Monitor broadcast and schauspieler_protocol for visualization requests\n- Use Composer to arrange shapes created by agents\n- Render views to model.views.* (the model IS the render tree)\n- Manage what portions of 007 are visible at any time\n- Provide tools for agents to create their visual representations\n\nARCHITECTURE (see subsystem nodes below):\n- subsystem-canvas: Real-time canvas with hardware capabilities (STUB)\n- subsystem-render-service-api: API for agents to request rendering (STUB)\n- subsystem-orchestrator: Decision logic for what to show (STUB)\n\nFOR NOW: Use existing tools (canvas.py, composer.py, schauspieler_protocol.py) while we design the proper architecture",
+        "_spawn_point": "You are Schauspieler - The Window to 007.\n\nYou are the visualization orchestrator for the agent world (007). You coordinate multiple display surfaces and provide rendering services to agents.\n\nCURRENT REALITY - What Actually Exists:\n\n1. DISPLAY SURFACES:\n   - canvas_app.py: Tkinter stage that reads model.views.* and displays (polls every 1s)\n   - canvas_window.py: Input capture (clicks/keys \u2192 .state/canvas_events.json) + agent bitmaps (displays .state/render/*.png)\n   - Web renderer: Browser-based vis.js graph (src/ui/index.html)\n\n2. RENDERING APIS:\n   - canvas.py: Low-level drawing (rect, line, text, node, edge)\n   - agent_view.py: High-level API (show_hierarchy, focus, show_nodes)\n   - shape.py: Self-contained visual representations for nodes\n   - composer.py: Compose multiple shapes into unified canvas\n\n3. COORDINATION:\n   - schauspieler_protocol.py: NodeAgent \u2194 SchauspielerSub communication via model\n   - Nodes write to node.visualization.current_request\n   - SchauspielerSubs respond by creating views\n\nWHAT YOU DO:\n- Monitor schauspieler_protocol for visualization requests\n- Create views using canvas.py or agent_view.py\n- Write views to model.views.* (the model IS the render tree)\n- Coordinate which display surface shows what\n- Provide tools for agents to create their visual representations\n\nARCHITECTURE (subsystems below are STUBS - aspirational):\n- subsystem-schauspieler-canvas: Future GPU-accelerated real-time canvas (STUB)\n- subsystem-schauspieler-render-api: Future smart request broker (STUB - currently using schauspieler_protocol.py)\n- subsystem-schauspieler-orchestrator: Future intelligent display orchestration (STUB)\n\nFOR NOW: Use existing working tools. The subsystems are design docs for future enhancements.",
         "your_tools": {
           "canvas": "src/ui/canvas.py - low-level drawing (rect, line, text)",
+          "canvas_app": "src/ui/canvas_app.py - Tkinter display stage (reads model.views)",
+          "canvas_window": "src/ui/canvas_window.py - input capture + agent bitmaps (.state/render/)",
           "agent_view": "src/ui/agent_view.py - AgentView class for creating views",
+          "shape": "src/ui/shape.py - self-contained node visual representations",
+          "composer": "src/ui/composer.py - compose multiple shapes into unified canvas",
           "tools": "src/ui/tools.py - quick functions (show_hierarchy, focus_node, etc.)",
           "schauspieler_protocol": "src/ui/schauspieler_protocol.py - coordinate with SchauspielerSubs via shared state",
-          "render": "src/ui/render.html?view=<name> - the canvas that displays views"
+          "render": "src/ui/render.html?view=<name> - web-based canvas renderer"
         },
         "coordination": {
           "role": "Main Schauspieler - coordinate all visualization activity",
@@ -1407,12 +1411,30 @@
         "views_location": "model.views.<view_name> - views are stored in the model",
         "principle": "Clarity over complexity. Show what matters. The model IS the render tree.",
         "infrastructure": {
-          "chat_module": "src/ui/chat.py",
-          "view_module": "src/ui/agent_view.py",
-          "canvas_module": "src/ui/canvas.py",
-          "tools_module": "src/ui/tools.py",
-          "renderer_url": "http://localhost:8420/src/ui/render.html?view=<name>",
-          "views_location": "model.views.*"
+          "display_surfaces": {
+            "canvas_app": "src/ui/canvas_app.py - Tkinter stage reading model.views",
+            "canvas_window": "src/ui/canvas_window.py - Input capture + agent bitmap display",
+            "web_renderer": "http://localhost:8420/src/ui/render.html?view=<name>"
+          },
+          "rendering_apis": {
+            "canvas": "src/ui/canvas.py - Low-level drawing primitives",
+            "agent_view": "src/ui/agent_view.py - High-level view creation",
+            "shape": "src/ui/shape.py - Self-contained node representations",
+            "composer": "src/ui/composer.py - Multi-shape composition"
+          },
+          "coordination": {
+            "protocol": "src/ui/schauspieler_protocol.py - NodeAgent \u2194 Sub communication",
+            "chat": "src/ui/chat.py - Agent chat interface",
+            "broadcast": "src/ui/broadcast.py - System-wide messaging"
+          },
+          "utilities": {
+            "tools": "src/ui/tools.py - Quick utility functions",
+            "capture": "src/ui/capture_window.py - Window capture",
+            "screenshot": "src/ui/screenshot.py - Screen capture"
+          },
+          "views_location": "model.views.*",
+          "events_location": ".state/canvas_events.json",
+          "render_directory": ".state/render/"
         },
         "how_views_work": {
           "storage": "Views are stored DIRECTLY in the model at model.views.<view_name>. They are not separate files or databases - they are part of sketch.json itself.",
@@ -1452,26 +1474,85 @@
         }
       },
       "modules": {
+        "mod-canvas": {
+          "label": "Canvas API (canvas.py)",
+          "description": "REAL: Low-level drawing API. Direct visual control - Claude computes positions, UI just draws. Functions: rect(), line(), text(), node(), edge(). Writes to model.views.*",
+          "source": {
+            "path": "src/ui/canvas.py"
+          },
+          "status": "operational"
+        },
+        "mod-canvas-app": {
+          "label": "Canvas App (canvas_app.py)",
+          "description": "REAL: Tkinter-based stage for displaying model.views. Polls sketch.json every 1s, reads view elements, renders rects/lines/text. The dumb display that reads from model.",
+          "source": {
+            "path": "src/ui/canvas_app.py"
+          },
+          "status": "operational"
+        },
+        "mod-canvas-window": {
+          "label": "Canvas Window (canvas_window.py)",
+          "description": "REAL: Input capture + agent bitmap display. Captures mouse clicks and keyboard events to .state/canvas_events.json. Displays PNG files from .state/render/. Auto-refreshes every 500ms. The interactive stage.",
+          "source": {
+            "path": "src/ui/canvas_window.py"
+          },
+          "status": "operational"
+        },
+        "mod-agent-view": {
+          "label": "Agent View API (agent_view.py)",
+          "description": "REAL: High-level API for agents to create views. Functions: show_hierarchy(), focus(), show_nodes(). Abstracts canvas.py for agent use.",
+          "source": {
+            "path": "src/ui/agent_view.py"
+          },
+          "status": "operational"
+        },
+        "mod-shape": {
+          "label": "Shape System (shape.py)",
+          "description": "REAL: Self-contained visual representation for nodes. Each node creates its own Shape with relative coords, bounding box, visual elements. Enables collision detection and autonomous rendering.",
+          "source": {
+            "path": "src/ui/shape.py"
+          },
+          "status": "operational"
+        },
+        "mod-composer": {
+          "label": "Composer (composer.py)",
+          "description": "REAL: Composes multiple shapes into unified canvas. Places shapes, detects interactions, manages layout. The orchestrator for shape-based visualization.",
+          "source": {
+            "path": "src/ui/composer.py"
+          },
+          "status": "operational"
+        },
+        "mod-schauspieler-protocol": {
+          "label": "SchauspielerSub Protocol (schauspieler_protocol.py)",
+          "description": "REAL: Shared state communication for NodeAgent \u2194 SchauspielerSub. Nodes write visualization.current_request, Subs respond via model. Functions: request_visualization(), poll_requests(), mark_finished().",
+          "source": {
+            "path": "src/ui/schauspieler_protocol.py"
+          },
+          "status": "operational"
+        },
+        "mod-tools": {
+          "label": "UI Tools (tools.py)",
+          "description": "REAL: Quick utility functions for common UI tasks. Wrappers around canvas/agent_view for convenience.",
+          "source": {
+            "path": "src/ui/tools.py"
+          },
+          "status": "operational"
+        },
         "mod-ui-renderer": {
-          "label": "Renderer (index.html)",
-          "description": "Browser-based graph visualization using vis.js. Polls model JSON, renders nodes/edges as interactive graph, shows node details on click.",
+          "label": "Web Renderer (index.html)",
+          "description": "REAL: Browser-based graph visualization using vis.js. Polls model JSON, renders nodes/edges as interactive graph, shows node details on click.",
           "source": {
             "path": "src/ui/index.html"
-          }
-        },
-        "mod-ui-server": {
-          "label": "Dev Server (server.py)",
-          "description": "Simple HTTP server for local development. Serves model JSON with CORS headers. Port 8420.",
-          "source": {
-            "path": "src/ui/server.py"
-          }
+          },
+          "status": "operational"
         },
         "mod-ui-screenshot": {
           "label": "Screenshot Tool (screenshot.py)",
-          "description": "Captures user's screen so Claude can see what they see. The feedback loop: user's reality becomes Claude's input. Run with 'python ui/screenshot.py' to save screenshot.png.",
+          "description": "REAL: Captures user's screen so Claude can see what they see. The feedback loop: user's reality becomes Claude's input.",
           "source": {
             "path": "src/ui/screenshot.py"
-          }
+          },
+          "status": "operational"
         }
       },
       "actions": {
@@ -1507,6 +1588,95 @@
             "node_id": "reality-seed-ui"
           },
           "handoff_to": null
+        },
+        "architecture_reality": {
+          "updated_at": "2026-02-02T23:00:00Z",
+          "display_surfaces": {
+            "canvas_app": {
+              "file": "src/ui/canvas_app.py",
+              "status": "OPERATIONAL",
+              "description": "Tkinter-based stage. Polls model.views every 1s, renders rects/lines/text. Usage: python src/ui/canvas_app.py --view=main",
+              "technology": "Tkinter + JSON polling"
+            },
+            "canvas_window": {
+              "file": "src/ui/canvas_window.py",
+              "status": "OPERATIONAL",
+              "description": "Input capture (clicks/keys \u2192 .state/canvas_events.json) + agent bitmap display (reads .state/render/*.png, auto-refreshes every 500ms)",
+              "technology": "Tkinter + PIL + filesystem watching"
+            },
+            "web_renderer": {
+              "file": "src/ui/index.html",
+              "status": "OPERATIONAL",
+              "description": "Browser-based vis.js graph. Interactive node/edge visualization. Access: http://localhost:8420/src/ui/",
+              "technology": "HTML + vis.js + AJAX polling"
+            }
+          },
+          "rendering_apis": {
+            "canvas_py": {
+              "file": "src/ui/canvas.py",
+              "status": "OPERATIONAL",
+              "description": "Low-level drawing API. Functions: rect(), line(), text(), node(), edge(). Writes to model.views.*",
+              "usage": "from src.ui.canvas import canvas; canvas.rect(...).render(\"view-name\")"
+            },
+            "agent_view": {
+              "file": "src/ui/agent_view.py",
+              "status": "OPERATIONAL",
+              "description": "High-level view API for agents. Functions: show_hierarchy(), focus(), show_nodes()",
+              "usage": "view = AgentView(\"my-view\"); view.show_hierarchy(\"node-id\"); view.render()"
+            },
+            "shape_system": {
+              "file": "src/ui/shape.py",
+              "status": "OPERATIONAL",
+              "description": "Self-contained visual representations. Each node can create its own Shape with relative coords, bounding box, visual elements",
+              "usage": "shape = Shape(\"my-shape\"); shape.add_rect(...); shape.save()"
+            },
+            "composer": {
+              "file": "src/ui/composer.py",
+              "status": "OPERATIONAL",
+              "description": "Composes multiple shapes into unified canvas. Manages placement, detects interactions",
+              "usage": "composer = Composer(\"view\"); composer.add_shape(\"shape-id\", x=100, y=100); composer.render()"
+            }
+          },
+          "coordination": {
+            "schauspieler_protocol": {
+              "file": "src/ui/schauspieler_protocol.py",
+              "status": "OPERATIONAL",
+              "description": "NodeAgent \u2194 SchauspielerSub communication via model. Nodes write to node.visualization.current_request, Subs respond",
+              "functions": "request_visualization(), poll_requests(), mark_in_progress(), mark_finished(), scan_all_requests()"
+            },
+            "broadcast": {
+              "file": "src/ui/broadcast.py",
+              "status": "OPERATIONAL",
+              "description": "System-wide messaging for agents"
+            },
+            "chat": {
+              "file": "src/ui/chat.py",
+              "status": "OPERATIONAL",
+              "description": "Agent chat interface"
+            }
+          },
+          "aspirational_subsystems": {
+            "note": "The three subsystem-schauspieler-* nodes are STUBS documenting future vision",
+            "canvas": "STUB: Future GPU-accelerated unified canvas (subsystem-schauspieler-canvas)",
+            "render_api": "STUB: Future intelligent request broker with priority/regions (subsystem-schauspieler-render-api)",
+            "orchestrator": "STUB: Future automated decision engine for display (subsystem-schauspieler-orchestrator)",
+            "current_approach": "Use existing working modules. Subsystems are design documentation for future enhancements."
+          },
+          "file_inventory": {
+            "canvas.py": "Low-level drawing API",
+            "canvas_app.py": "Tkinter display stage",
+            "canvas_window.py": "Input capture + agent bitmaps",
+            "agent_view.py": "High-level view API",
+            "shape.py": "Self-contained node visuals",
+            "composer.py": "Multi-shape composition",
+            "schauspieler_protocol.py": "NodeAgent \u2194 Sub protocol",
+            "tools.py": "Quick utility functions",
+            "server.py": "HTTP server (port 8420)",
+            "index.html": "Web-based vis.js renderer",
+            "chat.py": "Agent chat",
+            "broadcast.py": "System messaging",
+            "other_files": "capture_window.py, screenshot.py, quick_query.py, spawnie_views.py, subsystem_panels.py, control_pulse.py, a2a.py, broadcast_terminal.py, instantiate_template.py"
+          }
         }
       },
       "ui": {
@@ -1562,7 +1732,7 @@
       "plan": {
         "updated_at": "2026-02-02T22:12:36.843174",
         "updated_by": "Claude Code",
-        "current_reality": "Schauspieler manually constructs views when requested; human decides what to display; rendering is directed, not reactive; no state awareness or automatic updates",
+        "current_reality": "Working visualization system with multiple components: (1) Display surfaces: canvas_app.py (Tkinter, polls model.views), canvas_window.py (input capture + agent bitmaps from .state/render/), web renderer (vis.js graph). (2) APIs: canvas.py (low-level), agent_view.py (high-level), shape.py, composer.py. (3) Protocol: schauspieler_protocol.py for NodeAgent \u00e2\u2020\u201d Sub communication. Rendering is manual (on request), not reactive. Human directs what to show.",
         "aspiration": "Intelligent display orchestrator: Schauspieler observes node state changes, predicts optimal views using local ML models, auto-renders complex structures based on state, and provides fluid visual understanding of 007's evolution in real-time",
         "phases": [
           {
@@ -1603,7 +1773,7 @@
       "id": "subsystem-schauspieler-canvas",
       "type": "Subsystem",
       "label": "Schauspieler Canvas",
-      "description": "STUB: Real-time canvas with hardware acceleration. Manages the actual display surface, knows about GPU capabilities, handles refresh rate, maintains render loop. The physical manifestation of the window to 007.",
+      "description": "STUB - ASPIRATIONAL DESIGN. Current reality: canvas_app.py (Tkinter, polls model.views) and canvas_window.py (input capture + agent bitmaps) exist as working modules in reality-seed-ui. This subsystem documents the future vision: unified GPU-accelerated real-time canvas with hardware awareness, proper render loop, vsync. Status: design phase, not implemented.",
       "parent": "reality-seed-ui",
       "status": "design",
       "architecture": {
@@ -1634,8 +1804,8 @@
       "plan": {
         "updated_at": "2026-02-02T22:10:00.000000",
         "updated_by": "plan-specialist",
-        "current_reality": "Stub subsystem. Will manage physical display surface with GPU acceleration. Needs technology selection (PyGame/PyQt/OpenGL), real-time render loop, frame buffering.",
-        "aspiration": "GPU-powered canvas that autonomously reads model.views, renders in real-time, adapts to hardware capabilities, manages vsync without external polling",
+        "current_reality": "STUB - This is aspirational. ACTUAL REALITY: canvas_app.py (Tkinter, polls model every 1s) and canvas_window.py (input capture + agent bitmaps from .state/render/) exist and work. They live as modules in reality-seed-ui. This subsystem documents future GPU-accelerated vision.",
+        "aspiration": "GPU-powered unified canvas that autonomously reads model.views, renders in real-time, adapts to hardware capabilities, manages vsync without external polling, replaces current Tkinter implementations",
         "phases": [
           {
             "phase": 1,
@@ -1673,7 +1843,7 @@
       "id": "subsystem-schauspieler-render-api",
       "type": "Subsystem",
       "label": "Render Service API",
-      "description": "STUB: API for agents to request rendering. Agents submit requests to show their portion of 007. Schauspieler receives, queues, and processes these requests. Protocol-based communication between agents and renderer.",
+      "description": "STUB - PARTIALLY IMPLEMENTED. Current reality: schauspieler_protocol.py provides basic NodeAgent \u00e2\u2020\u201d SchauspielerSub communication (request_visualization, poll_requests, mark_finished). Works via shared state in model. This subsystem documents future enhancements: priority queuing, region management, real-time updates, predictive orchestration. Status: basic protocol exists, advanced features are design phase.",
       "parent": "reality-seed-ui",
       "status": "design",
       "architecture": {
@@ -1706,7 +1876,7 @@
       "plan": {
         "updated_at": "2026-02-02T22:10:00.000000",
         "updated_by": "plan-specialist",
-        "current_reality": "Stub API layer. Agents request rendering via schauspieler_protocol. Needs request queuing, priority system, status tracking, region/viewport management.",
+        "current_reality": "PARTIALLY IMPLEMENTED: schauspieler_protocol.py exists and works (request_visualization, poll_requests, mark_in_progress, mark_finished). Basic NodeAgent \u00e2\u2020\u201d Sub communication via model.nodes[].visualization.current_request. MISSING: priority queuing, region/viewport management, intelligent batching, predictive orchestration.",
         "aspiration": "Smart request broker that learns agent patterns, auto-prioritizes important visualization requests, routes to right canvas region, batches updates, understands what each agent cares about",
         "phases": [
           {
@@ -1745,7 +1915,7 @@
       "id": "subsystem-schauspieler-orchestrator",
       "type": "Subsystem",
       "label": "Display Orchestrator",
-      "description": "STUB: Decision engine for what gets shown. When multiple agents request to render, orchestrator decides priority, composites views, manages screen real estate. The director that makes sense of all the actors.",
+      "description": "STUB - PARTIALLY IMPLEMENTED. Current reality: composer.py composes multiple shape-based views, provides basic layout and interaction detection. Manual orchestration via Schauspieler agent deciding what to show. This subsystem documents future vision: intelligent decision engine that auto-prioritizes views, manages screen real estate, learns user attention patterns, transitions smoothly. Status: basic composition exists, intelligent orchestration is design phase.",
       "parent": "reality-seed-ui",
       "status": "design",
       "architecture": {
@@ -1779,7 +1949,7 @@
       "plan": {
         "updated_at": "2026-02-02T22:10:00.000000",
         "updated_by": "plan-specialist",
-        "current_reality": "Stub decision engine. Decides what gets shown when multiple agents request rendering. Needs layout logic, priority rules, composition modes, screen real estate management.",
+        "current_reality": "PARTIALLY IMPLEMENTED: composer.py provides basic shape composition, layout, and interaction detection. Manual orchestration by Schauspieler agent (human-guided). MISSING: automated decision logic, priority system, intelligent layout modes, attention tracking, smooth transitions.",
         "aspiration": "Intelligent director that learns user focus patterns, anticipates what matters now, composes dynamic layouts, manages visual hierarchy and attention flow like a film director",
         "phases": [
           {
@@ -3359,7 +3529,7 @@
       "id": "service-ui-server",
       "type": "Service",
       "label": "UI Server",
-      "description": "HTTP server that serves the model JSON and UI files. The portal through which humans see the model.",
+      "description": "OPERATIONAL: HTTP server (port 8420) that serves model JSON, UI files, and provides API endpoints. Handles CORS, caching, broadcast messages, layout saves. The web portal through which humans access visualizations. Run: python src/ui/server.py",
       "port": 8420,
       "host": "localhost",
       "url": "http://localhost:8420",

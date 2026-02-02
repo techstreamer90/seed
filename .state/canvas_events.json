@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "type": "keypress",
+      "key": "h",
+      "keysym": "h",
+      "timestamp": "2026-02-02T23:40:24.166005"
+    },
+    {
+      "type": "keypress",
+      "key": "i",
+      "keysym": "i",
+      "timestamp": "2026-02-02T23:40:24.277751"
+    },
+    {
+      "type": "keypress",
+      "key": "Shift_R",
+      "keysym": "Shift_R",
+      "timestamp": "2026-02-02T23:40:30.133638"
+    },
+    {
+      "type": "keypress",
+      "key": "Shift_R",
+      "keysym": "Shift_R",
+      "timestamp": "2026-02-02T23:40:30.581417"
+    },
+    {
+      "type": "keypress",
+      "key": "C",
+      "keysym": "C",
+      "timestamp": "2026-02-02T23:40:30.709662"
+    }
+  ]
+}
