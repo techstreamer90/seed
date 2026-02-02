@@ -1878,6 +1878,30 @@
         ],
         "updated_at": "2026-02-02T22:13:22.214853",
         "updated_by": "spawnie"
+      },
+      "view": {
+        "renderer": "registry-browser",
+        "description": "Federated model registry showing available worlds, discovery status, and cross-repo connections",
+        "layout": {
+          "preferred_width": 1100,
+          "preferred_height": 750,
+          "resizable": true
+        },
+        "render_on": [
+          "registry_scanned",
+          "model_discovered",
+          "index_refreshed"
+        ],
+        "content": {
+          "show_local_locations": true,
+          "show_repo_status": true,
+          "show_model_metadata": true,
+          "show_discovered_connections": true
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#1f6feb"
+        }
       }
     },
     {
