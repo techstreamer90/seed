@@ -2722,6 +2722,30 @@
         ],
         "updated_at": "2026-02-02T22:13:38.013812",
         "updated_by": "spawnie"
+      },
+      "view": {
+        "renderer": "principle-statement",
+        "description": "Displays the foundational Agent World principle and enforcement status across all agents",
+        "layout": {
+          "preferred_width": 800,
+          "preferred_height": 600,
+          "resizable": true
+        },
+        "render_on": [
+          "principle_stated",
+          "enforcement_checked",
+          "agent_spawned"
+        ],
+        "content": {
+          "show_principle_text": true,
+          "show_enforcement_status": true,
+          "show_violation_audit": true,
+          "show_agent_compliance": true
+        },
+        "style": {
+          "theme": "dark",
+          "accent_color": "#58a6ff"
+        }
       }
     },
     {
