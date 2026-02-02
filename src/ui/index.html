@@ -219,6 +219,229 @@
             height: 12px;
             border-radius: 3px;
         }
+
+        /* ==================== Claude UI Overlays ==================== */
+
+        /* Message Overlay - top center, dismissible */
+        #message-overlay {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: none;
+            max-width: 600px;
+            min-width: 300px;
+        }
+
+        .message-box {
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .message-box.info {
+            background: linear-gradient(135deg, #1f6feb 0%, #388bfd 100%);
+            border: 1px solid #58a6ff;
+            color: white;
+        }
+
+        .message-box.success {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            border: 1px solid #3fb950;
+            color: white;
+        }
+
+        .message-box.warning {
+            background: linear-gradient(135deg, #9e6a03 0%, #d29922 100%);
+            border: 1px solid #d29922;
+            color: white;
+        }
+
+        .message-box.error {
+            background: linear-gradient(135deg, #da3633 0%, #f85149 100%);
+            border: 1px solid #f85149;
+            color: white;
+        }
+
+        .message-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .message-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .message-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        /* Status Panel - slide in from right */
+        #status-panel {
+            position: fixed;
+            top: 50px;
+            right: 0;
+            width: 400px;
+            max-width: 90vw;
+            height: calc(100vh - 50px);
+            background: #161b22;
+            border-left: 1px solid #30363d;
+            z-index: 900;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #status-panel.visible {
+            transform: translateX(0);
+        }
+
+        .status-panel-header {
+            padding: 16px;
+            background: #21262d;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #58a6ff;
+        }
+
+        .status-panel-close {
+            background: none;
+            border: none;
+            color: #8b949e;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .status-panel-close:hover {
+            background: #30363d;
+            color: #c9d1d9;
+        }
+
+        .status-panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        /* Status Tree Styles */
+        .status-tree {
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .tree-node {
+            margin: 4px 0;
+        }
+
+        .tree-node-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .tree-node-content:hover {
+            background: #21262d;
+        }
+
+        .tree-node-content.selected {
+            background: #388bfd22;
+            border: 1px solid #388bfd44;
+        }
+
+        .tree-children {
+            margin-left: 20px;
+            border-left: 1px solid #30363d;
+            padding-left: 12px;
+        }
+
+        .tree-edge-label {
+            font-size: 11px;
+            color: #6e7681;
+            margin: 8px 0 4px 0;
+            text-transform: uppercase;
+        }
+
+        /* Status indicators */
+        .status-icon {
+            font-size: 12px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .status-icon.good { color: #3fb950; }
+        .status-icon.warning { color: #d29922; }
+        .status-icon.bad { color: #f85149; }
+        .status-icon.neutral { color: #6e7681; }
+
+        .tree-label {
+            color: #c9d1d9;
+            flex: 1;
+        }
+
+        .tree-type {
+            font-size: 11px;
+            color: #8b949e;
+            padding: 1px 6px;
+            background: #21262d;
+            border-radius: 10px;
+        }
+
+        .tree-status {
+            font-size: 11px;
+            color: #6e7681;
+        }
+
+        /* Node highlight effect */
+        .node-highlight {
+            animation: highlightPulse 2s ease-out;
+        }
+
+        @keyframes highlightPulse {
+            0% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(88, 166, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0); }
+        }
     </style>
 </head>
 <body>
@@ -247,12 +470,32 @@
 
     <div class="legend" id="legend"></div>
 
+    <!-- Claude UI: Message Overlay -->
+    <div id="message-overlay">
+        <div class="message-box info">
+            <span class="message-icon"></span>
+            <span class="message-text"></span>
+            <button class="message-close" onclick="hideMessage()">&times;</button>
+        </div>
+    </div>
+
+    <!-- Claude UI: Status Panel -->
+    <div id="status-panel">
+        <div class="status-panel-header">
+            <span class="status-panel-title">Status</span>
+            <button class="status-panel-close" onclick="hideStatusPanel()">&times;</button>
+        </div>
+        <div class="status-panel-content">
+            <div class="status-tree" id="status-tree"></div>
+        </div>
+    </div>
+
     <script>
         // Configuration
         const CONFIG = {
-            modelPath: '../model/sketch.json',
-            uiModelPath: 'model/sketch.json',
-            selfPath: '/ui/index.html',  // For auto-reload on code changes
+            modelPath: '/model/sketch.json',
+            uiModelPath: '/model/sketch.json',
+            selfPath: '/src/ui/index.html',  // For auto-reload on code changes
             pollInterval: 1000, // 1 second for responsiveness
             physics: {
                 stabilization: { iterations: 100 },
@@ -640,6 +883,292 @@
             setTimeout(checkCodeReload, 2000);  // Check every 2 seconds
         }
 
+        // ==================== Claude UI Command Processing ====================
+
+        // Track the last processed command timestamp to avoid re-processing
+        let lastProcessedCommandTimestamp = null;
+
+        // Process UI commands from the model
+        function processUICommands() {
+            if (!model || !model.nodes) return;
+
+            // Find the ui-command node
+            const cmdNode = model.nodes.find(n => n.id === 'ui-command');
+            if (!cmdNode || !cmdNode.command) return;
+
+            const cmd = cmdNode.command;
+
+            // Skip if already processed
+            if (cmd.processed || cmd.timestamp === lastProcessedCommandTimestamp) {
+                return;
+            }
+
+            console.log('[UICommand] Processing:', cmd.type, cmd.params);
+            lastProcessedCommandTimestamp = cmd.timestamp;
+
+            // Execute the command
+            switch (cmd.type) {
+                case 'message':
+                    showOverlayMessage(
+                        cmd.params.text,
+                        cmd.params.duration || 5000,
+                        cmd.params.style || 'info'
+                    );
+                    break;
+
+                case 'focus':
+                    focusOnNode(
+                        cmd.params.nodeId,
+                        cmd.params.zoom || 1.0,
+                        cmd.params.highlight !== false
+                    );
+                    break;
+
+                case 'status':
+                    showStatusPanel(
+                        cmd.params.rootId || 'reality-seed',
+                        cmd.params.depth || 3
+                    );
+                    break;
+
+                case 'clear':
+                    hideMessage();
+                    hideStatusPanel();
+                    break;
+
+                default:
+                    console.warn('[UICommand] Unknown command type:', cmd.type);
+            }
+        }
+
+        // Show overlay message
+        function showOverlayMessage(text, duration = 5000, style = 'info') {
+            const overlay = document.getElementById('message-overlay');
+            const box = overlay.querySelector('.message-box');
+            const icon = overlay.querySelector('.message-icon');
+            const textEl = overlay.querySelector('.message-text');
+
+            // Set style
+            box.className = 'message-box ' + style;
+
+            // Set icon based on style
+            const icons = {
+                info: 'i',
+                success: '✓',
+                warning: '!',
+                error: '✗'
+            };
+            icon.textContent = icons[style] || 'i';
+
+            // Set text
+            textEl.textContent = text;
+
+            // Show overlay
+            overlay.style.display = 'block';
+
+            // Auto-hide after duration (unless duration is 0)
+            if (duration > 0) {
+                setTimeout(() => {
+                    hideMessage();
+                }, duration);
+            }
+        }
+
+        // Hide message overlay
+        function hideMessage() {
+            const overlay = document.getElementById('message-overlay');
+            overlay.style.display = 'none';
+        }
+
+        // Focus on a specific node
+        function focusOnNode(nodeId, zoom = 1.0, highlight = true) {
+            if (!network || !model) return;
+
+            // Check if node exists
+            const node = model.nodes.find(n => n.id === nodeId);
+            if (!node) {
+                console.warn('[UICommand] Node not found:', nodeId);
+                showOverlayMessage(`Node not found: ${nodeId}`, 3000, 'warning');
+                return;
+            }
+
+            // Get node position
+            const positions = network.getPositions([nodeId]);
+            const pos = positions[nodeId];
+
+            if (pos) {
+                // Focus on the node
+                network.focus(nodeId, {
+                    scale: zoom,
+                    animation: {
+                        duration: 500,
+                        easingFunction: 'easeInOutQuad'
+                    }
+                });
+
+                // Highlight/select the node
+                if (highlight) {
+                    network.selectNodes([nodeId]);
+                    selectNode(nodeId);
+
+                    // Add pulse animation
+                    const nodeElement = document.querySelector(`[data-node-id="${nodeId}"]`);
+                    if (nodeElement) {
+                        nodeElement.classList.add('node-highlight');
+                        setTimeout(() => nodeElement.classList.remove('node-highlight'), 2000);
+                    }
+                }
+            } else {
+                console.warn('[UICommand] Node position not found:', nodeId);
+            }
+        }
+
+        // Show status panel with hierarchical tree
+        function showStatusPanel(rootId = 'reality-seed', maxDepth = 3) {
+            const panel = document.getElementById('status-panel');
+            const tree = document.getElementById('status-tree');
+            const title = panel.querySelector('.status-panel-title');
+
+            // Find root node
+            const rootNode = model.nodes.find(n => n.id === rootId);
+            if (!rootNode) {
+                tree.innerHTML = `<div style="color: #f85149;">Node not found: ${rootId}</div>`;
+                panel.classList.add('visible');
+                return;
+            }
+
+            // Update title
+            title.textContent = `Status: ${rootNode.label || rootId}`;
+
+            // Build the tree HTML
+            tree.innerHTML = buildStatusTreeHTML(rootId, maxDepth, 0);
+
+            // Show panel
+            panel.classList.add('visible');
+
+            // Also focus on the root node in the graph
+            focusOnNode(rootId, 0.8, false);
+        }
+
+        // Hide status panel
+        function hideStatusPanel() {
+            const panel = document.getElementById('status-panel');
+            panel.classList.remove('visible');
+        }
+
+        // Build hierarchical status tree HTML
+        function buildStatusTreeHTML(nodeId, maxDepth, currentDepth) {
+            if (currentDepth >= maxDepth) return '';
+
+            const node = model.nodes.find(n => n.id === nodeId);
+            if (!node) return '';
+
+            // Determine status bucket
+            const bucket = getNodeBucket(node);
+            const icon = {
+                good: '✓',
+                warning: '!',
+                bad: '✗',
+                neutral: '•'
+            }[bucket] || '•';
+
+            // Build node line
+            let html = `
+                <div class="tree-node">
+                    <div class="tree-node-content" onclick="onStatusTreeNodeClick('${nodeId}')">
+                        <span class="status-icon ${bucket}">${icon}</span>
+                        <span class="tree-label">${node.label || nodeId}</span>
+                        <span class="tree-type">${node.type || 'Unknown'}</span>
+                        ${node.status ? `<span class="tree-status">${node.status}</span>` : ''}
+                    </div>
+            `;
+
+            // Find children via CONTAINS edges and parent field
+            const children = getChildNodes(nodeId);
+
+            if (children.length > 0 && currentDepth < maxDepth - 1) {
+                html += '<div class="tree-children">';
+
+                // Group by edge type (though CONTAINS is most common)
+                html += '<div class="tree-edge-label">contains</div>';
+
+                for (const child of children) {
+                    html += buildStatusTreeHTML(child.id, maxDepth, currentDepth + 1);
+                }
+
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        // Get node status bucket (good/warning/bad/neutral)
+        function getNodeBucket(node) {
+            const status = (node.status || '').toLowerCase();
+
+            if (['pass', 'ok', 'green', 'active'].includes(status)) return 'good';
+            if (['fail', 'error', 'red'].includes(status)) return 'bad';
+            if (['warn', 'warning', 'yellow'].includes(status)) return 'warning';
+
+            // Check evidence if present
+            const evidence = node.evidence;
+            if (evidence && evidence.save_exec) {
+                const lastRun = evidence.save_exec.last_run;
+                if (lastRun) {
+                    if (lastRun.ok === true) return 'good';
+                    if (lastRun.ok === false) return 'bad';
+                }
+            }
+
+            return 'neutral';
+        }
+
+        // Get child nodes (via CONTAINS edges or parent field)
+        function getChildNodes(parentId) {
+            const children = [];
+            const childIds = new Set();
+
+            // Check edges
+            if (model.edges) {
+                for (const edge of model.edges) {
+                    if (edge.type === 'CONTAINS' && edge.from === parentId) {
+                        if (!childIds.has(edge.to)) {
+                            childIds.add(edge.to);
+                            const childNode = model.nodes.find(n => n.id === edge.to);
+                            if (childNode) {
+                                children.push(childNode);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Check parent field
+            for (const node of model.nodes) {
+                if (node.parent === parentId && !childIds.has(node.id)) {
+                    childIds.add(node.id);
+                    children.push(node);
+                }
+            }
+
+            // Sort by label
+            children.sort((a, b) => (a.label || a.id).localeCompare(b.label || b.id));
+
+            return children;
+        }
+
+        // Handle click on status tree node
+        function onStatusTreeNodeClick(nodeId) {
+            focusOnNode(nodeId, 1.0, true);
+
+            // Mark as selected in tree
+            document.querySelectorAll('.tree-node-content').forEach(el => {
+                el.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+
         // Initialize
         async function init() {
             const data = initNetwork();
@@ -649,13 +1178,37 @@
             if (model) {
                 lastModelHash = hashModel(model);
                 updateGraph(data);
+                processUICommands();  // Check for commands on initial load
             }
 
             // Start polling for model changes
-            poll(data);
+            pollWithCommands(data);
 
             // Start polling for code changes (auto-reload)
             checkCodeReload();
+        }
+
+        // Enhanced poll that also processes commands
+        async function pollWithCommands(data) {
+            const newModel = await loadModel(CONFIG.modelPath);
+
+            if (newModel) {
+                const newHash = hashModel(newModel);
+                if (newHash !== lastModelHash) {
+                    model = newModel;
+                    lastModelHash = newHash;
+                    updateGraph(data);
+                    document.getElementById('status-text').textContent = 'Model updated';
+                    setTimeout(() => {
+                        document.getElementById('status-text').textContent = 'Watching model...';
+                    }, 2000);
+                }
+
+                // Always check for commands (even if model didn't change, in case we need to re-process)
+                processUICommands();
+            }
+
+            setTimeout(() => pollWithCommands(data), CONFIG.pollInterval);
         }
 
         init();

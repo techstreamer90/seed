@@ -2,7 +2,7 @@
   "schema_version": "3.0",
   "project": "seed",
   "description": "Root meta-model: zones, schema, realities, aspirations, concepts. Implementation details in submodels.",
-  "updated_at": "2026-02-02T12:01:50Z",
+  "updated_at": "2026-02-02T12:09:44Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -1046,13 +1046,13 @@
         "y": -600
       },
       "command": {
-        "type": "message",
+        "type": "focus",
         "params": {
-          "text": "UI Controller ready!",
-          "duration": 5000,
-          "style": "success"
+          "nodeId": "reality-seed",
+          "zoom": 0.8,
+          "highlight": true
         },
-        "timestamp": "2026-02-02T12:01:50.075518",
+        "timestamp": "2026-02-02T12:09:44.535427",
         "processed": false
       }
     }

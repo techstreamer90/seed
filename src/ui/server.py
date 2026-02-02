@@ -24,8 +24,8 @@ class SeedHandler(http.server.SimpleHTTPRequestHandler):
     """Custom handler with CORS support for model loading."""
 
     def __init__(self, *args, **kwargs):
-        # Set the directory to serve from
-        self.seed_root = Path(__file__).parent.parent
+        # Set the directory to serve from (C:/seed, not src/)
+        self.seed_root = Path(__file__).parent.parent.parent
         super().__init__(*args, directory=str(self.seed_root), **kwargs)
 
     def end_headers(self):
@@ -50,7 +50,7 @@ class SeedHandler(http.server.SimpleHTTPRequestHandler):
             body = self.rfile.read(content_length)
 
             # Save to file
-            layout_path = self.seed_root / 'ui' / 'layout.json'
+            layout_path = self.seed_root / 'src' / 'ui' / 'layout.json'
             with open(layout_path, 'wb') as f:
                 f.write(body)
 
@@ -62,6 +62,20 @@ class SeedHandler(http.server.SimpleHTTPRequestHandler):
         else:
             self.send_response(404)
             self.end_headers()
+
+    def do_GET(self):
+        # Redirect /ui/ to /src/ui/ for convenience
+        if self.path == '/ui/' or self.path == '/ui':
+            self.send_response(302)
+            self.send_header('Location', '/src/ui/')
+            self.end_headers()
+            return
+        if self.path == '/ui/index.html':
+            self.send_response(302)
+            self.send_header('Location', '/src/ui/index.html')
+            self.end_headers()
+            return
+        return super().do_GET()
 
     def log_message(self, format, *args):
         # Custom logging - only log non-polling requests
