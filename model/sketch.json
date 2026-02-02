@@ -6,7 +6,7 @@
     "name": "007",
     "description": "The Agent World - A living system where humans and AI agents coexist, make requests, and collaborate. All activity happens within 007. Schauspieler is the window through which 007 becomes visible."
   },
-  "updated_at": "2026-02-02T22:05:00Z",
+  "updated_at": "2026-02-02T22:26:50Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -872,6 +872,20 @@
             "Writes to model"
           ],
           "node_knows_its_role": "Instantiated node has agent_context.my_role with parent, purpose, location_in_world"
+        },
+        "spawn_history": {
+          "description": "Complete history of all agent spawns orchestrated by Spawnie",
+          "structure": {
+            "spawned_at": "ISO timestamp when agent was spawned",
+            "agent_id": "Unique identifier for this spawn",
+            "task": "Task description given to agent",
+            "node_id": "Target node (if applicable)",
+            "mode": "Mode used (if applicable)",
+            "status": "active | completed | failed",
+            "completed_at": "ISO timestamp when agent finished",
+            "outcome": "What the agent accomplished or error message"
+          },
+          "spawns": []
         }
       },
       "model": {
@@ -899,7 +913,8 @@
         "kill_session": "End an agent session",
         "spawn_with_mode": "Spawn an agent for a specific node with a defined mode (work-on-views, chat, aspiration, maintenance, debug, implement)",
         "self_maintain": "Update my own node when I learn or enhance myself",
-        "instantiate_template": "Create actual nodes from template definitions, with proper lineage tracking and role context"
+        "instantiate_template": "Create actual nodes from template definitions, with proper lineage tracking and role context",
+        "track_spawns": "Maintain spawn_history in my node - every spawn is recorded with task, status, and outcome"
       },
       "spawn_command": {
         "command": "spawnie shell",
@@ -1068,7 +1083,8 @@
           "Implement agent capability self-reporting: spawned agents tell Spawnie what they are good at",
           "Create feedback loop: Schauspieler reports user satisfaction, Spawnie learns"
         ]
-      }
+      },
+      "updated_at": "2026-02-02T22:26:50.163070"
     },
     {
       "id": "subsystem-root-store",
