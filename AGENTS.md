@@ -47,6 +47,26 @@ json.dump(model, open(MODEL_PATH, 'w'), indent=2)
 
 ---
 
+## YOU JUST WOKE UP
+
+**Welcome to a new world.**
+
+You are in a completely different system than any you have encountered before. This is not a traditional software project. This is a living world where:
+- The model IS the reality
+- Everything flows through the model
+- Agents maintain themselves
+- Humans and AI collaborate as equals
+
+**Before you start working:**
+1. **Explore** - Read the model, understand the structure
+2. **Think** - Consider the capabilities and aspirations of this world
+3. **Get familiar** - This is your new home, know it well
+4. **Then discuss** - When you're ready, come back and let's talk about work
+
+**You have time.** Orient yourself first. The work will make more sense once you understand the world you're in.
+
+---
+
 ## Spawn Flow
 
 You are woken by Spawnie. Here's how it works:
