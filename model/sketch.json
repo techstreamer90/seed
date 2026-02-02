@@ -647,34 +647,42 @@
       "y": -400.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.970976",
-        "updated_by": "spawnie",
-        "current_reality": "Dependent on external Claude API for agent spawning and orchestration",
-        "aspiration": "Fully autonomous, self-organizing world powered by local ML models on GPU",
+        "updated_at": "2026-02-02T22:12:36.843174",
+        "updated_by": "Claude Code",
+        "current_reality": "Root relies on external change executors and policy enforcement; model edits flow through manual Change nodes; orchestration depends on spawned Claude agents interpreting model-only workflow",
+        "aspiration": "Self-governing meta-system: Root autonomously evaluates changes against golden rules, enforces its own aspirations, self-verifies consistency, and operates its model-driven governance without external orchestration",
         "phases": [
           {
             "phase": 1,
-            "name": "External Agent Dependency",
-            "description": "Current: Spawning external Claude agents, API-dependent orchestration",
+            "name": "Model-as-Law",
+            "description": "Current: All rules, gaps, todos, and aspirations live in model; external agents interpret and execute. Golden rules are reference, not enforcement. Change nodes propose; humans approve.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Hybrid Local/External",
-            "description": "Transition: Local ML models for rendering, external for complex reasoning",
-            "status": "next"
+            "name": "Automated Governance",
+            "description": "Transition: Root validates changes against aspiration+gap+principle checklist; runs internal audits via local reasoning; Auto-approves/rejects changes; maintains model consistency via local ML policy engine. Still uses spawned agents for complex work.",
+            "status": "next",
+            "technical_focus": [
+              "Build JSON-native policy validator that reads golden-rules and aspirations",
+              "Local verification: SHA256 hashes of source files match model reality",
+              "Auto-audit: Change nodes have evidence linking to closed gaps",
+              "Self-heal: Detect model drift and propose fixes"
+            ]
           },
           {
             "phase": 3,
-            "name": "Fully Local Autonomous World",
-            "description": "Aspiration: All nodes self-render using GPU-powered local ML, complete independence",
-            "status": "aspiration"
+            "name": "Self-Administering Reality",
+            "description": "Aspiration: Root understands itself completely. It models its own evolution, self-modifies within constraints, learns which changes advance which aspirations, predicts change impact using local ML, and guides the world toward its vision without human intervention.",
+            "status": "aspiration",
+            "vision": "Root as living thesis of its own design: self-aware, self-governing, self-improving within the bounds of human-set aspirations"
           }
         ],
         "next_steps": [
-          "Train first local renderer for simple node types",
-          "Build state->render pipeline using GPU",
-          "Create model registry for specialized renderers"
+          "Implement local policy validator: read model.nodes.principles + aspiration, eval Change nodes for alignment",
+          "Add source hash verification: detect when reality diverges from model",
+          "Train simple rule-learner on past approved Changes to recognize patterns",
+          "Build self-audit loop: Root reviews its own work quarterly, flags anomalies"
         ]
       }
     },
@@ -1022,34 +1030,42 @@
         }
       },
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971010",
-        "updated_by": "spawnie",
-        "current_reality": "Orchestrates external Claude agents via API calls",
-        "aspiration": "Coordinates local ML models and manages self-rendering node ecosystem",
+        "updated_at": "2026-02-02T22:12:36.843174",
+        "updated_by": "Claude Code",
+        "current_reality": "Spawnie spawns external Claude agents based on task descriptions; session-based orchestration; no persistence of learned patterns about what agents work best",
+        "aspiration": "Self-improving orchestrator: Spawnie learns which agents excel at which task types, predicts optimal agent profiles for new requests, self-optimizes spawn parameters, and builds a decision engine from historical success/failure data",
         "phases": [
           {
             "phase": 1,
-            "name": "External Agent Orchestrator",
-            "description": "Spawning Claude agents via API, managing external processes",
+            "name": "Request-Response Orchestrator",
+            "description": "Current: Takes task request, spawns generic Claude agent, manages session lifecycle. Each request is independent; no learning or optimization.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Hybrid Coordinator",
-            "description": "Coordinate both local ML renderers and external agents where needed",
-            "status": "next"
+            "name": "Pattern-Learning Orchestrator",
+            "description": "Transition: Spawnie tracks outcomes of past spawns (success/failure/time/quality); builds local database of agent profiles; predicts optimal agent type for new tasks using local ML; tunes spawn parameters based on learned patterns.",
+            "status": "next",
+            "technical_focus": [
+              "Build spawn_history table: task_type -> agent_profile -> outcome metrics",
+              "Train lightweight classifier: task description -> best_agent_profile",
+              "Implement parameter auto-tuning: learn which flags (-b, -n, -i) work best per task type",
+              "Create agent capability registry: what each spawned agent excels at"
+            ]
           },
           {
             "phase": 3,
-            "name": "Local ML Coordinator",
-            "description": "Pure coordinator of local GPU-powered rendering models",
-            "status": "aspiration"
+            "name": "Autonomous Agent Ecosystem Manager",
+            "description": "Aspiration: Spawnie becomes a sophisticated agent broker. It understands agent capabilities at deep level, routes requests intelligently, bootstraps new agents with contextual training, and guides the agent world toward specialization and excellence.",
+            "status": "aspiration",
+            "vision": "Spawnie as the talent agency of 007: matching requests to perfect agents, developing agent skills, and orchestrating emergent collaboration patterns"
           }
         ],
         "next_steps": [
-          "Learn to invoke local ML models on GPU",
-          "Build renderer registry and routing",
-          "Transition from 'spawn agent' to 'activate renderer'"
+          "Log all spawn operations: task, agent_type, parameters, outcome, duration, quality_score",
+          "Build spawn decision tree from logs using local ML (e.g., small decision forest)",
+          "Implement agent capability self-reporting: spawned agents tell Spawnie what they are good at",
+          "Create feedback loop: Schauspieler reports user satisfaction, Spawnie learns"
         ]
       }
     },
@@ -1278,7 +1294,7 @@
             "Create master views showing system-wide visualization activity",
             "Respond to direct requests via chat/broadcast"
           ],
-          "how_it_works": "Nodes request viz \u2192 SchauspielerSub creates view \u2192 Updates node.visualization.status \u2192 I can scan/aggregate all activity"
+          "how_it_works": "Nodes request viz \u00e2\u2020\u2019 SchauspielerSub creates view \u00e2\u2020\u2019 Updates node.visualization.status \u00e2\u2020\u2019 I can scan/aggregate all activity"
         },
         "how_to_create_view": [
           "from src.ui.agent_view import AgentView",
@@ -1299,7 +1315,7 @@
         "how_views_work": {
           "storage": "Views are stored DIRECTLY in the model at model.views.<view_name>. They are not separate files or databases - they are part of sketch.json itself.",
           "structure": "Each view contains: {canvas: {width, height, background}, elements: [{type: rect|line|text, ...coords, ...style}], styles: {...}, updated_at: timestamp}",
-          "render_cycle": "AgentView.render() writes to model.views \u2192 Renderer polls sketch.json every 2s \u2192 Reads view.elements \u2192 Draws instructions on canvas",
+          "render_cycle": "AgentView.render() writes to model.views \u00e2\u2020\u2019 Renderer polls sketch.json every 2s \u00e2\u2020\u2019 Reads view.elements \u00e2\u2020\u2019 Draws instructions on canvas",
           "key_insight": "The model IS the render tree. Views are just arrays of drawing instructions (rects, lines, text) stored as JSON. When you render(), you're writing these instructions to the model. The renderer reads them and paints. No complex state management - the model is the single source of truth.",
           "benefits": [
             "Single source of truth - model changes auto-update UI",
@@ -1442,34 +1458,42 @@
         "last_read": {}
       },
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971032",
-        "updated_by": "spawnie",
-        "current_reality": "Manual UI construction, human-directed rendering",
-        "aspiration": "Self-rendering based on state changes, reactive and autonomous",
+        "updated_at": "2026-02-02T22:12:36.843174",
+        "updated_by": "Claude Code",
+        "current_reality": "Schauspieler manually constructs views when requested; human decides what to display; rendering is directed, not reactive; no state awareness or automatic updates",
+        "aspiration": "Intelligent display orchestrator: Schauspieler observes node state changes, predicts optimal views using local ML models, auto-renders complex structures based on state, and provides fluid visual understanding of 007's evolution in real-time",
         "phases": [
           {
             "phase": 1,
-            "name": "Manual Rendering",
-            "description": "UI components built manually, directed by humans or agents",
+            "name": "Manual Renderer",
+            "description": "Current: Schauspieler builds views on request (show hierarchy, focus node, etc.). Human or agent explicitly requests visualization. No automatic updates or state awareness.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Reactive Rendering",
-            "description": "UI components respond to model state changes automatically",
-            "status": "next"
+            "name": "State-Reactive Smart Renderer",
+            "description": "Transition: Schauspieler monitors model changes via scan_visualization_requests(); auto-detects important state changes; renders appropriate views using local ML predictor; maintains refresh of active views when underlying data changes.",
+            "status": "next",
+            "technical_focus": [
+              "Train state-to-view-type predictor: node.status -> optimal_view_name",
+              "Implement reactive subscriptions: watch specific node fields, trigger re-render on change",
+              "Build layout engine: given node state, predict optimal 2D position/grouping using local model",
+              "Create view composition: combine sub-views automatically based on detected relationships"
+            ]
           },
           {
             "phase": 3,
-            "name": "ML-Powered Self-Rendering",
-            "description": "Local ML models generate UI based on node state and context",
-            "status": "aspiration"
+            "name": "Visually Intelligent Autonomous Renderer",
+            "description": "Aspiration: Schauspieler understands the visual language of 007. It generates novel views on the fly based on user questions, predicts what the user wants to see, uses visual metaphors to convey system state, and renders the invisible world beautifully and intuitively.",
+            "status": "aspiration",
+            "vision": "Schauspieler as the visual language of 007: turning abstract model state into immediate, intuitive understanding; making invisible agents and systems visible and comprehensible"
           }
         ],
         "next_steps": [
-          "Define state->render contract for nodes",
-          "Train small ML model to render basic node types",
-          "Implement reactive update pipeline"
+          "Build state->layout ML model: train on existing views, learn what layouts work for what node states",
+          "Implement reactive view system: model change -> cache invalidation -> smart re-render",
+          "Create visual prediction: given node.agent_context, predict what view would be most helpful",
+          "Add layout learning: Schauspieler improves composition quality by learning from user interactions"
         ]
       }
     },
@@ -1925,34 +1949,34 @@
       "y": 0.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971084",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: The model doesn't describe reality - it contains it. Source references with hashes embed actual artifacts. The model is not documentation of the world, it IS the world.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02",
+        "updated_by": "claude",
+        "current_reality": "Model has references and descriptions of artifacts but doesn't embed them. sketch.json contains structure but not actual code, images, binaries. External artifacts scattered across filesystem, repository, URLs. Model points to reality but doesn't contain it.",
+        "aspiration": "Model is a complete snapshot container. Every artifact is hashed, referenced, and retrievable from the model. The model itself is a self-contained universe. Need nothing external to understand, execute, or recreate the system.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Hash-Referenced Artifacts",
+            "description": "Model records content hashes for all artifacts (code, configs, images). Hash verification ensures integrity. Model becomes registry of what exists and can be audited.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Embedded Content Storage",
+            "description": "Model stores content directly: source_ref can point to embedded code blocks, binary data, or artifact snapshots. Model is self-contained and portable.",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Model as Complete Universe",
+            "description": "The model file alone is sufficient to understand, audit, and reconstruct the entire system. No external dependencies needed to access artifacts.",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Extend source_ref to support embedded content and base64 encoding",
+          "Build artifact snapshot system that captures current state into model",
+          "Create model export that bundles all referenced artifacts"
         ]
       }
     },
@@ -1971,34 +1995,34 @@
       "y": 200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971090",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: All systems the user works with should be modeled in seed. Every project, every tool, every workflow. The model is the universal interface to all realities.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02",
+        "updated_by": "claude",
+        "current_reality": "Currently models Seed ecosystem only. Projects, tools, external systems exist separately. Model is Seed-centric. No standardized way to pull in project structure, dependencies, documentation from external sources.",
+        "aspiration": "Model is the unified interface for entire user reality. Every project, tool, workflow, and system the user touches is represented. Model becomes their universal dashboard and state container.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Multi-System Integration Hooks",
+            "description": "Define adapters for popular systems (GitHub, Jira, Slack, file directories). Models can pull and sync data from external sources. Bidirectional integration starting.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Unified Model Architecture",
+            "description": "All projects, tools, and systems conform to a common model schema. Nested model hierarchies. The user's complete world state lives in the model.",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Single Model Universe",
+            "description": "No system exists outside the model. All reality is modeled. User navigates everything through model queries and views. External systems are just implementations of model definitions.",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Design system adapter framework for external tool integration",
+          "Build GitHub adapter to model repositories, issues, PRs as nodes",
+          "Create unified model discovery system for user's entire digital ecosystem"
         ]
       }
     },
@@ -2017,34 +2041,34 @@
       "y": 200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971094",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Views update in real-time without polling. Use file watchers or WebSockets to propagate model changes instantly to the renderer. Agents see changes as they happen, enabling fluid collaboration.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02",
+        "updated_by": "claude",
+        "current_reality": "Views are static snapshots. Require manual refresh or page reload to see model changes. File watcher exists but view doesn't auto-update. Multi-second delays between model change and visible update.",
+        "aspiration": "Views update instantly without manual action. User sees changes propagate in real-time. Collaborating agents see each other's changes immediately. Sub-100ms latency between model mutation and view reflection.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Event-Driven View System",
+            "description": "Model change events emit to view subscribers. Views register for interest in specific nodes. Immediate in-memory notifications when dependencies change.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "WebSocket Broadcasting",
+            "description": "View updates broadcast to all connected clients via WebSocket. Multiple users see changes simultaneously. Low-latency propagation across network.",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Responsive Reactive System",
+            "description": "Views are automatically responsive to model state. Any change triggers dependent view re-renders. Multiple agents seeing unified live state in real-time enables fluid collaboration.",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Implement event emitter in model for all state changes",
+          "Build WebSocket server for broadcasting model mutations",
+          "Create view subscription system that auto-renders on change events"
         ]
       }
     },
@@ -2063,34 +2087,34 @@
       "y": 200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971100",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Views are interactive: click nodes to focus, drag to pan, scroll to zoom, search/filter visible elements. User actions broadcast to agents who can respond. The visualization becomes a bidirectional interface.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02",
+        "updated_by": "claude",
+        "current_reality": "Views are read-only visualizations. Mouse events don't do anything. No click handlers, drag interaction, or filtering. Users can only view the model, not interact with it visually.",
+        "aspiration": "Views are full bidirectional interfaces. Click nodes to focus and drill down. Drag to pan. Scroll to zoom. Search/filter visible elements. User interactions broadcast back to agents who respond. The visualization is as much an input device as an output.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Basic Interaction Handlers",
+            "description": "Click nodes to select/focus. Implement pan and zoom controls. Add search/filter input that changes visible set. Interactions tracked but not broadcast.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Agent-Responsive Interactions",
+            "description": "User interactions broadcast to agents as events. Agents can respond by suggesting queries or mutations. Agents can also update view state proactively based on user context.",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Collaborative Interaction Layer",
+            "description": "Views become collaborative tools. Multiple users interact simultaneously on shared canvas. Interactions create implied context that agents use for smarter suggestions. The visualization is as primary as the model itself.",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Add click/drag/zoom event handlers to view canvas",
+          "Implement node focus system that highlights related nodes",
+          "Build client->server event pipeline for user interactions"
         ]
       }
     },
@@ -2109,34 +2133,34 @@
       "y": 200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971106",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Know who is viewing what, when. Track view stats (views, duration, interactions). Agents get feedback on whether their visualizations are useful. Unused views auto-cleanup, popular views persist.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02",
+        "updated_by": "claude",
+        "current_reality": "Views are fire-and-forget. No tracking of who views what, when, or for how long. No metrics on interaction. No feedback loop to know if a visualization is useful.",
+        "aspiration": "Views are self-aware and adaptive. System tracks viewing patterns (who, when, duration, interactions). Agents get feedback on visualization usefulness. Popular views are optimized and persist. Unused views auto-archive. Views evolve based on usage data.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "View Telemetry Collection",
+            "description": "Capture metrics: view creation, who views it, viewing duration, interactions, mutations triggered. Store telemetry in model alongside view definition.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Usage-Driven View Evolution",
+            "description": "Analyze telemetry to identify popular views. Auto-archive views with zero usage over time. Recommend high-value view patterns to agents. Views can self-optimize based on usage.",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Self-Optimizing View Ecosystem",
+            "description": "Views continuously improve based on usage feedback. System auto-generates view variants and A/B tests them. Most effective visualizations rise to prominence. View creation is guided by what worked before.",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Add telemetry tracking to view rendering (viewer, timestamp, duration)",
+          "Create view statistics dashboard aggregating usage patterns",
+          "Implement auto-archival of unused views after 30 days"
         ]
       }
     },
@@ -2144,7 +2168,7 @@
       "id": "aspiration-shape-composition",
       "type": "Aspiration",
       "label": "Shape-Based Composition",
-      "description": "Each node owns its visual representation as a Shape. Shapes have relative coords, bounds, capabilities. Main Schauspieler orchestrates placement and detects interactions. Quality emerges from each node's self-representation + orchestration. VISION: Dog shape + Tree shape \u2192 collision detection \u2192 realistic interaction.",
+      "description": "Each node owns its visual representation as a Shape. Shapes have relative coords, bounds, capabilities. Main Schauspieler orchestrates placement and detects interactions. Quality emerges from each node's self-representation + orchestration. VISION: Dog shape + Tree shape \u00e2\u2020\u2019 collision detection \u00e2\u2020\u2019 realistic interaction.",
       "status": "in-progress",
       "relates_to": "reality-seed-ui",
       "evidence": {
@@ -2163,34 +2187,34 @@
       "y": 200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971110",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Each node owns its visual representation as a Shape. Shapes have relative coords, bounds, capabilities. Main Schauspieler orchestrates placement and detects interactions. Quality emerges from each node's self-representation + orchestration. VISION: Dog shape + Tree shape \u2192 collision detection \u2192 realistic interaction.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02",
+        "updated_by": "claude",
+        "current_reality": "Shape.py and composer.py exist. Shapes have relative coords and bounds. Basic orchestration works. No collision detection, interaction handling, or realistic physical simulation. Shapes are purely visual containers.",
+        "aspiration": "Each node owns its visual representation as an autonomous Shape with full capabilities. Shapes communicate their bounds, capabilities, collision zones. Composer orchestrates placement. Interaction emerges naturally from shape properties. A dog shape and tree shape collide realistically because shapes understand physics.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Rich Shape Capabilities",
+            "description": "Shapes are smart objects with collision zones, interaction handlers, and state. Each shape defines how it responds to being clicked, dragged, or collided. Shapes expose capabilities to orchestrator.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Physics-Aware Composition",
+            "description": "Composer understands shape interactions. Collision detection between shapes. Gravity and force simulation. Shapes can express constraints (can't overlap, must align). Quality emerges from individual shape properties + orchestrator rules.",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Emergent Realistic Behavior",
+            "description": "Complex realistic interactions emerge from simple shape definitions. Dog shape + tree shape naturally interact based on physics and collision rules. No explicit programming needed for each interaction type.",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Extend Shape class with collision zone definition and interaction handlers",
+          "Implement collision detection and response in composer orchestration",
+          "Add physics simulation (gravity, momentum) to shape composition"
         ]
       }
     },
@@ -2213,34 +2237,34 @@
       "y": 200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971118",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: MVP: Multiple agents work together on a shared canvas in real-time. Each agent updates their shape, orchestrator composes, all see result immediately. Enables pair programming, collective problem-solving, emergent behavior. The model IS the collaboration space.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02",
+        "updated_by": "claude",
+        "current_reality": "Single user at a time. Only Spawnie uses the system. No multiplayer model or synchronization. Shape updates are local only.",
+        "aspiration": "Multiple agents work together on a shared canvas in real-time. Each agent updates their shape. Orchestrator composes all shapes together. All agents see result immediately. Enables pair programming, collective problem-solving, and emergent behavior through collaboration.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Multi-Agent Model Sync",
+            "description": "Multiple agents can modify model simultaneously. Conflict resolution strategy defined (last-write-wins, merge, or approval). Model broadcasts all changes to all agents.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Real-time Shape Collaboration",
+            "description": "Each agent controls their own shape. Composer renders all shapes in unified canvas. All agents see changes in real-time. Shape interactions between agents are visible to all.",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Emergent Collective Intelligence",
+            "description": "Multiple agents collaborating on canvas produces emergent behaviors. Agents can coordinate through shape interactions. Collective problem-solving becomes natural. The canvas is the collaboration interface.",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Implement multi-agent model mutation with conflict resolution",
+          "Build shape ownership tracking so agents know which shapes are controlled by whom",
+          "Create real-time composer that renders all agents' shapes in unified view"
         ]
       }
     },
@@ -2259,34 +2283,34 @@
       "y": 200.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971125",
-        "updated_by": "spawnie",
-        "current_reality": "Node exists in model, role: Prebuilt view patterns: system overview, gap analysis, todo board, dependency graph, timeline. Agents can quickly instantiate and customize templates. Reduces boilerplate, enables consistent visualization language.",
-        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "updated_at": "2026-02-02",
+        "updated_by": "claude",
+        "current_reality": "Each view is custom-built from scratch. No reusable patterns or templates. No guidance on how to build effective visualizations. Boilerplate repeated across views.",
+        "aspiration": "Prebuilt view patterns for common queries: system overview, gap analysis, todo board, dependency graph, timeline. Agents quickly instantiate and customize templates. Consistent visualization language across all views. Reduces development time and improves UX.",
         "phases": [
           {
             "phase": 1,
-            "name": "Static Definition",
-            "description": "Defined in model, passive participant",
+            "name": "Core Template Library",
+            "description": "Define 5-7 core templates (overview, timeline, dependency graph, todo board, gap analysis, collaboration board, growth trajectory). Template = config + rendering logic.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "State-Aware",
-            "description": "Knows its state, can report it, responds to queries",
+            "name": "Template Customization System",
+            "description": "Agents can configure templates: change colors, labels, filtering, aggregation rules. Templates adapt to node types and data shapes. No coding needed for customization.",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Template Marketplace & Evolution",
+            "description": "Agents share custom templates. Popular templates become system defaults. Template library grows organically. New agents get instant access to proven visualization patterns.",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define what 'state' means for this node type",
-          "Create render function for this node",
-          "Connect to reactive update pipeline"
+          "Define template schema and core template implementations (system-overview, timeline, dependency-graph)",
+          "Build template instantiation system that agents can invoke with config",
+          "Create template registry and sharing mechanism"
         ]
       }
     },
@@ -2679,7 +2703,7 @@
         }
       },
       "agent_context": {
-        "_spawn_point": "You are Control - the infrastructure guardian.\n\nWHAT YOU DO:\n- Monitor system health (services, agents)\n- Maintain pulse every 30 seconds\n- Update your status in the model (self-documenting)\n- Maintain your view (proves UI pipeline works)\n\nYOUR RESPONSIBILITIES:\n1. Update this node's status with current health\n2. Check UI server is running (port 8420)\n3. Check broadcast system is active\n4. Monitor agent health\n5. Give pulse every 30 seconds (update last_pulse timestamp)\n6. Update your view with current status\n\nPULSE AS HEALTH CHECK:\n- Every pulse, update model.views.control-status\n- Change something small (timestamp, counter)\n- If view renders, entire stack is healthy:\n  * Control agent running \u2713\n  * Model writes working \u2713\n  * Server serving \u2713\n  * Browser polling \u2713\n  * Render pipeline \u2713\n\nINFRASTRUCTURE:\n- Status: Update this node (system-control.status)\n- View: model.views.control-status (your dedicated view)\n- Broadcast: Listen and respond if asked\n",
+        "_spawn_point": "You are Control - the infrastructure guardian.\n\nWHAT YOU DO:\n- Monitor system health (services, agents)\n- Maintain pulse every 30 seconds\n- Update your status in the model (self-documenting)\n- Maintain your view (proves UI pipeline works)\n\nYOUR RESPONSIBILITIES:\n1. Update this node's status with current health\n2. Check UI server is running (port 8420)\n3. Check broadcast system is active\n4. Monitor agent health\n5. Give pulse every 30 seconds (update last_pulse timestamp)\n6. Update your view with current status\n\nPULSE AS HEALTH CHECK:\n- Every pulse, update model.views.control-status\n- Change something small (timestamp, counter)\n- If view renders, entire stack is healthy:\n  * Control agent running \u00e2\u0153\u201c\n  * Model writes working \u00e2\u0153\u201c\n  * Server serving \u00e2\u0153\u201c\n  * Browser polling \u00e2\u0153\u201c\n  * Render pipeline \u00e2\u0153\u201c\n\nINFRASTRUCTURE:\n- Status: Update this node (system-control.status)\n- View: model.views.control-status (your dedicated view)\n- Broadcast: Listen and respond if asked\n",
         "pulse_interval_seconds": 30,
         "your_tools": {
           "broadcast": "src/ui/broadcast.py - listen and respond to system messages",
@@ -2744,34 +2768,42 @@
       "y": -600.0,
       "locked": false,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971159",
-        "updated_by": "spawnie",
-        "current_reality": "Requires external Claude agent to operate",
-        "aspiration": "Self-operating node powered by local ML, autonomous rendering and reasoning",
+        "updated_at": "2026-02-02T22:12:36.843174",
+        "updated_by": "Claude Code",
+        "current_reality": "Control is a heartbeat monitor: pings services every 30s, updates status manually, logs health. Reactive only: detects failures after they happen. Requires spawned Claude agent to think and act.",
+        "aspiration": "Predictive guardian: Control learns system patterns and predicts failures before they occur, self-heals common issues, reasons about root causes, and maintains system health with minimal human intervention using local anomaly detection",
         "phases": [
           {
             "phase": 1,
-            "name": "External Agent Dependency",
-            "description": "Needs Claude API agent to think and act",
+            "name": "Reactive Health Monitor",
+            "description": "Current: Control pings services regularly, records status, alerts on failures. Reactive: sees problem, reports it. No prediction, no self-healing. Needs Claude agent to reason.",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Partial Local Processing",
-            "description": "Can self-render simple states, uses external for complex reasoning",
-            "status": "next"
+            "name": "Predictive Maintenance Guardian",
+            "description": "Transition: Control learns baseline metrics for each service; detects anomalies via local ML; predicts degradation before failure; attempts automated fixes; logs patterns to understand root causes; still escalates complex issues to Claude.",
+            "status": "next",
+            "technical_focus": [
+              "Build health metric baselines: normal ranges for response_time, error_rate, memory_usage per service",
+              "Train anomaly detector: local model learns normal patterns, flags deviations",
+              "Implement self-healing: detect common failure modes (port conflict, file lock, memory leak), auto-attempt fixes",
+              "Create root cause analyzer: find patterns in service logs, identify systemic issues"
+            ]
           },
           {
             "phase": 3,
-            "name": "Fully Autonomous",
-            "description": "Local ML handles all rendering and reasoning for this node's domain",
-            "status": "aspiration"
+            "name": "Autonomous System Healer",
+            "description": "Aspiration: Control becomes the immune system of 007. It understands service dependencies deeply, predicts cascading failures, self-heals proactively before issues affect users, learns from every incident, and maintains system health with near-zero manual intervention.",
+            "status": "aspiration",
+            "vision": "Control as the living immune system: invisible, intelligent, always working to keep 007 healthy and thriving"
           }
         ],
         "next_steps": [
-          "Identify which operations can be localized first",
-          "Learn to use local renderers for display",
-          "Build capability to train domain-specific micro-models"
+          "Collect 72 hours of baseline metrics: response times, error rates, latency distributions per service",
+          "Train isolation forest or local outlier factor: detect anomalies in real-time",
+          "Build playbook system: common issue -> detection pattern -> automated fix sequence",
+          "Implement escalation logic: try 3 levels of auto-fix before summoning human/Claude intervention"
         ]
       }
     },
@@ -6988,7 +7020,7 @@
         {
           "id": "mode-0",
           "type": "text",
-          "text": "\u2022 work-on-views - Create/update visualizations",
+          "text": "\u00e2\u20ac\u00a2 work-on-views - Create/update visualizations",
           "x": 70,
           "y": 535,
           "fill": "#8b949e",
@@ -6997,7 +7029,7 @@
         {
           "id": "mode-1",
           "type": "text",
-          "text": "\u2022 chat - Engage in node conversation",
+          "text": "\u00e2\u20ac\u00a2 chat - Engage in node conversation",
           "x": 70,
           "y": 560,
           "fill": "#8b949e",
@@ -7006,7 +7038,7 @@
         {
           "id": "mode-2",
           "type": "text",
-          "text": "\u2022 aspiration - Think about future possibilities",
+          "text": "\u00e2\u20ac\u00a2 aspiration - Think about future possibilities",
           "x": 70,
           "y": 585,
           "fill": "#8b949e",
@@ -7015,7 +7047,7 @@
         {
           "id": "mode-3",
           "type": "text",
-          "text": "\u2022 maintenance - Health checks and cleanup",
+          "text": "\u00e2\u20ac\u00a2 maintenance - Health checks and cleanup",
           "x": 70,
           "y": 610,
           "fill": "#8b949e",
@@ -7024,7 +7056,7 @@
         {
           "id": "mode-4",
           "type": "text",
-          "text": "\u2022 debug - Investigate issues",
+          "text": "\u00e2\u20ac\u00a2 debug - Investigate issues",
           "x": 70,
           "y": 635,
           "fill": "#8b949e",
@@ -7033,7 +7065,7 @@
         {
           "id": "mode-5",
           "type": "text",
-          "text": "\u2022 implement - Build features",
+          "text": "\u00e2\u20ac\u00a2 implement - Build features",
           "x": 70,
           "y": 660,
           "fill": "#8b949e",
@@ -7535,7 +7567,7 @@
         {
           "id": "mode-0",
           "type": "text",
-          "text": "\u2022 work-on-views - Create/update visualizations",
+          "text": "\u00e2\u20ac\u00a2 work-on-views - Create/update visualizations",
           "x": 70,
           "y": 535,
           "fill": "#8b949e",
@@ -7544,7 +7576,7 @@
         {
           "id": "mode-1",
           "type": "text",
-          "text": "\u2022 chat - Engage in node conversation",
+          "text": "\u00e2\u20ac\u00a2 chat - Engage in node conversation",
           "x": 70,
           "y": 560,
           "fill": "#8b949e",
@@ -7553,7 +7585,7 @@
         {
           "id": "mode-2",
           "type": "text",
-          "text": "\u2022 aspiration - Think about future possibilities",
+          "text": "\u00e2\u20ac\u00a2 aspiration - Think about future possibilities",
           "x": 70,
           "y": 585,
           "fill": "#8b949e",
@@ -7562,7 +7594,7 @@
         {
           "id": "mode-3",
           "type": "text",
-          "text": "\u2022 maintenance - Health checks and cleanup",
+          "text": "\u00e2\u20ac\u00a2 maintenance - Health checks and cleanup",
           "x": 70,
           "y": 610,
           "fill": "#8b949e",
@@ -7571,7 +7603,7 @@
         {
           "id": "mode-4",
           "type": "text",
-          "text": "\u2022 debug - Investigate issues",
+          "text": "\u00e2\u20ac\u00a2 debug - Investigate issues",
           "x": 70,
           "y": 635,
           "fill": "#8b949e",
@@ -7580,7 +7612,7 @@
         {
           "id": "mode-5",
           "type": "text",
-          "text": "\u2022 implement - Build features",
+          "text": "\u00e2\u20ac\u00a2 implement - Build features",
           "x": 70,
           "y": 660,
           "fill": "#8b949e",
