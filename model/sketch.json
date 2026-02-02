@@ -1,8 +1,8 @@
 {
   "schema_version": "3.0",
   "project": "seed",
-  "description": "Root meta-model with zones for clear organization and agent permissions",
-  "updated_at": "2026-02-02T12:00:00Z",
+  "description": "Root meta-model: zones, schema, realities, aspirations, concepts. Implementation details in submodels.",
+  "updated_at": "2026-02-02T12:01:50Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -21,46 +21,94 @@
     "model": {
       "id": "zone-model",
       "description": "The model is THE truth. All structural changes require Change nodes.",
-      "paths": ["model/"],
-      "patterns": ["**/model/sketch.json"],
-      "agent_permissions": ["read", "propose_change"]
+      "paths": [
+        "model/"
+      ],
+      "patterns": [
+        "**/model/sketch.json"
+      ],
+      "agent_permissions": [
+        "read",
+        "propose_change"
+      ]
     },
     "source": {
       "id": "zone-source",
       "description": "Implementation code. Changes should go through Change nodes for traceability.",
-      "paths": ["src/"],
-      "patterns": ["**/*.py", "**/*.html", "**/*.js"],
-      "excludes": ["**/model/", "**/__pycache__/"],
-      "agent_permissions": ["read", "propose_change"]
+      "paths": [
+        "src/"
+      ],
+      "patterns": [
+        "**/*.py",
+        "**/*.html",
+        "**/*.js"
+      ],
+      "excludes": [
+        "**/model/",
+        "**/__pycache__/"
+      ],
+      "agent_permissions": [
+        "read",
+        "propose_change"
+      ]
     },
     "artifacts": {
       "id": "zone-artifacts",
       "description": "Derived/generated files. Never edit directly - rebuild from source.",
-      "paths": ["artifacts/"],
-      "patterns": ["**/*.db", "**/__pycache__/", "**/*.egg-info/"],
-      "agent_permissions": ["read"]
+      "paths": [
+        "artifacts/"
+      ],
+      "patterns": [
+        "**/*.db",
+        "**/__pycache__/",
+        "**/*.egg-info/"
+      ],
+      "agent_permissions": [
+        "read"
+      ]
     },
     "tools": {
       "id": "zone-tools",
       "description": "Executable scripts and tests. Can invoke, should not modify without Change.",
-      "paths": ["tools/"],
+      "paths": [
+        "tools/"
+      ],
       "patterns": [],
-      "agent_permissions": ["read", "invoke", "propose_change"]
+      "agent_permissions": [
+        "read",
+        "invoke",
+        "propose_change"
+      ]
     },
     "state": {
       "id": "zone-state",
       "description": "Runtime and UI state. Agents can read and write directly - this is transient.",
-      "paths": [".state/", "src/ui/layout.json", "src/ui/screenshot.png", "src/ui/window_capture.png"],
+      "paths": [
+        ".state/",
+        "src/ui/layout.json",
+        "src/ui/screenshot.png",
+        "src/ui/window_capture.png"
+      ],
       "patterns": [],
-      "agent_permissions": ["read", "write"]
+      "agent_permissions": [
+        "read",
+        "write"
+      ]
     },
     "docs": {
       "id": "zone-docs",
       "description": "Documentation files. Should migrate into the model over time.",
       "paths": [],
-      "patterns": ["*.md", "*.txt"],
-      "excludes": ["LICENSE"],
-      "agent_permissions": ["read"],
+      "patterns": [
+        "*.md",
+        "*.txt"
+      ],
+      "excludes": [
+        "LICENSE"
+      ],
+      "agent_permissions": [
+        "read"
+      ],
       "notes": "These files represent knowledge that should eventually live in the model itself."
     }
   },
@@ -274,7 +322,12 @@
           "mobility"
         ],
         "agent_permissions_spec": {
-          "allowed_values": ["read", "write", "propose_change", "invoke"],
+          "allowed_values": [
+            "read",
+            "write",
+            "propose_change",
+            "invoke"
+          ],
           "description": "read=can view, write=can modify directly, propose_change=must use Change node, invoke=can execute"
         }
       }
@@ -566,358 +619,12 @@
       },
       "evidence": {
         "integration_queue": {
-          "last_attempt": {
-            "saved_at": "2026-02-01T14:35:07Z",
-            "node_id": "subsystem-root-store",
-            "propagated": true,
-            "ok": true,
-            "git": {
-              "is_repo": true,
-              "branch": "master",
-              "dirty": true,
-              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
-              "upstream": "origin/master",
-              "ahead": 1,
-              "behind": 0
-            },
-            "preflight": {
-              "ok": true,
-              "require_git_clean": true,
-              "require_up_to_date": true,
-              "fetch_remotes": false,
-              "warnings": [
-                "git working tree is dirty"
-              ],
-              "recommendations": [
-                "If reality sources matter for this node, commit/stash changes before verification"
-              ],
-              "surrounding": {
-                "radius": 1,
-                "node_ids": [
-                  "subsystem-root-store",
-                  "reality-root-model-store",
-                  "mod-store-loader",
-                  "mod-store-index",
-                  "mod-store-query",
-                  "mod-store-writer",
-                  "mod-store-enforcement",
-                  "mod-store-audits",
-                  "mod-store-watch",
-                  "mod-store-api",
-                  "mod-store-translate",
-                  "mod-store-integration"
-                ],
-                "edge_count": 23,
-                "edges": [
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-root-model-store",
-                    "to": "subsystem-root-store"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-loader"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-index"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-query"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-writer"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-enforcement"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-audits"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-watch"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-api"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-translate"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-integration"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-root-model-store",
-                    "to": "reality-model-registry"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-model-registry-v0"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-provenance-writeback-v1"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-root-store-sqlite-schema-v0"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-root-model-store-v1"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-index-consistency",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-distributed-backbone",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-distributed-model"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-provenance-writeback"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-verbal-save"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-attachment-closure",
-                    "to": "reality-root-model-store"
-                  }
-                ],
-                "truncated": false
-              }
-            },
-            "rough_checks": {
-              "attachment_closure": {
-                "ok": true
-              },
-              "root_store_index": {
-                "ok": true
-              }
-            },
-            "chain": [
-              "subsystem-root-store",
-              "reality-root-model-store"
-            ]
-          },
+          "self": "reality-root-model-store",
           "last_save": {
             "saved_at": "2026-02-01T14:35:07Z",
-            "node_id": "subsystem-root-store",
-            "propagated": true,
             "ok": true,
-            "git": {
-              "is_repo": true,
-              "branch": "master",
-              "dirty": true,
-              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
-              "upstream": "origin/master",
-              "ahead": 1,
-              "behind": 0
-            },
-            "preflight": {
-              "ok": true,
-              "require_git_clean": true,
-              "require_up_to_date": true,
-              "fetch_remotes": false,
-              "warnings": [
-                "git working tree is dirty"
-              ],
-              "recommendations": [
-                "If reality sources matter for this node, commit/stash changes before verification"
-              ],
-              "surrounding": {
-                "radius": 1,
-                "node_ids": [
-                  "subsystem-root-store",
-                  "reality-root-model-store",
-                  "mod-store-loader",
-                  "mod-store-index",
-                  "mod-store-query",
-                  "mod-store-writer",
-                  "mod-store-enforcement",
-                  "mod-store-audits",
-                  "mod-store-watch",
-                  "mod-store-api",
-                  "mod-store-translate",
-                  "mod-store-integration"
-                ],
-                "edge_count": 23,
-                "edges": [
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-root-model-store",
-                    "to": "subsystem-root-store"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-loader"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-index"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-query"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-writer"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-enforcement"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-audits"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-watch"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-api"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-translate"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-integration"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-root-model-store",
-                    "to": "reality-model-registry"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-model-registry-v0"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-provenance-writeback-v1"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-root-store-sqlite-schema-v0"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-root-model-store-v1"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-index-consistency",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-distributed-backbone",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-distributed-model"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-provenance-writeback"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-verbal-save"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-attachment-closure",
-                    "to": "reality-root-model-store"
-                  }
-                ],
-                "truncated": false
-              }
-            },
-            "rough_checks": {
-              "attachment_closure": {
-                "ok": true
-              },
-              "root_store_index": {
-                "ok": true
-              }
-            },
-            "chain": [
-              "subsystem-root-store",
-              "reality-root-model-store"
-            ]
+            "node_id": "subsystem-root-store"
           },
-          "self": "reality-root-model-store",
-          "received_from": "subsystem-root-store",
           "handoff_to": null
         }
       },
@@ -1000,387 +707,13 @@
       },
       "evidence": {
         "integration_queue": {
-          "last_attempt": {
-            "saved_at": "2026-02-01T14:35:07Z",
-            "node_id": "subsystem-root-store",
-            "propagated": true,
-            "ok": true,
-            "git": {
-              "is_repo": true,
-              "branch": "master",
-              "dirty": true,
-              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
-              "upstream": "origin/master",
-              "ahead": 1,
-              "behind": 0
-            },
-            "preflight": {
-              "ok": true,
-              "require_git_clean": true,
-              "require_up_to_date": true,
-              "fetch_remotes": false,
-              "warnings": [
-                "git working tree is dirty"
-              ],
-              "recommendations": [
-                "If reality sources matter for this node, commit/stash changes before verification"
-              ],
-              "surrounding": {
-                "radius": 1,
-                "node_ids": [
-                  "subsystem-root-store",
-                  "reality-root-model-store",
-                  "mod-store-loader",
-                  "mod-store-index",
-                  "mod-store-query",
-                  "mod-store-writer",
-                  "mod-store-enforcement",
-                  "mod-store-audits",
-                  "mod-store-watch",
-                  "mod-store-api",
-                  "mod-store-translate",
-                  "mod-store-integration"
-                ],
-                "edge_count": 23,
-                "edges": [
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-root-model-store",
-                    "to": "subsystem-root-store"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-loader"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-index"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-query"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-writer"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-enforcement"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-audits"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-watch"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-api"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-translate"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-integration"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-root-model-store",
-                    "to": "reality-model-registry"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-model-registry-v0"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-provenance-writeback-v1"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-root-store-sqlite-schema-v0"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-root-model-store-v1"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-index-consistency",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-distributed-backbone",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-distributed-model"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-provenance-writeback"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-verbal-save"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-attachment-closure",
-                    "to": "reality-root-model-store"
-                  }
-                ],
-                "truncated": false
-              }
-            },
-            "rough_checks": {
-              "attachment_closure": {
-                "ok": true
-              },
-              "root_store_index": {
-                "ok": true
-              }
-            },
-            "chain": [
-              "subsystem-root-store",
-              "reality-root-model-store"
-            ]
-          },
           "self": "subsystem-root-store",
-          "received_from": null,
-          "handoff_to": "reality-root-model-store",
           "last_save": {
             "saved_at": "2026-02-01T14:35:07Z",
-            "node_id": "subsystem-root-store",
-            "propagated": true,
             "ok": true,
-            "git": {
-              "is_repo": true,
-              "branch": "master",
-              "dirty": true,
-              "head": "7f8500fbd18c741b80868ee3e5035e0d587b14aa",
-              "upstream": "origin/master",
-              "ahead": 1,
-              "behind": 0
-            },
-            "preflight": {
-              "ok": true,
-              "require_git_clean": true,
-              "require_up_to_date": true,
-              "fetch_remotes": false,
-              "warnings": [
-                "git working tree is dirty"
-              ],
-              "recommendations": [
-                "If reality sources matter for this node, commit/stash changes before verification"
-              ],
-              "surrounding": {
-                "radius": 1,
-                "node_ids": [
-                  "subsystem-root-store",
-                  "reality-root-model-store",
-                  "mod-store-loader",
-                  "mod-store-index",
-                  "mod-store-query",
-                  "mod-store-writer",
-                  "mod-store-enforcement",
-                  "mod-store-audits",
-                  "mod-store-watch",
-                  "mod-store-api",
-                  "mod-store-translate",
-                  "mod-store-integration"
-                ],
-                "edge_count": 23,
-                "edges": [
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-root-model-store",
-                    "to": "subsystem-root-store"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-loader"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-index"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-query"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-writer"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-enforcement"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-audits"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-watch"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-api"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-translate"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "subsystem-root-store",
-                    "to": "mod-store-integration"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-root-model-store",
-                    "to": "reality-model-registry"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-model-registry-v0"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-provenance-writeback-v1"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-root-store-sqlite-schema-v0"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-root-model-store",
-                    "to": "todo-root-model-store-v1"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-index-consistency",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-distributed-backbone",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-distributed-model"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-provenance-writeback"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-root-model-store",
-                    "to": "concept-verbal-save"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-store-attachment-closure",
-                    "to": "reality-root-model-store"
-                  }
-                ],
-                "truncated": false
-              }
-            },
-            "rough_checks": {
-              "attachment_closure": {
-                "ok": true
-              },
-              "root_store_index": {
-                "ok": true
-              }
-            },
-            "chain": [
-              "subsystem-root-store",
-              "reality-root-model-store"
-            ]
-          }
-        },
-        "save_exec": {
-          "last_run": {
-            "ran_at": "2026-02-01T14:35:08Z",
-            "node_id": "subsystem-root-store",
-            "ok": true,
-            "used_fallback": false,
-            "results": [
-              {
-                "action_index": 0,
-                "ok": true,
-                "returncode": 0,
-                "cwd": "C:/seed",
-                "run": "seed-core save subsystem-root-store --write C:/seed/artifacts/output/root_state.txt",
-                "argv": [
-                  "C:\\seed\\.venv\\Scripts\\python.exe",
-                  "-m",
-                  "seed_core",
-                  "save",
-                  "subsystem-root-store",
-                  "--write",
-                  "C:/seed/artifacts/output/root_state.txt"
-                ],
-                "stdout": "+---------------------------------------------------------+\n| Saved subsystem-root-store                              |\n| Chain: subsystem-root-store -> reality-root-model-store |\n| Preflight: ok                                           |\n| Preflight warnings: 1 (e.g., git working tree is dirty) |\n| Rough checks: attachment_closure, root_store_index      |\n+---------------------------------------------------------+\nWrote C:\\seed\\output\\root_state.txt\n",
-                "stderr": ""
-              }
-            ]
-          }
+            "node_id": "subsystem-root-store"
+          },
+          "handoff_to": "reality-root-model-store"
         }
       },
       "ui": {
@@ -1529,380 +862,12 @@
       "status": "active",
       "evidence": {
         "integration_queue": {
-          "last_attempt": {
-            "saved_at": "2026-02-01T15:05:18Z",
-            "node_id": "reality-seed-ui",
-            "propagated": true,
-            "ok": true,
-            "git": {
-              "is_repo": true,
-              "branch": "master",
-              "dirty": true,
-              "head": "80e8a7f2b2ed69e53e0602987a0481d928a950a9",
-              "upstream": "origin/master",
-              "ahead": 2,
-              "behind": 0
-            },
-            "preflight": {
-              "ok": true,
-              "require_git_clean": true,
-              "require_up_to_date": true,
-              "fetch_remotes": false,
-              "warnings": [
-                "git working tree is dirty"
-              ],
-              "recommendations": [
-                "If reality sources matter for this node, commit/stash changes before verification"
-              ],
-              "surrounding": {
-                "radius": 1,
-                "node_ids": [
-                  "reality-seed-ui",
-                  "reality-seed",
-                  "concept-screen-is-model",
-                  "subsystem-renderer"
-                ],
-                "edge_count": 27,
-                "edges": [
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-seed-ui"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed-ui",
-                    "to": "concept-screen-is-model"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-seed-ui",
-                    "to": "subsystem-renderer"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-seed",
-                    "to": "subsystem-core"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-seed",
-                    "to": "subsystem-ui"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-seed",
-                    "to": "todo-change-executor-pipeline-v1"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-spawnie"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-self-containing"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-pulse-monitoring"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-model-drives-ui"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-proof-of-alignment"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-model-as-workspace"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-train-the-world"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-model-is-world"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-spawn-point"
-                  },
-                  {
-                    "type": "IMPLEMENTS",
-                    "from": "reality-seed",
-                    "to": "aspiration-seed-philosophy"
-                  },
-                  {
-                    "type": "IMPLEMENTS",
-                    "from": "reality-seed",
-                    "to": "aspiration-instant-context"
-                  },
-                  {
-                    "type": "IMPLEMENTS",
-                    "from": "reality-seed",
-                    "to": "aspiration-model-contains-reality"
-                  },
-                  {
-                    "type": "IMPLEMENTS",
-                    "from": "reality-seed",
-                    "to": "aspiration-single-source-of-truth"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-seed",
-                    "to": "todo-seed-self-monitor"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-seed",
-                    "to": "todo-change-process-v1"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-seed",
-                    "to": "todo-root-model-store-v1"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-seed-model-consistency",
-                    "to": "reality-seed"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-change-alignment",
-                    "to": "reality-seed"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-compliance",
-                    "to": "reality-seed"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-change-executor-gate",
-                    "to": "reality-seed"
-                  }
-                ],
-                "truncated": false
-              }
-            },
-            "rough_checks": {
-              "attachment_closure": {
-                "ok": true
-              },
-              "root_store_index": {
-                "ok": true
-              }
-            },
-            "chain": [
-              "reality-seed-ui"
-            ]
-          },
+          "self": "reality-seed-ui",
           "last_save": {
             "saved_at": "2026-02-01T15:05:18Z",
-            "node_id": "reality-seed-ui",
-            "propagated": true,
             "ok": true,
-            "git": {
-              "is_repo": true,
-              "branch": "master",
-              "dirty": true,
-              "head": "80e8a7f2b2ed69e53e0602987a0481d928a950a9",
-              "upstream": "origin/master",
-              "ahead": 2,
-              "behind": 0
-            },
-            "preflight": {
-              "ok": true,
-              "require_git_clean": true,
-              "require_up_to_date": true,
-              "fetch_remotes": false,
-              "warnings": [
-                "git working tree is dirty"
-              ],
-              "recommendations": [
-                "If reality sources matter for this node, commit/stash changes before verification"
-              ],
-              "surrounding": {
-                "radius": 1,
-                "node_ids": [
-                  "reality-seed-ui",
-                  "reality-seed",
-                  "concept-screen-is-model",
-                  "subsystem-renderer"
-                ],
-                "edge_count": 27,
-                "edges": [
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-seed-ui"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed-ui",
-                    "to": "concept-screen-is-model"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-seed-ui",
-                    "to": "subsystem-renderer"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-seed",
-                    "to": "subsystem-core"
-                  },
-                  {
-                    "type": "CONTAINS",
-                    "from": "reality-seed",
-                    "to": "subsystem-ui"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-root-model-store"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-seed",
-                    "to": "todo-change-executor-pipeline-v1"
-                  },
-                  {
-                    "type": "USES",
-                    "from": "reality-seed",
-                    "to": "reality-spawnie"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-self-containing"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-pulse-monitoring"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-model-drives-ui"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-proof-of-alignment"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-model-as-workspace"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-train-the-world"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-model-is-world"
-                  },
-                  {
-                    "type": "EMBODIES",
-                    "from": "reality-seed",
-                    "to": "concept-spawn-point"
-                  },
-                  {
-                    "type": "IMPLEMENTS",
-                    "from": "reality-seed",
-                    "to": "aspiration-seed-philosophy"
-                  },
-                  {
-                    "type": "IMPLEMENTS",
-                    "from": "reality-seed",
-                    "to": "aspiration-instant-context"
-                  },
-                  {
-                    "type": "IMPLEMENTS",
-                    "from": "reality-seed",
-                    "to": "aspiration-model-contains-reality"
-                  },
-                  {
-                    "type": "IMPLEMENTS",
-                    "from": "reality-seed",
-                    "to": "aspiration-single-source-of-truth"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-seed",
-                    "to": "todo-seed-self-monitor"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-seed",
-                    "to": "todo-change-process-v1"
-                  },
-                  {
-                    "type": "NEEDS",
-                    "from": "reality-seed",
-                    "to": "todo-root-model-store-v1"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-seed-model-consistency",
-                    "to": "reality-seed"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-change-alignment",
-                    "to": "reality-seed"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-root-compliance",
-                    "to": "reality-seed"
-                  },
-                  {
-                    "type": "AUDITS",
-                    "from": "audit-change-executor-gate",
-                    "to": "reality-seed"
-                  }
-                ],
-                "truncated": false
-              }
-            },
-            "rough_checks": {
-              "attachment_closure": {
-                "ok": true
-              },
-              "root_store_index": {
-                "ok": true
-              }
-            },
-            "chain": [
-              "reality-seed-ui"
-            ]
+            "node_id": "reality-seed-ui"
           },
-          "self": "reality-seed-ui",
-          "received_from": null,
           "handoff_to": null
         }
       },
@@ -2061,86 +1026,6 @@
       "locked": true
     },
     {
-      "id": "mod-store-loader",
-      "type": "Module",
-      "label": "loader",
-      "description": "Loads root model and resolves hierarchical _ref submodels into a single logical graph with provenance.",
-      "source": {
-        "path": "src/root_store/loader.py"
-      },
-      "ui": {
-        "x": 279,
-        "y": 352
-      },
-      "x": -175.0,
-      "y": 200.0,
-      "locked": true
-    },
-    {
-      "id": "mod-store-index",
-      "type": "Module",
-      "label": "sqlite-index",
-      "description": "Maintains derived SQLite tables for nodes/edges/types/relationships and reverse lookups; supports rebuild from JSON.",
-      "source": {
-        "path": "src/root_store/index.py"
-      },
-      "ui": {
-        "x": 190,
-        "y": 407
-      },
-      "x": 175.0,
-      "y": 200.0,
-      "locked": true
-    },
-    {
-      "id": "mod-store-query",
-      "type": "Module",
-      "label": "query",
-      "description": "Query engine (e.g., seedql-v0) backed by SQLite; returns results with provenance (where-defined mapping).",
-      "source": {
-        "path": "src/root_store/query.py"
-      },
-      "ui": {
-        "x": 91,
-        "y": 440
-      },
-      "x": 525.0,
-      "y": 200.0,
-      "locked": true
-    },
-    {
-      "id": "mod-store-writer",
-      "type": "Module",
-      "label": "writer",
-      "description": "Safe writes: applies Changes as deterministic patches back to the correct JSON file(s), with locking and validation.",
-      "source": {
-        "path": "src/root_store/writer.py"
-      },
-      "ui": {
-        "x": -12,
-        "y": 449
-      },
-      "x": -525.0,
-      "y": 400.0,
-      "locked": true
-    },
-    {
-      "id": "mod-store-enforcement",
-      "type": "Module",
-      "label": "enforcement",
-      "description": "Governance enforcement: Change gate, schema/edge validation, policy checks, and automatic audit execution.",
-      "source": {
-        "path": "src/root_store/enforcement.py"
-      },
-      "ui": {
-        "x": -115,
-        "y": 434
-      },
-      "x": -175.0,
-      "y": 400.0,
-      "locked": true
-    },
-    {
       "id": "concept-agent-world",
       "type": "Concept",
       "label": "Agent World Principle",
@@ -2149,6 +1034,26 @@
       "ui": {
         "x": 0,
         "y": 0
+      }
+    },
+    {
+      "id": "ui-command",
+      "type": "UIState",
+      "label": "UI Command",
+      "description": "Command node for Claude to control the UI",
+      "ui": {
+        "x": -800,
+        "y": -600
+      },
+      "command": {
+        "type": "message",
+        "params": {
+          "text": "UI Controller ready!",
+          "duration": 5000,
+          "style": "success"
+        },
+        "timestamp": "2026-02-02T12:01:50.075518",
+        "processed": false
       }
     }
   ],
@@ -2222,31 +1127,6 @@
       "type": "CONTAINS",
       "from": "reality-root-model-store",
       "to": "subsystem-root-store"
-    },
-    {
-      "type": "CONTAINS",
-      "from": "subsystem-root-store",
-      "to": "mod-store-loader"
-    },
-    {
-      "type": "CONTAINS",
-      "from": "subsystem-root-store",
-      "to": "mod-store-index"
-    },
-    {
-      "type": "CONTAINS",
-      "from": "subsystem-root-store",
-      "to": "mod-store-query"
-    },
-    {
-      "type": "CONTAINS",
-      "from": "subsystem-root-store",
-      "to": "mod-store-writer"
-    },
-    {
-      "type": "CONTAINS",
-      "from": "subsystem-root-store",
-      "to": "mod-store-enforcement"
     }
   ]
 }

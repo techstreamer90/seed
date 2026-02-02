@@ -144,6 +144,51 @@
         "ok": true,
         "violations": []
       }
+    },
+    {
+      "id": "mod-store-loader",
+      "type": "Module",
+      "label": "loader",
+      "description": "Loads root model and resolves hierarchical _ref submodels into a single logical graph with provenance.",
+      "source": {
+        "path": "src/root_store/loader.py"
+      }
+    },
+    {
+      "id": "mod-store-index",
+      "type": "Module",
+      "label": "sqlite-index",
+      "description": "Maintains derived SQLite tables for nodes/edges/types/relationships and reverse lookups; supports rebuild from JSON.",
+      "source": {
+        "path": "src/root_store/index.py"
+      }
+    },
+    {
+      "id": "mod-store-query",
+      "type": "Module",
+      "label": "query",
+      "description": "Query engine (e.g., seedql-v0) backed by SQLite; returns results with provenance (where-defined mapping).",
+      "source": {
+        "path": "src/root_store/query.py"
+      }
+    },
+    {
+      "id": "mod-store-writer",
+      "type": "Module",
+      "label": "writer",
+      "description": "Safe writes: applies Changes as deterministic patches back to the correct JSON file(s), with locking and validation.",
+      "source": {
+        "path": "src/root_store/writer.py"
+      }
+    },
+    {
+      "id": "mod-store-enforcement",
+      "type": "Module",
+      "label": "enforcement",
+      "description": "Governance enforcement: Change gate, schema/edge validation, policy checks, and automatic audit execution.",
+      "source": {
+        "path": "src/root_store/enforcement.py"
+      }
     }
   ],
   "edges": [
@@ -161,6 +206,31 @@
       "type": "HAS_CHECK",
       "from": "audit-root-store-attachment-closure",
       "to": "check-root-store-contains-colocated"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-loader"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-index"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-query"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-writer"
+    },
+    {
+      "type": "CONTAINS",
+      "from": "subsystem-root-store",
+      "to": "mod-store-enforcement"
     }
   ]
 }
