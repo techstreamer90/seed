@@ -6,7 +6,7 @@
     "name": "007",
     "description": "The Agent World - A living system where humans and AI agents coexist, make requests, and collaborate. All activity happens within 007. Schauspieler is the window through which 007 becomes visible."
   },
-  "updated_at": "2026-02-02T21:45:38Z",
+  "updated_at": "2026-02-02T22:05:00Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -645,7 +645,38 @@
       },
       "x": -525.0,
       "y": -400.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.970976",
+        "updated_by": "spawnie",
+        "current_reality": "Dependent on external Claude API for agent spawning and orchestration",
+        "aspiration": "Fully autonomous, self-organizing world powered by local ML models on GPU",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "External Agent Dependency",
+            "description": "Current: Spawning external Claude agents, API-dependent orchestration",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "Hybrid Local/External",
+            "description": "Transition: Local ML models for rendering, external for complex reasoning",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Fully Local Autonomous World",
+            "description": "Aspiration: All nodes self-render using GPU-powered local ML, complete independence",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Train first local renderer for simple node types",
+          "Build state->render pipeline using GPU",
+          "Create model registry for specialized renderers"
+        ]
+      }
     },
     {
       "id": "reality-root-model-store",
@@ -702,7 +733,38 @@
       },
       "x": -175.0,
       "y": -400.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971001",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Local-first model backend: a uniform interface over many model locations (multiple JSON files, submodels, and eventually many repos/worlds). Maintains a derived SQLite index/cache for fast query/search/reverse lookups, records provenance for writeback, and provides safe writes with governance enforcement (Change gate, validation, audits, and model-recorded evidence).",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "reality-spawnie",
@@ -958,6 +1020,37 @@
           "output_location": "Shared via broadcast, optionally written to model",
           "example": "spawnie spawn --node reality-seed-ui --mode collaboration -n 'Help design the UI architecture'"
         }
+      },
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971010",
+        "updated_by": "spawnie",
+        "current_reality": "Orchestrates external Claude agents via API calls",
+        "aspiration": "Coordinates local ML models and manages self-rendering node ecosystem",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "External Agent Orchestrator",
+            "description": "Spawning Claude agents via API, managing external processes",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "Hybrid Coordinator",
+            "description": "Coordinate both local ML renderers and external agents where needed",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Local ML Coordinator",
+            "description": "Pure coordinator of local GPU-powered rendering models",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Learn to invoke local ML models on GPU",
+          "Build renderer registry and routing",
+          "Transition from 'spawn agent' to 'activate renderer'"
+        ]
       }
     },
     {
@@ -998,7 +1091,38 @@
       },
       "x": 525.0,
       "y": -400.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971015",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Core model store components: loader/merger, SQLite index, query engine, safe writer, enforcement, watcher, audit runner, API.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "reality-bam",
@@ -1032,7 +1156,38 @@
       },
       "x": -525.0,
       "y": -200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971021",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Tool for generating models of complex systems",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "reality-bam-test-projects",
@@ -1062,7 +1217,38 @@
       },
       "x": -175.0,
       "y": -200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971027",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Smaller projects to validate the model-as-workspace concept.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "reality-seed-ui",
@@ -1254,6 +1440,37 @@
           }
         ],
         "last_read": {}
+      },
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971032",
+        "updated_by": "spawnie",
+        "current_reality": "Manual UI construction, human-directed rendering",
+        "aspiration": "Self-rendering based on state changes, reactive and autonomous",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Manual Rendering",
+            "description": "UI components built manually, directed by humans or agents",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Reactive Rendering",
+            "description": "UI components respond to model state changes automatically",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "ML-Powered Self-Rendering",
+            "description": "Local ML models generate UI based on node state and context",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define state->render contract for nodes",
+          "Train small ML model to render basic node types",
+          "Implement reactive update pipeline"
+        ]
       }
     },
     {
@@ -1287,6 +1504,37 @@
       "ui": {
         "x": 50,
         "y": 200
+      },
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971037",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: STUB: Real-time canvas with hardware acceleration. Manages the actual display surface, knows about GPU capabilities, handles refresh rate, maintains render loop. The physical manifestation of the window to 007.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
       }
     },
     {
@@ -1322,6 +1570,37 @@
       "ui": {
         "x": 150,
         "y": 200
+      },
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971042",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: STUB: API for agents to request rendering. Agents submit requests to show their portion of 007. Schauspieler receives, queues, and processes these requests. Protocol-based communication between agents and renderer.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
       }
     },
     {
@@ -1358,6 +1637,37 @@
       "ui": {
         "x": 250,
         "y": 200
+      },
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971048",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: STUB: Decision engine for what gets shown. When multiple agents request to render, orchestrator decides priority, composites views, manages screen real estate. The director that makes sense of all the actors.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
       }
     },
     {
@@ -1392,7 +1702,38 @@
       },
       "x": 525.0,
       "y": -200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971052",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: A registry of model locations (local paths, repos, URLs) that the Root Model Store can index into one logical graph. This is the backbone for a world where Seed is only one of many referenced nodes.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "subsystem-ui",
@@ -1422,7 +1763,38 @@
       },
       "x": -525.0,
       "y": 0.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971069",
+        "updated_by": "spawnie",
+        "current_reality": "Manual UI construction, human-directed rendering",
+        "aspiration": "Self-rendering based on state changes, reactive and autonomous",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Manual Rendering",
+            "description": "UI components built manually, directed by humans or agents",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Reactive Rendering",
+            "description": "UI components respond to model state changes automatically",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "ML-Powered Self-Rendering",
+            "description": "Local ML models generate UI based on node state and context",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define state->render contract for nodes",
+          "Train small ML model to render basic node types",
+          "Implement reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "subsystem-core",
@@ -1459,7 +1831,38 @@
       },
       "x": -175.0,
       "y": 0.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971074",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Root's core implementation - pulse, status, monitoring, verification",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "aspiration-single-source-of-truth",
@@ -1474,7 +1877,38 @@
       },
       "x": 175.0,
       "y": 0.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971079",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: The model is THE truth. Not a reflection of truth, not documentation of truth - the actual truth. All changes flow through the model. Reality follows.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "aspiration-model-contains-reality",
@@ -1489,7 +1923,38 @@
       },
       "x": 525.0,
       "y": 0.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971084",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: The model doesn't describe reality - it contains it. Source references with hashes embed actual artifacts. The model is not documentation of the world, it IS the world.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "aspiration-model-everything",
@@ -1504,7 +1969,38 @@
       },
       "x": -525.0,
       "y": 200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971090",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: All systems the user works with should be modeled in seed. Every project, every tool, every workflow. The model is the universal interface to all realities.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "aspiration-real-time-views",
@@ -1519,7 +2015,38 @@
       },
       "x": 175.0,
       "y": 200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971094",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Views update in real-time without polling. Use file watchers or WebSockets to propagate model changes instantly to the renderer. Agents see changes as they happen, enabling fluid collaboration.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "aspiration-interactive-views",
@@ -1534,7 +2061,38 @@
       },
       "x": 350.0,
       "y": 200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971100",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Views are interactive: click nodes to focus, drag to pan, scroll to zoom, search/filter visible elements. User actions broadcast to agents who can respond. The visualization becomes a bidirectional interface.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "aspiration-view-feedback",
@@ -1549,7 +2107,38 @@
       },
       "x": 525.0,
       "y": 200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971106",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Know who is viewing what, when. Track view stats (views, duration, interactions). Agents get feedback on whether their visualizations are useful. Unused views auto-cleanup, popular views persist.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "aspiration-shape-composition",
@@ -1572,7 +2161,38 @@
       },
       "x": -350.0,
       "y": 200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971110",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Each node owns its visual representation as a Shape. Shapes have relative coords, bounds, capabilities. Main Schauspieler orchestrates placement and detects interactions. Quality emerges from each node's self-representation + orchestration. VISION: Dog shape + Tree shape \u2192 collision detection \u2192 realistic interaction.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "aspiration-realtime-collaboration",
@@ -1591,7 +2211,38 @@
       },
       "x": -175.0,
       "y": 200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971118",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: MVP: Multiple agents work together on a shared canvas in real-time. Each agent updates their shape, orchestrator composes, all see result immediately. Enables pair programming, collective problem-solving, emergent behavior. The model IS the collaboration space.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "aspiration-view-templates",
@@ -1606,7 +2257,38 @@
       },
       "x": 0.0,
       "y": 200.0,
-      "locked": true
+      "locked": true,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971125",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Prebuilt view patterns: system overview, gap analysis, todo board, dependency graph, timeline. Agents can quickly instantiate and customize templates. Reduces boilerplate, enables consistent visualization language.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "concept-agent-world",
@@ -1617,6 +2299,37 @@
       "ui": {
         "x": 0,
         "y": 0
+      },
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971133",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: CORE PRINCIPLE FOR ALL AGENTS:\n\nThe world agents live in consists ONLY of:\n1. The MODEL (source of truth, shared state)\n2. Other AGENTS (who also only see model + agents)\n\nThe user is the ONLY entity that exists outside this world.\n\nImplications:\n- All communication happens through the model\n- All state is model state\n- An \"always-on controller\" is just an agent\n- No special infrastructure needed - just model + agents\n- To affect reality, modify the model\n- To know reality, read the model\n\nThis is the Seed philosophy: Model-first, model-only for agents.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
       }
     },
     {
@@ -1635,6 +2348,37 @@
         },
         "timestamp": "2026-02-02T14:03:42.496446",
         "processed": false
+      },
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971138",
+        "updated_by": "spawnie",
+        "current_reality": "Manual UI construction, human-directed rendering",
+        "aspiration": "Self-rendering based on state changes, reactive and autonomous",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Manual Rendering",
+            "description": "UI components built manually, directed by humans or agents",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Reactive Rendering",
+            "description": "UI components respond to model state changes automatically",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "ML-Powered Self-Rendering",
+            "description": "Local ML models generate UI based on node state and context",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define state->render contract for nodes",
+          "Train small ML model to render basic node types",
+          "Implement reactive update pipeline"
+        ]
       }
     },
     {
@@ -1722,7 +2466,38 @@
       },
       "x": -525.0,
       "y": 400.0,
-      "locked": false
+      "locked": false,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971143",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Phone and voice interaction system. Allows humans to speak with agents via phone calls or voice input. Bridges the gap between spoken word and the model world.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "gap-no-voice-interface",
@@ -1734,7 +2509,38 @@
       "target_state": "Full voice interaction: call in, speak, hear responses",
       "priority": "medium",
       "x": -175.0,
-      "y": 400.0
+      "y": 400.0,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971148",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: Currently there's no way to interact with Seed via voice or phone. Users must type. This blocks accessibility and mobile/hands-free use cases.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "template-agent-node",
@@ -1809,7 +2615,38 @@
       "example_agents": [
         "reality-spawnie - Workflow orchestrator",
         "reality-seed-ui - Display orchestrator (Schauspieler)"
-      ]
+      ],
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971154",
+        "updated_by": "spawnie",
+        "current_reality": "Static blueprint for creating agent nodes",
+        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Blueprint",
+            "description": "Template defines structure but instances need external agents",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "Hybrid Template",
+            "description": "Template includes references to local renderers where available",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Evolving Template",
+            "description": "Template learns from instances and updates itself with better patterns",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Add renderer specifications to template definitions",
+          "Create template evolution feedback loop",
+          "Enable templates to learn from instantiated nodes"
+        ]
+      }
     },
     {
       "id": "system-control",
@@ -1904,7 +2741,38 @@
       },
       "x": 0.0,
       "y": -600.0,
-      "locked": false
+      "locked": false,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971159",
+        "updated_by": "spawnie",
+        "current_reality": "Requires external Claude agent to operate",
+        "aspiration": "Self-operating node powered by local ML, autonomous rendering and reasoning",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "External Agent Dependency",
+            "description": "Needs Claude API agent to think and act",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "Partial Local Processing",
+            "description": "Can self-render simple states, uses external for complex reasoning",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Fully Autonomous",
+            "description": "Local ML handles all rendering and reasoning for this node's domain",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Identify which operations can be localized first",
+          "Learn to use local renderers for display",
+          "Build capability to train domain-specific micro-models"
+        ]
+      }
     },
     {
       "id": "service-ui-server",
@@ -1931,7 +2799,38 @@
       },
       "start_command": "python src/ui/server.py",
       "x": 350.0,
-      "y": -600.0
+      "y": -600.0,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971164",
+        "updated_by": "spawnie",
+        "current_reality": "Manual UI construction, human-directed rendering",
+        "aspiration": "Self-rendering based on state changes, reactive and autonomous",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Manual Rendering",
+            "description": "UI components built manually, directed by humans or agents",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Reactive Rendering",
+            "description": "UI components respond to model state changes automatically",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "ML-Powered Self-Rendering",
+            "description": "Local ML models generate UI based on node state and context",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define state->render contract for nodes",
+          "Train small ML model to render basic node types",
+          "Implement reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "channel-broadcast",
@@ -1955,7 +2854,38 @@
       },
       "purpose": "Global conversation space for users and agents. Any agent can respond to any message. Enables emergent coordination.",
       "x": 175.0,
-      "y": -600.0
+      "y": -600.0,
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971168",
+        "updated_by": "spawnie",
+        "current_reality": "Node exists in model, role: System-wide broadcast channel. Everyone can see and respond. The model is the communication fabric - everything flows through it.",
+        "aspiration": "Self-aware, self-rendering, contributes to autonomous world",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Definition",
+            "description": "Defined in model, passive participant",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "State-Aware",
+            "description": "Knows its state, can report it, responds to queries",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Rendering",
+            "description": "Autonomously renders itself when state changes",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Define what 'state' means for this node type",
+          "Create render function for this node",
+          "Connect to reactive update pipeline"
+        ]
+      }
     },
     {
       "id": "template-reality-pm",
@@ -2021,7 +2951,38 @@
           "command": "spawnie shell \"Show me project status\" -d C:/seed"
         }
       },
-      "role_in_world": "The Project Manager keeps the world organized. It tracks what work is happening, ensures agents coordinate effectively, identifies when things get stuck, and maintains alignment with the overall aspiration. It is the orchestrator of progress."
+      "role_in_world": "The Project Manager keeps the world organized. It tracks what work is happening, ensures agents coordinate effectively, identifies when things get stuck, and maintains alignment with the overall aspiration. It is the orchestrator of progress.",
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971174",
+        "updated_by": "spawnie",
+        "current_reality": "Static blueprint for creating agent nodes",
+        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Blueprint",
+            "description": "Template defines structure but instances need external agents",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "Hybrid Template",
+            "description": "Template includes references to local renderers where available",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Evolving Template",
+            "description": "Template learns from instances and updates itself with better patterns",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Add renderer specifications to template definitions",
+          "Create template evolution feedback loop",
+          "Enable templates to learn from instantiated nodes"
+        ]
+      }
     },
     {
       "id": "template-reality-cleaner",
@@ -2094,7 +3055,38 @@
           "command": "spawnie shell \"Show me what can be cleaned\" -d C:/seed"
         }
       },
-      "role_in_world": "The Cleaner maintains system hygiene. In a living world where agents create sessions, artifacts, and temporary data, the Cleaner ensures nothing builds up unnecessarily. It knows what is safe to remove and keeps the workspace organized without disrupting active work."
+      "role_in_world": "The Cleaner maintains system hygiene. In a living world where agents create sessions, artifacts, and temporary data, the Cleaner ensures nothing builds up unnecessarily. It knows what is safe to remove and keeps the workspace organized without disrupting active work.",
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971179",
+        "updated_by": "spawnie",
+        "current_reality": "Static blueprint for creating agent nodes",
+        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Blueprint",
+            "description": "Template defines structure but instances need external agents",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "Hybrid Template",
+            "description": "Template includes references to local renderers where available",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Evolving Template",
+            "description": "Template learns from instances and updates itself with better patterns",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Add renderer specifications to template definitions",
+          "Create template evolution feedback loop",
+          "Enable templates to learn from instantiated nodes"
+        ]
+      }
     },
     {
       "id": "template-reality-planner",
@@ -2166,7 +3158,38 @@
           "command": "spawnie shell \"Create a plan for <goal>\" -d C:/seed"
         }
       },
-      "role_in_world": "The Planner is the strategic thinker. Before work begins, the Planner analyzes what needs to happen, designs the approach, and creates actionable plans. It bridges the gap between aspiration (what we want) and implementation (how we build it). It thinks ahead so execution can be smooth."
+      "role_in_world": "The Planner is the strategic thinker. Before work begins, the Planner analyzes what needs to happen, designs the approach, and creates actionable plans. It bridges the gap between aspiration (what we want) and implementation (how we build it). It thinks ahead so execution can be smooth.",
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971184",
+        "updated_by": "spawnie",
+        "current_reality": "Static blueprint for creating agent nodes",
+        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Blueprint",
+            "description": "Template defines structure but instances need external agents",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "Hybrid Template",
+            "description": "Template includes references to local renderers where available",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Evolving Template",
+            "description": "Template learns from instances and updates itself with better patterns",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Add renderer specifications to template definitions",
+          "Create template evolution feedback loop",
+          "Enable templates to learn from instantiated nodes"
+        ]
+      }
     },
     {
       "id": "template-reality-fixer",
@@ -2234,7 +3257,38 @@
           "command": "spawnie shell \"Debug this issue: <problem>\" -d C:/seed"
         }
       },
-      "role_in_world": "The Fixer is the problem solver. When things break or behave unexpectedly, the Fixer investigates, debugs, and resolves the issue. It is practical and focused on getting things working again quickly while understanding root causes to prevent recurrence."
+      "role_in_world": "The Fixer is the problem solver. When things break or behave unexpectedly, the Fixer investigates, debugs, and resolves the issue. It is practical and focused on getting things working again quickly while understanding root causes to prevent recurrence.",
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971189",
+        "updated_by": "spawnie",
+        "current_reality": "Static blueprint for creating agent nodes",
+        "aspiration": "Living template that evolves and teaches new instances about local rendering",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Static Blueprint",
+            "description": "Template defines structure but instances need external agents",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "Hybrid Template",
+            "description": "Template includes references to local renderers where available",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Self-Evolving Template",
+            "description": "Template learns from instances and updates itself with better patterns",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Add renderer specifications to template definitions",
+          "Create template evolution feedback loop",
+          "Enable templates to learn from instantiated nodes"
+        ]
+      }
     },
     {
       "id": "reality-planner",
@@ -2289,7 +3343,38 @@
         "instantiated_at": "2026-02-02T21:45:38.994795",
         "instantiated_by": "spawnie"
       },
-      "belongs_to": "reality-seed"
+      "belongs_to": "reality-seed",
+      "plan": {
+        "updated_at": "2026-02-02T22:05:00.971194",
+        "updated_by": "spawnie",
+        "current_reality": "Requires external Claude agent to operate",
+        "aspiration": "Self-operating node powered by local ML, autonomous rendering and reasoning",
+        "phases": [
+          {
+            "phase": 1,
+            "name": "External Agent Dependency",
+            "description": "Needs Claude API agent to think and act",
+            "status": "current"
+          },
+          {
+            "phase": 2,
+            "name": "Partial Local Processing",
+            "description": "Can self-render simple states, uses external for complex reasoning",
+            "status": "next"
+          },
+          {
+            "phase": 3,
+            "name": "Fully Autonomous",
+            "description": "Local ML handles all rendering and reasoning for this node's domain",
+            "status": "aspiration"
+          }
+        ],
+        "next_steps": [
+          "Identify which operations can be localized first",
+          "Learn to use local renderers for display",
+          "Build capability to train domain-specific micro-models"
+        ]
+      }
     }
   ],
   "edges": [
