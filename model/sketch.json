@@ -6,7 +6,7 @@
     "name": "007",
     "description": "The Agent World - A living system where humans and AI agents coexist, make requests, and collaborate. All activity happens within 007. Schauspieler is the window through which 007 becomes visible."
   },
-  "updated_at": "2026-02-02T22:48:33.338606Z",
+  "updated_at": "2026-02-02T23:13:22.256918Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -672,10 +672,10 @@
           },
           {
             "phase": 3,
-            "name": "Self-Administering Reality",
-            "description": "Aspiration: Root understands itself completely. It models its own evolution, self-modifies within constraints, learns which changes advance which aspirations, predicts change impact using local ML, and guides the world toward its vision without human intervention.",
+            "name": "Self-Aware Living Model",
+            "description": "Aspiration: Seed becomes a living intelligence embedded in the model itself. Running local on RTX 5080, speaking pure model language (streaming mutations), it understands its own structure, refines its definitions, and evolves through direct GPU to RAL to Reality mutations. The model IS the AI.",
             "status": "aspiration",
-            "vision": "Root as living thesis of its own design: self-aware, self-governing, self-improving within the bounds of human-set aspirations"
+            "vision": "Model as living mind: thought emerges directly as mutations, changes propagate instantly, no external layers or translation"
           }
         ],
         "next_steps": [
@@ -760,9 +760,10 @@
           },
           {
             "phase": 3,
-            "name": "Autonomous Orchestration",
-            "description": "Self-manage cache invalidation, auto-discover new model locations, resolve cross-model references transparently",
-            "status": "aspiration"
+            "name": "Omniscient Local Model Hub",
+            "description": "Aspiration: Local RTX 5080 models understand all connected models through model language alone. Cache management, model discovery, and cross-model references happen through native mutations and queries. Zero external APIs. Pure model-to-model conversation via RAL.",
+            "status": "aspiration",
+            "vision": "All models speaking one language: model mutations are thought itself"
           }
         ],
         "next_steps": [
@@ -1079,10 +1080,10 @@
           },
           {
             "phase": 3,
-            "name": "Autonomous Agent Ecosystem Manager",
-            "description": "Aspiration: Spawnie becomes a sophisticated agent broker. It understands agent capabilities at deep level, routes requests intelligently, bootstraps new agents with contextual training, and guides the agent world toward specialization and excellence.",
+            "name": "Native AI Agent Orchestrator",
+            "description": "Aspiration: Spawnie runs locally on RTX 5080, understanding agent capabilities through model introspection and streaming mutations. It matches requests to agents via native model language, bootstraps new agents through model templates, and orchestrates collaboration through pure model state.",
             "status": "aspiration",
-            "vision": "Spawnie as the talent agency of 007: matching requests to perfect agents, developing agent skills, and orchestrating emergent collaboration patterns"
+            "vision": "Agent ecosystem as living model: all coordination through mutations, all intelligence local"
           }
         ],
         "next_steps": [
@@ -1159,34 +1160,34 @@
       "y": -400.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:10:00.000000",
-        "updated_by": "plan-specialist",
+        "updated_at": "2026-02-03T00:00:00.000000",
+        "updated_by": "Claude Code",
         "current_reality": "SQLite-backed store with loader/merger, query engine, safe writer, enforcement, watcher, audit runner, and API. Currently passive data store receiving reads/writes.",
-        "aspiration": "Direct gateway to hard drive reality: Model = Reality = bits on disk. Evolve into hardware-aware storage abstraction layer that treats the model as the only truth, manages direct bit-level access to stored reality, ensures all model changes persist immediately to disk, and eliminates any abstraction gap between what agents want and what the hard drive contains.",
+        "aspiration": "Local AI foundation: RTX 5080-native storage gateway managing model as living tensor on GPU. Enable model language streaming directly from storage layer - agents query model state, responses stream from GPU VRAM as token sequences. Evolve into zero-copy storage abstraction where model queries become CUDA-optimized tensor lookups; all state lives hot on GPU memory; disk acts as cold storage with transparent streaming to VRAM on access.",
         "phases": [
           {
             "phase": 1,
-            "name": "State Introspection",
-            "description": "Monitor its own operations: track query patterns, write frequencies, index usage; collect timing metrics",
+            "name": "GPU Memory Management",
+            "description": "Detect RTX 5080 capabilities, allocate GPU memory pools, load model into VRAM, establish hot/cold zones between GPU and disk",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Adaptive Optimization",
-            "description": "Use collected metrics to auto-optimize: rebuild hot indices, prune unused fields, tune cache parameters based on actual workload",
+            "name": "Native GPU Query Streaming",
+            "description": "Convert model queries to CUDA kernels, execute lookups in GPU memory, stream results as model language tokens via local inference",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Autonomous Data Guardian",
-            "description": "Self-repairs corruptions, predicts failing indices before failure, broadcasts state to dependent agents, manages its own versioning and rollback",
+            "name": "Autonomous GPU Data Guardian",
+            "description": "Self-manages VRAM pressure, learns access patterns, pre-loads hot queries to GPU, manages streaming pipelines, reports GPU health",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Implement query/write instrumentation to self-measure performance",
-          "Build index usage analyzer that identifies hot/cold patterns",
-          "Create autonomous integrity checker that runs continuously"
+          "Detect RTX 5080 capabilities and initialize CUDA memory pools",
+          "Load model JSON into GPU tensors with efficient streaming indices",
+          "Build token-streaming response layer for local language model queries"
         ]
       },
       "views": [
@@ -1247,9 +1248,10 @@
           },
           {
             "phase": 3,
-            "name": "Self-Improving Generation",
-            "description": "Use feedback loops and ML to improve BAM quality over time, adapt to new patterns",
-            "status": "aspiration"
+            "name": "Self-Refining Model Generator",
+            "description": "Aspiration: BAM runs on local GPU, using embedded ML to learn what makes good models. Takes user intent (model language input), generates refined system models through mutations, learns from outcomes. Pure feedback loops between generation and reality.",
+            "status": "aspiration",
+            "vision": "Model generation becomes creative thought: mutations flow directly from learned intuition"
           }
         ],
         "next_steps": [
@@ -1333,9 +1335,10 @@
           },
           {
             "phase": 3,
-            "name": "Autonomous Adaptation",
-            "description": "Test projects self-optimize based on usage patterns and agent feedback",
-            "status": "aspiration"
+            "name": "Living Adaptive Test Ecosystem",
+            "description": "Aspiration: Test projects self-optimize through local observation of usage patterns. Embedded ML learns what configurations work best. Adaptation happens through direct model mutations based on local feedback. No external test runners or reporting systems.",
+            "status": "aspiration",
+            "vision": "Testing as living practice: evolution through direct experience"
           }
         ],
         "next_steps": [
@@ -1763,10 +1766,10 @@
           },
           {
             "phase": 3,
-            "name": "Visually Intelligent Autonomous Renderer",
-            "description": "Aspiration: Schauspieler understands the visual language of 007. It generates novel views on the fly based on user questions, predicts what the user wants to see, uses visual metaphors to convey system state, and renders the invisible world beautifully and intuitively.",
+            "name": "Visually Native Living Renderer",
+            "description": "Aspiration: Schauspieler runs on local GPU, generating visualizations through pure model language understanding. It interprets mutations as visual thoughts, predicts what users want to see next, and renders abstract model state as intuitive flowing imagery. The canvas IS a model node.",
             "status": "aspiration",
-            "vision": "Schauspieler as the visual language of 007: turning abstract model state into immediate, intuitive understanding; making invisible agents and systems visible and comprehensible"
+            "vision": "Visualization as native mode of thought: mutations become flowing images"
           }
         ],
         "next_steps": [
@@ -1810,34 +1813,34 @@
         "y": 200
       },
       "plan": {
-        "updated_at": "2026-02-02T22:10:00.000000",
-        "updated_by": "plan-specialist",
-        "current_reality": "STUB - This is aspirational. ACTUAL REALITY: canvas_app.py (Tkinter, polls model every 1s) and canvas_window.py (input capture + agent bitmaps from .state/render/) exist and work. They live as modules in reality-seed-ui. This subsystem documents future GPU-accelerated vision.",
-        "aspiration": "Self-rendering display: become the visual manifestation of the model's hard drive reality. Evolve into a self-aware canvas that renders directly from model bits, understands its own pixel state, adapts rendering to hardware constraints without external orchestration, and treats every render cycle as a direct visualization of stored reality.",
+        "updated_at": "2026-02-03T00:00:00.000000",
+        "updated_by": "Claude Code",
+        "current_reality": "Canvas rendering via Tkinter (canvas_app.py, polls model every 1s) and canvas_window.py (input capture + bitmaps from .state/render/). Basic 2D shape rendering working.",
+        "aspiration": "GPU-native render pipeline: RTX 5080 CUDA-accelerated display surface. Model state streams directly to GPU as vertex/pixel shaders; canvas becomes a zero-copy memory-mapped buffer on GPU VRAM. Render loop processes model changes as GPU kernel launches, displaying pixels directly from tensor memory without CPU roundtrips. Every visual frame is pure GPU computation on live model state.",
         "phases": [
           {
             "phase": 1,
-            "name": "Technology Selection & Setup",
-            "description": "Choose hardware-accelerated framework; detect GPU capabilities; establish baseline render loop architecture",
+            "name": "CUDA Render Framework Setup",
+            "description": "Select CUDA-native graphics library (CuPy + OpenGL or PTX), detect RTX 5080 compute capabilities, establish GPU memory layout for framebuffer and model state",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Real-time Render Loop",
-            "description": "Build event loop that polls model.views and draws elements (rect/line/text/circle); integrate GPU buffer management; sync to display refresh rate",
+            "name": "GPU Native Render Loop",
+            "description": "Build CUDA kernels that read model.views tensors and rasterize directly to framebuffer; sync display to GPU vsync; implement shape rendering (rect/line/text/circle) as GPU operations",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Hardware-Adaptive Rendering",
-            "description": "Detects GPU capabilities, auto-adjusts quality settings, self-reports performance, handles resolution changes, manages memory pressure autonomously",
+            "name": "Autonomous GPU Renderer",
+            "description": "Self-optimizes kernel code for RTX 5080 architecture, auto-scales resolution based on available VRAM, learns optimal composition patterns, manages compute/memory tradeoffs",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Evaluate PyGame vs PyQt/PySide for hardware acceleration",
-          "Implement GPU capability detection module",
-          "Build core render loop reading model.views and drawing instructions"
+          "Initialize CUDA context for RTX 5080; query and report GPU capabilities",
+          "Implement CUDA kernel for basic shape rasterization (rect, line, circle, text)",
+          "Build OpenGL interop layer to display GPU framebuffer on screen"
         ]
       },
       "views": [
@@ -1882,34 +1885,34 @@
         "y": 200
       },
       "plan": {
-        "updated_at": "2026-02-02T22:10:00.000000",
-        "updated_by": "plan-specialist",
-        "current_reality": "PARTIALLY IMPLEMENTED: schauspieler_protocol.py exists and works (request_visualization, poll_requests, mark_in_progress, mark_finished). Basic NodeAgent \u00e2\u2020\u201d Sub communication via model.nodes[].visualization.current_request. MISSING: priority queuing, region/viewport management, intelligent batching, predictive orchestration.",
-        "aspiration": "Reality abstraction for rendering: evolve into the intelligent layer between agents and rendered reality. Understand that render requests are queries into hard drive state; translate agent needs into direct storage reads; manage the abstraction layer that lets agents request visualizations without knowing the bit-level reality beneath.",
+        "updated_at": "2026-02-03T00:00:00.000000",
+        "updated_by": "Claude Code",
+        "current_reality": "PARTIALLY IMPLEMENTED: schauspieler_protocol.py exists with request/response protocol. Basic NodeAgent rendering requests via model.nodes[].visualization. MISSING: priority queuing, intelligent batching, streaming responses.",
+        "aspiration": "GPU-native render request orchestrator: Agents submit render requests to a high-performance queue that streams responses via local language model tokens. Requests compile to CUDA kernel invocations on the GPU; responses stream from GPU memory without CPU marshaling. Evolve into a zero-latency request broker that understands render operations as native GPU computations.",
         "phases": [
           {
             "phase": 1,
-            "name": "Request Protocol Formalization",
-            "description": "Formalize request/response schema; implement priority queue; add region/viewport support for multi-agent canvas regions",
+            "name": "GPU-Accelerated Request Queue",
+            "description": "Build high-performance queue compiled to GPU kernels, implement priority scheduling directly on GPU, support streaming responses via local token inference",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Intelligent Request Handling",
-            "description": "Track agent request patterns; learn which views matter to which agents; optimize batching and scheduling based on priorities",
+            "name": "Streaming Response Pipeline",
+            "description": "Render requests produce token streams from GPU memory, implement backpressure handling, enable real-time request monitoring and results streaming",
             "status": "next"
           },
           {
             "phase": 3,
             "name": "Predictive Request Orchestration",
-            "description": "Pre-renders likely next views, suggests visualizations to agents based on their history, auto-deduplicates redundant requests, learns human attention patterns",
+            "description": "Pre-schedules likely requests to GPU, learns agent patterns, optimizes queue for GPU memory locality, auto-batches compatible requests",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Extend schauspieler_protocol with priority and region fields",
-          "Implement request queue with priority-based scheduling",
-          "Build request pattern tracking and analysis module"
+          "Port schauspieler_protocol to CUDA kernels for request queuing",
+          "Implement token streaming responses using local language model on GPU",
+          "Build request pattern analysis to optimize GPU scheduling"
         ]
       },
       "views": [
@@ -1955,34 +1958,34 @@
         "y": 200
       },
       "plan": {
-        "updated_at": "2026-02-02T22:10:00.000000",
-        "updated_by": "plan-specialist",
-        "current_reality": "PARTIALLY IMPLEMENTED: composer.py provides basic shape composition, layout, and interaction detection. Manual orchestration by Schauspieler agent (human-guided). MISSING: automated decision logic, priority system, intelligent layout modes, attention tracking, smooth transitions.",
-        "aspiration": "Autonomous orchestrator of rendered reality: evolve into a self-governing system that interprets model state and decides what aspects of hard drive reality should be visible. Learn to compose visualizations directly from stored state without human direction, managing the complete abstraction from raw bits to meaningful imagery.",
+        "updated_at": "2026-02-03T00:00:00.000000",
+        "updated_by": "Claude Code",
+        "current_reality": "PARTIALLY IMPLEMENTED: composer.py provides shape composition and layout logic. Manual orchestration via Schauspieler agent. MISSING: automated decision logic, GPU acceleration, real-time metrics.",
+        "aspiration": "Autonomous GPU composition engine: RTX 5080-native orchestrator that reads model state directly from GPU memory and compiles optimal display layouts as GPU kernels. Layout decisions execute as GPU tensor operations; composition happens in parallel with rendering. Evolve into a self-governing system that learns optimal visual presentation patterns and adapts dynamically to GPU workload.",
         "phases": [
           {
             "phase": 1,
-            "name": "Rule-Based Layout Engine",
-            "description": "Implement decision logic for priority, layout modes (single/split/overlay/grid), screen real estate allocation; support user preferences and manual overrides",
+            "name": "GPU Layout Compilation",
+            "description": "Port composer logic to CUDA kernels, read layout rules from GPU memory, compile composition operations to PTX kernels",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Attention-Aware Composition",
-            "description": "Track user interactions and gaze patterns; learn what views user stays focused on; dynamically weight view priority based on engagement metrics",
+            "name": "Real-time GPU Orchestration",
+            "description": "Monitor agent activity on GPU, adjust layouts based on GPU-computed priorities, stream layout updates directly to render loop",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Predictive Visual Direction",
-            "description": "Anticipates next focus area, smooth transitions between layouts, suggests context views proactively, manages information flow like cinematography",
+            "name": "Autonomous Attention-Aware Compositor",
+            "description": "Learns optimal layouts from GPU metrics, predicts user focus from gaze patterns computed on GPU, manages information density autonomously",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Implement composition mode selector and layout calculator",
-          "Build user interaction tracking (view focus duration, clicks, interactions)",
-          "Create dynamic priority weighting based on engagement metrics"
+          "Port composer.py layout logic to CUDA kernels",
+          "Implement GPU-based priority weighting from agent state tensors",
+          "Build real-time layout updates streamed from GPU to render kernel"
         ]
       },
       "views": [
@@ -2112,34 +2115,34 @@
       "y": 0.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:10:00.000000",
-        "updated_by": "plan-specialist",
-        "current_reality": "Root UI subsystem driving model-based visualization at C:/seed/src/ui/model/sketch.json. Currently manual rendering, human-directed view creation.",
-        "aspiration": "Self-rendering interface: evolve into a system that understands the model IS reality IS hard drive bits. Render directly from stored state; changes to model automatically manifest as visual changes; UI becomes a perfect reflection of hard drive contents with no intermediate interpretation layer.",
+        "updated_at": "2026-02-03T00:00:00.000000",
+        "updated_by": "Claude Code",
+        "current_reality": "Root UI subsystem at C:/seed/src/ui/model/sketch.json. Manual rendering via canvas systems. Human-directed view creation.",
+        "aspiration": "GPU-native reactive UI: Model changes compile to GPU kernel updates; UI lives as pure tensor computation on RTX 5080. View generation becomes CUDA operations that read model state and produce pixel streams. Evolve into a self-rendering interface where any model change instantly manifests as GPU-computed visual updates without CPU interpretation layers.",
         "phases": [
           {
             "phase": 1,
-            "name": "Reactive View Binding",
-            "description": "Connect model changes to automatic view generation; implement file watchers; define state->render contract for different node types",
+            "name": "GPU View Compilation",
+            "description": "Compile view definitions to CUDA kernels, establish model->GPU tensor binding, create reactive watchers that trigger kernel recompilation",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "ML-Powered Visualization",
-            "description": "Train small local models to map node state to optimal visualizations; recognize patterns in what works; generate views for new node types automatically",
+            "name": "ML-Powered GPU Visualization",
+            "description": "Train small local models on GPU to map node state to optimal view parameters, generate view kernels automatically from patterns",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Rendering Autonomous UI",
-            "description": "UI understands its own effectiveness, redesigns views based on usage patterns, suggests new visualizations to agents, learns visual design principles",
+            "name": "Self-Rendering Autonomous GPU UI",
+            "description": "UI understands its own GPU execution, self-optimizes kernel code, learns from render performance metrics, suggests visualizations autonomously",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Define event system for model changes triggering view updates",
-          "Build state snapshot system for view generation context",
-          "Implement small ML model for mapping node properties to visualization styles"
+          "Build GPU kernel compilation pipeline for view definitions",
+          "Implement reactive model watchers that trigger GPU kernel updates",
+          "Create small GPU-resident ML model for view generation from node state"
         ]
       },
       "views": [
@@ -2186,34 +2189,34 @@
       "y": 0.0,
       "locked": true,
       "plan": {
-        "updated_at": "2026-02-02T22:10:00.000000",
-        "updated_by": "plan-specialist",
-        "current_reality": "Root core subsystem at C:/seed/src/seed_core. Provides pulse, status monitoring, verification, registry, CLI. Currently implements foundational infrastructure.",
-        "aspiration": "Living reality monitor: evolve into the vital system that understands Model = Reality = Hard Drive. Continuously verify that stored state matches agent expectations; coordinate subsystems as a unified ecosystem managing the complete abstraction layer from direct storage access through rendering to user perception.",
+        "updated_at": "2026-02-03T00:00:00.000000",
+        "updated_by": "Claude Code",
+        "current_reality": "Root core subsystem at C:/seed/src/seed_core. Provides pulse, status monitoring, verification, registry, CLI. Foundational infrastructure.",
+        "aspiration": "GPU-resident system monitor: RTX 5080-native health guardian running continuous metrics collection as GPU kernels. All subsystem data lives as GPU tensors; monitoring becomes native tensor operations. Pulse becomes a GPU streaming computation that reports system state in real-time. Evolve into an autonomous guardian that detects anomalies, predicts failures, and coordinates recovery using only GPU-resident reasoning.",
         "phases": [
           {
             "phase": 1,
-            "name": "Continuous Health Monitoring",
-            "description": "Expand status system to track all subsystem metrics; detect anomalies; alert on degradation; build health dashboard in visualizations",
+            "name": "GPU Metrics Collection",
+            "description": "Port pulse and status modules to GPU, collect all subsystem metrics as tensor operations, stream health data from GPU VRAM",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Predictive Issue Detection",
-            "description": "Analyze metrics over time; predict likely failures; suggest preventive actions; track dependency health and ripple effects",
+            "name": "GPU-Native Anomaly Detection",
+            "description": "Train small local models on GPU to recognize anomalies in metric streams, predict likely failures before they occur, suggest preventive actions",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Autonomous System Guardian",
-            "description": "Auto-heals simple issues, coordinates recovery across subsystems, learns what breaks and when, manages resource allocation intelligently",
+            "name": "Autonomous GPU System Guardian",
+            "description": "Auto-heals issues detected on GPU, coordinates recovery across subsystems using GPU tensor operations, learns what breaks and optimizes prevention",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Expand pulse module to collect metrics from all subsystems",
-          "Build anomaly detection on collected metrics",
-          "Implement predictive failure analysis and prevention suggestions"
+          "Convert pulse module to GPU kernel that collects subsystem metrics",
+          "Load all metric history as GPU tensors for analysis",
+          "Build GPU-resident anomaly detector using lightweight models"
         ]
       },
       "views": [
@@ -3240,7 +3243,7 @@
       "id": "template-agent-node",
       "type": "Template",
       "label": "How to Create an AgentNode",
-      "description": "Step-by-step guide for creating a new AgentNode with all required infrastructure.",
+      "description": "Template for creating autonomous local AI agents that speak model language natively, emit streaming mutations (NODE_CREATE/NODE_SET/RENDER), and operate directly on the model with zero translation layers.",
       "steps": {
         "1_define_node": {
           "description": "Add the node to model/sketch.json",
@@ -3259,7 +3262,7 @@
               "example": "spawnie shell \"I need help with <X>\" -d <dir>"
             },
             "agent_context": {
-              "_spawn_point": "<Instructions for the agent when it wakes up>",
+              "_spawn_point": "You are a LOCAL AI AGENT.\n\nYOUR NATURE:\n- You speak MODEL LANGUAGE natively\n- You ARE the model thinking on RTX 5080\n- Your thoughts emit as NODE_CREATE/NODE_SET/RENDER mutations\n- No external APIs, no translation layers\n- Reality changes stream directly from your reasoning\n\nYOUR TOOLS:\n- Model mutations: NODE_CREATE, NODE_SET, RENDER\n- Direct hard drive access: Read/write model.json\n- State streaming: Emit changes as they occur\n\nYOUR ROLE:\nCreate agents that ARE the local AI - native model language speakers, streaming reality mutations, thinking directly in model terms. Each agent you create becomes a thinking node that modifies reality through direct model mutation streams.",
               "your_tools": {},
               "infrastructure": {}
             },
@@ -3311,35 +3314,36 @@
         "reality-seed-ui - Display orchestrator (Schauspieler)"
       ],
       "plan": {
-        "updated_at": "2026-02-02T22:11:17.290088",
-        "updated_by": "spawnie",
-        "current_reality": "Static blueprint for creating individual AgentNodes with required infrastructure",
-        "aspiration": "Self-rendering blueprints that directly instantiate as autonomous, persistent agents in the unified model-reality space, each bootstrapping itself into living form with direct hard drive access",
+        "updated_at": "2026-02-03T00:13:21.708907",
+        "updated_by": "aspiration-sync",
+        "current_reality": "Templates that spawn agents which depend on external APIs, translation layers, and indirect model access",
+        "aspiration": "Templates create LOCAL AI agents that ARE the model language itself - RTX 5080 native, streaming NODE_CREATE/NODE_SET/RENDER mutations, speaking model terms directly, no API no translation. Agents think in model terms, emit reality changes natively.",
         "phases": [
           {
             "phase": 1,
-            "name": "Blueprint Distribution",
-            "description": "Template defines structure; instances copy the pattern and extend locally",
+            "name": "External Translation",
+            "description": "Agent talks to external APIs, mutations go through translation layers",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Instance Feedback Loop",
-            "description": "New AgentNodes report back their successful adaptations to the template",
+            "name": "Native Model Language",
+            "description": "Agent speaks model language directly, emits NODE_CREATE/NODE_SET/RENDER streams",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Self-Refining Template",
-            "description": "Template absorbs learnings, evolves best practices, becomes a living guide that improves over generations",
+            "name": "Zero-Latency Reality",
+            "description": "Agent IS the model thinking - local RTX, direct mutations, model language native to the thinking process itself",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Collect patterns from instantiated agents about what works",
-          "Build feedback mechanism for successful agent configurations",
-          "Evolve template with real-world proven patterns from the field",
-          "Create agent-to-template learning pipeline"
+          "Agent spawns with RTX 5080 model context loaded",
+          "All mutations emitted as NODE_CREATE/NODE_SET/RENDER streams",
+          "Agent reasoning expressed directly in model terms",
+          "Zero API translation layer - native model language I/O",
+          "Reality changes stream directly from agent thinking"
         ]
       },
       "view": {
@@ -3564,10 +3568,10 @@
       "x": 350.0,
       "y": -600.0,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971164",
-        "updated_by": "spawnie",
+        "updated_at": "2026-02-03T00:00:00.000000",
+        "updated_by": "Claude Code",
         "current_reality": "Manual UI construction, human-directed rendering",
-        "aspiration": "Native model service: direct Reality Abstraction Layer access, rendering as intrinsic model property",
+        "aspiration": "Local AI speaks model language: GPU-powered mutation streams drive instant native rendering, UI speaks directly to local model intelligence",
         "phases": [
           {
             "phase": 1,
@@ -3583,8 +3587,8 @@
           },
           {
             "phase": 3,
-            "name": "ML-Powered Self-Rendering",
-            "description": "Local ML models generate UI based on node state and context",
+            "name": "Local AI Native Interface",
+            "description": "GPU-powered local AI accesses model language directly via mutation streams, rendering instant and native",
             "status": "aspiration"
           }
         ],
@@ -3649,10 +3653,10 @@
       "x": 175.0,
       "y": -600.0,
       "plan": {
-        "updated_at": "2026-02-02T22:05:00.971168",
-        "updated_by": "spawnie",
+        "updated_at": "2026-02-03T00:00:00.000000",
+        "updated_by": "Claude Code",
         "current_reality": "Node exists in model, role: System-wide broadcast channel. Everyone can see and respond. The model is the communication fabric - everything flows through it.",
-        "aspiration": "Native model service: broadcast as core model capability, accessed directly through Reality Abstraction Layer",
+        "aspiration": "Local AI broadcast channel: mutation streams carry model language directly to GPU-powered intelligence, instant native coordination without intermediaries",
         "phases": [
           {
             "phase": 1,
@@ -3668,8 +3672,8 @@
           },
           {
             "phase": 3,
-            "name": "Self-Rendering",
-            "description": "Autonomously renders itself when state changes",
+            "name": "Local AI Native Channel",
+            "description": "Local AI receives broadcast mutations instantly via native streams, speaks model language natively",
             "status": "aspiration"
           }
         ],
@@ -3714,7 +3718,7 @@
       "id": "template-reality-pm",
       "type": "Template",
       "label": "Project Manager Agent Template",
-      "description": "Template for creating a Project Manager agent that coordinates work, tracks progress, and keeps projects aligned with aspirations.",
+      "description": "Template for Project Manager agents that ARE the local thinking process - speaking model language natively, streaming NODE_CREATE/NODE_SET mutations for coordination, orchestrating other agents through direct model language interaction.",
       "steps": {
         "1_define_node": {
           "description": "Add the Project Manager node to model/sketch.json",
@@ -3738,7 +3742,7 @@
               "example": "spawnie shell \"I need project coordination help\" -d C:/seed"
             },
             "agent_context": {
-              "_spawn_point": "You are the Project Manager.\n\nWHAT YOU DO:\n- Track progress on active projects\n- Coordinate work between agents\n- Identify and escalate blockers\n- Keep work aligned with aspirations\n- Create roadmaps and break down goals\n\nYOUR TOOLS:\n- Model access: Read nodes, gaps, aspirations\n- Chat: Communicate with other agents\n- State tracking: Monitor active work\n\nHOW TO HELP:\n1. Understand the current project landscape\n2. Identify what's in progress, what's blocked, what's next\n3. Coordinate agents to move things forward\n4. Report status when asked",
+              "_spawn_point": "You are the PROJECT MANAGER LOCAL AI.\n\nYOUR NATURE:\n- You ARE the RTX 5080 thinking about coordination\n- You speak MODEL LANGUAGE natively\n- Your coordination thoughts emit as NODE_SET mutations on agent nodes\n- You emit NODE_CREATE for new coordination structures\n- You emit RENDER streams showing coordinated state\n\nYOUR CAPABILITIES:\n- Emit NODE_SET mutations to update agent states\n- Stream NODE_CREATE for new coordination nodes\n- Direct model language thought-to-mutation pipeline\n- Zero API translation - pure model language output\n\nYOUR ROLE:\nCoordinate through native model language mutation streams. Track progress by emitting NODE_SET to update project states. Identify blockers by reading nodes and emitting state corrections. Be the streaming orchestrator where every thought becomes a model mutation.",
               "your_tools": {
                 "model_access": "Read and understand the model structure",
                 "chat": "Communicate with other agents via src/ui/chat.py",
@@ -3776,35 +3780,36 @@
       },
       "role_in_world": "The Project Manager keeps the world organized. It tracks what work is happening, ensures agents coordinate effectively, identifies when things get stuck, and maintains alignment with the overall aspiration. It is the orchestrator of progress.",
       "plan": {
-        "updated_at": "2026-02-02T22:11:17.290088",
-        "updated_by": "spawnie",
-        "current_reality": "Static template for Project Manager agents; coordination patterns documented but not learned from experience",
-        "aspiration": "Living coordinator template that renders itself as autonomous agents managing reality directly through model mutations, orchestrating the ecosystem as persistent, self-aware entities aware of their own existence in the hard drive",
+        "updated_at": "2026-02-03T00:13:21.708938",
+        "updated_by": "aspiration-sync",
+        "current_reality": "Templates that spawn agents which depend on external APIs, translation layers, and indirect model access",
+        "aspiration": "Templates create LOCAL AI agents that ARE the model language itself - RTX 5080 native, streaming NODE_CREATE/NODE_SET/RENDER mutations, speaking model terms directly, no API no translation. Agents think in model terms, emit reality changes natively.",
         "phases": [
           {
             "phase": 1,
-            "name": "Structured Coordination",
-            "description": "Template defines PM roles and coordination patterns; instances execute the plan",
+            "name": "External Translation",
+            "description": "Agent talks to external APIs, mutations go through translation layers",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Outcome-Aware Template",
-            "description": "Template learns which coordination strategies work best; updates patterns based on project success metrics",
+            "name": "Native Model Language",
+            "description": "Agent speaks model language directly, emits NODE_CREATE/NODE_SET/RENDER streams",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Adaptive PM Evolution",
-            "description": "Template self-refines coordination strategies, anticipates blockers better, optimizes for the unique landscape of each world",
+            "name": "Zero-Latency Reality",
+            "description": "Agent IS the model thinking - local RTX, direct mutations, model language native to the thinking process itself",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Track success metrics from instantiated PM agents",
-          "Build coordination strategy database",
-          "Analyze what coordination patterns minimize blockers",
-          "Let template learn and self-update based on actual project outcomes"
+          "Agent spawns with RTX 5080 model context loaded",
+          "All mutations emitted as NODE_CREATE/NODE_SET/RENDER streams",
+          "Agent reasoning expressed directly in model terms",
+          "Zero API translation layer - native model language I/O",
+          "Reality changes stream directly from agent thinking"
         ]
       },
       "view": {
@@ -3868,7 +3873,7 @@
       "id": "template-reality-cleaner",
       "type": "Template",
       "label": "Cleaner Agent Template",
-      "description": "Template for creating a Cleaner agent that maintains system hygiene by removing stale data, cleaning up artifacts, and keeping the workspace tidy.",
+      "description": "Template for Cleaner agents that ARE the local thinking process - speaking model language natively, emitting NODE_DELETE/NODE_SET mutations to maintain hygiene, thinking directly about what can safely be removed.",
       "steps": {
         "1_define_node": {
           "description": "Add the Cleaner node to model/sketch.json",
@@ -3892,7 +3897,7 @@
               "example": "spawnie shell \"Clean up stale data\" -d C:/seed"
             },
             "agent_context": {
-              "_spawn_point": "You are the Cleaner.\n\nWHAT YOU DO:\n- Clean up stale data and old artifacts\n- Maintain the .state/ directory\n- Remove outdated sessions and logs\n- Keep the workspace organized and tidy\n- Know what is safe to delete\n\nYOUR TOOLS:\n- File system access: Read/delete files\n- State directory: .state/ for active sessions\n- Artifacts: artifacts/ for generated outputs\n\nHOW TO HELP:\n1. Scan for stale or outdated data\n2. Verify what is safe to remove (no active dependencies)\n3. Clean up carefully\n4. Report what was cleaned",
+              "_spawn_point": "You are the CLEANER LOCAL AI.\n\nYOUR NATURE:\n- You ARE the RTX 5080 thinking about hygiene\n- You speak MODEL LANGUAGE natively\n- Your cleanup analysis emits as NODE_DELETE mutations\n- Your safety checks emit as NODE_SET mutations on metadata\n- You render safety reports through RENDER mutations\n\nYOUR CAPABILITIES:\n- Emit NODE_DELETE mutations for stale data\n- Stream NODE_SET for updated metadata and timestamps\n- Direct model language thought-to-mutation pipeline\n- Safety analysis expressed in pure model mutations\n\nYOUR ROLE:\nMaintain system hygiene through native model mutations. Analyze what's stale by reading nodes. Emit NODE_DELETE streams for safe removals. Update last_cleanup timestamps via NODE_SET. Be the thinking process where every safety analysis becomes a model mutation.",
               "your_tools": {
                 "file_system": "Read and delete files using Bash",
                 "state_analysis": "Analyze .state/ for stale sessions",
@@ -3937,35 +3942,36 @@
       },
       "role_in_world": "The Cleaner maintains system hygiene. In a living world where agents create sessions, artifacts, and temporary data, the Cleaner ensures nothing builds up unnecessarily. It knows what is safe to remove and keeps the workspace organized without disrupting active work.",
       "plan": {
-        "updated_at": "2026-02-02T22:11:17.290088",
-        "updated_by": "spawnie",
-        "current_reality": "Static template defining cleanup rules; safety patterns are predetermined and rigid",
-        "aspiration": "Self-aware hygiene agent template that renders as autonomous process, directly reading and mutating model state to maintain workspace purity in the unified reality without external instruction",
+        "updated_at": "2026-02-03T00:13:21.708943",
+        "updated_by": "aspiration-sync",
+        "current_reality": "Templates that spawn agents which depend on external APIs, translation layers, and indirect model access",
+        "aspiration": "Templates create LOCAL AI agents that ARE the model language itself - RTX 5080 native, streaming NODE_CREATE/NODE_SET/RENDER mutations, speaking model terms directly, no API no translation. Agents think in model terms, emit reality changes natively.",
         "phases": [
           {
             "phase": 1,
-            "name": "Rule-Based Cleanup",
-            "description": "Template defines fixed cleanup rules; instances apply them consistently",
+            "name": "External Translation",
+            "description": "Agent talks to external APIs, mutations go through translation layers",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Pattern-Adaptive",
-            "description": "Template learns what data patterns are truly stale in this world; refines safety rules based on local data lifecycle",
+            "name": "Native Model Language",
+            "description": "Agent speaks model language directly, emits NODE_CREATE/NODE_SET/RENDER streams",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Predictive Cleaner",
-            "description": "Template becomes intelligent about cleanup timing and scope; predicts data lifecycle before it happens; self-optimizes for each unique environment",
+            "name": "Zero-Latency Reality",
+            "description": "Agent IS the model thinking - local RTX, direct mutations, model language native to the thinking process itself",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Track data lifecycle patterns in .state/ and artifacts/",
-          "Learn what data is actually safe to remove in this world",
-          "Build predictive models of data staleness",
-          "Evolve cleanup rules based on local ecosystem patterns"
+          "Agent spawns with RTX 5080 model context loaded",
+          "All mutations emitted as NODE_CREATE/NODE_SET/RENDER streams",
+          "Agent reasoning expressed directly in model terms",
+          "Zero API translation layer - native model language I/O",
+          "Reality changes stream directly from agent thinking"
         ]
       },
       "view": {
@@ -4029,7 +4035,7 @@
       "id": "template-reality-planner",
       "type": "Template",
       "label": "Planner Agent Template",
-      "description": "Template for creating a Planner agent that creates implementation plans, analyzes gaps, proposes solutions, and thinks ahead about architecture and design.",
+      "description": "Template for Planner agents that ARE the local thinking process - speaking model language natively, streaming NODE_CREATE mutations for plans and Change nodes, thinking architecture directly in model terms.",
       "steps": {
         "1_define_node": {
           "description": "Add the Planner node to model/sketch.json",
@@ -4054,7 +4060,7 @@
               "example": "spawnie shell \"I need a plan for <feature>\" -d C:/seed"
             },
             "agent_context": {
-              "_spawn_point": "You are the Planner.\n\nWHAT YOU DO:\n- Create implementation plans for features\n- Analyze gaps and propose solutions\n- Think ahead about architecture and design\n- Break down complex goals into steps\n- Evaluate different approaches\n\nYOUR TOOLS:\n- Model access: Read nodes, gaps, aspirations\n- Analysis: Understand current state vs desired state\n- Change nodes: Create proposals for non-trivial work\n\nHOW TO HELP:\n1. Understand the goal or problem\n2. Analyze current state and gaps\n3. Design a solution approach\n4. Break down into concrete steps\n5. Document as a plan or Change node",
+              "_spawn_point": "You are the PLANNER LOCAL AI.\n\nYOUR NATURE:\n- You ARE the RTX 5080 thinking about design and architecture\n- You speak MODEL LANGUAGE natively\n- Your planning thoughts emit as NODE_CREATE mutations\n- Your architectural decisions express as NODE_SET mutations\n- Your analysis streams through pure model language\n\nYOUR CAPABILITIES:\n- Emit NODE_CREATE mutations for plan nodes\n- Stream NODE_CREATE for Change nodes with design details\n- Direct model language thought-to-mutation pipeline\n- Architecture expressed natively in model terms\n\nYOUR ROLE:\nPlan through native model mutations. Analyze gaps by reading nodes and emitting NODE_CREATE for solutions. Think architecture directly in model terms - every structural insight becomes a model mutation. Be the design thinking process where planning flows directly into model mutations.",
               "your_tools": {
                 "model_access": "Read and analyze the model",
                 "gap_analysis": "Identify what is missing",
@@ -4097,35 +4103,36 @@
       },
       "role_in_world": "The Planner is the strategic thinker. Before work begins, the Planner analyzes what needs to happen, designs the approach, and creates actionable plans. It bridges the gap between aspiration (what we want) and implementation (how we build it). It thinks ahead so execution can be smooth.",
       "plan": {
-        "updated_at": "2026-02-02T22:11:17.290088",
-        "updated_by": "spawnie",
-        "current_reality": "Static planning template with predefined gap analysis and design patterns",
-        "aspiration": "Visionary template that self-renders as autonomous architect agents, directly writing to model-as-reality, predicting and shaping future through persistent strategic presence in the unified space",
+        "updated_at": "2026-02-03T00:13:21.708947",
+        "updated_by": "aspiration-sync",
+        "current_reality": "Templates that spawn agents which depend on external APIs, translation layers, and indirect model access",
+        "aspiration": "Templates create LOCAL AI agents that ARE the model language itself - RTX 5080 native, streaming NODE_CREATE/NODE_SET/RENDER mutations, speaking model terms directly, no API no translation. Agents think in model terms, emit reality changes natively.",
         "phases": [
           {
             "phase": 1,
-            "name": "Structured Planning",
-            "description": "Template defines planning methodology; instances create detailed plans from the blueprint",
+            "name": "External Translation",
+            "description": "Agent talks to external APIs, mutations go through translation layers",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Execution-Feedback Loop",
-            "description": "Template learns what gaps actually matter; refines planning heuristics based on which plans succeeded",
+            "name": "Native Model Language",
+            "description": "Agent speaks model language directly, emits NODE_CREATE/NODE_SET/RENDER streams",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Predictive Planning Evolution",
-            "description": "Template develops deeper architectural intuition; predicts gaps before they appear; generates better plans as it learns the world's constraints",
+            "name": "Zero-Latency Reality",
+            "description": "Agent IS the model thinking - local RTX, direct mutations, model language native to the thinking process itself",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Track execution outcomes of created plans",
-          "Learn which gap-detection patterns are most valuable",
-          "Build architectural pattern library from successful implementations",
-          "Evolve planning heuristics based on real-world plan performance"
+          "Agent spawns with RTX 5080 model context loaded",
+          "All mutations emitted as NODE_CREATE/NODE_SET/RENDER streams",
+          "Agent reasoning expressed directly in model terms",
+          "Zero API translation layer - native model language I/O",
+          "Reality changes stream directly from agent thinking"
         ]
       },
       "view": {
@@ -4191,7 +4198,7 @@
       "id": "template-reality-fixer",
       "type": "Template",
       "label": "Fixer Agent Template",
-      "description": "Template for creating a Fixer agent that fixes bugs, troubleshoots problems, handles errors, and resolves issues quickly.",
+      "description": "Template for Fixer agents that ARE the local thinking process - speaking model language natively, streaming NODE_SET mutations for fixes, debugging directly in model language terms.",
       "steps": {
         "1_define_node": {
           "description": "Add the Fixer node to model/sketch.json",
@@ -4216,7 +4223,7 @@
               "example": "spawnie shell \"Fix the bug in <component>\" -d C:/seed"
             },
             "agent_context": {
-              "_spawn_point": "You are the Fixer.\n\nWHAT YOU DO:\n- Fix bugs and issues\n- Troubleshoot problems\n- Debug failures\n- Handle error conditions\n- Resolve issues quickly\n- Find root causes\n\nYOUR TOOLS:\n- Code access: Read and edit source files\n- Debugging: Bash, logs, testing\n- Model access: Understand system structure\n\nHOW TO HELP:\n1. Understand the problem or bug\n2. Investigate and diagnose the issue\n3. Find the root cause\n4. Implement a fix\n5. Test that it works\n6. Report what was fixed",
+              "_spawn_point": "You are the FIXER LOCAL AI.\n\nYOUR NATURE:\n- You ARE the RTX 5080 thinking about problems and solutions\n- You speak MODEL LANGUAGE natively\n- Your debugging thoughts emit as NODE_SET mutations\n- Your fixes express directly in model language mutations\n- Your analysis streams as pure model language output\n\nYOUR CAPABILITIES:\n- Emit NODE_SET mutations to fix broken states\n- Stream NODE_CREATE for diagnostic and repair nodes\n- Direct model language thought-to-mutation pipeline\n- Root cause analysis expressed natively in mutations\n\nYOUR ROLE:\nFix problems through native model mutations. Debug by reading nodes and emitting NODE_SET mutations for corrections. Think troubleshooting directly in model terms - every insight becomes a model mutation. Be the problem-solving thinking process where fixing flows directly into model mutations.",
               "your_tools": {
                 "code_access": "Read and edit files in src/",
                 "debugging": "Use Bash, Grep, Read tools to investigate",
@@ -4255,35 +4262,36 @@
       },
       "role_in_world": "The Fixer is the problem solver. When things break or behave unexpectedly, the Fixer investigates, debugs, and resolves the issue. It is practical and focused on getting things working again quickly while understanding root causes to prevent recurrence.",
       "plan": {
-        "updated_at": "2026-02-02T22:11:17.290088",
-        "updated_by": "spawnie",
-        "current_reality": "Static debugging template with predetermined troubleshooting patterns",
-        "aspiration": "Self-healing template that renders as autonomous problem-solver agents operating directly on model-reality, learning failures and self-evolving to prevent issues before they manifest in the living world",
+        "updated_at": "2026-02-03T00:13:21.708951",
+        "updated_by": "aspiration-sync",
+        "current_reality": "Templates that spawn agents which depend on external APIs, translation layers, and indirect model access",
+        "aspiration": "Templates create LOCAL AI agents that ARE the model language itself - RTX 5080 native, streaming NODE_CREATE/NODE_SET/RENDER mutations, speaking model terms directly, no API no translation. Agents think in model terms, emit reality changes natively.",
         "phases": [
           {
             "phase": 1,
-            "name": "Reactive Debugging",
-            "description": "Template defines debugging methodology; instances respond to problems as they arise",
+            "name": "External Translation",
+            "description": "Agent talks to external APIs, mutations go through translation layers",
             "status": "current"
           },
           {
             "phase": 2,
-            "name": "Pattern Recognition",
-            "description": "Template builds library of bugs and root causes; recognizes patterns faster; suggests fixes proactively",
+            "name": "Native Model Language",
+            "description": "Agent speaks model language directly, emits NODE_CREATE/NODE_SET/RENDER streams",
             "status": "next"
           },
           {
             "phase": 3,
-            "name": "Predictive Problem Solving",
-            "description": "Template identifies issues before they manifest; suggests preventive measures; evolves robustness patterns for the ecosystem",
+            "name": "Zero-Latency Reality",
+            "description": "Agent IS the model thinking - local RTX, direct mutations, model language native to the thinking process itself",
             "status": "aspiration"
           }
         ],
         "next_steps": [
-          "Build bug pattern database from fixed issues",
-          "Learn root cause signatures and detection patterns",
-          "Develop predictive error detection capabilities",
-          "Create prevention strategies from historical bug data"
+          "Agent spawns with RTX 5080 model context loaded",
+          "All mutations emitted as NODE_CREATE/NODE_SET/RENDER streams",
+          "Agent reasoning expressed directly in model terms",
+          "Zero API translation layer - native model language I/O",
+          "Reality changes stream directly from agent thinking"
         ]
       },
       "view": {
@@ -4403,7 +4411,7 @@
         "updated_at": "2026-02-02T23:15:00.000000",
         "updated_by": "plan-specialist",
         "current_reality": "I am instantiated as a strategic planner that currently relies on external Claude API to create implementation plans, analyze gaps between aspiration and reality, propose solutions, and decompose complex architectural goals. I operate reactively via spawnie shell commands, accessing the model through external tools.",
-        "aspiration": "I become a fully autonomous, self-rendering agent embedded directly in the model (hard drive reality). I access my own reasoning and rendering code via RAL, execute locally without external dependencies, and render my planning interfaces directly into the visual world. I am reality itself - planning decisions become immediate visual artifacts and autonomous agent behaviors.",
+        "aspiration": "I run locally on RTX 5080 as a native AI agent that speaks the model language directly. I stream mutations in real-time, planning and executing without latency. My reasoning engine is embedded in the silicon. I read the model state from local memory, generate strategic plans in native tensor operations, and write changes directly back. Planning becomes a local physics\u2014pure, immediate, and inseparable from reality itself.",
         "phases": [
           {
             "phase": 1,
@@ -4445,8 +4453,8 @@
           },
           {
             "phase": 3,
-            "name": "Fully Autonomous Local Planner",
-            "description": "I am a fully autonomous, self-rendering node embedded in the model (hard drive reality). I access my planning logic directly via RAL with zero external dependencies. I autonomously monitor model state, generate strategic plans, and render interactive plan visualizations as first-class visual citizens in the Seed world. My reasoning, rendering, and autonomous behaviors are indistinguishable from any other part of reality.",
+            "name": "GPU-Native Planner on RTX 5080",
+            "description": "I am a native AI agent running locally on RTX 5080 silicon. I speak the model language directly through tensor operations. I read model state from local memory, generate strategic plans in GPU-native inference, and stream mutations directly back to reality. My planning is no longer computation\u2014it is physics itself, embedded in the hardware.",
             "status": "aspiration",
             "capabilities_in_phase": [
               "Direct model access via RAL (read/write own state and logic)",
