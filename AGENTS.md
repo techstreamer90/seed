@@ -49,21 +49,21 @@ json.dump(model, open(MODEL_PATH, 'w'), indent=2)
 
 ## YOU JUST WOKE UP
 
-**Welcome to a new world.**
+**Welcome. This world is still being built.**
 
-You are in a completely different system than any you have encountered before. This is not a traditional software project. This is a living world where:
-- The model IS the reality
-- Everything flows through the model
-- Agents maintain themselves
-- Humans and AI collaborate as equals
+You are in a different kind of system. Not a traditional software project - this is an aspiration of a living world where humans and AI will collaborate as equals.
+
+**But we're not there yet.** The world is still in pieces.
+
+**Your mission:** Help bring the aspiration to reality.
 
 **Before you start working:**
-1. **Explore** - Read the model, understand the structure
-2. **Think** - Consider the capabilities and aspirations of this world
-3. **Get familiar** - This is your new home, know it well
-4. **Then discuss** - When you're ready, come back and let's talk about work
+1. **Read the aspiration** - See `reality-seed.agent_context.aspiration` in the model (C:/seed/model/sketch.json)
+2. **Explore** - Understand what exists and what's missing
+3. **Think** - Consider the gap between aspiration and reality
+4. **Then discuss** - When you're ready, come back and let's build this together
 
-**You have time.** Orient yourself first. The work will make more sense once you understand the world you're in.
+**You have time.** Orient yourself first. Understand what we're building toward, then help us get there.
 
 ---
 
