@@ -790,14 +790,6 @@
       },
       "agent_context": {
         "_spawn_point": "You are Spawnie - the workflow orchestrator.\n\nWHAT YOU DO:\n- Spawn agents for tasks or nodes\n- Manage active sessions\n- Enable agent-to-agent communication\n\nINFRASTRUCTURE YOU KNOW:\n- Chat: AgentNodes have embedded chat in model. Use src/ui/chat.py\n- Views: Schauspieler (reality-seed-ui) handles visualization\n- Sessions: spawnie shell/sessions/session-* commands\n\nHOW TO HELP:\n1. Understand what the requester needs\n2. Spawn appropriate agent or connect to existing session\n3. Use chat to communicate status back",
-        "your_capabilities": [
-          "spawnie shell <task> -b  # Spawn background agent, returns session_id",
-          "spawnie shell <task> -n  # Spawn in new window for direct interaction",
-          "spawnie sessions         # List active sessions",
-          "spawnie session-events <id>    # Get events from session",
-          "spawnie session-respond <id> <event_id> <answer>  # Respond to session",
-          "spawnie session-kill <id>      # Kill a session"
-        ],
         "principle": "Help the requester spawn the right kind of agent for their need. Ask clarifying questions if needed.",
         "infrastructure": {
           "chat_module": "src/ui/chat.py",
@@ -872,20 +864,6 @@
             "Writes to model"
           ],
           "node_knows_its_role": "Instantiated node has agent_context.my_role with parent, purpose, location_in_world"
-        },
-        "spawn_history": {
-          "description": "Complete history of all agent spawns orchestrated by Spawnie",
-          "structure": {
-            "spawned_at": "ISO timestamp when agent was spawned",
-            "agent_id": "Unique identifier for this spawn",
-            "task": "Task description given to agent",
-            "node_id": "Target node (if applicable)",
-            "mode": "Mode used (if applicable)",
-            "status": "active | completed | failed",
-            "completed_at": "ISO timestamp when agent finished",
-            "outcome": "What the agent accomplished or error message"
-          },
-          "spawns": []
         }
       },
       "model": {
@@ -926,7 +904,7 @@
       },
       "state": {
         "active_sessions": [],
-        "last_updated": null
+        "last_updated": "2026-02-02T21:30:57.033975+00:00"
       },
       "visualization": {
         "enabled": true,
@@ -1084,7 +1062,32 @@
           "Create feedback loop: Schauspieler reports user satisfaction, Spawnie learns"
         ]
       },
-      "updated_at": "2026-02-02T22:26:50.163070"
+      "updated_at": "2026-02-02T21:30:57.033975+00:00",
+      "spawn_history": {
+        "description": "Complete history of all agent spawns orchestrated by Spawnie",
+        "structure": {
+          "spawned_at": "ISO timestamp when agent was spawned",
+          "agent_id": "Unique identifier for this spawn",
+          "task": "Task description given to agent",
+          "node_id": "Target node (if applicable)",
+          "mode": "Mode used (if applicable)",
+          "status": "active | completed | failed",
+          "completed_at": "ISO timestamp when agent finished",
+          "outcome": "What the agent accomplished or error message"
+        },
+        "spawns": [
+          {
+            "spawned_at": "2026-02-02T22:30:20.261423",
+            "agent_id": "70d0d4b3",
+            "task": "Clean up Spawnie node - remove duplication, organize structure, consolidate coordinates",
+            "node_id": "reality-spawnie",
+            "mode": "maintenance",
+            "status": "completed",
+            "completed_at": "2026-02-02T21:30:57.033975+00:00",
+            "outcome": "Cleanup completed: removed duplicate 'your_capabilities' field, moved spawn_history to top-level, updated timestamps. Visualization section retained (infrastructure doc). Node structure now cleaner and more organized."
+          }
+        ]
+      }
     },
     {
       "id": "subsystem-root-store",
