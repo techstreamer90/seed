@@ -8,13 +8,20 @@ Usage:
     from src.ui.tools import (
         create_view, show_hierarchy, focus_node, show_all,
         add_status_indicator, highlight_nodes, list_views,
-        get_my_view, update_title
+        get_my_view, update_title,
+        view_spawnie_dashboard, view_spawnie_sessions
     )
 
     # Quick operations
     show_hierarchy("reality-spawnie", view="spawnie")
     focus_node("mod-pulse", view="debug")
     highlight_nodes(["mod-pulse", "mod-status"], color="#ff0000")
+
+    # Spawnie-specific views
+    view_spawnie_dashboard()    # Complete dashboard
+    view_spawnie_sessions()     # Active sessions only
+    view_spawnie_queue()        # Spawn queue only
+    view_spawnie_capabilities() # Capabilities and modes
 
     # Full control
     view = get_my_view("my-agent")
@@ -372,6 +379,30 @@ def view_bam() -> str:
     return show_hierarchy("reality-bam", "bam", depth=2)
 
 
+def view_spawnie_dashboard() -> str:
+    """Show Spawnie dashboard with queue, sessions, and capabilities."""
+    from src.ui.spawnie_views import show_spawnie_dashboard
+    return show_spawnie_dashboard()
+
+
+def view_spawnie_sessions() -> str:
+    """Show Spawnie active sessions."""
+    from src.ui.spawnie_views import show_active_sessions
+    return show_active_sessions()
+
+
+def view_spawnie_queue() -> str:
+    """Show Spawnie spawn queue."""
+    from src.ui.spawnie_views import show_spawn_queue
+    return show_spawn_queue()
+
+
+def view_spawnie_capabilities() -> str:
+    """Show Spawnie capabilities and modes."""
+    from src.ui.spawnie_views import show_capabilities
+    return show_capabilities()
+
+
 # === SchauspielerSub Coordination ===
 
 def scan_visualization_requests() -> List[Dict[str, Any]]:
@@ -491,6 +522,12 @@ if __name__ == "__main__":
         print()
         print("Quick views:")
         print("  spawnie, root, store, core, ui, bam")
+        print()
+        print("Spawnie-specific views:")
+        print("  spawnie-dashboard    - Complete dashboard")
+        print("  spawnie-sessions     - Active sessions")
+        print("  spawnie-queue        - Spawn queue")
+        print("  spawnie-capabilities - Capabilities and modes")
         sys.exit(0)
 
     cmd = sys.argv[1]
@@ -521,6 +558,11 @@ if __name__ == "__main__":
 
     elif cmd in ["spawnie", "root", "store", "core", "ui", "bam"]:
         func = globals()[f"view_{cmd}"]
+        print(func())
+
+    elif cmd in ["spawnie-dashboard", "spawnie-sessions", "spawnie-queue", "spawnie-capabilities"]:
+        func_name = f"view_{cmd.replace('-', '_')}"
+        func = globals()[func_name]
         print(func())
 
     else:

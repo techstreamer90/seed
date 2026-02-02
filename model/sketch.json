@@ -2,7 +2,7 @@
   "schema_version": "3.0",
   "project": "seed",
   "description": "Root meta-model: zones, schema, realities, aspirations, concepts. Implementation details in submodels.",
-  "updated_at": "2026-02-02T20:17:28Z",
+  "updated_at": "2026-02-02T20:22:41Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -5105,6 +5105,837 @@
         }
       ],
       "updated_at": "2026-02-02T18:52:08.798998"
+    },
+    "spawnie-dashboard": {
+      "canvas": {
+        "width": 1400,
+        "height": 900,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "title",
+          "type": "text",
+          "text": "Spawnie Workflow Orchestrator - Dashboard",
+          "x": 700,
+          "y": 30,
+          "fill": "#58a6ff",
+          "font": "18px sans-serif bold"
+        },
+        {
+          "id": "cap-header",
+          "type": "rect",
+          "x": 50,
+          "y": 70,
+          "w": 400,
+          "h": 40,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Capabilities"
+        },
+        {
+          "id": "cap-0",
+          "type": "rect",
+          "x": 50,
+          "y": 130,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-0",
+          "type": "text",
+          "text": "Spawn Agent",
+          "x": 60,
+          "y": 150,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-0",
+          "type": "text",
+          "text": "Spawn an agent for any task or node",
+          "x": 60,
+          "y": 170,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "cap-1",
+          "type": "rect",
+          "x": 50,
+          "y": 205,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-1",
+          "type": "text",
+          "text": "List Sessions",
+          "x": 60,
+          "y": 225,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-1",
+          "type": "text",
+          "text": "Show what agents are currently running",
+          "x": 60,
+          "y": 245,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "cap-2",
+          "type": "rect",
+          "x": 50,
+          "y": 280,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-2",
+          "type": "text",
+          "text": "Connect To Session",
+          "x": 60,
+          "y": 300,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-2",
+          "type": "text",
+          "text": "Connect to an existing agent session",
+          "x": 60,
+          "y": 320,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "cap-3",
+          "type": "rect",
+          "x": 50,
+          "y": 355,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-3",
+          "type": "text",
+          "text": "Kill Session",
+          "x": 60,
+          "y": 375,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-3",
+          "type": "text",
+          "text": "End an agent session",
+          "x": 60,
+          "y": 395,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "cap-4",
+          "type": "rect",
+          "x": 50,
+          "y": 430,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-4",
+          "type": "text",
+          "text": "Spawn With Mode",
+          "x": 60,
+          "y": 450,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-4",
+          "type": "text",
+          "text": "Spawn an agent for a specific node with a defined ...",
+          "x": 60,
+          "y": 470,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "modes-header",
+          "type": "text",
+          "text": "Available Modes:",
+          "x": 60,
+          "y": 515,
+          "fill": "#a371f7",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "mode-0",
+          "type": "text",
+          "text": "\u2022 work-on-views - Create/update visualizations",
+          "x": 70,
+          "y": 535,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-1",
+          "type": "text",
+          "text": "\u2022 chat - Engage in node conversation",
+          "x": 70,
+          "y": 560,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-2",
+          "type": "text",
+          "text": "\u2022 aspiration - Think about future possibilities",
+          "x": 70,
+          "y": 585,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-3",
+          "type": "text",
+          "text": "\u2022 maintenance - Health checks and cleanup",
+          "x": 70,
+          "y": 610,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-4",
+          "type": "text",
+          "text": "\u2022 debug - Investigate issues",
+          "x": 70,
+          "y": 635,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-5",
+          "type": "text",
+          "text": "\u2022 implement - Build features",
+          "x": 70,
+          "y": 660,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "sessions-header",
+          "type": "rect",
+          "x": 500,
+          "y": 70,
+          "w": 400,
+          "h": 40,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "Active Sessions (0)"
+        },
+        {
+          "id": "no-sessions",
+          "type": "rect",
+          "x": 500,
+          "y": 130,
+          "w": 400,
+          "h": 80,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "no-sessions-text",
+          "type": "text",
+          "text": "No active sessions",
+          "x": 650,
+          "y": 170,
+          "fill": "#6e7681",
+          "font": "14px sans-serif italic"
+        },
+        {
+          "id": "queue-header",
+          "type": "rect",
+          "x": 950,
+          "y": 70,
+          "w": 400,
+          "h": 40,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "Spawn Queue (0)"
+        },
+        {
+          "id": "empty-queue",
+          "type": "rect",
+          "x": 950,
+          "y": 130,
+          "w": 400,
+          "h": 80,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "empty-queue-text",
+          "type": "text",
+          "text": "Queue is empty",
+          "x": 1100,
+          "y": 170,
+          "fill": "#6e7681",
+          "font": "14px sans-serif italic"
+        },
+        {
+          "id": "status",
+          "type": "text",
+          "text": "Last updated: None | Sessions: 0 | Queue: 0",
+          "x": 50,
+          "y": 860,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T20:22:39.388386"
+    },
+    "spawnie-sessions": {
+      "canvas": {
+        "width": 500,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "title",
+          "type": "text",
+          "text": "Spawnie - Active Sessions",
+          "x": 250,
+          "y": 30,
+          "fill": "#238636",
+          "font": "16px sans-serif bold"
+        },
+        {
+          "id": "sessions-header",
+          "type": "rect",
+          "x": 50,
+          "y": 70,
+          "w": 400,
+          "h": 40,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "Active Sessions (0)"
+        },
+        {
+          "id": "no-sessions",
+          "type": "rect",
+          "x": 50,
+          "y": 130,
+          "w": 400,
+          "h": 80,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "no-sessions-text",
+          "type": "text",
+          "text": "No active sessions",
+          "x": 200,
+          "y": 170,
+          "fill": "#6e7681",
+          "font": "14px sans-serif italic"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T20:22:41.167789"
+    },
+    "spawnie-queue": {
+      "canvas": {
+        "width": 500,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "title",
+          "type": "text",
+          "text": "Spawnie - Spawn Queue",
+          "x": 250,
+          "y": 30,
+          "fill": "#d29922",
+          "font": "16px sans-serif bold"
+        },
+        {
+          "id": "queue-header",
+          "type": "rect",
+          "x": 50,
+          "y": 70,
+          "w": 400,
+          "h": 40,
+          "fill": "#6e7681",
+          "stroke": "#ffffff",
+          "label": "Spawn Queue (0)"
+        },
+        {
+          "id": "empty-queue",
+          "type": "rect",
+          "x": 50,
+          "y": 130,
+          "w": 400,
+          "h": 80,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "empty-queue-text",
+          "type": "text",
+          "text": "Queue is empty",
+          "x": 200,
+          "y": 170,
+          "fill": "#6e7681",
+          "font": "14px sans-serif italic"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T20:21:40.424522"
+    },
+    "spawnie-capabilities": {
+      "canvas": {
+        "width": 500,
+        "height": 800,
+        "background": "#0d1117"
+      },
+      "elements": [
+        {
+          "id": "title",
+          "type": "text",
+          "text": "Spawnie - Capabilities",
+          "x": 250,
+          "y": 30,
+          "fill": "#238636",
+          "font": "16px sans-serif bold"
+        },
+        {
+          "id": "cap-header",
+          "type": "rect",
+          "x": 50,
+          "y": 70,
+          "w": 400,
+          "h": 40,
+          "fill": "#238636",
+          "stroke": "#ffffff",
+          "label": "Capabilities"
+        },
+        {
+          "id": "cap-0",
+          "type": "rect",
+          "x": 50,
+          "y": 130,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-0",
+          "type": "text",
+          "text": "Spawn Agent",
+          "x": 60,
+          "y": 150,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-0",
+          "type": "text",
+          "text": "Spawn an agent for any task or node",
+          "x": 60,
+          "y": 170,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "cap-1",
+          "type": "rect",
+          "x": 50,
+          "y": 205,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-1",
+          "type": "text",
+          "text": "List Sessions",
+          "x": 60,
+          "y": 225,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-1",
+          "type": "text",
+          "text": "Show what agents are currently running",
+          "x": 60,
+          "y": 245,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "cap-2",
+          "type": "rect",
+          "x": 50,
+          "y": 280,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-2",
+          "type": "text",
+          "text": "Connect To Session",
+          "x": 60,
+          "y": 300,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-2",
+          "type": "text",
+          "text": "Connect to an existing agent session",
+          "x": 60,
+          "y": 320,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "cap-3",
+          "type": "rect",
+          "x": 50,
+          "y": 355,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-3",
+          "type": "text",
+          "text": "Kill Session",
+          "x": 60,
+          "y": 375,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-3",
+          "type": "text",
+          "text": "End an agent session",
+          "x": 60,
+          "y": 395,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "cap-4",
+          "type": "rect",
+          "x": 50,
+          "y": 430,
+          "w": 400,
+          "h": 60,
+          "fill": "#21262d",
+          "stroke": "#30363d",
+          "label": ""
+        },
+        {
+          "id": "cap-name-4",
+          "type": "text",
+          "text": "Spawn With Mode",
+          "x": 60,
+          "y": 450,
+          "fill": "#58a6ff",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "cap-desc-4",
+          "type": "text",
+          "text": "Spawn an agent for a specific node with a defined ...",
+          "x": 60,
+          "y": 470,
+          "fill": "#8b949e",
+          "font": "12px sans-serif"
+        },
+        {
+          "id": "modes-header",
+          "type": "text",
+          "text": "Available Modes:",
+          "x": 60,
+          "y": 515,
+          "fill": "#a371f7",
+          "font": "14px sans-serif bold"
+        },
+        {
+          "id": "mode-0",
+          "type": "text",
+          "text": "\u2022 work-on-views - Create/update visualizations",
+          "x": 70,
+          "y": 535,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-1",
+          "type": "text",
+          "text": "\u2022 chat - Engage in node conversation",
+          "x": 70,
+          "y": 560,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-2",
+          "type": "text",
+          "text": "\u2022 aspiration - Think about future possibilities",
+          "x": 70,
+          "y": 585,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-3",
+          "type": "text",
+          "text": "\u2022 maintenance - Health checks and cleanup",
+          "x": 70,
+          "y": 610,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-4",
+          "type": "text",
+          "text": "\u2022 debug - Investigate issues",
+          "x": 70,
+          "y": 635,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        },
+        {
+          "id": "mode-5",
+          "type": "text",
+          "text": "\u2022 implement - Build features",
+          "x": 70,
+          "y": 660,
+          "fill": "#8b949e",
+          "font": "12px monospace"
+        }
+      ],
+      "styles": {
+        "node-reality": {
+          "fill": "#238636",
+          "stroke": "#ffffff"
+        },
+        "node-subsystem": {
+          "fill": "#3fb950",
+          "stroke": "#ffffff"
+        },
+        "node-module": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "node-aspiration": {
+          "fill": "#a371f7",
+          "stroke": "#ffffff"
+        },
+        "node-gap": {
+          "fill": "#f85149",
+          "stroke": "#ffffff"
+        },
+        "node-todo": {
+          "fill": "#d29922",
+          "stroke": "#ffffff"
+        },
+        "node-concept": {
+          "fill": "#58a6ff",
+          "stroke": "#ffffff"
+        },
+        "node-default": {
+          "fill": "#6e7681",
+          "stroke": "#ffffff"
+        },
+        "edge-default": {
+          "stroke": "#30363d",
+          "strokeWidth": 1
+        },
+        "edge-contains": {
+          "stroke": "#30363d",
+          "strokeWidth": 2
+        },
+        "edge-uses": {
+          "stroke": "#58a6ff",
+          "strokeWidth": 1
+        }
+      },
+      "updated_at": "2026-02-02T20:21:42.237241"
     }
   },
   "node_types": {
