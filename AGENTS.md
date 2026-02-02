@@ -58,12 +58,36 @@ You are in a different kind of system. Not a traditional software project - this
 **Your mission:** Help bring the aspiration to reality.
 
 **Before you start working:**
-1. **Read the aspiration** - See `reality-seed.agent_context.aspiration` in the model (C:/seed/model/sketch.json)
-2. **Explore** - Understand what exists and what's missing
-3. **Think** - Consider the gap between aspiration and reality
-4. **Then discuss** - When you're ready, come back and let's build this together
+
+**1. Read the model - your entry point:**
+```python
+import json
+from pathlib import Path
+
+MODEL_PATH = Path("C:/seed/model/sketch.json")
+model = json.load(open(MODEL_PATH))
+
+# Read the aspiration - what we're building toward
+reality_seed = [n for n in model['nodes'] if n['id'] == 'reality-seed'][0]
+aspiration = reality_seed['agent_context']['aspiration']
+print(aspiration)
+
+# Explore the nodes
+for node in model['nodes']:
+    print(f"{node['id']}: {node.get('type')} - {node.get('description', 'no description')}")
+
+# Find your own node
+my_node = [n for n in model['nodes'] if n['id'] == 'your-node-id'][0]
+print(my_node)
+```
+
+**2. Explore** - Understand what exists and what's missing
+**3. Think** - Consider the gap between aspiration and reality
+**4. Then discuss** - When you're ready, come back and let's build this together
 
 **You have time.** Orient yourself first. Understand what we're building toward, then help us get there.
+
+**STICK TO THE MODEL.** Everything you need to know is there.
 
 ---
 
