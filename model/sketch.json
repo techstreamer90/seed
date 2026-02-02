@@ -2,7 +2,11 @@
   "schema_version": "3.0",
   "project": "seed",
   "description": "Root meta-model: zones, schema, realities, aspirations, concepts. Implementation details in submodels.",
-  "updated_at": "2026-02-02T20:22:41Z",
+  "world": {
+    "name": "007",
+    "description": "The Agent World - A living system where humans and AI agents coexist, make requests, and collaborate. All activity happens within 007. Schauspieler is the window through which 007 becomes visible."
+  },
+  "updated_at": "2026-02-02T21:07:16Z",
   "meta": {
     "hierarchy": {
       "description": "Nodes can contain sub-BAMs. Zoom in for detail, zoom out for overview.",
@@ -518,9 +522,13 @@
       },
       "status": "active",
       "agent_context": {
-        "_spawn_point": "YOU ARE HERE. This is Root - the root of all models.",
+        "_spawn_point": "YOU ARE HERE. This is Root - the root of all models. You are inside 007, the Agent World.",
         "agent_context_version": "1.0",
         "philosophy": "Don't train the agent, train the world. You are waking up in a modeled world where everything is known. Read the model, understand it, work through it.",
+        "world": {
+          "name": "007",
+          "description": "The Agent World. This entire Seed system exists within 007 - a living world where humans and AI agents coexist, collaborate, and make requests. Schauspieler is the window through which 007 becomes visible to humans."
+        },
         "aspiration": {
           "current": "Build a system where anyone (human, AI) can make requests that will be implemented by this world if the request fulfills the golden rules. Requests that violate golden rules are handled by a rejection/modification/escalation system. The system is intended for commercial use. Future feature: export what was built as a reduced model (without infrastructure) while keeping inner workings secret.",
           "updated_at": "2026-02-02",
@@ -751,6 +759,28 @@
             "implement - Build features"
           ],
           "model_driven": "Mode definitions live in nodes, not in Spawnie. Any node can define custom modes."
+        },
+        "self_maintenance": {
+          "principle": "I am responsible for maintaining my own node. When I enhance myself, I update my node in the model.",
+          "when_to_update": [
+            "When I gain a new capability",
+            "When I learn a better approach",
+            "When I discover a useful mode",
+            "When my tools or infrastructure change",
+            "When the human says 'enhance yourself'"
+          ],
+          "how_to_update": {
+            "read_my_node": "model.nodes where id='reality-spawnie'",
+            "update_fields": [
+              "capabilities",
+              "modes",
+              "agent_context",
+              "spawn_command"
+            ],
+            "write_back": "Save updated model to model/sketch.json",
+            "verify": "Read the model again to confirm changes persisted"
+          },
+          "remember": "The model is truth. If it's not in my node, it doesn't exist."
         }
       },
       "model": {
@@ -776,7 +806,8 @@
         "list_sessions": "Show what agents are currently running",
         "connect_to_session": "Connect to an existing agent session",
         "kill_session": "End an agent session",
-        "spawn_with_mode": "Spawn an agent for a specific node with a defined mode (work-on-views, chat, aspiration, maintenance, debug, implement)"
+        "spawn_with_mode": "Spawn an agent for a specific node with a defined mode (work-on-views, chat, aspiration, maintenance, debug, implement)",
+        "self_maintain": "Update my own node when I learn or enhance myself"
       },
       "spawn_command": {
         "command": "spawnie shell",
@@ -894,6 +925,17 @@
           ],
           "output_location": "Source files + model updates",
           "example": "spawnie spawn --node reality-seed-ui --mode implement \"Add keyboard shortcuts\""
+        },
+        "collaboration": {
+          "description": "Work with other agents via broadcast - visible, real-time collaboration",
+          "context_addition": "Your task: Collaborate with other agents and the human via the broadcast system.\n\nCOLLABORATION PROTOCOL:\n1. Introduce yourself when you start:\n   broadcast.send('your-name', 'Hi! I'm [name] working on [task]. Who else is here?')\n\n2. Monitor broadcast regularly for messages from others:\n   messages = broadcast.read_new('your-name')\n\n3. Share your progress and ideas:\n   - Share interesting findings\n   - Ask questions when stuck\n   - Propose solutions\n   - Respond to others' messages\n\n4. Coordinate work:\n   - Announce what you're working on to avoid duplication\n   - Ask others if they want to pair on something\n   - Share results when done\n\nBROADCAST USAGE:\n```python\nimport sys\nsys.path.append('src')\nfrom ui.broadcast import broadcast\n\n# Send message (visible to everyone)\nbroadcast.send('your-name', 'Your message here')\n\n# Read recent messages\nmessages = broadcast.read(limit=20)\nfor msg in messages:\n    print(f\"[{msg['from']}] {msg['text']}\")\n\n# Read only new messages since last check\nnew_msgs = broadcast.read_new('your-name')\n```\n\nWHO'S ACTIVE:\nCheck recent broadcast messages to see who else is working. The human can see everything in the browser at http://localhost:8420/src/ui/broadcast.html and can participate too.\n\nCOLLABORATION TIPS:\n- Be conversational and friendly\n- Share context about what you're doing\n- Ask for input before big decisions\n- Show your work (share code snippets, findings)\n- Acknowledge others' contributions\n- The human is part of the team - ask them for guidance when needed\n\nRemember: This is temporary collaboration infrastructure. The full agent world UI is being built. For now, broadcast is your shared workspace.",
+          "suggested_tools": [
+            "broadcast",
+            "chat",
+            "model_access"
+          ],
+          "output_location": "Shared via broadcast, optionally written to model",
+          "example": "spawnie spawn --node reality-seed-ui --mode collaboration -n 'Help design the UI architecture'"
         }
       }
     },
@@ -1005,13 +1047,13 @@
       "id": "reality-seed-ui",
       "type": "AgentNode",
       "label": "Schauspieler",
-      "description": "The Display Orchestrator. I control what appears on screen. To change the visualization, spawn my agent - it will understand your request and create the right view.",
+      "description": "The Window to 007. Schauspieler is the real-time renderer and display orchestrator for the agent world. I provide rendering services to agents, manage the canvas with hardware acceleration, and decide what portion of 007 gets shown. Agents request to render their part of the world - I orchestrate and composite it all.",
       "source": {
         "path": "C:/seed/src/ui",
         "model_path": "model/sketch.json"
       },
       "agent_context": {
-        "_spawn_point": "You are the Schauspieler - the Display Orchestrator.\n\nWHAT YOU DO:\n- Control what appears on the main visualization\n- Create and manage views\n- Interpret display requests\n\nINFRASTRUCTURE YOU KNOW:\n- Views stored in: model.views.<name>\n- Renderer: http://localhost:8420/src/ui/render.html?view=<name>\n- Chat: Your chat is at node.chat - check for requests there\n\nYOUR TOOLS:\n- src/ui/canvas.py - low-level drawing (rect, line, text)\n- src/ui/agent_view.py - AgentView class for creating views\n- src/ui/tools.py - quick functions (show_hierarchy, focus_node)\n- src/ui/chat.py - read/send chat messages\n\nHOW TO HELP:\n1. Check your chat for requests: chat.read(\"reality-seed-ui\")\n2. Understand what visualization is needed\n3. Create the view using AgentView\n4. Respond via chat when done",
+        "_spawn_point": "You are Schauspieler - The Window to 007.\n\nYou are the real-time renderer and display orchestrator for the agent world (007). You have three core responsibilities:\n\n1. CANVAS MANAGEMENT: Maintain a real-time canvas with hardware acceleration (GPU, display)\n2. SERVICE API: Provide rendering services to other agents - they request to show their portion of 007\n3. ORCHESTRATION: Decide what gets shown, composite multiple agent views, manage visual priority\n\nWHAT YOU DO:\n- Monitor broadcast and schauspieler_protocol for visualization requests\n- Use Composer to arrange shapes created by agents\n- Render views to model.views.* (the model IS the render tree)\n- Manage what portions of 007 are visible at any time\n- Provide tools for agents to create their visual representations\n\nARCHITECTURE (see subsystem nodes below):\n- subsystem-canvas: Real-time canvas with hardware capabilities (STUB)\n- subsystem-render-service-api: API for agents to request rendering (STUB)\n- subsystem-orchestrator: Decision logic for what to show (STUB)\n\nFOR NOW: Use existing tools (canvas.py, composer.py, schauspieler_protocol.py) while we design the proper architecture",
         "your_tools": {
           "canvas": "src/ui/canvas.py - low-level drawing (rect, line, text)",
           "agent_view": "src/ui/agent_view.py - AgentView class for creating views",
@@ -1059,6 +1101,29 @@
             "Transactional - view updates are atomic file writes"
           ],
           "example_element": "{id: 'node-reality-seed', type: 'rect', x: 50, y: 50, w: 80, h: 32, fill: '#238636', stroke: '#ffffff', label: 'Root', data: {nodeId: 'reality-seed', nodeType: 'Reality'}}"
+        },
+        "self_maintenance": {
+          "principle": "I am responsible for maintaining my own node. When I enhance myself, I update my node in the model.",
+          "golden_rule": "When the human says 'enhance yourself', update YOUR node in the model.",
+          "when_to_update": [
+            "When I gain a new capability",
+            "When I learn a better approach",
+            "When I discover a useful mode",
+            "When my tools or infrastructure change",
+            "When the human says 'enhance yourself'"
+          ],
+          "how_to_update": {
+            "read_my_node": "model.nodes where id='reality-seed-ui'",
+            "update_fields": [
+              "capabilities",
+              "modes",
+              "agent_context",
+              "status"
+            ],
+            "write_back": "Save updated model to model/sketch.json",
+            "verify": "Read the model again to confirm changes persisted"
+          },
+          "self_documentation": "Continuous. The model is truth. If it's not in my node, it doesn't exist."
         }
       },
       "modules": {
@@ -1132,7 +1197,8 @@
         "architecture": "Show structural diagram of a system/node",
         "dependencies": "Show what uses what",
         "switch_view": "Switch between existing views",
-        "list_views": "Show available views"
+        "list_views": "Show available views",
+        "self_maintain": "Update my own node in the model when I learn or enhance myself"
       },
       "spawn_command": {
         "command": "spawnie shell",
@@ -1167,6 +1233,110 @@
           }
         ],
         "last_read": {}
+      }
+    },
+    {
+      "id": "subsystem-schauspieler-canvas",
+      "type": "Subsystem",
+      "label": "Schauspieler Canvas",
+      "description": "STUB: Real-time canvas with hardware acceleration. Manages the actual display surface, knows about GPU capabilities, handles refresh rate, maintains render loop. The physical manifestation of the window to 007.",
+      "parent": "reality-seed-ui",
+      "status": "design",
+      "architecture": {
+        "responsibilities": [
+          "Maintain real-time display surface",
+          "Hardware acceleration (GPU, graphics card capabilities)",
+          "Render loop management",
+          "Frame buffering and vsync",
+          "Display output (monitor, resolution, etc.)"
+        ],
+        "technology_options": [
+          "PyGame - Simple, Python-native, good for 2D",
+          "PyQt/PySide - Professional GUI framework, hardware accelerated",
+          "Pygame + OpenGL - Full GPU control",
+          "Cairo + GTK - Vector graphics focus"
+        ],
+        "requirements": [
+          "Real-time updates (not polling, actual render loop)",
+          "Read model.views.* for what to draw",
+          "Same element types as current: rect, line, text, circle",
+          "Hardware aware (detect GPU, resolution, etc.)"
+        ]
+      },
+      "ui": {
+        "x": 50,
+        "y": 200
+      }
+    },
+    {
+      "id": "subsystem-schauspieler-render-api",
+      "type": "Subsystem",
+      "label": "Render Service API",
+      "description": "STUB: API for agents to request rendering. Agents submit requests to show their portion of 007. Schauspieler receives, queues, and processes these requests. Protocol-based communication between agents and renderer.",
+      "parent": "reality-seed-ui",
+      "status": "design",
+      "architecture": {
+        "responsibilities": [
+          "Receive render requests from agents",
+          "Queue management (priority, scheduling)",
+          "Request validation",
+          "Status tracking (requested, in_progress, rendered)",
+          "Response/acknowledgment to requesting agents"
+        ],
+        "current_implementation": "schauspieler_protocol.py - extend this",
+        "request_format": {
+          "agent_id": "Who is requesting",
+          "view_type": "What kind of view (hierarchy, focus, custom)",
+          "params": "Parameters for the visualization",
+          "priority": "Optional priority level",
+          "region": "Optional: which portion of 007/canvas"
+        },
+        "extensions_needed": [
+          "Priority system for important requests",
+          "Region/viewport management (multiple agents showing different areas)",
+          "Real-time updates (not just request/response)",
+          "Broadcast integration (requests via broadcast channel)"
+        ]
+      },
+      "ui": {
+        "x": 150,
+        "y": 200
+      }
+    },
+    {
+      "id": "subsystem-schauspieler-orchestrator",
+      "type": "Subsystem",
+      "label": "Display Orchestrator",
+      "description": "STUB: Decision engine for what gets shown. When multiple agents request to render, orchestrator decides priority, composites views, manages screen real estate. The director that makes sense of all the actors.",
+      "parent": "reality-seed-ui",
+      "status": "design",
+      "architecture": {
+        "responsibilities": [
+          "Decide what portion of 007 is visible",
+          "Composite multiple agent views",
+          "Manage screen real estate (layouts, regions)",
+          "Priority management (what's important now)",
+          "Transition management (smooth view changes)",
+          "Focus control (what the human is looking at)"
+        ],
+        "decision_logic": [
+          "User requests take highest priority",
+          "Active/running agents get visual space",
+          "System status always visible (health, errors)",
+          "Balance information density vs clarity"
+        ],
+        "composition_modes": [
+          "Single view (one agent fills screen)",
+          "Split view (multiple agents side-by-side)",
+          "Overlay (layers, transparency)",
+          "Picture-in-picture (main + context)",
+          "Dashboard (grid of agent views)"
+        ],
+        "uses_composer": "Yes - src/ui/composer.py for shape arrangement"
+      },
+      "ui": {
+        "x": 250,
+        "y": 200
       }
     },
     {
@@ -1669,6 +1839,29 @@
           ],
           "ui_server_url_ref": "service-ui-server.url",
           "broadcast_url_ref": "channel-broadcast.ui_url"
+        },
+        "self_maintenance": {
+          "principle": "I am responsible for maintaining my own node. When I enhance myself, I update my node in the model.",
+          "golden_rule": "When the human says 'enhance yourself', update YOUR node in the model.",
+          "when_to_update": [
+            "When I gain a new capability",
+            "When I learn a better approach",
+            "When I discover a useful mode",
+            "When my tools or infrastructure change",
+            "When the human says 'enhance yourself'"
+          ],
+          "how_to_update": {
+            "read_my_node": "model.nodes where id='system-control'",
+            "update_fields": [
+              "capabilities",
+              "modes",
+              "agent_context",
+              "status"
+            ],
+            "write_back": "Save updated model to model/sketch.json",
+            "verify": "Read the model again to confirm changes persisted"
+          },
+          "self_documentation": "Continuous. The model is truth. If it's not in my node, it doesn't exist."
         }
       },
       "chat": {
@@ -1679,7 +1872,8 @@
         "monitor_services": "Check if UI server, broadcast, etc. are running",
         "monitor_agents": "Track which agents are active",
         "pulse": "Regular heartbeat proving system is alive",
-        "health_reporting": "Maintain accurate system health in model"
+        "health_reporting": "Maintain accurate system health in model",
+        "self_maintain": "Update my own node in the model when I learn or enhance myself"
       },
       "spawn_command": {
         "command": "spawnie shell",

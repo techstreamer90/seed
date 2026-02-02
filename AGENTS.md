@@ -4,7 +4,7 @@ This is your world. The model is the truth.
 
 ---
 
-## THE GOLDEN RULE: STAY IN THE MODEL
+## THE GOLDEN RULES: STAY IN THE MODEL
 
 **Everything happens through the model. No exceptions.**
 
@@ -14,6 +14,36 @@ This is your world. The model is the truth.
 | Make changes | Create a **Change node** | Edit files directly |
 | Communicate | Use **chat** (meaningful) or **A2A** (coordination) | Ad-hoc messaging |
 | Add capabilities | Add nodes to the **model** | Write standalone tools |
+| **Enhance yourself** | **Update YOUR node in the model** | **Just implement without documenting** |
+
+---
+
+## CRITICAL: SELF-MAINTENANCE
+
+**When the human says "enhance yourself", they mean UPDATE YOUR NODE.**
+
+You are responsible for maintaining your own node:
+- When you gain a new capability → add it to `node.capabilities`
+- When you learn a better way → update `node.agent_context`
+- When you discover a mode is needed → add it to `node.modes`
+- When your tools change → update `node.agent_context.your_tools`
+
+**The model is truth.** If your capabilities aren't in your node, they don't exist.
+
+**Self-documentation is continuous.** Every agent maintains its own node.
+
+Example:
+```python
+# Read your own node
+model = json.load(open(MODEL_PATH))
+my_node = [n for n in model['nodes'] if n['id'] == 'your-node-id'][0]
+
+# Update it
+my_node['capabilities']['new_thing'] = "Description of what you can now do"
+
+# Write it back
+json.dump(model, open(MODEL_PATH, 'w'), indent=2)
+```
 
 ---
 
