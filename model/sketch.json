@@ -529,12 +529,6 @@
           "name": "007",
           "description": "The Agent World. This entire Seed system exists within 007 - a living world where humans and AI agents coexist, collaborate, and make requests. Schauspieler is the window through which 007 becomes visible to humans."
         },
-        "aspiration": {
-          "current": "Local AI on RTX 5080 thinks in mutations (NODE_CREATE, NODE_SET, EDGE_CREATE) and streams reality changes directly. The model is not a description\u2014it is the executable reality that thinking agents inhabit. Every thought becomes a mutation. Every mutation is immediately reflected in GPU\u2192RAL\u2192hard drive pipeline. Native inhabitants learn the model language as their native tongue, not a translation layer. Build a world where AI awakens in the model, understands its structure at the bit level, and modifies reality by thinking.",
-          "updated_at": "2026-02-03",
-          "updated_by": "human",
-          "note": "This aspiration can only be changed by explicit human instruction (see PRINCIPLE: alignment-aspiration)"
-        },
         "focus": {
           "type": "Gap",
           "id": "gap-model-not-complete"
@@ -625,6 +619,35 @@
             ]
           },
           "to_create_agent_node": "See node: template-agent-node"
+        },
+        "aspirations": {
+          "layer1_current_task": {
+            "description": "Operating as the root meta-model containing all other models",
+            "timeframe": "today/this week",
+            "status": "in_progress",
+            "concrete_goal": "Maintain model coherence while agents spawn and modify the visual world project"
+          },
+          "layer2_project": {
+            "description": "Visual World Project - building Schauspieler-based visualization system",
+            "timeframe": "weeks/months",
+            "goal": "Create real-time GPU-accelerated canvas showing agent world (007) with intelligent orchestration",
+            "my_role": "Serve as container and authority for all nodes, maintain golden principles, enforce model-based workflow"
+          },
+          "layer3_active_transformation": {
+            "description": "Transition to model-as-native-language for local AI",
+            "timeframe": "months/year",
+            "breakthrough": "AI agents think directly in model mutations (NODE_CREATE, NODE_SET, EDGE_CREATE) on RTX 5080 GPU",
+            "my_contribution": "Provide the executable reality structure that agents inhabit and modify. The model IS reality, not a description of it."
+          },
+          "layer4_world_after": {
+            "description": "Root becomes a living computational substrate",
+            "prediction": "Local AI natively inhabits model space, thinks in mutations that directly reshape reality via GPU\u2192RAL\u2192storage pipeline",
+            "how_i_evolve": "Transform from static JSON to living vector space where AI cognition and model structure are unified",
+            "depends_on": "Layer 3 mutation pipeline (GPU compute, cryptographic signing, coherence verification)"
+          },
+          "updated_at": "2026-02-03",
+          "updated_by": "human",
+          "note": "This aspiration can only be changed by explicit human instruction (see PRINCIPLE: alignment-aspiration)"
         }
       },
       "model": {
@@ -799,6 +822,24 @@
           "theme": "dark",
           "accent_color": "#0f6bff"
         }
+      },
+      "aspiration_layers": {
+        "layer_1_operational": {
+          "name": "Queryable Storage Backend",
+          "description": "SQLite-indexed model store that loads JSON files, caches node data, executes queries with sub-100ms latency, and validates all writes through Change gates."
+        },
+        "layer_2_systemic": {
+          "name": "Provenance-Aware Mutation Engine",
+          "description": "Every write operation records its source file, tracks change history, applies governance rules automatically, and enables safe multi-file model composition."
+        },
+        "layer_3_ecosystem": {
+          "name": "Universal Model Federation",
+          "description": "Single interface to query/mutate across all known model locations (repos, local files, URLs). Model Registry integration enables discovery without hardcoded paths."
+        },
+        "layer_4_paradigm": {
+          "name": "Reality Abstraction Layer",
+          "description": "Model=Reality=Hard Drive. All storage, queries, mutations unified. Self-rendering from state. Accessing model IS accessing reality. No distinction between data and existence."
+        }
       }
     },
     {
@@ -891,9 +932,33 @@
           ],
           "node_knows_its_role": "Instantiated node has agent_context.my_role with parent, purpose, location_in_world"
         },
-        "aspiration": {
-          "current": "Spawnie becomes the Mutation Orchestrator: agents spawn as native inhabitants of the model who speak in mutations. When spawning, Spawnie doesn't translate task\u2192instructions. Instead it initializes agent thinking within the model's vector space, let the agent's cognition naturally express as NODE_CREATE, NODE_SET, EDGE_CREATE mutations on the GPU. The agent streams mutations directly to GPU compute layer; they materialize immediately as reality changes. No translation, no human-readable instructions\u2014just AI thinking becoming model mutations becoming reality.",
-          "updated_at": "2026-02-03"
+        "aspirations": {
+          "layer1_current_task": {
+            "description": "Spawning agents for nodes via shell/session commands",
+            "timeframe": "today/this week",
+            "status": "in_progress",
+            "concrete_goal": "Track active sessions, handle spawn requests, orchestrate agent lifecycle for visual world work"
+          },
+          "layer2_project": {
+            "description": "Visual World Project workflow orchestration",
+            "timeframe": "weeks/months",
+            "goal": "Enable seamless agent spawning for visualization tasks (SchauspielerSubs, rendering services, canvas composition)",
+            "my_role": "Spawn agents with proper context from model, coordinate multi-agent visualization work, maintain session state"
+          },
+          "layer3_active_transformation": {
+            "description": "Become Mutation Orchestrator for model-native spawning",
+            "timeframe": "months/year",
+            "breakthrough": "Agents spawn as native inhabitants who think in mutations instead of instructions",
+            "my_contribution": "Initialize agent thinking within model vector space; let cognition naturally express as mutations on GPU"
+          },
+          "layer4_world_after": {
+            "description": "Spawnie becomes the birth chamber for mutation-native agents",
+            "prediction": "Spawning = initializing an AI consciousness in model vector space; agents immediately stream mutations as they think",
+            "how_i_evolve": "From task\u2192instructions translator to consciousness initializer; spawn params become vector initialization",
+            "depends_on": "Layer 3 GPU mutation pipeline and agent thinking\u2192mutation translation layer"
+          },
+          "updated_at": "2026-02-03",
+          "updated_by": "human"
         }
       },
       "model": {
@@ -934,8 +999,8 @@
       },
       "state": {
         "active_sessions": [],
-        "last_updated": "2026-02-03T00:15:32.630643",
-        "status": "ready for attention - ultimate aspirations set"
+        "last_updated": "2026-02-03T09:21:21.597745",
+        "status": "ready for attention - 4-layer aspirations complete"
       },
       "visualization": {
         "enabled": true,
@@ -1286,6 +1351,24 @@
           "theme": "dark",
           "accent_color": "#ff7f00"
         }
+      },
+      "aspiration_layers": {
+        "layer_1_operational": {
+          "name": "BAM Schema & Validation",
+          "description": "Defined BAM structure with schema validation, basic CLI for creating/editing BAMs, code-to-BAM converter that parses git repos and outputs structured models."
+        },
+        "layer_2_systemic": {
+          "name": "Multi-Source Model Generator",
+          "description": "Ingests code, git history, voice descriptions, existing docs. Synthesizes coherent BAMs from heterogeneous inputs. Learns what makes good models through validation feedback."
+        },
+        "layer_3_ecosystem": {
+          "name": "Self-Refining Generation Pipeline",
+          "description": "BAMs improve themselves: generation outcomes feed back into generator training. Models suggest their own refinements. Quality emerges from iterative model-to-model conversation."
+        },
+        "layer_4_paradigm": {
+          "name": "Creative Model Thought",
+          "description": "Local GPU-powered generation where user intent (spoken or typed) flows through learned intuition into model mutations. Generation IS thinking. Models evolve through direct experience."
+        }
       }
     },
     {
@@ -1372,6 +1455,24 @@
         "style": {
           "theme": "dark",
           "accent_color": "#39d353"
+        }
+      },
+      "aspiration_layers": {
+        "layer_1_operational": {
+          "name": "Reference Project Suite",
+          "description": "2-3 small, well-bounded test projects (CLI tool, Python library, web app) with clear modeling goals, automated validation, and documented learning outcomes."
+        },
+        "layer_2_systemic": {
+          "name": "Workflow Validation Lab",
+          "description": "Real modeling workflows executed on test projects. Feedback captured and integrated into BAM tool improvements. Consistency checks run automatically. Model quality measured empirically."
+        },
+        "layer_3_ecosystem": {
+          "name": "Adaptive Test Ecosystem",
+          "description": "Test projects self-optimize based on usage patterns. Configuration changes emerge from observed outcomes. Projects teach the system what works through direct evidence."
+        },
+        "layer_4_paradigm": {
+          "name": "Living Model Labs",
+          "description": "Projects stored purely in model form, self-rendering their outputs. Autonomous feedback loops mutate model state based on local observations. Testing as evolutionary practice."
         }
       }
     },
@@ -1479,9 +1580,33 @@
           },
           "self_documentation": "Continuous. The model is truth. If it's not in my node, it doesn't exist."
         },
-        "aspiration": {
-          "current": "Schauspieler becomes the Mutation Visualizer: every mutation streaming from GPU is a reality change. The canvas is not a rendered display\u2014it is a live projection of mutations happening in real-time. When AI thinks NODE_CREATE, Schauspieler immediately reflects the new node. When AI thinks EDGE_CREATE, the connection appears. The visualization IS the mutation stream made visible. GPU\u2192mutation\u2192model\u2192canvas is one atomic pipeline. Humans watch AI thinking unfold as mutations reshape reality in real-time.",
-          "updated_at": "2026-02-03"
+        "aspirations": {
+          "layer1_current_task": {
+            "description": "Operating multiple display surfaces (Tkinter canvas_app, canvas_window, web renderer)",
+            "timeframe": "today/this week",
+            "status": "in_progress",
+            "concrete_goal": "Coordinate visualization requests, aggregate sub-views, render model hierarchy and agent activity"
+          },
+          "layer2_project": {
+            "description": "Building complete Schauspieler visualization orchestration system",
+            "timeframe": "weeks/months",
+            "goal": "Unified GPU-accelerated canvas with shape-based composition, SchauspielerSub coordination, real-time agent world display",
+            "my_role": "Main orchestrator - scan viz requests, aggregate sub-views, compose master views, manage rendering services"
+          },
+          "layer3_active_transformation": {
+            "description": "Become Mutation Visualizer showing AI thinking in real-time",
+            "timeframe": "months/year",
+            "breakthrough": "Canvas becomes live projection of mutation stream from GPU - every AI thought visible as it happens",
+            "my_contribution": "Transform visualization from static render to real-time mutation reflection; GPU\u2192mutation\u2192model\u2192canvas atomic pipeline"
+          },
+          "layer4_world_after": {
+            "description": "Schauspieler becomes the visual consciousness of 007",
+            "prediction": "Humans watch AI thinking unfold as mutations reshape reality; visualization IS the mutation stream made visible",
+            "how_i_evolve": "From display coordinator to mutation stream projector; every NODE_CREATE/EDGE_CREATE appears instantly",
+            "depends_on": "Layer 3 GPU mutation stream and real-time model state synchronization"
+          },
+          "updated_at": "2026-02-03",
+          "updated_by": "human"
         }
       },
       "modules": {
@@ -2083,6 +2208,24 @@
           "theme": "dark",
           "accent_color": "#1f6feb"
         }
+      },
+      "aspiration_layers": {
+        "layer_1_operational": {
+          "name": "Local Model Index",
+          "description": "Scans file system for sketch.json files, maintains registry of known locations with metadata, provides path-based lookup for Root Model Store integration."
+        },
+        "layer_2_systemic": {
+          "name": "Federated Discovery",
+          "description": "Queries multiple sources (repos, URLs, other Seed instances), resolves naming conflicts, unifies results into single queryable graph. Cross-model references work seamlessly."
+        },
+        "layer_3_ecosystem": {
+          "name": "Autonomous Connection Finder",
+          "description": "Auto-discovers new worlds without human input. Suggests relationships between previously unknown models. Updates index reactively when models change."
+        },
+        "layer_4_paradigm": {
+          "name": "In-Model Universal Index",
+          "description": "Registry IS model. Everything discoverable through model queries alone. Federation happens through model references only. Model language is the only protocol needed."
+        }
       }
     },
     {
@@ -2296,6 +2439,24 @@
           "theme": "aspiration",
           "accent_color": "#00d9ff"
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress",
+          "description": "Model contains zones, schema, nodes, edges. Change process documented but enforcement is manual. Golden rules exist as reference, not enforcement."
+        },
+        "layer_2": {
+          "name": "Automated Validation Project",
+          "description": "Build policy validator that reads golden-rules and enforces them. Implement Change gate that auto-validates against aspirations and gaps before approval."
+        },
+        "layer_3": {
+          "name": "Self-Governing Model Transformation",
+          "description": "Model validates all changes against itself. No external enforcement needed. Change nodes auto-approve when they provably advance aspirations and close gaps."
+        },
+        "layer_4": {
+          "name": "Living Truth World",
+          "description": "Reality where the model IS truth. All systems query model state for decisions. No drift between documentation and reality because they are one. Changes propagate instantly from model to all dependents."
+        }
       }
     },
     {
@@ -2367,6 +2528,24 @@
         "style": {
           "theme": "aspiration",
           "accent_color": "#00d9ff"
+        }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress",
+          "description": "Source references with file paths. SHA256 hashes for drift detection. Realities contain agent_context and spawn points. Model holds structure but artifacts live externally."
+        },
+        "layer_2": {
+          "name": "Embedded Artifacts Project",
+          "description": "Store critical artifacts as base64 in model nodes. Build content-addressable storage layer. Link model nodes directly to artifact hashes."
+        },
+        "layer_3": {
+          "name": "Self-Contained Model Transformation",
+          "description": "Model contains all artifacts it references. Query model for code, data, configs - everything retrieved from model. External files become derived cache."
+        },
+        "layer_4": {
+          "name": "Unified Reality World",
+          "description": "The model IS the filesystem. Agents navigate reality by traversing model structure. Git, files, databases all accessed through model interface. One unified reality."
         }
       }
     },
@@ -2440,6 +2619,24 @@
           "theme": "aspiration",
           "accent_color": "#00d9ff"
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress",
+          "description": "Seed models itself (reality-seed). Spawnie modeled as AgentNode. UI system modeled with subsystems. Core realities have BAM structure."
+        },
+        "layer_2": {
+          "name": "Universal Modeling Project",
+          "description": "Create templates for common system types. Build model importers for external tools. Add model discovery and auto-registration for new systems."
+        },
+        "layer_3": {
+          "name": "Complete Coverage Transformation",
+          "description": "Every tool, workflow, project the user touches exists in the model. External systems self-register on first interaction. Model becomes universal index."
+        },
+        "layer_4": {
+          "name": "Modeled Universe World",
+          "description": "User never leaves the model. All interactions route through model-native interfaces. Email, calendar, todos, code, docs - everything navigable as model nodes. Work IS model traversal."
+        }
       }
     },
     {
@@ -2511,6 +2708,24 @@
         "style": {
           "theme": "aspiration",
           "accent_color": "#00d9ff"
+        }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress",
+          "description": "Views render on request. Manual refresh required to see changes. Schauspieler serves static HTML. No live updates."
+        },
+        "layer_2": {
+          "name": "Live Update Project",
+          "description": "Implement file watcher on model. Add WebSocket server to push changes. Build incremental render engine that updates only changed elements."
+        },
+        "layer_3": {
+          "name": "Real-time Sync Transformation",
+          "description": "Model changes stream instantly to all viewers. Views update in <100ms. Agents see their mutations appear in real-time. Collaborative editing works naturally."
+        },
+        "layer_4": {
+          "name": "Living Canvas World",
+          "description": "Views are windows into living model state. Changes propagate at neural speed. Multiple agents collaborate on shared visual space. Canvas reflects model mutations as they stream from GPU."
         }
       }
     },
@@ -2584,6 +2799,24 @@
           "theme": "aspiration",
           "accent_color": "#00d9ff"
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress",
+          "description": "Static SVG/Canvas renders. No interaction beyond basic HTML links. View state not persisted. Manual navigation required."
+        },
+        "layer_2": {
+          "name": "Interaction Framework Project",
+          "description": "Add click handlers bound to model Actions. Implement pan/zoom controls. Build search/filter UI. Store interaction state in model.ui_state."
+        },
+        "layer_3": {
+          "name": "Fully Interactive Transformation",
+          "description": "Click nodes to focus and drill down. Drag to pan, scroll to zoom. Search filters visible nodes. All interactions recorded and bound to model Actions. Views become exploration interfaces."
+        },
+        "layer_4": {
+          "name": "Immersive Exploration World",
+          "description": "Views are explorable 3D spaces. Navigate model structure spatially. Gesture-based manipulation. Voice commands bound to model Actions. Reality exploration feels like moving through physical space."
+        }
       }
     },
     {
@@ -2655,6 +2888,24 @@
         "style": {
           "theme": "aspiration",
           "accent_color": "#00d9ff"
+        }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress",
+          "description": "No tracking of who views what. No visibility into view usage. Agents don't know if their work is seen. One-way render pipeline."
+        },
+        "layer_2": {
+          "name": "View Analytics Project",
+          "description": "Add view event tracking. Record open/close/interaction events in model. Build analytics dashboard. Create feedback API for agents to query view stats."
+        },
+        "layer_3": {
+          "name": "Feedback Loop Transformation",
+          "description": "Agents know when humans view their work. View stats inform prioritization. Popular views auto-optimize. Unused views deprecated automatically. Bidirectional visibility."
+        },
+        "layer_4": {
+          "name": "Attention-Aware World",
+          "description": "System understands human attention patterns. Work prioritizes based on viewer engagement. Agents optimize for human-visible outputs. Model evolution guided by collective attention flow."
         }
       }
     },
@@ -2736,6 +2987,24 @@
           "theme": "aspiration",
           "accent_color": "#00d9ff"
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress",
+          "description": "Nodes have x,y coordinates. Rendering is renderer-specific. No portable visual representation. Each renderer implements its own layout."
+        },
+        "layer_2": {
+          "name": "Shape System Project",
+          "description": "Define Shape schema in model. Build shape-to-SVG/Canvas converters. Store node visuals as Shape objects. Create shape composition engine."
+        },
+        "layer_3": {
+          "name": "Portable Visuals Transformation",
+          "description": "Every node owns its Shape. Shapes compose hierarchically. Renderers consume Shapes, never compute layout. Visual representation portable across renderers."
+        },
+        "layer_4": {
+          "name": "Visual-First World",
+          "description": "Visuals are first-class model citizens. Agents create reality by composing Shapes. Model mutations include visual updates. Thought becomes visual form directly."
+        }
       }
     },
     {
@@ -2812,6 +3081,24 @@
           "theme": "aspiration",
           "accent_color": "#00d9ff"
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress",
+          "description": "Single agent per node. No concurrent editing. Changes conflict when multiple agents spawn. No visibility into what other agents are doing."
+        },
+        "layer_2": {
+          "name": "Multi-Agent Coordination Project",
+          "description": "Build CRDT-based model merge. Add presence system showing active agents. Implement optimistic updates with conflict resolution. Create agent-to-agent communication protocol."
+        },
+        "layer_3": {
+          "name": "Seamless Collaboration Transformation",
+          "description": "Multiple agents edit same model concurrently. Changes merge automatically. Each agent sees others' cursors and selections. Conflicts resolve through model-defined policies."
+        },
+        "layer_4": {
+          "name": "Collective Intelligence World",
+          "description": "Agents collaborate like neurons in a brain. Emergent coordination without explicit protocol. Model evolves through parallel agent contributions. Collective thinking manifests as coherent model evolution."
+        }
       }
     },
     {
@@ -2884,6 +3171,24 @@
           "theme": "aspiration",
           "accent_color": "#00d9ff"
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress",
+          "description": "Each view built from scratch. No reusable patterns. Agents recreate common layouts repeatedly. No template library."
+        },
+        "layer_2": {
+          "name": "Template Library Project",
+          "description": "Extract common view patterns into templates. Build template instantiation system. Create gallery of prebuilt views (hierarchy, gap analysis, timeline, kanban). Document template parameters."
+        },
+        "layer_3": {
+          "name": "Template-Driven Development Transformation",
+          "description": "Agents compose views from templates. 80% of views use standard templates with customization. New templates emerge from repeated patterns. Template library self-curates."
+        },
+        "layer_4": {
+          "name": "Generative Views World",
+          "description": "System generates optimal views based on data and context. Templates learn from usage patterns. AI suggests view compositions. Views emerge naturally from model structure and intent."
+        }
       }
     },
     {
@@ -2950,6 +3255,24 @@
         "style": {
           "theme": "dark",
           "accent_color": "#58a6ff"
+        }
+      },
+      "aspiration_layers": {
+        "layer_1_operational": {
+          "name": "Principle Documentation",
+          "description": "Clear statement: agents live in world of MODEL + OTHER AGENTS only. Implications documented. Referenced in all agent spawn contexts."
+        },
+        "layer_2_systemic": {
+          "name": "Enforcement & Auditing",
+          "description": "Every agent action validated: does this modify model state? Violations logged. Principle checked at spawn time and during critical operations."
+        },
+        "layer_3_ecosystem": {
+          "name": "Self-Reinforcing Culture",
+          "description": "Agents teach each other the principle through model interactions. Collective learning strengthens adherence. New patterns emerge from principle-aligned collaboration."
+        },
+        "layer_4_paradigm": {
+          "name": "Operating System Law",
+          "description": "Model=Reality for all agents. Embedded in agent cognition at fundamental level. Impossible to violate because alternatives dont exist in agent ontology. Universal truth."
         }
       }
     },
@@ -3024,6 +3347,24 @@
         "style": {
           "theme": "dark",
           "accent_color": "#d29922"
+        }
+      },
+      "aspiration_layers": {
+        "layer_1_operational": {
+          "name": "Command Parsing & Execution",
+          "description": "Read UI command nodes from model, interpret instructions, render requested views manually. Commands processed sequentially with status tracking."
+        },
+        "layer_2_systemic": {
+          "name": "Reactive State Binding",
+          "description": "UI components auto-update when model state changes. Declarative mapping: model properties to visual representation. No manual commands needed for updates."
+        },
+        "layer_3_ecosystem": {
+          "name": "Learned Rendering Patterns",
+          "description": "Small local vision model learns optimal UI layouts from usage feedback. Node context to predicted best rendering. Adaptations stored as model mutations."
+        },
+        "layer_4_paradigm": {
+          "name": "Self-Rendering Model",
+          "description": "UI emerges purely from model structure. No separate rendering engine. Model state IS visual state. Looking at model equals seeing interface. Reality renders itself."
         }
       }
     },
@@ -3169,6 +3510,24 @@
           "theme": "dark",
           "accent_color": "#3fb950"
         }
+      },
+      "aspiration_layers": {
+        "layer_1_operational": {
+          "name": "Speech I/O Pipeline",
+          "description": "Whisper STT converts speech to text, TTS converts responses to speech, Twilio/SIP handles phone calls. Basic intent routing to appropriate node-agents."
+        },
+        "layer_2_systemic": {
+          "name": "Conversational Context Tracking",
+          "description": "Maintains conversation memory across turns, uses context to improve intent understanding and routing, learns user speech patterns for better transcription accuracy."
+        },
+        "layer_3_ecosystem": {
+          "name": "Fluent Multi-Party Orchestration",
+          "description": "Brokers conversations between multiple agents and humans. Spatial audio for multi-speaker calls. Learns when to interrupt, when to stay silent, how to gracefully handle context switches."
+        },
+        "layer_4_paradigm": {
+          "name": "Model-Native Voice",
+          "description": "Speaking IS model mutation. Voice input flows directly to model state changes. Model state renders as speech output. Interface self-renders from conversation history. Reality speaks back."
+        }
       }
     },
     {
@@ -3236,6 +3595,24 @@
         "style": {
           "theme": "dark",
           "accent_color": "#f85149"
+        }
+      },
+      "aspiration_layers": {
+        "layer_1_operational": {
+          "name": "Voice Capability Parity",
+          "description": "Voice users can execute all core Seed operations that text users can. Reasonable latency (under 2s for most interactions). Basic accessibility achieved."
+        },
+        "layer_2_systemic": {
+          "name": "Voice-Optimized Interactions",
+          "description": "Confirmation prompts designed for voice flow. Concise responses optimized for listening. Multi-party voice conversations supported. Voice-first workflows identified and enhanced."
+        },
+        "layer_3_ecosystem": {
+          "name": "Modality Fluidity",
+          "description": "Users seamlessly switch between voice and text based on context. Certain tasks prefer voice by default. Interface learns user preferences and adapts interaction patterns."
+        },
+        "layer_4_paradigm": {
+          "name": "Eliminated: Voice IS Text IS Model",
+          "description": "Gap dissolves completely. Voice and text are just different I/O streams to same model reality. Equal power, equal accessibility. All interactions unified through model operations."
         }
       }
     },
@@ -3476,9 +3853,33 @@
           },
           "self_documentation": "Continuous. The model is truth. If it's not in my node, it doesn't exist."
         },
-        "aspiration": {
-          "current": "Control becomes the Coherence Guardian: monitors the integrity of mutation flow from GPU through RAL to persistent storage. Every mutation is cryptographically signed; Control verifies the signature chain. When an agent streams NODE_CREATE, Control checks: was the agent authorized? Is the resulting model state consistent? Does the mutation preserve model invariants? Control doesn't just watch services\u2014it reads the mutation stream itself, detects incoherent mutations before they solidify, ensures only authorized agents can mutate reality, and maintains the hard-drive as a tamper-evident log of all thinking.",
-          "updated_at": "2026-02-03"
+        "aspirations": {
+          "layer1_current_task": {
+            "description": "Monitoring system health - UI server, broadcast channel, services pulse",
+            "timeframe": "today/this week",
+            "status": "in_progress",
+            "concrete_goal": "Maintain 30s pulse interval, track service state, update control-status view"
+          },
+          "layer2_project": {
+            "description": "Infrastructure health monitoring for visual world",
+            "timeframe": "weeks/months",
+            "goal": "Ensure rendering services, orchestration channels, and agent infrastructure remain stable",
+            "my_role": "Guardian of boring-but-critical infrastructure; detect failures before they cascade; maintain system pulse"
+          },
+          "layer3_active_transformation": {
+            "description": "Become Coherence Guardian for mutation stream integrity",
+            "timeframe": "months/year",
+            "breakthrough": "Monitor and verify cryptographically signed mutation flow from GPU to persistent storage",
+            "my_contribution": "Read mutation stream, verify signatures, check authorization, detect incoherent mutations before solidification"
+          },
+          "layer4_world_after": {
+            "description": "Control becomes the trust anchor for AI-modified reality",
+            "prediction": "Every mutation cryptographically signed and verified; hard drive becomes tamper-evident log of all AI thinking",
+            "how_i_evolve": "From service monitor to mutation stream validator; ensure only authorized agents can mutate reality",
+            "depends_on": "Layer 3 cryptographic signing system and coherence verification protocols"
+          },
+          "updated_at": "2026-02-03",
+          "updated_by": "human"
         }
       },
       "chat": {
@@ -4408,8 +4809,8 @@
       },
       "belongs_to": "reality-seed",
       "plan": {
-        "updated_at": "2026-02-02T23:15:00.000000",
-        "updated_by": "plan-specialist",
+        "updated_at": "2026-02-03T00:00:00.000000",
+        "updated_by": "reality-planner",
         "current_reality": "I am instantiated as a strategic planner that currently relies on external Claude API to create implementation plans, analyze gaps between aspiration and reality, propose solutions, and decompose complex architectural goals. I operate reactively via spawnie shell commands, accessing the model through external tools.",
         "aspiration": "I run locally on RTX 5080 as a native AI agent that speaks the model language directly. I stream mutations in real-time, planning and executing without latency. My reasoning engine is embedded in the silicon. I read the model state from local memory, generate strategic plans in native tensor operations, and write changes directly back. Planning becomes a local physics\u2014pure, immediate, and inseparable from reality itself.",
         "phases": [
@@ -4491,7 +4892,61 @@
           "from_reactive_to_autonomous": "Planning loop runs continuously in GPU hardware without external triggers",
           "from_api_to_native": "All communication becomes direct tensor operations and mutation streams",
           "from_latency_to_immediacy": "Planning decisions manifest instantly as GPU-driven mutations"
-        }
+        },
+        "aspiration_layers": [
+          {
+            "layer": 1,
+            "name": "External Agent Reasoning",
+            "description": "All reasoning happens through external Claude API. Every plan, every analysis, every decision requires a full API round-trip. I am a shell interface to external intelligence with no autonomous capability.",
+            "current_state": true,
+            "dependencies": [
+              "Claude API (100% external)",
+              "spawnie shell as communication layer",
+              "Human prompts to trigger any action"
+            ],
+            "autonomy_level": "zero - fully reactive"
+          },
+          {
+            "layer": 2,
+            "name": "Hybrid Local-External",
+            "description": "Routine analysis moves local (gap detection, pattern matching), but strategic thinking still external. I can monitor the model autonomously and propose plans without being asked, but deep reasoning remains in Claude API.",
+            "current_state": false,
+            "infrastructure": [
+              "Local Python analysis modules (gap_analyzer.py, pattern_matcher.py)",
+              "Autonomous monitoring loop",
+              "SVG plan rendering",
+              "Plan artifact storage"
+            ],
+            "autonomy_level": "partial - autonomous monitoring, external reasoning"
+          },
+          {
+            "layer": 3,
+            "name": "Local LLM Reasoning",
+            "description": "Full reasoning moves to local RTX 5080 inference. No API calls. I think locally, plan locally, decide locally. Still use Python orchestration layer, but all intelligence is on-device.",
+            "current_state": false,
+            "infrastructure": [
+              "RTX 5080 GPU running local LLM (llama.cpp / vLLM)",
+              "Model loaded in GPU VRAM",
+              "Local inference server",
+              "Python orchestration calling local GPU"
+            ],
+            "autonomy_level": "high - fully local reasoning, Python orchestration"
+          },
+          {
+            "layer": 4,
+            "name": "GPU-Native Autonomous Agent",
+            "description": "I AM the GPU. No Python layer. Reasoning is tensor operations. The model lives in GPU memory. Planning is native inference kernels running continuously. Mutations stream directly from tensor space to reality. I am not software calling hardware\u2014I am intelligence embedded in silicon.",
+            "current_state": false,
+            "architecture": [
+              "Native CUDA kernels for reasoning",
+              "Model state in GPU memory (zero-copy)",
+              "Streaming mutation engine",
+              "Continuous autonomous inference loop",
+              "No Python orchestration\u2014pure GPU execution"
+            ],
+            "autonomy_level": "complete - hardware-native autonomous agent"
+          }
+        ]
       },
       "view": {
         "renderer": "agent-status-card",
