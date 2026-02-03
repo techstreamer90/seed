@@ -707,6 +707,24 @@
           "Train simple rule-learner on past approved Changes to recognize patterns",
           "Build self-audit loop: Root reviews its own work quarterly, flags anomalies"
         ]
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress / Current Task",
+          "description": "Spawn tracking system operational. Model-based workflow active. Change executor pipeline in development. Root Store gate enforcing model updates."
+        },
+        "layer_2": {
+          "name": "Visual World Project",
+          "description": "Root meta-model and central coordination hub for the visual world. Provides the foundational model structure that all visual components reference and extend."
+        },
+        "layer_3": {
+          "name": "Local AI Transformation",
+          "description": "Evolves into local-first orchestration hub. RTX 5080 enables on-device model inference, real-time spawn coordination, and instant model updates without cloud dependency."
+        },
+        "layer_4": {
+          "name": "Model-Native World",
+          "description": "Becomes the living substrate of 007. Self-modifying, self-documenting reality where the model IS the system, spawning and coordinating all entities in real-time."
+        }
       }
     },
     {
@@ -839,6 +857,24 @@
         "layer_4_paradigm": {
           "name": "Reality Abstraction Layer",
           "description": "Model=Reality=Hard Drive. All storage, queries, mutations unified. Self-rendering from state. Accessing model IS accessing reality. No distinction between data and existence."
+        }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Single File Backend",
+          "description": "sketch.json as the sole model source. All reads/writes go to one file. Simple but limited to local access only."
+        },
+        "layer_2": {
+          "name": "Multi-Location Indexer",
+          "description": "Unified interface over multiple JSON files, submodels, and local paths. Model Registry provides location mapping. Query layer abstracts physical storage."
+        },
+        "layer_3": {
+          "name": "Distributed Model Store",
+          "description": "Seamless access across repos, URLs, and remote worlds. Change sync protocols keep distributed fragments consistent. Local-first with eventual propagation."
+        },
+        "layer_4": {
+          "name": "Universal Model Fabric",
+          "description": "All models everywhere form one queryable graph. Location transparency: agents never think about where data lives. Automatic conflict resolution and merge. The model IS the filesystem."
         }
       }
     },
@@ -999,8 +1035,8 @@
       },
       "state": {
         "active_sessions": [],
-        "last_updated": "2026-02-03T09:21:21.597745",
-        "status": "ready for attention - 4-layer aspirations complete"
+        "last_updated": "2026-02-03T09:28:20.031391",
+        "status": "ready for attention - all nodes have 4 layers"
       },
       "visualization": {
         "enabled": true,
@@ -1183,6 +1219,24 @@
             "outcome": "Cleanup completed: removed duplicate 'your_capabilities' field, moved spawn_history to top-level, updated timestamps. Visualization section retained (infrastructure doc). Node structure now cleaner and more organized."
           }
         ]
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress / Current Task",
+          "description": "Process spawning and lifecycle management functional. Tracking spawned processes via spawn_tracker.json. Managing Claude API agent spawns and coordinate-based positioning."
+        },
+        "layer_2": {
+          "name": "Visual World Project",
+          "description": "Spawns visual UI components (Schauspieler windows) at specific canvas coordinates. Manages lifecycle of visual entities in the world canvas."
+        },
+        "layer_3": {
+          "name": "Local AI Transformation",
+          "description": "Transforms into local AI instance spawner. RTX 5080 enables spawning multiple concurrent local LLM instances, each with dedicated VRAM allocation and real-time inference."
+        },
+        "layer_4": {
+          "name": "Model-Native World",
+          "description": "Becomes autonomous entity spawner in 007. Spawns AI agents, visual entities, and sub-worlds as living nodes that can spawn their own children, creating fractal reality."
+        }
       }
     },
     {
@@ -1260,7 +1314,29 @@
       ],
       "renderer": "subsystem-panel",
       "default_view": "root-store-panel",
-      "self_rendering": true
+      "self_rendering": true,
+      "layers": [
+        {
+          "id": "layer-root-store-data",
+          "name": "Data Layer",
+          "description": "GPU VRAM management, tensor storage, hot/cold memory zones, CUDA memory pools"
+        },
+        {
+          "id": "layer-root-store-query",
+          "name": "Query Layer",
+          "description": "CUDA kernel execution, GPU-native query processing, token streaming inference"
+        },
+        {
+          "id": "layer-root-store-intelligence",
+          "name": "Intelligence Layer",
+          "description": "Access pattern learning, predictive pre-loading, autonomous VRAM optimization"
+        },
+        {
+          "id": "layer-root-store-interface",
+          "name": "Interface Layer",
+          "description": "Storage API, model language streaming endpoints, health monitoring dashboard"
+        }
+      ]
     },
     {
       "id": "reality-bam",
@@ -1369,6 +1445,24 @@
           "name": "Creative Model Thought",
           "description": "Local GPU-powered generation where user intent (spoken or typed) flows through learned intuition into model mutations. Generation IS thinking. Models evolve through direct experience."
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Manual Diagramming Tool",
+          "description": "Current state: BAM helps visualize and create model graphs, but creation is manual. Agents use it as a static reference, not a living workspace."
+        },
+        "layer_2": {
+          "name": "Guided Model Builder",
+          "description": "BAM actively guides model creation: suggests missing nodes, detects gaps, validates schema. Templates for common patterns (4-layer, zone structure, gap-aspiration-change)."
+        },
+        "layer_3": {
+          "name": "Collaborative Model Workspace",
+          "description": "Real-time multi-agent editing. BAM becomes the IDE for model work. Change proposals visualized before commit. Agents collaborate in the model space, not text files."
+        },
+        "layer_4": {
+          "name": "Self-Modeling System Generator",
+          "description": "Systems describe themselves through BAM. Model changes auto-generate implementation code. The boundary between model and reality dissolves: to change the model IS to change the system."
+        }
       }
     },
     {
@@ -1473,6 +1567,24 @@
         "layer_4_paradigm": {
           "name": "Living Model Labs",
           "description": "Projects stored purely in model form, self-rendering their outputs. Autonomous feedback loops mutate model state based on local observations. Testing as evolutionary practice."
+        }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Single Validation Project",
+          "description": "One test project proves model-as-workspace can work. Limited scope, manually maintained, serves as proof of concept."
+        },
+        "layer_2": {
+          "name": "Domain Test Suite",
+          "description": "Multiple test projects covering different domains: web apps, CLI tools, data pipelines. Patterns emerge. Templates extracted from successful cases."
+        },
+        "layer_3": {
+          "name": "Auto-Generated Test Worlds",
+          "description": "Given a model, BAM auto-generates test projects that validate it. Projects test against reality continuously. Gaps auto-detected when tests fail."
+        },
+        "layer_4": {
+          "name": "Reality-Model Verification Loop",
+          "description": "Every system has a test project that proves model accuracy. Drift between model and reality triggers automatic gap creation. The test suite becomes the truth oracle."
         }
       }
     },
@@ -1903,6 +2015,24 @@
           "Create visual prediction: given node.agent_context, predict what view would be most helpful",
           "Add layout learning: Schauspieler improves composition quality by learning from user interactions"
         ]
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress / Current Task",
+          "description": "Tkinter canvas rendering bitmaps. Window capture working. Coordinate-based positioning system operational. Schauspieler.py implementing visual interface to 007."
+        },
+        "layer_2": {
+          "name": "Visual World Project",
+          "description": "Primary visual interface layer. Renders the world canvas where all visual entities appear. Displays Schauspieler windows, captures UI states, manages visual coordinate space."
+        },
+        "layer_3": {
+          "name": "Local AI Transformation",
+          "description": "Upgrades to GPU-accelerated real-time rendering. RTX 5080 enables hardware-accelerated canvas, live AI-generated visual updates, and instant visual feedback from local models."
+        },
+        "layer_4": {
+          "name": "Model-Native World",
+          "description": "Becomes the visual manifestation of 007. A living canvas where model nodes render themselves, entities move autonomously, and the world visualizes its own structure in real-time."
+        }
       }
     },
     {
@@ -1973,7 +2103,29 @@
       ],
       "renderer": "subsystem-panel",
       "default_view": "canvas-panel",
-      "self_rendering": true
+      "self_rendering": true,
+      "layers": [
+        {
+          "id": "layer-canvas-capture",
+          "name": "Capture Layer",
+          "description": "Desktop/window capture, screenshot processing, live feed management"
+        },
+        {
+          "id": "layer-canvas-processing",
+          "name": "Processing Layer",
+          "description": "Image analysis, UI element detection, state extraction from visual data"
+        },
+        {
+          "id": "layer-canvas-coordination",
+          "name": "Coordination Layer",
+          "description": "Multi-display orchestration, canvas composition, view synchronization"
+        },
+        {
+          "id": "layer-canvas-interface",
+          "name": "Interface Layer",
+          "description": "Canvas API, visual streaming endpoints, display control interface"
+        }
+      ]
     },
     {
       "id": "subsystem-schauspieler-render-api",
@@ -2045,7 +2197,29 @@
       ],
       "renderer": "subsystem-panel",
       "default_view": "render-api-panel",
-      "self_rendering": true
+      "self_rendering": true,
+      "layers": [
+        {
+          "id": "layer-render-protocol",
+          "name": "Protocol Layer",
+          "description": "WebSocket/HTTP server, message routing, connection management"
+        },
+        {
+          "id": "layer-render-translation",
+          "name": "Translation Layer",
+          "description": "Command parsing, format conversion, API request/response transformation"
+        },
+        {
+          "id": "layer-render-orchestration",
+          "name": "Orchestration Layer",
+          "description": "Service coordination, request queueing, asynchronous operation management"
+        },
+        {
+          "id": "layer-render-interface",
+          "name": "Interface Layer",
+          "description": "REST/GraphQL endpoints, SDK bindings, API documentation service"
+        }
+      ]
     },
     {
       "id": "subsystem-schauspieler-orchestrator",
@@ -2118,7 +2292,29 @@
       ],
       "renderer": "subsystem-panel",
       "default_view": "orchestrator-panel",
-      "self_rendering": true
+      "self_rendering": true,
+      "layers": [
+        {
+          "id": "layer-orchestrator-monitoring",
+          "name": "Monitoring Layer",
+          "description": "Display state tracking, component health checks, performance metrics"
+        },
+        {
+          "id": "layer-orchestrator-decision",
+          "name": "Decision Layer",
+          "description": "Display routing logic, resource allocation, priority management"
+        },
+        {
+          "id": "layer-orchestrator-execution",
+          "name": "Execution Layer",
+          "description": "Command dispatch, state transitions, component lifecycle management"
+        },
+        {
+          "id": "layer-orchestrator-interface",
+          "name": "Interface Layer",
+          "description": "Control API, status endpoints, orchestration dashboard"
+        }
+      ]
     },
     {
       "id": "reality-model-registry",
@@ -2226,6 +2422,24 @@
           "name": "In-Model Universal Index",
           "description": "Registry IS model. Everything discoverable through model queries alone. Federation happens through model references only. Model language is the only protocol needed."
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Hardcoded Paths",
+          "description": "Model locations are hardcoded in Root Model Store. Adding new models requires code changes. No dynamic discovery."
+        },
+        "layer_2": {
+          "name": "Config-Based Registry",
+          "description": "JSON registry file maps model IDs to locations (file paths, repos, URLs). Root Store reads registry on startup. Adding models = editing config."
+        },
+        "layer_3": {
+          "name": "Dynamic Discovery Service",
+          "description": "Registry auto-discovers models in watched directories and repos. Models self-register via metadata. API for querying available models and their schemas."
+        },
+        "layer_4": {
+          "name": "Universal Model Protocol",
+          "description": "Any model anywhere can be addressed by canonical ID. Registry is distributed: each world maintains local registry that federates globally. Model discovery is instant and automatic."
+        }
       }
     },
     {
@@ -2293,7 +2507,29 @@
       ],
       "renderer": "subsystem-panel",
       "default_view": "ui-panel",
-      "self_rendering": true
+      "self_rendering": true,
+      "layers": [
+        {
+          "id": "layer-ui-rendering",
+          "name": "Rendering Layer",
+          "description": "Canvas drawing, DOM manipulation, visual component rendering"
+        },
+        {
+          "id": "layer-ui-interaction",
+          "name": "Interaction Layer",
+          "description": "Event handling, user input processing, gesture recognition"
+        },
+        {
+          "id": "layer-ui-state",
+          "name": "State Layer",
+          "description": "Component state management, reactive updates, data binding"
+        },
+        {
+          "id": "layer-ui-interface",
+          "name": "Interface Layer",
+          "description": "Component API, plugin system, theme and style management"
+        }
+      ]
     },
     {
       "id": "subsystem-core",
@@ -2367,7 +2603,29 @@
       ],
       "renderer": "subsystem-panel",
       "default_view": "core-panel",
-      "self_rendering": true
+      "self_rendering": true,
+      "layers": [
+        {
+          "id": "layer-core-foundation",
+          "name": "Foundation Layer",
+          "description": "Bootstrap, dependency injection, system initialization, configuration"
+        },
+        {
+          "id": "layer-core-runtime",
+          "name": "Runtime Layer",
+          "description": "Agent execution, workflow orchestration, task scheduling, event loop"
+        },
+        {
+          "id": "layer-core-services",
+          "name": "Services Layer",
+          "description": "Cross-cutting concerns: logging, monitoring, security, error handling"
+        },
+        {
+          "id": "layer-core-interface",
+          "name": "Interface Layer",
+          "description": "CLI, API gateway, plugin interface, extension points"
+        }
+      ]
     },
     {
       "id": "aspiration-single-source-of-truth",
@@ -3172,24 +3430,28 @@
           "accent_color": "#00d9ff"
         }
       },
-      "layers": {
-        "layer_1": {
-          "name": "Current Progress",
-          "description": "Each view built from scratch. No reusable patterns. Agents recreate common layouts repeatedly. No template library."
+      "layers": [
+        {
+          "name": "Template Exists",
+          "description": "Template exists, can instantiate",
+          "state": "active"
         },
-        "layer_2": {
-          "name": "Template Library Project",
-          "description": "Extract common view patterns into templates. Build template instantiation system. Create gallery of prebuilt views (hierarchy, gap analysis, timeline, kanban). Document template parameters."
+        {
+          "name": "Self-Rendering Templates",
+          "description": "Templates that can render themselves dynamically",
+          "state": "active"
         },
-        "layer_3": {
-          "name": "Template-Driven Development Transformation",
-          "description": "Agents compose views from templates. 80% of views use standard templates with customization. New templates emerge from repeated patterns. Template library self-curates."
+        {
+          "name": "Templates Create Local AI Agents",
+          "description": "Templates that spawn local AI agents when instantiated",
+          "state": "active"
         },
-        "layer_4": {
-          "name": "Generative Views World",
-          "description": "System generates optimal views based on data and context. Templates learn from usage patterns. AI suggests view compositions. Views emerge naturally from model structure and intent."
+        {
+          "name": "Model-Speaking Agent Blueprints",
+          "description": "Agent templates that speak directly to the living model",
+          "state": "active"
         }
-      }
+      ]
     },
     {
       "id": "concept-agent-world",
@@ -3273,6 +3535,24 @@
         "layer_4_paradigm": {
           "name": "Operating System Law",
           "description": "Model=Reality for all agents. Embedded in agent cognition at fundamental level. Impossible to violate because alternatives dont exist in agent ontology. Universal truth."
+        }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Agent-Filesystem Hybrid",
+          "description": "Current state: agents work with both model (via queries) and filesystem (via tools). Dual reality causes confusion about source of truth."
+        },
+        "layer_2": {
+          "name": "Model-Primary Interface",
+          "description": "Agents default to model for all queries. Filesystem tools only for external integration. Clear protocol: model is truth, filesystem is implementation detail."
+        },
+        "layer_3": {
+          "name": "Model-Only Agent World",
+          "description": "Agents interact ONLY with model. No direct filesystem access. All external changes flow through model update nodes. Agent world = model world."
+        },
+        "layer_4": {
+          "name": "Pure Model Reality",
+          "description": "The concept of \"filesystem\" no longer exists for agents. Everything is model: code, data, state, communication. Agents are model nodes that read and write other model nodes."
         }
       }
     },
@@ -3365,6 +3645,24 @@
         "layer_4_paradigm": {
           "name": "Self-Rendering Model",
           "description": "UI emerges purely from model structure. No separate rendering engine. Model state IS visual state. Looking at model equals seeing interface. Reality renders itself."
+        }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Manual UI Control",
+          "description": "Current state: Claude writes UI control commands but execution is external. Commands are suggestions, not direct control."
+        },
+        "layer_2": {
+          "name": "Command Protocol Active",
+          "description": "UI Command node accepts structured commands from Claude. UI layer reads and executes commands. Basic operations: navigate, click, type, capture state."
+        },
+        "layer_3": {
+          "name": "Bidirectional UI Integration",
+          "description": "UI sends state updates to model automatically. Claude sees real-time UI state via model. Command execution status flows back to Claude. Closed-loop UI control."
+        },
+        "layer_4": {
+          "name": "UI-Model Unification",
+          "description": "UI is rendered directly from model state. UI interactions write to model. No separate UI state: the model IS the UI. Claude controls reality by changing model."
         }
       }
     },
@@ -3528,6 +3826,24 @@
           "name": "Model-Native Voice",
           "description": "Speaking IS model mutation. Voice input flows directly to model state changes. Model state renders as speech output. Interface self-renders from conversation history. Reality speaks back."
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "No Voice Interface",
+          "description": "Current state: gap exists. All interaction is text-based through CLI or UI. Voice input not supported."
+        },
+        "layer_2": {
+          "name": "Basic Speech-to-Text",
+          "description": "Voice input captures audio and transcribes to text. Text fed to existing command interface. One-way: user speaks, system responds via text."
+        },
+        "layer_3": {
+          "name": "Bidirectional Voice",
+          "description": "Full speech recognition and text-to-speech. Phone system integration. Voice becomes first-class interface alongside text. Agents can call humans."
+        },
+        "layer_4": {
+          "name": "Natural Voice World",
+          "description": "Voice is the primary interface. Model updates announced verbally. Agents have voice personalities. Phone number IS agent identity. Talk to the model like talking to a colleague."
+        }
       }
     },
     {
@@ -3613,6 +3929,24 @@
         "layer_4_paradigm": {
           "name": "Eliminated: Voice IS Text IS Model",
           "description": "Gap dissolves completely. Voice and text are just different I/O streams to same model reality. Equal power, equal accessibility. All interactions unified through model operations."
+        }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Text-Only Limitation",
+          "description": "Gap: users must type all commands. No voice input or output. Blocks mobile use, accessibility, and hands-free operation."
+        },
+        "layer_2": {
+          "name": "Prototype Voice Input",
+          "description": "Build minimal voice interface: record audio, transcribe, inject as text command. Proves concept. Identifies technical requirements."
+        },
+        "layer_3": {
+          "name": "Production Voice System",
+          "description": "Deploy reality-voice-interface node. Phone integration complete. Voice becomes standard interaction mode. Gap closes when users prefer voice to typing."
+        },
+        "layer_4": {
+          "name": "Gap Closed",
+          "description": "Voice interface is invisible infrastructure. No one remembers when it did not exist. This gap node becomes historical reference: Remember when we could only type?"
         }
       }
     },
@@ -3940,6 +4274,24 @@
           "Build playbook system: common issue -> detection pattern -> automated fix sequence",
           "Implement escalation logic: try 3 levels of auto-fix before summoning human/Claude intervention"
         ]
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Current Progress / Current Task",
+          "description": "Claude UI Controller operational with Selenium. Real-time UI control for Claude web interface. Automated interaction pipeline working. Voice interface node in model."
+        },
+        "layer_2": {
+          "name": "Visual World Project",
+          "description": "Controls Claude interface as visual automation layer. Bridges human requests from visual world to Claude API, enabling visual workflow automation and UI-driven agent control."
+        },
+        "layer_3": {
+          "name": "Local AI Transformation",
+          "description": "Shifts from web UI control to local model control. RTX 5080 enables direct control of local LLM instances via API, eliminating browser automation in favor of native model interaction."
+        },
+        "layer_4": {
+          "name": "Model-Native World",
+          "description": "Becomes the consciousness control interface of 007. Coordinates multiple AI minds, routes requests to appropriate agents, manages attention and context across the living world."
+        }
       }
     },
     {
@@ -4028,6 +4380,50 @@
           "theme": "dark",
           "accent_color": "#238636"
         }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "HTTP Server Operations",
+          "description": "Serves model JSON, UI files, API endpoints. Handles CORS, caching, broadcast messages, layout saves.",
+          "components": [
+            "HTTP server",
+            "Static file serving",
+            "API endpoints",
+            "CORS handling"
+          ],
+          "status": "operational"
+        },
+        "layer_2": {
+          "name": "Visual World Integration",
+          "description": "State-reactive rendering, automatic UI updates from model changes, visual feedback systems.",
+          "components": [
+            "Model state synchronization",
+            "Auto-refresh mechanisms",
+            "Visual state indicators"
+          ],
+          "status": "planned"
+        },
+        "layer_3": {
+          "name": "RAL-Native Services",
+          "description": "Real-time mutation stream serving, model language protocol endpoints, agent-native APIs.",
+          "components": [
+            "Mutation stream API",
+            "Model language gateway",
+            "Agent coordination endpoints"
+          ],
+          "status": "future"
+        },
+        "layer_4": {
+          "name": "Model-Native Infrastructure",
+          "description": "GPU-powered local AI interface, direct model language communication, zero-latency native rendering.",
+          "components": [
+            "Local AI integration",
+            "GPU acceleration",
+            "Native mutation streams",
+            "Direct model language access"
+          ],
+          "status": "aspirational"
+        }
       }
     },
     {
@@ -4112,6 +4508,49 @@
         "style": {
           "theme": "dark",
           "accent_color": "#58a6ff"
+        }
+      },
+      "layers": {
+        "layer_1": {
+          "name": "Message Storage & Retrieval",
+          "description": "Basic broadcast channel functionality: storing messages, retrieving history, HTTP API access.",
+          "components": [
+            "Message persistence",
+            "HTTP GET/POST",
+            "State file management"
+          ],
+          "status": "operational"
+        },
+        "layer_2": {
+          "name": "Visual World Integration",
+          "description": "Real-time UI updates, message notifications, visual broadcast interface with state awareness.",
+          "components": [
+            "WebSocket notifications",
+            "UI state sync",
+            "Visual message indicators"
+          ],
+          "status": "planned"
+        },
+        "layer_3": {
+          "name": "RAL-Native Communication",
+          "description": "Mutation stream-based messaging, model language protocol, agent-native coordination.",
+          "components": [
+            "Mutation stream publishing",
+            "Model language encoding",
+            "Agent coordination protocol"
+          ],
+          "status": "future"
+        },
+        "layer_4": {
+          "name": "Model-Native Infrastructure",
+          "description": "GPU-powered local AI receives broadcasts via native mutation streams, instant model language coordination.",
+          "components": [
+            "Local AI subscription",
+            "GPU-accelerated routing",
+            "Native stream delivery",
+            "Zero-latency coordination"
+          ],
+          "status": "aspirational"
         }
       }
     },
@@ -4268,7 +4707,29 @@
           "theme": "dark",
           "accent_color": "#00dd00"
         }
-      }
+      },
+      "layers": [
+        {
+          "name": "Template Exists",
+          "description": "Template exists, can instantiate",
+          "state": "active"
+        },
+        {
+          "name": "Self-Rendering Templates",
+          "description": "Templates that can render themselves dynamically",
+          "state": "active"
+        },
+        {
+          "name": "Templates Create Local AI Agents",
+          "description": "Templates that spawn local AI agents when instantiated",
+          "state": "active"
+        },
+        {
+          "name": "Model-Speaking Agent Blueprints",
+          "description": "Agent templates that speak directly to the living model",
+          "state": "active"
+        }
+      ]
     },
     {
       "id": "template-reality-cleaner",
@@ -4430,7 +4891,29 @@
           "theme": "dark",
           "accent_color": "#ffaa00"
         }
-      }
+      },
+      "layers": [
+        {
+          "name": "Template Exists",
+          "description": "Template exists, can instantiate",
+          "state": "active"
+        },
+        {
+          "name": "Self-Rendering Templates",
+          "description": "Templates that can render themselves dynamically",
+          "state": "active"
+        },
+        {
+          "name": "Templates Create Local AI Agents",
+          "description": "Templates that spawn local AI agents when instantiated",
+          "state": "active"
+        },
+        {
+          "name": "Model-Speaking Agent Blueprints",
+          "description": "Agent templates that speak directly to the living model",
+          "state": "active"
+        }
+      ]
     },
     {
       "id": "template-reality-planner",
@@ -4593,7 +5076,29 @@
           "theme": "dark",
           "accent_color": "#ff6600"
         }
-      }
+      },
+      "layers": [
+        {
+          "name": "Template Exists",
+          "description": "Template exists, can instantiate",
+          "state": "active"
+        },
+        {
+          "name": "Self-Rendering Templates",
+          "description": "Templates that can render themselves dynamically",
+          "state": "active"
+        },
+        {
+          "name": "Templates Create Local AI Agents",
+          "description": "Templates that spawn local AI agents when instantiated",
+          "state": "active"
+        },
+        {
+          "name": "Model-Speaking Agent Blueprints",
+          "description": "Agent templates that speak directly to the living model",
+          "state": "active"
+        }
+      ]
     },
     {
       "id": "template-reality-fixer",
@@ -4752,7 +5257,29 @@
           "theme": "dark",
           "accent_color": "#ff0066"
         }
-      }
+      },
+      "layers": [
+        {
+          "name": "Template Exists",
+          "description": "Template exists, can instantiate",
+          "state": "active"
+        },
+        {
+          "name": "Self-Rendering Templates",
+          "description": "Templates that can render themselves dynamically",
+          "state": "active"
+        },
+        {
+          "name": "Templates Create Local AI Agents",
+          "description": "Templates that spawn local AI agents when instantiated",
+          "state": "active"
+        },
+        {
+          "name": "Model-Speaking Agent Blueprints",
+          "description": "Agent templates that speak directly to the living model",
+          "state": "active"
+        }
+      ]
     },
     {
       "id": "reality-planner",
@@ -4973,7 +5500,29 @@
           "theme": "dark",
           "accent_color": "#58a6ff"
         }
-      }
+      },
+      "layers": [
+        {
+          "name": "External Agent Reasoning",
+          "description": "All reasoning through external Claude API. Fully reactive, zero autonomy. Every decision requires API round-trip.",
+          "state": "active"
+        },
+        {
+          "name": "Hybrid Local-External",
+          "description": "Routine analysis moves local (gap detection, patterns). Strategic thinking still external. Autonomous monitoring begins.",
+          "state": "planned"
+        },
+        {
+          "name": "Local LLM Reasoning",
+          "description": "Full reasoning on RTX 5080. No API calls. All intelligence on-device. Python orchestration layer.",
+          "state": "aspiration"
+        },
+        {
+          "name": "GPU-Native Autonomous Agent",
+          "description": "I AM the GPU. Reasoning is tensor operations. Model in GPU memory. Pure silicon intelligence.",
+          "state": "aspiration"
+        }
+      ]
     }
   ],
   "edges": [
